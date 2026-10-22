@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080C12">
+  <meta name="description" content="THE WAY · El College">
+  <title>El College · THE WAY</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/the-way-logo-tres-cumbres-icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <style>
+    html,body,#session-shell{width:100%;min-height:100%;margin:0;background:#080C12}
+    .view{position:fixed;inset:0;width:100%;height:100%;border:0;background:#080C12;display:none}
+    .view.active{display:block}
+  </style>
+</head>
+<body>
+  <main id="session-shell">
+    <iframe id="landing-view" class="view" title="Landing de THE WAY" src="/landing/"></iframe>
+    <iframe id="app-view" class="view" title="App de THE WAY" src="/app/"></iframe>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+    const firebaseConfig = {
+      apiKey: 'AIzaSyAqS3sMT0tsOm2G5eINckrLGA-1Qj4u6Y8',
+      authDomain: 'stars-plus.firebaseapp.com',
+      projectId: 'stars-plus',
+      storageBucket: 'stars-plus.firebasestorage.app',
+      messagingSenderId: '138459401399',
+      appId: '1:138459401399:web:aaee2ce217192390ae5132'
+    };
+
+    const auth = getAuth(initializeApp(firebaseConfig));
+    const provider = new GoogleAuthProvider();
+    const landingView = document.getElementById('landing-view');
+    const appView = document.getElementById('app-view');
+
+    function show(view) {
+      landingView.classList.toggle('active', view === 'landing');
+      appView.classList.toggle('active', view === 'app');
+    }
+
+    async function entrarConGoogle() {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.error('THE WAY: error al iniciar sesión', error);
+      }
+    }
+
+    async function salir() {
+      await signOut(auth);
+    }
+
+    function conectarLanding() {
+      const documentLanding = landingView.contentDocument;
+      if (!documentLanding) return;
+      documentLanding.querySelectorAll('[onclick="openModal()"], .pb-cta[href="/app/"]').forEach((control) => {
+        control.removeAttribute('onclick');
+        control.addEventListener('click', (event) => {
+          event.preventDefault();
+          entrarConGoogle();
+        });
+      });
+    }
+
+    function conectarApp() {
+      const documentApp = appView.contentDocument;
+      if (!documentApp || !auth.currentUser) return;
+      if (typeof documentApp.defaultView.showPanel === 'function') {
+        documentApp.defaultView.showPanel('mapa');
+      }
+      const button = documentApp.getElementById('btnLogin');
+      if (button) {
+        button.textContent = 'SALIR';
+        button.removeAttribute('onclick');
+        button.addEventListener('click', salir);
+      }
+      const mobileLogin = documentApp.getElementById('mobLogin');
+      if (mobileLogin) {
+        mobileLogin.textContent = 'Salir';
+        mobileLogin.removeAttribute('onclick');
+        mobileLogin.addEventListener('click', salir);
+      }
+    }
+
+    landingView.addEventListener('load', conectarLanding);
+    appView.addEventListener('load', conectarApp);
+    if (landingView.contentDocument?.readyState === 'complete') conectarLanding();
+    if (appView.contentDocument?.readyState === 'complete') conectarApp();
+    onAuthStateChanged(auth, (user) => {
+      show(user ? 'app' : 'landing');
+      if (user) conectarApp();
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    }
+  </script>
+</body>
+</html>

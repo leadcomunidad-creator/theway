@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De · Regreso · a Casa — The Way College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--card2:#1C2A3C;--green:#3D7A54;--green-l:#52A06E;--green-xl:#6DC48A;--gold:#C8A84B;--gold-l:#DEC06A;--ice:#A8C4D4;--text:#EAE8E0;--muted:#7A8E9A;--faint:#3A4A56;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--r:18px;--r-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(8,12,18,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;flex-direction:column;line-height:1;cursor:pointer;text-decoration:none}
+.nb-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:var(--text)}
+.nb-sub{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green-l);margin-top:1px}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--green-xl)}
+.btn-nav{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border-radius:8px;border:1px solid var(--faint);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.btn-nav:hover{color:var(--text);border-color:var(--border2)}
+.btn{font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:13px 24px;border-radius:10px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 4px 20px rgba(61,122,84,.35)}
+.btn-primary:hover{background:var(--green-l);transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--border2)}
+.btn-ghost:hover{background:rgba(255,255,255,.09)}
+@media(max-width:679px){.nav-links{display:none}}
+
+/* HERO */
+.course-hero{padding:100px 24px 52px;background:linear-gradient(90deg,rgba(8,12,18,.72) 0%,rgba(8,12,18,.46) 44%,rgba(8,12,18,.12) 100%),linear-gradient(to bottom,rgba(8,12,18,.16) 0%,rgba(8,12,18,.24) 70%,var(--surface) 100%),url('../recursos/drc/drc-hero-desktop.png') center/cover no-repeat;position:relative;overflow:hidden;min-height:560px;display:flex;align-items:flex-end}
+.course-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,18,.64) 0%,rgba(8,12,18,.28) 48%,rgba(8,12,18,.04) 100%);pointer-events:none}
+.course-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,12,18,.04) 0%,rgba(8,12,18,.10) 62%,var(--surface) 100%);pointer-events:none}
+.ch-inner{max-width:660px;margin:0 auto;position:relative;z-index:2}
+.ch-back{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:28px;transition:color .2s;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0}
+.ch-back:hover{color:var(--green-xl)}
+.ch-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--green-l);margin-bottom:10px}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,14vw,88px);line-height:.9;letter-spacing:2px;margin-bottom:6px}
+.ch-title .dot{color:var(--gold);margin:0 6px;font-size:.45em;vertical-align:middle}
+.ch-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:clamp(16px,3.5vw,20px);color:var(--muted);margin-bottom:24px;line-height:1.55}
+.ch-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.ch-meta span{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.ch-meta .ic{color:var(--green-l)}
+.verse-b{background:rgba(200,168,75,.06);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:16px 18px;margin-bottom:18px}
+.verse-t{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:var(--text);line-height:1.7;margin-bottom:6px}
+.verse-r{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+
+/* WEEK NAV */
+.week-nav{position:sticky;top:58px;z-index:100;background:rgba(8,12,18,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.week-nav-inner{max-width:760px;margin:0 auto;display:flex;justify-content:center;overflow-x:auto;scrollbar-width:none}
+.week-nav-inner::-webkit-scrollbar{display:none}
+.wk-tab{flex:0 0 auto;width:140px;padding:14px 6px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;text-align:center}
+.wk-tab:hover{color:var(--text)}
+.wk-tab.ti.active{color:var(--muted);border-bottom-color:var(--faint)}
+.wk-tab.w1.active{color:var(--ice);border-bottom-color:var(--ice)}
+.wk-tab.w2.active{color:var(--green-xl);border-bottom-color:var(--green-xl)}
+.wk-tab.w3.active{color:var(--gold);border-bottom-color:var(--gold)}
+.wk-tab.w4.active{color:#c084fc;border-bottom-color:#c084fc}
+
+/* PANELS */
+.s-panel{display:none}.s-panel.active{display:block}
+
+/* INTRO */
+.intro-page{background:var(--surface);padding:40px 24px 64px;min-height:60vh}
+.intro-inner{max-width:660px;margin:0 auto}
+.s-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green-l);font-weight:700;margin-bottom:12px;display:block}
+.intro-body{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:16px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+@media(max-width:480px){.two-col,.commit-grid{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px}
+.info-card strong{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
+.info-card p{font-size:13px;color:var(--muted);line-height:1.7}
+.map-tbl{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin:20px 0}
+.map-row{display:grid;grid-template-columns:88px 1fr;border-bottom:1px solid var(--border);transition:background .15s}
+.map-row:last-child{border-bottom:none}
+.map-row:hover{background:rgba(255,255,255,.02)}
+.mr-wk{padding:12px 10px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:80px}
+.mr-lbl{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.mr-verb{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.5px;line-height:1.15}
+.w1 .mr-verb{color:var(--ice)}.w2 .mr-verb{color:var(--green-xl)}.w3 .mr-verb{color:var(--gold)}.w4 .mr-verb{color:#c084fc}
+.mr-desc{padding:14px;font-size:13px;color:var(--muted);line-height:1.65;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.mr-sym{font-size:11px;color:var(--faint);font-style:italic}
+/* Info cards — extremos diferenciados */
+.info-card{border-radius:var(--r-sm);padding:20px 18px;position:relative;overflow:hidden}
+.info-card.card-esfuerzo{background:rgba(200,90,70,.07);border:1px solid rgba(200,90,70,.22)}
+.info-card.card-descanso{background:rgba(61,122,84,.09);border:1px solid rgba(61,122,84,.25)}
+.info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.info-card.card-esfuerzo::before{background:linear-gradient(90deg,#c85040,#e07050)}
+.info-card.card-descanso::before{background:linear-gradient(90deg,var(--green),var(--green-xl))}
+.info-card strong{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.info-card.card-esfuerzo strong{color:#e07060}
+.info-card.card-descanso strong{color:var(--green-xl)}
+.info-card p{font-size:13px;color:var(--muted);line-height:1.75}
+/* Versículos inline dentro de lectura */
+.inline-verse{display:block;background:rgba(200,168,75,.07);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;margin:14px 0;font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:var(--text);line-height:1.8}
+/* Verdad Central */
+.verdad-block{background:linear-gradient(135deg,rgba(61,122,84,.12),rgba(82,160,110,.06));border:1px solid rgba(82,160,110,.3);border-radius:var(--r-sm);padding:18px 20px;margin-bottom:14px;position:relative;overflow:hidden}
+.verdad-block::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--green),var(--green-xl))}
+.verdad-block .block-label{color:var(--green-xl)}
+.verdad-block .verdad-text{font-family:'Crimson Pro',serif;font-size:15.5px;color:var(--text);line-height:1.75;font-weight:400}
+/* Ideas Clave */
+.ideas-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px 20px;margin-bottom:14px}
+.ideas-block .block-label{color:var(--ice)}
+.ideas-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.ideas-list li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.7}
+.ideas-list li::before{content:'→';color:var(--ice);font-size:12px;flex-shrink:0;margin-top:2px}
+.commit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:20px 0}
+.commit-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px}
+.commit-card strong{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green-l);font-weight:700;margin-bottom:6px}
+.commit-card p{font-size:13px;color:var(--muted);line-height:1.65}
+.quote-b{background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.12);border-radius:var(--r);padding:22px 24px;margin:22px 0}
+.quote-b p{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:var(--gold);line-height:1.7}
+
+/* DAY VIEW */
+.day-page{background:var(--surface);padding:40px 24px 60px;min-height:100vh}
+.day-page-inner{max-width:660px;margin:0 auto}
+.day-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.dt-nav{width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:14px;transition:border-color .2s;font-family:'DM Sans',sans-serif}
+.dt-nav:hover{border-color:var(--green)}.dt-nav:disabled{opacity:.3;cursor:not-allowed}
+.dt-mid{text-align:center;flex:1;padding:0 12px}
+.dt-week{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green-l);font-weight:700;margin-bottom:2px}
+.dt-day{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px}
+.day-strip{display:flex;gap:5px;margin-bottom:24px}
+.ds-seg{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.07)}
+.ds-seg.done{background:var(--green)}.ds-seg.now{background:var(--gold)}
+.block{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:20px;margin-bottom:14px}
+.block-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.block-label.green{color:var(--green-l)}.block-label.gold{color:var(--gold)}.block-label.ice{color:var(--ice)}
+.block-text{font-size:14px;color:var(--muted);line-height:1.85}
+.block.green-tint{background:rgba(61,122,84,.06);border-color:rgba(61,122,84,.2)}
+.block.gold-tint{background:rgba(200,168,75,.04);border-color:rgba(200,168,75,.15)}
+.block.gold-tint .block-text{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:var(--text)}
+.anchor{text-align:center;padding:24px 20px;background:linear-gradient(135deg,rgba(61,122,84,.1),rgba(200,168,75,.06));border:1px solid rgba(61,122,84,.18);border-radius:var(--r);margin:18px 0}
+.anchor p{font-family:'Crimson Pro',serif;font-style:italic;font-size:18px;color:var(--gold-l);line-height:1.6}
+
+/* VIDEO BLOCK */
+.video-block{margin-bottom:14px;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--border2);background:var(--card)}
+.video-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--gold);padding:12px 16px 10px;background:rgba(200,168,75,.06);border-bottom:1px solid rgba(200,168,75,.12)}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.day-actions{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.btn-back{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;padding:4px 0;width:100%;transition:color .2s}
+.btn-back:hover{color:var(--green-xl)}
+
+/* LOCKED DAY */
+.locked-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 24px;text-align:center}
+.locked-icon{font-size:48px;margin-bottom:20px;opacity:.5}
+.locked-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.locked-msg{font-size:14px;color:var(--faint);line-height:1.7;max-width:320px;margin:0 auto 20px}
+.locked-date{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.18);border-radius:20px;padding:7px 18px}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 24px;text-align:center}
+.ft-brand{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;margin-bottom:6px}
+.ft-sub{font-size:11px;color:var(--muted);margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.ft-links a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--green-xl)}
+.ft-copy{font-size:11px;color:rgba(122,142,154,.4)}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet (≤768px) */
+@media(max-width:768px){
+  /* Nav */
+  nav{padding:0 16px;height:52px}
+  .nb-top{font-size:19px;letter-spacing:3px}
+  .btn-nav{display:none}
+
+  /* Hero */
+  .course-hero{padding:82px 16px 40px;min-height:520px;background-image:linear-gradient(90deg,rgba(8,12,18,.70) 0%,rgba(8,12,18,.42) 52%,rgba(8,12,18,.10) 100%),linear-gradient(to bottom,rgba(8,12,18,.12) 0%,rgba(8,12,18,.22) 72%,var(--surface) 100%),url('../recursos/drc/drc-hero-tablet.png');background-position:center top}
+  .ch-eyebrow{font-size:8px}
+  .ch-back{font-size:10px;margin-bottom:20px}
+  .ch-meta{gap:10px}
+  .ch-meta span{font-size:11px}
+  .verse-t{font-size:15px}
+
+  /* Week nav */
+  .week-nav{top:52px}
+  .week-nav-inner{justify-content:flex-start}
+  .wk-tab{width:120px;padding:12px 6px;font-size:9px;letter-spacing:1px}
+
+  /* Intro */
+  .intro-page{padding:28px 16px 48px}
+  .intro-body{font-size:14px}
+  .commit-grid{grid-template-columns:1fr 1fr}
+  .map-row{grid-template-columns:76px 1fr}
+  .mr-wk{padding:12px}
+  .mr-desc{padding:12px;font-size:12px}
+
+  /* Day view */
+  .day-page{padding:28px 16px 48px}
+  .block{padding:16px}
+  .block-text{font-size:13px}
+  .anchor p{font-size:16px}
+  .dt-day{font-size:17px}
+
+  /* Footer */
+  footer{padding:28px 16px}
+  .ft-links{gap:14px}
+}
+
+/* Mobile (≤480px) */
+@media(max-width:480px){
+  /* Nav */
+  nav{padding:0 14px;height:50px}
+  .nb-top{font-size:17px;letter-spacing:2px}
+  .nb-sub{display:none}
+
+  /* Hero */
+  .course-hero{padding:72px 14px 32px;min-height:600px;background-image:linear-gradient(to bottom,rgba(8,12,18,.52) 0%,rgba(8,12,18,.36) 46%,rgba(8,12,18,.14) 70%,var(--surface) 100%),url('../recursos/drc/drc-hero-mobile.png');background-position:center top;align-items:flex-end}
+  .ch-back{font-size:9px;letter-spacing:1.5px;margin-bottom:16px}
+  .ch-eyebrow{font-size:7.5px;letter-spacing:2px}
+  .ch-sub{margin-bottom:16px}
+  .ch-meta{gap:8px;flex-direction:column}
+  .ch-meta span{font-size:11px}
+  .verse-b{padding:12px 14px}
+  .verse-t{font-size:14px}
+
+  /* Week nav — scroll horizontal en móvil */
+  .week-nav{top:50px}
+  .week-nav-inner{justify-content:flex-start;padding:0 4px}
+  .wk-tab{width:110px;padding:11px 4px;font-size:8.5px;letter-spacing:.8px}
+
+  /* Intro */
+  .intro-page{padding:22px 14px 40px}
+  .s-label{font-size:9px;letter-spacing:2px}
+  .intro-body{font-size:13.5px;line-height:1.8}
+  .two-col{grid-template-columns:1fr}
+  .commit-grid{grid-template-columns:1fr}
+  .info-card{padding:14px}
+  .info-card strong{font-size:9px}
+  .info-card p{font-size:12px}
+  .commit-card{padding:14px}
+  .commit-card strong{font-size:9px}
+  .commit-card p{font-size:12px}
+  .map-row{grid-template-columns:68px 1fr}
+  .mr-wk{padding:10px}
+  .mr-lbl{font-size:8px}
+  .mr-verb{font-size:12px}
+  .mr-desc{padding:10px;font-size:12px}
+  .mr-sym{font-size:10px}
+  .quote-b{padding:16px}
+  .quote-b p{font-size:14px}
+
+  /* Day view */
+  .day-page{padding:20px 14px 40px}
+  .day-topbar{margin-bottom:14px}
+  .dt-nav{width:34px;height:34px;font-size:13px}
+  .dt-week{font-size:8px;letter-spacing:1.5px}
+  .dt-day{font-size:15px}
+  .day-strip{margin-bottom:18px}
+  .block{padding:14px;border-radius:var(--r-sm);margin-bottom:10px}
+  .block-label{font-size:8px;letter-spacing:2px;margin-bottom:8px}
+  .block-text{font-size:13px;line-height:1.8}
+  .anchor{padding:18px 14px;margin:14px 0}
+  .anchor p{font-size:15px}
+  .day-actions{gap:8px;margin-top:16px}
+  .btn{font-size:11px;padding:12px 18px}
+
+  /* Footer */
+  footer{padding:24px 14px}
+  .ft-brand{font-size:22px;letter-spacing:3px}
+  .ft-sub{font-size:10px}
+  .ft-links{gap:10px}
+  .ft-links a{font-size:10px}
+  .ft-copy{font-size:10px}
+}
+
+/* Very small screens (≤360px) */
+@media(max-width:360px){
+  .ch-title{font-size:clamp(44px,13vw,60px)}
+  .wk-tab{width:96px;padding:10px 4px;font-size:7.5px}
+  .block-text{font-size:12.5px}
+}
+
+/* Touch device improvements */
+@media(hover:none) and (pointer:coarse){
+  .dt-nav{width:42px;height:42px}
+  .wk-tab{padding:14px 8px}
+  .btn{padding:14px 22px}
+  .ch-back{padding:8px 0}
+}
+
+/* ── ACCESS GATE ── */
+.access-overlay{position:fixed;inset:0;z-index:9999;background:#080C12;display:flex;align-items:center;justify-content:center;padding:24px}
+.access-box{background:#111C28;border:1px solid rgba(255,255,255,0.10);border-radius:20px;padding:36px 28px;width:100%;max-width:360px;text-align:center}
+.access-icon{font-size:40px;margin-bottom:16px}
+.access-title{font-family:"Bebas Neue",sans-serif;font-size:30px;letter-spacing:2px;color:#EAE8E0;margin-bottom:6px}
+.access-sub{font-size:13px;color:#7A8E9A;font-family:"Crimson Pro",serif;font-style:italic;margin-bottom:24px;line-height:1.5}
+.access-input{width:100%;background:#162030;border:1px solid rgba(255,255,255,0.10);border-radius:10px;padding:14px 18px;font-size:20px;letter-spacing:8px;text-align:center;color:#EAE8E0;font-family:"DM Sans",sans-serif;font-weight:700;outline:none;transition:border-color .2s;margin-bottom:8px}
+.access-input:focus{border-color:#6DC48A}
+.access-input.shake{animation:shake .3s ease;border-color:#e05555}
+.access-error{font-size:11px;color:#e05555;min-height:18px;margin-bottom:14px}
+.access-btn{width:100%;padding:14px;border-radius:10px;border:none;background:#3D7A54;color:#fff;font-family:"DM Sans",sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.access-btn:hover{background:#52A06E}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+</style>
+<script>
+var ACCESS_GRANTED = false;
+var IS_ADMIN = false;
+function checkAccess() {
+  var input = document.getElementById('accessInput');
+  var err = document.getElementById('accessError');
+  var val = input.value.trim();
+  if (val === '21110') {
+    ACCESS_GRANTED = true;
+    IS_ADMIN = true;
+    document.getElementById('accessOverlay').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } else if (val === '2111') {
+    ACCESS_GRANTED = true;
+    IS_ADMIN = false;
+    document.getElementById('accessOverlay').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } else {
+    input.classList.add('shake');
+    err.textContent = 'Clave incorrecta. Revisa el grupo de WhatsApp.';
+    setTimeout(function(){ input.classList.remove('shake'); input.value=''; input.focus(); }, 400);
+  }
+}
+</script>
+</head>
+<body>
+<div class="access-overlay" id="accessOverlay">
+  <div class="access-box">
+    <div class="access-icon">🔑</div>
+    <div class="access-title">Acceso al Curso</div>
+    <div class="access-sub">Ingresa la clave que recibiste en el grupo de WhatsApp</div>
+    <input class="access-input" id="accessInput" type="password" maxlength="10" placeholder="· · · · ·" onkeydown="if(event.key==='Enter')checkAccess()"/>
+    <div class="access-error" id="accessError"></div>
+    <button class="access-btn" onclick="checkAccess()">Entrar</button>
+  </div>
+</div>
+<div id="mainContent" style="display:none">
+
+<nav>
+  <a class="nav-brand" href="https://collegelhscol.netlify.app/">
+    <span class="nb-top">COLLEGE</span>
+    <span class="nb-sub">LHSCOL · THE WAY</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="https://collegelhscol.netlify.app/" class="active">Cursos</a>
+    <a href="https://chat.whatsapp.com/KQBTskqmN9e0kt2BXB1ttk" target="_blank">Comunidad</a>
+  </div>
+  <button class="btn-nav">Iniciar Sesión</button>
+</nav>
+
+<div class="course-hero">
+  <div class="ch-inner">
+    <button class="ch-back" onclick="window.location.href='https://collegelhscol.netlify.app/'">← Volver al curso</button>
+    <div class="ch-eyebrow">Pertenece · Recibe · Confía</div>
+    <h1 class="ch-title">De<span class="dot">·</span>Regreso<span class="dot">·</span>a Casa</h1>
+    <p class="ch-sub">Henri Nouwen · Parábola del Hijo Pródigo · Lucas 15</p>
+    <div class="ch-meta">
+      <span><span class="ic">📖</span> Henri Nouwen · Lucas 15</span>
+      <span><span class="ic">📅</span> 4 Semanas · 20 Días</span>
+      <span><span class="ic">🏕</span> Campamento 1 — Identidad</span>
+      <span><span class="ic">💬</span> <a href="https://chat.whatsapp.com/KQBTskqmN9e0kt2BXB1ttk" target="_blank" style="color:inherit;text-decoration:underline">Grupo Wapp</a></span>
+    </div>
+    <div class="verse-b">
+      <div class="verse-t">«Cuando todavía estaba lejos, su padre lo vio. Con el corazón palpitando, salió corriendo, lo abrazó y lo besó.»</div>
+      <div class="verse-r">— Lucas 15:20 (The Message)</div>
+    </div>
+  </div>
+</div>
+
+<nav class="week-nav">
+  <div class="week-nav-inner">
+    <button class="wk-tab ti active" id="tab-intro" onclick="goTab('intro',this)">Mapa del Viaje</button>
+    <button class="wk-tab w1" id="tab-w1" onclick="goWeek(0,this)">El Dios que Corre<br><span style="font-size:8px;letter-spacing:1.5px;opacity:.65">(Semana 1)</span></button>
+    <button class="wk-tab w2" id="tab-w2" onclick="goWeek(1,this)">Pertenecer<br><span style="font-size:8px;letter-spacing:1.5px;opacity:.65">(Semana 2)</span></button>
+    <button class="wk-tab w3" id="tab-w3" onclick="goWeek(2,this)">Tener la Razón<br><span style="font-size:8px;letter-spacing:1.5px;opacity:.65">(Semana 3)</span></button>
+    <button class="wk-tab w4" id="tab-w4" onclick="goWeek(3,this)">Vivir desde el Amor<br><span style="font-size:8px;letter-spacing:1.5px;opacity:.65">(Semana 4)</span></button>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<div class="s-panel active" id="panel-intro">
+<div class="intro-page">
+<div class="intro-inner">
+
+  <span class="s-label">¿Por qué este curso?</span>
+  <p class="intro-body">La vida siempre se sostiene sobre algo. No importa cuánto lo niegues: todo ser humano necesita un fundamento. Cuando ese fundamento es frágil —aprobación, desempeño, éxito, control, moralidad, imagen— la vida se vuelve ansiosa, reactiva y agotadora. No porque falte disciplina, sino porque el ser está cargando un peso que no fue diseñado para cargar.</p>
+  <p class="intro-body">La identidad es el fundamento invisible de la conducta visible. Por eso este cuaderno no empieza con «qué debo hacer», sino con «qué soy». Porque la pregunta raíz no es ética; es ontológica: ¿desde dónde existo? Y la respuesta a esa pregunta determina si vives como hijo o como jornalero; si sirves desde amor o desde deuda; si obedeces desde confianza o desde miedo.</p>
+  <p class="intro-body">La gran pregunta de este curso no es moral —¿qué debo hacer?— sino estructural: ¿desde dónde estoy viviendo? Porque hay una diferencia enorme entre vivir <em>hacia</em> Dios —intentando alcanzarlo por el esfuerzo propio— y vivir <em>desde</em> Dios —descansando en lo que Él ya reveló en Cristo y desde ahí caminando.</p>
+  <p class="intro-body">En la parábola del hijo pródigo, el hijo menor intenta volver con un contrato: «ya no merezco llamarme tu hijo; trátame como jornalero». El hijo mayor intenta quedarse con una demanda: «todos estos años te he servido y nunca me has dado ni un cabrito». Los dos revelan lo mismo: cuando la identidad se pierde, la relación con el Padre se convierte en transacción. Este volumen es un regreso al orden del Reino: pertenecer antes de hacer; recibir antes de producir; confiar antes de controlar; amar antes de exigir.</p>
+  <p class="intro-body">El objetivo es simple, pero no superficial: que tu vida deje de ser un proyecto de autojustificación y vuelva a ser una respuesta a la gracia. No estás siendo invitado a «portarte mejor». Estás siendo llamado a algo más profundo: <em>volver a casa como hijo.</em></p>
+
+  <span class="s-label" style="margin-top:32px">Los dos extremos</span>
+  <p class="intro-body">La mayoría de nosotros vivimos nuestra fe agotados, oscilando entre dos extremos que, aunque parecen opuestos, producen el mismo resultado:</p>
+  <div class="two-col">
+    <div class="info-card card-esfuerzo">
+      <strong>La ansiedad del Hijo Menor</strong>
+      <p>Buscando validación en el mundo, rompiendo reglas y luego tratando de «pagar» el regreso.</p>
+    </div>
+    <div class="info-card card-descanso">
+      <strong>El resentimiento del Hijo Mayor</strong>
+      <p>Buscando validación en el cumplimiento religioso, creyendo que Dios nos debe algo por el buen comportamiento.</p>
+    </div>
+  </div>
+  <p class="intro-body">Ambos caminos llevan al mismo lugar: vivir como empleados de Dios en lugar de como hijos. El objetivo de estas cuatro semanas no es simplemente leer un libro. Es realizar un desplazamiento espiritual: salir de la mentalidad del jornalero —aquel que trabaja para que Dios lo quiera— y entrar en la identidad del hijo —aquel que trabaja porque ya es amado.</p>
+
+  <span class="s-label" style="margin-top:32px">Nuestras herramientas</span>
+  <p class="intro-body">Este curso usa dos fuentes principales que se complementan, y una fuente sugerida que te animamos a buscar.</p>
+  <p class="intro-body"><strong>La Parábola.</strong> Lucas 15 — La historia del Hijo Pródigo en la versión The Message. Se recomienda también revisar una traducción como NBLA. Encontrarás esta parábola en su versión compacta en este mismo material.</p>
+  <p class="intro-body"><strong>El Cuadro.</strong> La obra maestra de Rembrandt, <em>El Regreso del Hijo Pródigo</em>, que Henri Nouwen utilizó para descifrar su propio viaje espiritual. Cada semana nos detendremos en un detalle específico del cuadro. El cuadro está insertado en las primeras páginas y adicional la parte analizada será ampliada para más detalle en el estudio de cada semana.</p>
+  <p class="intro-body"><strong>El Libro (fuente adicional).</strong> Este material está inspirado en el libro de Henri Nouwen — <em>El Regreso del Hijo Pródigo</em>. Te animamos a leerlo como complemento, aunque no es obligatorio.</p>
+
+  <span class="s-label" style="margin-top:32px">El mapa del viaje</span>
+  <p class="intro-body">Panorama de las cuatro semanas:</p>
+  <div class="map-tbl">
+    <div class="map-row w1">
+      <div class="mr-wk"><span class="mr-lbl">Semana 1</span><span class="mr-verb">El Dios que Corre</span></div>
+      <div class="mr-desc">El Padre que sale a nuestro encuentro antes de que lleguemos. Dios no espera en la meta; corre hacia nosotros. <span class="mr-sym">El símbolo: Las Manos del Padre. Una fuerte que sostiene, una suave que acaricia. Dios no es solo autoridad; es hogar.</span></div>
+    </div>
+    <div class="map-row w2">
+      <div class="mr-wk"><span class="mr-lbl">Semana 2</span><span class="mr-verb">Pertenecer antes de Hacer</span></div>
+      <div class="mr-desc">La identidad como punto de partida. No trabajas para pertenecer; perteneces y por eso trabajas. <span class="mr-sym">El símbolo: Las Sandalias. Los jornaleros andan descalzos; los hijos llevan calzado para caminar con su Padre.</span></div>
+    </div>
+    <div class="map-row w3">
+      <div class="mr-wk"><span class="mr-lbl">Semana 3</span><span class="mr-verb">El Peligro de Tener la Razón</span></div>
+      <div class="mr-desc">El hijo mayor: correcto en todo, perdido en la relación. La obediencia sin amor se convierte en resentimiento. <span class="mr-sym">El símbolo: Manos Cerradas. Aferradas al control y al juicio, incapaces de recibir la gracia que está justo al frente.</span></div>
+    </div>
+    <div class="map-row w4">
+      <div class="mr-wk"><span class="mr-lbl">Semana 4</span><span class="mr-verb">Vivir desde el Amor</span></div>
+      <div class="mr-desc">De recibir la gracia a reflejarla. La madurez espiritual no es tener más; es dar más libremente. <span class="mr-sym">El símbolo: Manos que Bendicen. Usar la autoridad de heredero para sanar, no para juzgar.</span></div>
+    </div>
+  </div>
+
+  <span class="s-label" style="margin-top:32px">Tres compromisos</span>
+  <p class="intro-body">Antes de comenzar, te proponemos tres compromisos que harán que este recorrido sea formativo y no meramente informativo:</p>
+  <div class="commit-grid">
+    <div class="commit-card">
+      <strong>Formación, no Terapia</strong>
+      <p>Aunque hablaremos de emociones profundas —culpa, ira, envidia—, nuestro fin es alinear nuestra teología con la verdad de Dios, no psicoanalizar el pasado. Cada lectura, cada práctica, cada pregunta está diseñada para mover algo en ti, no solo para instruirte.</p>
+    </div>
+    <div class="commit-card">
+      <strong>El Héroe es la Gracia</strong>
+      <p>La transformación que buscamos no es fruto del esfuerzo muscular por cambiar. Es fruto del abrazo del Padre. No estás aquí para mejorar tu desempeño espiritual; estás aquí para descansar en lo que Él ya hizo y dejar que Su amor fluya a través de ti.</p>
+    </div>
+    <div class="commit-card">
+      <strong>Honestidad sin Defensas</strong>
+      <p>Este curso desafiará tu «yo religioso». Desafiará patrones que quizás llevas años construyendo —la tendencia al esfuerzo, la actuación espiritual, la fe transaccional. Te invitamos a soltar las defensas y abrirte al proceso.</p>
+    </div>
+  </div>
+
+  <span class="s-label" style="margin-top:32px">Cómo usar este cuaderno</span>
+  <p class="intro-body">Cada semana tiene cinco días. El Día 1 es la lectura principal de la semana: más extensa, pensada para crear el contexto de comprensión de lo que viene. Los días 2 a 5 desarrollan subtemas específicos con una estructura sencilla: versículo, lectura, verdad central, ideas clave, pregunta de reflexión, práctica diaria y frase ancla.</p>
+  <p class="intro-body">Cada semana también incluye una instrucción de lectura con el pasaje de Lucas 15 correspondiente y el fragmento del libro de Nouwen recomendado. Te sugerimos leer ese pasaje antes o durante el Día 1, ya sea la versión compacta que encuentras en este mismo material o la versión de estudio que encontrarás como material complementario.</p>
+  <p class="intro-body">El ritmo sugerido es un día a la vez. No hay que leer todo de una vez. Lo que importa no es la velocidad sino la asimilación. Si un día se pierde, simplemente retoma donde estabas.</p>
+  <p class="intro-body"><em>Antes de comenzar, dedica diez minutos a una sola oración: no pidas que Dios te dé algo que no tienes; pídele que te abra los ojos para ver lo que ya te dio en Él. Esa es exactamente la actitud desde la que Nouwen comenzó su meditación sobre el cuadro de Rembrandt.</em></p>
+
+  <div style="background:rgba(200,168,75,.06);border:1px solid rgba(200,168,75,.18);border-radius:var(--r-sm);padding:18px 20px;margin:20px 0;display:flex;gap:14px;align-items:flex-start">
+    <div style="font-size:22px;line-height:1;flex-shrink:0;margin-top:2px">📓</div>
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px">Responde en tu cuaderno o app de apuntes</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin:0">Las preguntas de reflexión y prácticas de cada día están diseñadas para ser respondidas por escrito, no solo pensadas. Escribir obliga a articular lo que todavía está difuso — y lo que se articula, transforma. Usa un cuaderno físico, Notion, Apple Notes, o cualquier espacio donde puedas ser honesto sin audiencia. Lo que importa no es la herramienta; es el hábito de externalizar lo que está pasando adentro. Muchos descubren que sus respuestas más honestas aparecen cuando la mano comienza a moverse.</p>
+    </div>
+  </div>
+
+
+  <span class="s-label" style="margin-top:32px">El Cuadro</span>
+  <p class="intro-body">Rembrandt pintó <em>El Regreso del Hijo Pródigo</em> cerca de 1669, poco antes de morir. Nouwen pasó horas frente al original en el Hermitage de San Petersburgo. Lo que encontró no fue solo una ilustración de la parábola; fue un espejo. Este cuadro acompañará cada semana del curso: cada semana nos detendremos en un detalle específico.</p>
+  <div style="margin:20px 0;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--border)">
+    <img src="rembrandt_intro.jpg" style="width:100%;display:block" alt="El Regreso del Hijo Pródigo — Rembrandt, c.1669" />
+    <div style="font-size:11px;color:var(--muted);padding:8px 14px;background:var(--card);font-style:italic;text-align:center">El Regreso del Hijo Pródigo · Rembrandt van Rijn · c.1669 · Museo del Hermitage, San Petersburgo</div>
+  </div>
+  <span class="s-label" style="margin-top:32px">Oración de Apertura</span>
+  <div class="quote-b">
+    <p>«Padre, iniciamos esta expedición reconociendo que a menudo vivimos como jornaleros cansados o como jueces resentidos. Te pedimos que en estas cuatro semanas nos reveles tu verdadero rostro: no el del evaluador silencioso que espera en la meta, sino el del Padre que corre. Que pasemos de la inseguridad a la pertenencia, de la exigencia a la confianza, de la niñez espiritual a la madurez de reflejarte en el mundo. Gracias porque Tú eres el que corre a nuestro encuentro. Amén.»</p>
+  </div>
+
+  <button class="btn btn-primary" onclick="goWeek(0,document.getElementById('tab-w1'))" style="width:100%;margin-top:8px">▶ Comenzar Semana 1</button>
+
+</div>
+</div>
+</div>
+<!-- DAY VIEW -->
+<div class="s-panel" id="panel-day">
+<div class="day-page">
+<div class="day-page-inner">
+
+  <div class="day-topbar">
+    <button class="dt-nav" id="btnPrev" onclick="navDay(-1)">←</button>
+    <div class="dt-mid">
+      <div class="dt-week" id="dayWeekLabel"></div>
+      <div class="dt-day" id="dayTitle"></div>
+    </div>
+    <button class="dt-nav" id="btnNext" onclick="navDay(1)">→</button>
+  </div>
+
+  <div class="day-strip">
+    <div class="ds-seg" id="ds0"></div>
+    <div class="ds-seg" id="ds1"></div>
+    <div class="ds-seg" id="ds2"></div>
+    <div class="ds-seg" id="ds3"></div>
+    <div class="ds-seg" id="ds4"></div>
+  </div>
+
+<div id="dayContent">
+  <div id="semanaBlock" style="display:none;background:rgba(168,196,212,.06);border:1px solid rgba(168,196,212,.15);border-radius:var(--r-sm);padding:16px 18px;margin-bottom:14px">
+    <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--ice);margin-bottom:8px">📖 Lectura de la Semana</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.75" id="semanaLectura"></div>
+    <button id="pasajeBtn" style="display:none;margin-top:12px;width:100%" class="btn btn-ghost" onclick="openPasaje()">📖 Leer aquí</button>
+  </div>
+
+  <div id="cuadroBlock" style="display:none;margin-bottom:14px;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--border)">
+    <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--gold);padding:10px 14px 6px;background:var(--card)">🖼 Detalle del Cuadro · Rembrandt</div>
+    <img id="cuadroImg" src="" style="width:100%;display:block;height:auto" />
+    <div id="cuadroCaption" style="font-size:11px;color:var(--muted);padding:8px 14px;background:var(--card);font-style:italic;text-align:center"></div>
+  </div>
+
+  <div id="tesisBlock" style="display:none;background:rgba(200,168,75,.04);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 18px;margin-bottom:14px">
+    <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:6px">Tesis de la Semana</div>
+    <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:var(--text);line-height:1.7" id="tesisTxt"></div>
+  </div>
+
+  <div id="propositoBlock" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 18px;margin-bottom:14px">
+    <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--green-l);margin-bottom:6px">Propósito Formativo</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.75" id="propositoTxt"></div>
+  </div>
+
+  <div class="verse-b">
+    <div class="verse-t" id="dayVerse"></div>
+    <div class="verse-r" id="dayRef"></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label ice">Lectura del Día</div>
+    <div class="block-text" id="dayLectura"></div>
+  </div>
+
+  <div id="verdadBlock" style="display:none" class="verdad-block">
+    <div class="block-label">✦ Verdad Central</div>
+    <div class="verdad-text" id="dayVerdad"></div>
+  </div>
+
+  <div id="ideasBlock" style="display:none" class="ideas-block">
+    <div class="block-label">Ideas Clave</div>
+    <ul class="ideas-list" id="dayIdeas"></ul>
+  </div>
+
+  <div class="anchor"><p id="dayAnchor"></p></div>
+
+  <div id="videoBlock" style="display:none" class="video-block">
+    <div class="video-label">▶ Video de cierre de la semana</div>
+    <div class="video-wrap">
+      <iframe id="videoFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="block green-tint">
+    <div class="block-label green">🌿 Pregunta de Reflexión</div>
+    <div class="block-text" id="dayPregunta"></div>
+  </div>
+
+  <div class="block green-tint">
+    <div class="block-label green">Práctica del Día</div>
+    <div class="block-text" id="dayPractica"></div>
+  </div>
+
+  <div class="block gold-tint">
+    <div class="block-label gold">🙏 Oración</div>
+    <div class="block-text" id="dayOracion"></div>
+  </div>
+
+  <div class="block" id="cierreBlock" style="display:none;text-align:center;border:1px solid rgba(200,168,75,.3);background:linear-gradient(135deg,rgba(61,122,84,.08),rgba(200,168,75,.05));border-radius:var(--r);padding:28px 20px;margin:18px 0">
+    <div class="block-label gold" id="cierreTitle" style="margin-bottom:12px">✦ Cierre del Curso</div>
+    <p id="cierreText" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:17px;color:var(--gold-l);line-height:1.8;margin:0">Este recorrido llegó a su final. Pero la identidad de hijo no termina aquí — empieza a vivirse desde aquí.<br><br>Comenzaste con la imagen del Padre que corre. Terminaste con las manos que bendicen.<br>En el medio, recibiste el vestido, el anillo y las sandalias.<br><br>Ahora sal a hacer lo mismo por alguien más.</p>
+  </div>
+
+  <div class="day-actions">
+    <button class="btn btn-primary" id="btnDone" onclick="markDone(this)" style="width:100%">✓ Marcar día completado</button>
+    <button class="btn btn-ghost" style="width:100%" onclick="window.open('https://chat.whatsapp.com/KQBTskqmN9e0kt2BXB1ttk','_blank')">💬 Ir al grupo de este curso</button>
+    <button class="btn-back" onclick="window.location.href='https://collegelhscol.netlify.app/'">← Volver al curso</button>
+  </div>
+
+</div><!-- /dayContent -->
+
+</div><!-- /day-page-inner -->
+
+<!-- LOCKED STATE -->
+<div id="lockedState" style="display:none">
+  <div class="locked-wrap">
+    <div class="locked-icon">🔒</div>
+    <div class="locked-title">Contenido no disponible aún</div>
+    <div class="locked-msg">Este día se desbloqueará cuando llegue su momento. Vuelve el día indicado para continuar el recorrido.</div>
+    <div class="locked-date" id="lockedDateLabel"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-brand">COLLEGE · THE WAY</div>
+  <div class="ft-sub">Una expedición de LHSCOL · Manizales, Colombia</div>
+  <div class="ft-links">
+    <a href="#">Inicio</a><a href="#">La Ruta</a><a href="#">Cursos</a><a href="https://chat.whatsapp.com/KQBTskqmN9e0kt2BXB1ttk" target="_blank">Comunidad</a><a href="#">@LHSCOL</a>
+  </div>
+  <div class="ft-copy">© 2026 LHSCOL · Todos los derechos reservados</div>
+</footer>
+
+<script>
+/* ─── CONFIGURACIÓN DE FECHA ─────────────────────────────────────────────
+   Cambia START_DATE al lunes en que arranca el curso (formato YYYY-MM-DD).
+   Para revisar el curso completo sin restricciones, abre la URL con ?preview=1
+   Ejemplo: https://tu-curso.netlify.app/sit-walk-stand.html?preview=1
+──────────────────────────────────────────────────────────────────────── */
+var START_DATE = "2026-06-15"; // ← cambia aquí la fecha del lunes de inicio
+
+var PREVIEW_MODE = (new URLSearchParams(window.location.search).get('preview') === '1');
+
+/* Devuelve cuántos días están desbloqueados desde START_DATE hasta hoy.
+   Lunes = día 0, martes = día 1 ... viernes = día 4, fin de semana no cuenta.
+   Semana 2 arranca el lunes siguiente, etc. */
+function unlockedDays() {
+  if (PREVIEW_MODE || IS_ADMIN) return 20;
+  var start = new Date(START_DATE + 'T00:00:00');
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  if (today < start) return 0;
+  var count = 0;
+  var cursor = new Date(start);
+  while (cursor <= today) {
+    var dow = cursor.getDay(); // 0=dom,1=lun,...,5=vie,6=sab
+    if (dow >= 1 && dow <= 5) count++; // solo lunes a viernes
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return Math.min(count, 20);
+}
+
+/* Devuelve la fecha en que se desbloqueará el día idx (base 0) */
+function unlockDateFor(idx) {
+  var start = new Date(START_DATE + 'T00:00:00');
+  var needed = idx + 1;
+  var count = 0;
+  var cursor = new Date(start);
+  while (true) {
+    var dow = cursor.getDay();
+    if (dow >= 1 && dow <= 5) {
+      count++;
+      if (count === needed) return cursor;
+    }
+    cursor.setDate(cursor.getDate() + 1);
+  }
+}
+
+var CUADRO_IMGS=["s1_manos.jpg","s2_pies.jpg","s3_mayor.jpg","s4_completo.jpg"];
+var CUADRO_CAPTIONS=[
+  "Las manos del Padre — una fuerte, una suave. Fuerza y ternura al mismo tiempo.",
+  "Los pies del hijo — uno descalzo, uno con sandalia. El jornalero que regresa como hijo.",
+  "El hijo mayor — de pie, a distancia, con el bastón. Manos cerradas que no pueden recibir.",
+  "El Padre con las manos sobre el hijo — la bendición como comisión."
+];
+var swsDays = [
+  /* W1 */
+  {
+    week:"De Regreso a Casa · Semana 1 — El Dios que Corre", day:"Día 1 — El Padre que corre",
+    verse:"«Cuando todavía estaba lejos, su padre lo vio. Con el corazón palpitando, salió corriendo, lo abrazó y lo besó.»",
+    ref:"— Lucas 15:20 (The Message)",
+    semana_lectura:"Lucas 15:1-10 (The Message) — «Lee este pasaje de forma pausada, imaginándote en la escena. ¿Quién eres tú en la historia: el hijo menor, el mayor, o el que observa desde afuera?»",
+    tesis:"En el Reino de los cielos, quien corre no es el hijo, sino el Padre. La vida con Dios no comienza con tu esfuerzo por alcanzarlo; comienza con Su iniciativa de salir a buscarte. Todo lo demás fluye de haber recibido ese abrazo.",
+    proposito:"Desmantelar la imagen del Dios-evaluador y reemplazarla con la imagen del Padre que corre. Esta semana no motiva más esfuerzo —produce el descanso genuino de quien se sabe buscado, no solo perdonado.",
+    lectura:"Hay una pregunta que la mayoría de nosotros nunca formulamos en voz alta, pero que aparece sin avisar en los momentos más inesperados. No llega en los días de adoración ni cuando acabas de escuchar un buen mensaje. Llega un martes por la noche, cuando estás solo, cuando fallaste otra vez en lo mismo, cuando miras tu vida espiritual y sientes que algo no cuadra. No es duda. No es rebeldía. Es algo más honesto que eso.<br><br>La pregunta es esta: ¿por qué sigo sintiéndome tan lejos si supuestamente ya llegué a casa?<br><br>Muchos llevan años dentro de la fe y aún viven con una extraña sensación de estar a prueba. Como si el amor de Dios fuera una cuenta bancaria que se agota con cada falla y hay que ir recargando con buena conducta, servicio y disciplina. No lo dicen así, claro. Pero lo viven así. Y esa distancia invisible entre quienes dicen ser y cómo se sienten realmente, es exactamente lo que este curso quiere nombrar y sanar.<br><br><span class=\"inline-verse\">«Cuando todavía estaba lejos, su padre lo vio. Con el corazón palpitando, salió corriendo, lo abrazó y lo besó.» — Lucas 15:20 (The Message)</span><br><br>En la parábola, Jesús rompe con la imagen tradicional de la autoridad. No hay un Dios sentado en Su trono, esperando con los brazos cruzados a que el pecador se arrastrara de vuelta y se humillara lo suficiente. El texto dice que el padre vio al hijo cuando todavía estaba lejos. Y corrió.<br><br>Es vital entender el contexto cultural para captar la fuerza de esta imagen. En el Medio Oriente de aquella época, un patriarca noble jamás corría. Correr implicaba levantarse la túnica, mostrar las piernas y perder la dignidad ante la comunidad. Un padre ofendido debía esperar sentado a que el hijo regresara, se humillara y pagara su deuda.<br><br>Pero Dios no es ese tipo de patriarca. Henri Nouwen, al meditar sobre esta parábola y sobre el cuadro de Rembrandt, señala que Dios es quien «abandona la casa, sin hacer caso de su dignidad al correr en su busca». Dios no espera a que llegues a un nivel espiritual aceptable para amarte. Él toma la iniciativa. Él sale al camino. Antes de que puedas pronunciar una sola palabra de arrepentimiento, Él ya ha acortado la distancia.<br><br>Esto cambia por completo nuestra identidad: ya no somos quienes buscan desesperadamente a un Dios escondido; somos los buscados por un Dios que no descansa hasta encontrarnos.<br><br>Quizás la razón por la que nos cuesta tanto acercarnos a Dios es porque imaginamos que, al llegar, recibiremos un sermón o una mirada de decepción. Pero ¿qué es lo que realmente encuentra el hijo al volver? No encuentra un dedo acusador, sino dos manos que lo sostienen.<br><br>Nouwen observa con detenimiento las manos del Padre en el cuadro de Rembrandt y descubre en ellas la naturaleza completa de Dios. No son dos manos iguales. La mano izquierda es fuerte, masculina y musculosa —la mano que sostiene con firmeza, que revela que Dios es refugio, seguridad y protección. La mano derecha es suave, fina y tierna —una mano maternal, que revela que Dios es también consuelo, caricia y descanso para el alma herida. Dios no es solo autoridad; es hogar.<br><br>Lo más sorprendente de la parábola es lo que no sucede. El hijo había preparado un discurso perfecto. Quería negociar su regreso, ofrecer su trabajo a cambio de un techo. Pero el Padre no le deja terminar. No le interesa el discurso. Nouwen nos recuerda que el Padre «no pide ningún tipo de explicación». Su alegría es tan grande que el pasado queda borrado por la presencia del hijo.<br><br>Muchos de nosotros nos acercamos a Dios con mentalidad de jornaleros. Pensamos: si oro más, si sirvo más, si me porto bien, entonces Dios me aceptará. Pero el Padre interrumpe nuestra lógica de desempeño. Él no quiere tu hoja de vida; te quiere a ti.<br><br><span class=\"inline-verse\">«Su amor no depende de tu comportamiento, sino de Su carácter. Tu seguridad no está en lo rápido que corres hacia Él, sino en la certeza de que Él ya corrió hacia ti.»</span><br><br>Esta semana, los cuatro subtemas van a profundizar en esta iniciativa del Padre: en el Dios que sale a buscarte incluso cuando tú no lo estás buscando, en las dos manos que revelan Su naturaleza completa, en la interrupción de la gracia ante el discurso de desempeño, y en el regreso como punto de partida de una identidad nueva.<br><br>Antes de continuar, siéntate un momento con esta pregunta: cuando fallas o te sientes débil, ¿cómo imaginas el rostro de Dios mirándote? ¿Ves decepción, indiferencia o la misma compasión del padre que corrió?",
+    anchor:"«El Padre no espera. Ya corrió. Tu única tarea es no esconderte.»",
+    pregunta:"¿Cuándo fue la última vez que te acercaste a Dios sin ninguna agenda, sin ningún intento de producir algo para justificar el acercamiento? ¿Cómo cambiaría tu vida de oración si creyeras que Él ya está corriendo hacia ti antes de que empieces?",
+    practica:"<em>Aplicación de la Semana:</em> Cada día, antes de arrancar tu tiempo a solas, declara en voz alta: «No soy yo quien busca a Dios esta mañana. Dios ya corrió hacia mí». Lleva un registro breve de cómo esta declaración afecta tu forma de orar y relacionarte con Él.",
+    oracion:"«Padre, me cuesta recibir sin merecer. Pero hoy elijo creer que puedes amarme así, exactamente como soy y donde estoy. Vengo con las manos vacías. Eres el Padre que corre. Yo soy el hijo que regresa. Gracias.»",
+    segs:[1,0,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 1 — El Dios que Corre", day:"Día 2 — El Dios que no espera",
+    verse:"«Cuando todavía estaba lejos, su padre lo vio. Con el corazón palpitando, salió corriendo, lo abrazó y lo besó.»",
+    ref:"— Lucas 15:20 (The Message)",
+    lectura:"La imagen del padre corriendo es el corazón de esta parábola. En el mundo antiguo, la escena era escandalosa: un patriarca respetado, levantando su túnica, corriendo por el camino. La dignidad social exigía distancia, frialdad, espera. El hijo que había tomado la herencia en vida —lo equivalente a desear la muerte del padre— y la había malgastado no merecía ninguna bienvenida. Merecía silencio, o en el mejor de los casos, una conversación formal sobre las condiciones del regreso.<br><br>Pero el padre no espera. No calcula el daño. No prepara su discurso de corrección. Hay algo más urgente que el orden correcto: el corazón del padre, lleno de amor y compasión, no puede contenerse. «Con el corazón palpitando» lo describe la traducción con una fisicalidad que corta. Esto no es condescendencia calculada; es necesidad del corazón.<br><br>Nouwen observa que el padre, al ver al hijo regresar, tiene la oportunidad de hacer lo que más ama: dar. El regreso del hijo no le da al padre la ocasión de regañar; le da la ocasión de expresar lo que es. Y lo que el Padre es, es generosidad sin fondo.",
+    verdad:"Dios no espera que llegues a un nivel espiritual aceptable para amarte. Ya corrió hacia ti. La distancia entre donde estás y donde crees que necesitas estar para merecer Su amor es distancia que Él ya cruzó.",
+    ideas:["El padre en la parábola representa a Dios como Dador por naturaleza. Su mayor alegría no es que trabajes para Él sino que te atrevas a recibir de Él.","La iniciativa siempre es de Dios. Tú no encontraste a Dios; fuiste encontrado por Él.","Dios no es el Dios de las condiciones cumplidas; es el Padre de la fiesta que celebra el regreso.","Cuando insistes en ganarte la gracia, no eres más espiritual. Eres más parecido al hijo mayor: cerca en teoría, lejos en el corazón.","La postura correcta ante Dios es la del receptor: manos abiertas, corazón expectante, sin agenda de merecer."],
+    anchor:"«El Padre no espera. Ya corrió. Tu única tarea es no esconderte.»",
+    pregunta:"¿Cuándo fue la última vez que te acercaste a Dios sin ninguna agenda, sin ningún intento de producir algo para justificar el acercamiento? ¿Cómo cambiaría tu vida de oración si creyeras que Él ya está corriendo hacia ti antes de que empieces?",
+    practica:"Dedica quince minutos de quietud hoy sin pedir nada, sin confesar nada, sin planificar nada. Solo siéntate ante Dios con las manos abiertas —literalmente, con tus palmas hacia arriba sobre tus rodillas. Permite que Él sea el Dador. Tú solo recibe. Si tu mente se distrae, vuelve suavemente a esta imagen: el padre que corre por el camino hacia ti.",
+    oracion:"«Padre, me cuesta recibir sin merecer. Pero hoy elijo creer que puedes amarme así, exactamente como soy y donde estoy. Vengo con las manos vacías. Eres el Padre que corre. Yo soy el hijo que regresa. Gracias.»",
+    segs:[1,1,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 1 — El Dios que Corre", day:"Día 3 — Dos manos para descansar",
+    verse:"«Como a uno que es consolado por su madre, así te consolaré yo a ti.»",
+    ref:"— Isaías 66:13",
+    lectura:"Rembrandt pintó las manos del Padre sobre el hijo arrodillado con una precisión que no fue accidental. Cuando Nouwen se detuvo en ese detalle, descubrió algo que ningún comentario teológico le había dicho: las dos manos son distintas. No son simétricas. Son deliberadamente diferentes.<br><br>La mano izquierda es grande, musculosa, de dedos anchos. Es la mano de un hombre. Sostiene al hijo con firmeza, sin dejarlo caer. Es la mano que dice: estás seguro aquí. Nadie puede quitarte de aquí.<br><br>La mano derecha es diferente. Es más fina, más suave, los dedos más delgados, casi femenina. No sujeta; acaricia. Descansa sobre el hombro del hijo con una ternura que no exige nada. Es la mano que dice: puedes descansar. No hay nada que demostrar aquí.<br><br>Dios es completamente Padre: el que sostiene con firmeza cuando el mundo tiembla. Y es también completamente Madre: el que consuela con ternura cuando el alma sangra. En Él se unen la fuerza que no cede y la suavidad que no endurece. Nuestra identidad de hijos no se forma cuando hacemos cosas para Dios; se forma cuando nos permitimos quedarnos quietos bajo esas dos manos.",
+    verdad:"Dios no es solo autoridad; es hogar. La identidad de hijo se sana no en el esfuerzo sino en el descanso: cuando dejas de demostrar y simplemente recibes las dos manos que te sostienen.",
+    ideas:["Las dos manos no son contradictorias; son complementarias. Dios es simultáneamente fuerza y ternura, padre y madre, juez que justifica y consolador que abraza.","El hijo no tuvo que hacer nada para recibir ese toque. Solo tuvo que dejar de correr en la dirección equivocada.","Muchos conocen la mano fuerte —Dios como autoridad— pero nunca han experimentado la mano suave —Dios como consuelo personal.","La identidad sana no viene de hacer más; viene de quedarse quieto el tiempo suficiente para sentir el peso de esas manos.","Nouwen escribe que fue necesario que él mismo se detuviera para recibir lo que siempre había proclamado para otros: el abrazo del Padre."],
+    anchor:"«Fuerza que sostiene. Ternura que consuela. Ese es tu Padre.»",
+    pregunta:"Nouwen describe una mano que sostiene (fuerza) y otra que acaricia (consuelo). En este momento de tu vida, ¿cuál de las dos necesitas experimentar más? ¿Por qué?",
+    practica:"Busca un lugar tranquilo y siéntate cómodamente. Cierra los ojos. Imagina la escena del cuadro: tú estás arrodillado, cansado. Visualiza las manos de Dios posándose sobre tus hombros. Siente la mano fuerte que dice: «Estás seguro, te sostengo». Siente la mano suave que dice: «Eres amado, descansa». No ores pidiendo cosas. No confieses pecados. No prometas mejorar. Tu única tarea es quedarte quieto bajo esas manos durante 5 minutos. Si tu mente se distrae, repite suavemente: «Me dejo encontrar. Me dejo amar.»",
+    oracion:"«Padre, hoy no vengo con logros ni con excusas. Vengo como el hijo arrodillado. Pongo mis hombros bajo Tus manos. La fuerte que me sostiene. La suave que me consuela. Eso es suficiente. Tú eres suficiente. Amén.»",
+    segs:[1,1,1,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 1 — El Dios que Corre", day:"Día 4 — Sin explicaciones",
+    verse:"«El hijo empezó su discurso: 'Padre, he pecado contra Dios, he pecado delante de ti; no merezco ser llamado tu hijo nunca más.' Pero el padre no estaba escuchando.»",
+    ref:"— Lucas 15:21-22 (The Message)",
+    lectura:"El hijo menor llegó con un plan perfectamente ensayado. Había tenido tiempo de sobra para prepararlo: en el camino de regreso, hambriento y avergonzado, había repetido la misma frase una y otra vez. «Padre, he pecado. Ya no merezco llamarme tu hijo. Trátame como a un jornalero.» Era una propuesta sensata. Una negociación razonable. Al menos así tendría techo, comida, un futuro.<br><br>Lo que el hijo no calculó fue que el Padre no estaba interesado en su propuesta. No porque no la escuchara —la escuchó. Sino porque tenía algo más urgente que hacer: dar órdenes para la fiesta.<br><br>Nouwen señala esto con una precisión que duele: el Padre «no pide ningún tipo de explicación». No le pide al hijo que explique qué pasó con el dinero, ni cuánto tiempo estuvo entre los cerdos, ni qué aprendió, ni qué promete hacer de ahora en adelante. Su alegría al ver al hijo vivo es tan grande que cualquier discurso sobre el pasado es irrelevante.<br><br>Esto confronta directamente nuestra manera de acercarnos a Dios. La mayoría de nosotros llegamos ante Él con un discurso preparado: «Perdóname porque prometo esforzarme más.» «Si me ayudas en esto, haré aquello.» Son variaciones del mismo discurso del jornalero: intentos de negociar nuestra re-aceptación, como si el amor del Padre fuera algo que se pudiera ganar con las palabras correctas.<br><br>Pero el Padre interrumpe. No porque el arrepentimiento no importe —importa. Sino porque Su amor no espera a que el arrepentimiento sea suficientemente elocuente. Él ya corrió antes de escuchar una sola palabra.",
+    verdad:"Dios no necesita tu discurso antes de amarte. Su amor no es la recompensa de un buen arrepentimiento; es la condición de tu existencia como hijo. Puedes llegar sin palabras perfectas.",
+    ideas:["El discurso del jornalero es el intento humano de convertir la gracia en transacción: «Si digo las palabras correctas, si demuestro el arrepentimiento correcto, seré aceptado».","La mentalidad de desempeño no desaparece cuando nos arrepentimos; se esconde en la manera en que nos arrepentimos. Seguimos intentando merecer incluso cuando pedimos perdón.","El Padre interrumpe no porque el arrepentimiento sea malo, sino porque hay algo más urgente: celebrar que el hijo está vivo.","La gracia siempre es aterradora porque es gratuita y no se puede controlar. Preferimos el sistema del mérito porque nos da una sensación de control.","No tienes que llegar a Dios con un discurso perfecto. Puedes llegar simplemente como eres, donde estás, y dejar que Él haga lo que mejor sabe hacer: dar."],
+    anchor:"«No necesitas las palabras perfectas. El Padre ya corrió antes de escucharlas.»",
+    pregunta:"¿Sueles negociar con Dios? («Señor, si haces esto por mí, yo haré esto por ti» / «Perdóname porque prometo esforzarme más»). ¿Cómo sería relacionarte con Él simplemente desde la pertenencia, sin ningún discurso de méritos o promesas?",
+    practica:"Esta noche, cuando ores, prueba algo diferente: no expliques nada. No confieses nada con un plan de acción adjunto. No prometas nada. Simplemente dile a Dios: «Padre, aquí estoy». Y quédate en silencio. Deja que Él llene el espacio. Observa qué sucede en tu interior cuando no tienes un discurso preparado.",
+    oracion:"«Padre, estoy cansado de preparar discursos. Hoy simplemente llego. Sin excusas perfectas y sin promesas que no sé si podré cumplir. Solo llego. Y confío en que eso es suficiente para Ti.»",
+    segs:[1,1,1,1,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 1 — El Dios que Corre", day:"Día 5 — El regreso como punto de partida",
+    verse:"«Dios es tan rico en misericordia y nos amó tanto, que a pesar de que estábamos muertos por causa de nuestros pecados, nos dio vida cuando levantó a Cristo de los muertos.»",
+    ref:"— Efesios 2:4-5 (NTV)",
+    lectura:"El regreso del hijo a la casa del padre no es el final de la historia; es su punto de partida. Es el momento en que deja de ser un errante y comienza a ser lo que siempre fue: un hijo. La fiesta no es el clímax de una historia de redención; es el punto de partida de una identidad recuperada.<br><br>Hay una tentación sutil pero persistente en este camino: pensar que el regreso es lo máximo a lo que podemos aspirar. Que ser perdonados, restaurados, re-aceptados es la meta. Pero Nouwen señala que el Padre no solo abraza al hijo; lo viste, le pone un anillo en el dedo y le calza las sandalias. No lo abraza y luego lo envía al cuarto de los sirvientes. Lo restaura a su lugar en la familia. El regreso no es el fin del camino; es la confirmación de quién eres y desde dónde vas a vivir de ahora en adelante.<br><br>Esto tiene consecuencias para la manera en que entendemos nuestra vida cotidiana. Si el regreso fuera solo el momento del perdón, entonces lo que viene después sería simplemente intentar no volver a caer. Pero si el regreso es el inicio de una identidad, entonces lo que viene después es vivir desde esa identidad: como hijo, no como jornalero; desde amor, no desde miedo; en el hogar, no en el camino.<br><br>La Semana 1 te dejó con una pregunta que no se responde en un solo día: ¿puedes creer de verdad que el Padre corrió? No como concepto que aceptas intelectualmente, sino como realidad que cambia la manera en que te despiertas mañana, la manera en que fallas, la manera en que regresas cuando te pierdes. Esa es la práctica de esta semana. Y las que siguen construyen desde ahí.",
+    verdad:"El regreso al Padre no es el clímax de la historia; es su punto de partida. A partir de ahora, vives como hijo —no como alguien que intenta no volver a caer, sino como alguien que sabe a quién pertenece.",
+    ideas:["El perdón no es la meta de este camino; es su punto de partida. De ahí en adelante, la pregunta no es ¿cómo no volver a caer? sino ¿cómo vivo como hijo a partir de ahora?","El anillo, el vestido y las sandalias no son premios por el arrepentimiento; son la restauración de lo que siempre fue: la identidad de hijo.","El Padre no restaura al hijo a una versión mejorada de jornalero. Lo restaura a lo que era antes de salir: heredero, perteneciente, amado.","Vivir desde el regreso significa que cuando fallas de nuevo, no empiezas desde cero; empiezas desde el abrazo que ya recibiste.","Este camino no es un ciclo de caída y regreso. Es un camino que parte desde la casa, con el Padre, hacia afuera. El punto de partida siempre es el hogar."],
+    anchor:"«Padre que corre. Nada que alcanzar. Todo por recibir.»",
+    pregunta:"¿Estás viviendo tu fe como un proyecto de «no volver a caer» o como la vida de alguien que ya sabe a quién pertenece? ¿Qué cambia en tu vida cotidiana si aceptas que el hogar ya es tuyo?",
+    practica:"<em>La Oración de la Recepción:</em> Busca un lugar tranquilo y siéntate cómodamente. Cierra los ojos. Imagina la escena del cuadro de Rembrandt: tú estás arrodillado, cansado, con la cabeza apoyada en el pecho del Padre. Siente la mano fuerte sobre tu hombro: «Estás seguro. Yo te sostengo.» Siente la mano suave sobre tu espalda: «Eres amado. Descansa.» No ores pidiendo cosas. No confieses pecados. No prometas mejorar. Tu única tarea es quedarte quieto bajo esas manos durante 5 minutos. Si tu mente se distrae o sientes culpa, repite suavemente: «Me dejo encontrar. Me dejo amar.»",
+    oracion:"«Padre, iniciamos juntos este camino. No como alguien que intenta merecer el acceso a Tu casa, sino como alguien que acaba de descubrir que la puerta ya estaba abierta. Gracias porque corriste. Gracias porque seguirás corriendo. Haz que aprenda a vivir como hijo, no solo a visitar Tu casa de vez en cuando. Amén.»",
+    segs:[1,1,1,1,1],
+    videoId:"_-pAmF8ul08",
+    cierreTitulo:"✦ Cierre de la Semana 1 → Puente hacia la Semana 2",
+    cierreTexto:"Esta semana puso delante de ti la imagen correcta del Padre: no el evaluador que espera con los brazos cruzados, sino el Padre que corre. Antes de que el hijo termine su discurso, antes de que pueda demostrar cambio, antes de que tenga algo que ofrecer, el Padre ya cruzó la distancia.<br><br>Pero el abrazo no es el final. El abrazo restaura una identidad. Y cuando el hijo vuelve a casa, la siguiente pregunta es inevitable: ¿vivirá como hijo o seguirá pensando como jornalero?<br><br>La próxima semana entra exactamente en esa tensión. Pertenecer antes de hacer. Recibir antes de producir. Servir desde la casa, no desde la deuda."
+  },
+  /* W2 */
+  {
+    week:"De Regreso a Casa · Semana 2 — Pertenecer antes de Hacer", day:"Día 1 — La tentación del jornalero",
+    verse:"«Le diré: Padre, he pecado contra Dios, he pecado delante de ti; no merezco ser llamado tu hijo nunca más. Acéptame como un jornalero.»",
+    ref:"— Lucas 15:18-19 (The Message)",
+    semana_lectura:"Lucas 15:11-19 (The Message) — «Lee el regreso del hijo menor prestando atención a un detalle: ¿en qué momento exacto lo llama hijo de nuevo el padre? ¿Antes o después de que el hijo haga algo para merecerlo?»",
+    tesis:"La identidad no es un logro al final del camino; es el punto de partida del camino. El Padre vistió, anilló y calzó al hijo antes de que este moviera un dedo. Pertenecer antecede a servir, a crecer, a hacer. Siempre.",
+    proposito:"Romper la lógica transaccional con la que la mayoría de nosotros nos relacionamos con Dios: la idea de que primero hay que hacer, mejorar o demostrar para luego poder pertenecer. Esta semana instala el orden correcto: la pertenencia es la raíz, no el fruto.",
+    lectura:"El hijo menor se fue con la herencia y la gastó. Eso ya lo sabemos. Pero lo que Jesús hace en la parábola no es simplemente contar una historia de pecado y regreso. Lo que Jesús está haciendo es revelar algo sobre la arquitectura del corazón humano: la manera en que funciona por dentro cuando se rompe la relación con el Padre.<br><br>La escena más reveladora no es la del muchacho entre los cerdos. Es la escena de regreso, en el camino, cuando empieza a ensayar su discurso. Porque ese discurso nos muestra lo que realmente cree sobre sí mismo y sobre el Padre.<br><br><span class=\"inline-verse\">«Le diré: Padre, he pecado contra Dios, he pecado delante de ti; no merezco ser llamado tu hijo nunca más. Acéptame como un jornalero.» — Lucas 15:18-19 (The Message)</span><br><br>El hijo no regresa con ilusiones. Regresa con un plan realista, calculado, honesto a su manera: «Sé que perdí mi lugar. Pero tal vez pueda ganarme otro diferente. No el de hijo, ese ya lo arruiné. Pero sí el de jornalero. Al menos tendré techo y comida, y podré pagar mi deuda poco a poco.»<br><br>Es un plan razonable. Casi admirable en su humildad. Pero Nouwen señala algo que pasamos por alto si leemos rápido: el hijo no está pidiendo regresar a casa. Está pidiendo un contrato. Hay una diferencia enorme entre las dos cosas. Regresar a casa implica confiar en que la casa todavía es tuya. Pedir un contrato implica creer que ya no lo es, que tendrás que ganarte el derecho de estar ahí.<br><br>Y esa es exactamente la trampa. Porque el jornalero trabaja para sobrevivir. El hijo trabaja porque pertenece. El jornalero cuida su lugar con esfuerzo constante porque en cualquier momento lo pueden despedir. El hijo cuida lo suyo porque ama lo que es suyo. Desde afuera pueden parecer iguales. Por dentro son mundos completamente distintos.<br><br>La mentalidad del jornalero no nace de la maldad; nace de la culpa. El hijo sentía que había quemado todos sus puentes, que había agotado la paciencia del padre, que el amor tiene un límite y él ya lo había cruzado. Y desde esa convicción construyó su plan de regreso: volver, pero ocupando el lugar más pequeño posible. No pedir demasiado. No abusar de la generosidad que ya pisoteó una vez.<br><br>Lo que él no podía imaginar es que el padre no estaba esperando con un contrato. Estaba esperando con una fiesta.<br><br>La reacción del padre ante el discurso del jornalero es una de las escenas más teológicamente densas de toda la Escritura. El hijo empieza su frase ensayada y el padre, en lugar de responder, interrumpe. No le deja terminar. No negocia. No evalúa. Da órdenes: «Rápido. Traigan ropa limpia y vístanlo. Pónganle el anillo de la familia en el dedo y sandalias en los pies.»<br><br>Tres gestos, cada uno con un significado preciso. El mejor vestido cubría la vergüenza visible del pasado. El anillo era el sello de la familia —con él podías firmar en nombre del padre, representar la casa, actuar con su autoridad. Y las sandalias: en el mundo antiguo, los esclavos y los jornaleros andaban descalzos. Solo los hijos libres llevaban calzado. Al ordenar que le pusieran sandalias, el padre hacía una declaración pública: este hombre no trabaja para mí. Vive conmigo.<br><br>El orden es fundamental: el padre vistió, anilló y calzó al hijo antes de que este hubiera hecho absolutamente nada para merecer ese trato. El padre actuó sobre la identidad del hijo antes de que la conducta del hijo justificara esa acción. Eso es exactamente lo que la gracia hace. Y es exactamente lo que nos cuesta tanto recibir.<br><br>Rembrandt pintó los pies del hijo arrodillado con atención al detalle: un pie completamente descalzo, la planta agrietada, el talón sucio; el otro con una sandalia tan desgastada que apenas sobrevive. Es el retrato de alguien que salió siendo hijo y regresó sintiéndose esclavo. Y el Padre mira esos pies y pide sandalias. No para cubrir la vergüenza como si no hubiera existido. Sino para declarar que quien está arrodillado aquí es un hijo, no un mendigo.<br><br><span class=\"inline-verse\">«Eres hijo hoy, no por lo que hiciste ayer, sino por quién es tu Padre. El vestido, el anillo y las sandalias no son el final de una historia de redención; son el uniforme de una identidad restaurada.»</span><br><br>Esta semana, los cuatro subtemas profundizarán en la diferencia real entre jornalero e hijo —no solo como posición teológica sino como experiencia diaria—, en lo que significa recibir el anillo de la autoridad como hijo, en el peso de los pies descalzos y lo que cambia cuando te vuelven a calzar, y en la pregunta más confrontante de la semana: ¿desde dónde estás sirviendo tú hoy?<br><br>Antes de continuar, detente un momento en esta imagen: Dios ordenando que te pongan sandalias antes de que hayas hecho nada para merecerlas. ¿Puedes recibir eso? ¿O tu primer instinto es decir «primero déjame demostrar que cambié»?",
+    anchor:"«No haces para pertenecer. Ya perteneces. Por eso haces.»",
+    pregunta:"¿Cuándo fue la última vez que hiciste algo espiritual sin ninguna sensación de deuda o de «tener que»? ¿Cómo sería relacionarte con Dios desde la pertenencia en lugar de desde el contrato?",
+    practica:"<em>Aplicación de la Semana:</em> Cada vez que esta semana te sorprendas haciendo algo «para ganarte» el favor de Dios —orar más para sentirte aceptado, servir desde la culpa, cumplir desde el miedo— detente. Respira. Y di en voz baja: «No trabajo para pertenecer. Pertenezco, y por eso trabajo.»",
+    oracion:"«Padre, hoy quiero examinar mis motivos sin condenarme por ellos. Muéstrame dónde sigo sirviendo desde la deuda y no desde el amor. Y en esos lugares, recuérdame que el vestido ya está puesto, el anillo ya está en mi dedo, las sandalias ya están en mis pies. No tengo que ganarme lo que ya me diste.»",
+    detalle:"Detalle del cuadro: Los pies del hijo — uno descalzo, uno con sandalia",
+    segs:[1,0,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 2 — Pertenecer antes de Hacer", day:"Día 2 — Hijo o jornalero: la diferencia invisible",
+    verse:"«Hace tanto tiempo que te sirvo sin desobedecer jamás tus órdenes, y nunca me has dado ni un cabrito para celebrar con mis amigos.»",
+    ref:"— Lucas 15:29 (NTV)",
+    lectura:"El hijo mayor pronuncia estas palabras afuera, negándose a entrar a la fiesta, y en ellas revela algo que ninguno de sus años de obediencia había revelado: lleva toda la vida sintiéndose jornalero. No por lo que hizo, sino por la manera en que lo hizo. Sirvió. Cumplió. Se quedó. Pero lo hizo desde la lógica del empleado que espera paga, no desde la libertad del hijo que disfruta la casa.<br><br>La diferencia entre hijo y jornalero no siempre se ve en la conducta. Dos personas pueden hacer exactamente las mismas cosas —servir, dar, orar, comprometerse— y estar operando desde lugares completamente distintos. Uno lo hace porque ya pertenece y quiere expresarlo. El otro lo hace para pertenecer, para ganarse el lugar, para que no lo echen.<br><br>El diagnóstico más honesto no está en qué haces, sino en cómo te sientes cuando no lo haces. ¿Sientes culpa, miedo, distancia de Dios? Eso es jornalero. ¿Sientes que simplemente decidiste descansar y mañana retomas? Eso es hijo.",
+    verdad:"La diferencia entre hijo y jornalero no está en la actividad sino en la raíz de esa actividad. El jornalero hace para pertenecer. El hijo hace porque pertenece. El primero vive en deuda permanente; el segundo vive en libertad permanente.",
+    ideas:["El hijo mayor nunca se fue de casa, pero vivía igual de lejos del corazón del padre que su hermano entre los cerdos. La distancia no siempre es geográfica.","Puedes ser un creyente comprometido, responsable y fiel, y seguir viviendo como jornalero. La conducta correcta no garantiza la identidad correcta.","La señal más clara del jornalero es la expectativa de pago: «Hice esto, por lo tanto Dios debería hacer aquello.» Es la fe transaccional disfrazada de devoción.","El hijo mayor tenía acceso a todo: «Todo lo mío es tuyo», le dice el padre. Nunca lo reclamó porque nunca creyó que era suyo.","La pregunta no es si eres activo en tu fe. Es si tu actividad brota de la seguridad de pertenecer o del miedo de ser rechazado."],
+    anchor:"«No haces para pertenecer. Ya perteneces. Por eso haces.»",
+    pregunta:"¿En qué áreas de tu vida te relacionas con Dios como un empleado —esperando una paga o temiendo un despido— en lugar de como un hijo? Sé específico. No lo respondas en abstracto.",
+    practica:"Durante el día de hoy, identifica un momento en que hagas algo «espiritual» —orar, leer, servir, dar— y antes de hacerlo pregúntate honestamente: ¿lo hago porque ya pertenezco o para pertenecer? No para juzgarte. Solo para observarte. La honestidad sobre tu punto de partida es el comienzo de la libertad.",
+    oracion:"«Padre, hoy quiero examinar mis motivos sin condenarme por ellos. Muéstrame dónde sigo sirviendo desde la deuda y no desde el amor. Y en esos lugares, recuérdame que el vestido ya está puesto, el anillo ya está en mi dedo, las sandalias ya están en mis pies. No tengo que ganarme lo que ya me diste.»",
+    segs:[1,1,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 2 — Pertenecer antes de Hacer", day:"Día 3 — El anillo y lo que significa firmarlo",
+    verse:"«Pues todos ustedes son hijos de Dios por la fe en Cristo Jesús... porque todos ustedes son uno en Cristo Jesús. Y ahora que pertenecen a Cristo, son verdaderos hijos de Abraham. Son sus herederos, y la promesa de Dios les pertenece.»",
+    ref:"— Gálatas 3:26-29 (NTV)",
+    lectura:"El anillo que el padre le puso al hijo en la parábola no era un accesorio. Era un sello. En el mundo antiguo, el anillo del patriarca era la extensión de su autoridad: sellabas documentos con él, tomabas decisiones en nombre de la familia, actuabas como representante de la casa. El padre no solo le dijo «te perdono»; le dijo «puedes actuar en mi nombre».<br><br>Pablo en Gálatas usa el lenguaje de la adopción romana para explicar algo parecido. En Roma, cuando un hombre adoptaba a un hijo, ese hijo recibía todos los derechos del hijo biológico: el nombre, la herencia, la autoridad. Las deudas anteriores quedaban legalmente canceladas. Era un nuevo comienzo con plenos derechos, no con derechos reducidos por su pasado.<br><br>Lo que el padre hace en la parábola es exactamente eso: no re-admite al hijo como empleado de segunda con un historial manchado. Lo restaura con plena autoridad. El anillo lo dice todo: no estás aquí de segunda oportunidad, en período de prueba, demostrando que puedes cumplir. Estás aquí como hijo, con todo lo que eso implica.<br><br>Para muchos de nosotros esto es la parte más difícil de recibir. El perdón lo podemos aceptar. La restauración a plenos derechos nos cuesta más. Porque en algún lugar del corazón seguimos creyendo que hay que ganarse ese nivel de confianza de vuelta. Que el anillo hay que merecerlo. Que primero hay que demostrar.",
+    verdad:"La adopción que Dios ofrece no es una re-admisión condicional. Es plena restauración de identidad y autoridad. El anillo no se gana con conducta mejorada; se recibe con las manos abiertas como parte del abrazo.",
+    ideas:["El anillo es símbolo de delegación, no de mérito. El padre no lo entregó porque el hijo lo merecía; lo entregó porque quería que el hijo actuara en su nombre.","Vivir «sin el anillo» —sin habitar tu autoridad como hijo— es una forma de humildad que en realidad es desconfianza. Es decirle al padre: «No creo que realmente me lo hayas dado».","La herencia no se acumula con obras. Ya te fue dada en Cristo. La pregunta no es cómo ganártela sino si estás dispuesto a recibirla.","Actuar desde la identidad de hijo no es arrogancia; es obediencia. El padre entregó el anillo para que lo usaras, no para que lo guardaras por si acaso.","Muchos creyentes conocen la doctrina de la adopción. Pocos la habitan como realidad operativa en su vida diaria."],
+    anchor:"«El anillo ya está en tu dedo. Úsalo.»",
+    pregunta:"¿Hay áreas de tu vida donde actúas como si todavía tuvieras que ganarte el derecho de ser hijo? ¿Dónde vives «sin el anillo», esperando merecerlo, en lugar de usarlo?",
+    practica:"Hoy, escribe tres cosas que Dios ya dice que son tuyas como hijo: perdonado, adoptado, heredero. No como conceptos teológicos abstractos, sino como realidades concretas. Para cada una, pregúntate: ¿vivo como si esto fuera realmente mío? ¿O lo guardo con cuidado por si acaso?",
+    oracion:"«Padre, me cuesta creer que el anillo es para usarlo y no solo para atesorarlo. Hoy quiero aprender a actuar desde lo que ya soy en Ti, no desde lo que espero merecer algún día. Que mi manera de vivir esta semana refleje que el anillo ya está en mi dedo. Amén.»",
+    segs:[1,1,1,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 2 — Pertenecer antes de Hacer", day:"Día 4 — El ayuno de desempeño",
+    verse:"«Dios los salvó por su gracia cuando creyeron. Ustedes no tienen ningún mérito en eso; es un regalo de Dios. La salvación no es un premio por las cosas buenas que hayamos hecho, así que ninguno de nosotros puede jactarse de ser salvo.»",
+    ref:"— Efesios 2:8-9 (NTV)",
+    lectura:"Hay una práctica espiritual que ningún libro de devocional recomienda porque parece contraintuitiva, casi irresponsable: dejar de hacer intencionalmente algo que normalmente haces para sentirte bien con Dios.<br><br>No porque lo que haces esté mal. Sino para descubrir qué tan atado está tu sentido de valor a esa actividad.<br><br>La gracia, en su forma más pura, no tiene nada que ver con el desempeño. Pablo lo dice sin rodeos: la salvación no es un premio. Es un regalo. Los regalos no se ganan; se reciben. Y la única actitud apropiada ante un regalo es la mano abierta, no la lista de méritos.<br><br>El problema es que la lógica del desempeño está tan profundamente instalada en nosotros que aparece incluso en nuestra vida espiritual. Oramos más cuando nos sentimos mal para «compensar». Servimos desde la culpa para «equilibrar la cuenta». Leemos la Biblia con la sensación de que si no lo hacemos, Dios estará menos disponible hoy. Sin darnos cuenta, hemos convertido las disciplinas espirituales en instrumentos para gestionar la aprobación divina.<br><br>El ayuno de desempeño no es dejar de hacer lo bueno. Es hacer una pausa en algo específico para confrontar la ansiedad que aparece cuando no lo haces. Esa ansiedad es el mapa. Donde hay ansiedad ante la omisión, hay jornalero.",
+    verdad:"Tu valor ante Dios no fluctúa con tu productividad espiritual. Eres igualmente amado el día que oras dos horas y el día que no puedes orar ni diez minutos. Soltar el desempeño no te aleja de Dios; te muestra cuánto lo necesitabas para sentirte cerca.",
+    ideas:["La ansiedad espiritual ante la omisión de una práctica es una señal de diagnóstico: algo en esa práctica está funcionando como moneda de intercambio, no como expresión de amor.","Las disciplinas espirituales son herramientas para la comunión, no para la gestión del favor divino. La diferencia está en la dirección: ¿te llevan hacia Dios o intentan traer a Dios hacia ti?","«No soy lo que hago. No soy lo que produzco. No soy lo que los demás piensan de mí. Soy el Amado, y eso es suficiente.» Esta frase no es optimismo; es teología.","El hijo pródigo en el camino de regreso no tenía nada para ofrecer. Llegó a brazos vacíos. Y el padre salió corriendo exactamente hacia eso.","Descansar en la gracia no es pasividad espiritual; es la forma más honesta de reconocer que no puedes añadir nada a lo que Cristo ya completó."],
+    anchor:"«No soy lo que produzco. Soy el amado. Eso no cambia.»",
+    pregunta:"Identifica una cosa pequeña que sueles hacer para «sentirte bien» espiritualmente o para sentir que tienes el control con Dios. ¿Qué pasa por dentro si imaginas no hacerlo esta semana? Esa reacción interior es la información más valiosa de este día.",
+    practica:"Escoge una práctica espiritual de las que haces habitualmente para sentirte bien con Dios. Durante un día, no la hagas. O hazla a propósito de manera imperfecta, incompleta. Cuando sientas la ansiedad de «no estoy haciendo lo suficiente», detente. Respira. Y di: «No soy lo que hago. No soy lo que produzco. Soy el Amado. Eso es suficiente.» Luego permanece dos minutos en silencio, simplemente estando con Dios, sin producir nada.",
+    oracion:"«Padre, hoy suelto la necesidad de hacer algo para merecer Tu presencia. No vengo con logros ni con una lista de buenas obras. Vengo simplemente como hijo. Y confío en que eso es suficiente para Ti, porque siempre lo fue.»",
+    segs:[1,1,1,1,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 2 — Pertenecer antes de Hacer", day:"Día 5 — Trabajar porque amas, no para ser amado",
+    verse:"«Así que ahora pueden presentarse ante Dios sin culpa ni vergüenza. Esto es algo que Cristo logró mediante su muerte en la cruz.»",
+    ref:"— Colosenses 1:22 (NTV)",
+    lectura:"El hijo pródigo, después de la fiesta, seguirá trabajando. Eso es lo que no muestra la parábola pero está implícito. El regreso a casa no fue el fin de sus responsabilidades; fue el inicio de una nueva manera de asumir esas responsabilidades. La diferencia ahora es que trabajará como hijo, no como jornalero. Desde pertenencia, no desde deuda.<br><br>Esta distinción es la más práctica de toda la semana porque es la que se vive en el día a día. La mayoría de nosotros no dejamos de ser activos en nuestra fe. Seguimos orando, sirviendo, comprometiéndonos. La pregunta no es si lo hacemos, sino desde dónde lo hacemos.<br><br>Cuando trabajas para ser amado, cada resultado importa demasiado, cada falla es una amenaza, cada reconocimiento es necesario. Vives con una urgencia que se parece a la devoción pero que en realidad es ansiedad de desempeño. Necesitas confirmar constantemente que sigues siendo aceptado.<br><br>Cuando trabajas porque amas, el resultado sigue importando, pero no como condición de tu valor. Puedes fallar sin colapsar. Puedes servir sin que nadie lo note. Puedes hacer lo correcto incluso cuando cuesta algo, porque no lo estás haciendo para conseguir nada a cambio. Lo estás haciendo porque el amor del Padre ya te llenó y ahora desborda.",
+    verdad:"La madurez espiritual no es hacer más cosas para Dios. Es hacer las mismas cosas, pero desde un lugar diferente: desde la plenitud de ser amado, no desde el vacío de intentar serlo.",
+    ideas:["El servicio que nace del amor tiene una calidad diferente al que nace del miedo o la culpa: es más libre, más generoso, más auténtico.","Puedes identificar tu punto de partida preguntándote: ¿cómo me siento cuando sirvo sin que nadie lo vea? ¿Con la misma libertad o con una leve frustración?","Pablo dice que podemos presentarnos ante Dios sin culpa ni vergüenza. No después de mejorar. Ahora. Esa es la plataforma desde la que deberíamos vivir cada día.","El agotamiento espiritual crónico casi siempre viene de servir desde la deuda. El que sirve desde el amor tiene una fuente que no se agota porque no depende de sus propias reservas.","La pregunta de Dios al hijo que regresa no fue: ¿qué planeas hacer ahora? Fue: ven, celebra. La celebración fue primero. El servicio vendrá después, y vendrá diferente."],
+    anchor:"«Hijo restituido. Nada que pagar. Todo por celebrar.»",
+    pregunta:"Piensa en tu servicio a Dios o tu ayuda a los demás. Si nadie te lo agradeciera nunca, si nadie lo notara y si no sintieras ningún beneficio espiritual interno inmediato, ¿lo seguirías haciendo con la misma actitud? ¿Por qué sí o por qué no?",
+    practica:"Esta semana, realiza un acto de servicio o bondad que cumpla tres condiciones: que sea concreto, que nadie lo sepa, y que no esperes ningún agradecimiento. Puede ser algo pequeño: pagar algo anónimamente, hacer una tarea que no te corresponde, orar en secreto por alguien que no lo sabe. Observa qué pasa en tu corazón cuando sirves sin ningún retorno posible. Eso te dirá algo importante sobre desde dónde estás sirviendo normalmente.",
+    oracion:"«Padre, quiero que lo que hago nazca del amor que recibo de Ti y no del miedo de perderlo. Hoy quiero servir desde la plenitud, no desde el vacío. Llena primero. Luego lo demás vendrá solo.»",
+    segs:[1,1,1,1,1],
+    videoId:"ITN7Guf5b-I",
+    cierreTitulo:"✦ Cierre de la Semana 2 → Puente hacia la Semana 3",
+    cierreTexto:"Esta semana corrigió el orden: el vestido, el anillo y las sandalias vienen antes del desempeño. El Padre no restaura al hijo después de una temporada de prueba; lo restaura en el acto, públicamente, como hijo.<br><br>Pero hay otra forma de perderse sin salir de casa. Hay una distancia más difícil de detectar porque se disfraza de obediencia, responsabilidad y razón. El hijo mayor no está entre los cerdos. Está cerca de la casa. Pero no puede entrar a la fiesta.<br><br>La próxima semana mira ese peligro de frente: tener la razón y perder la relación. Obedecer sin amar. Cumplir sin recibir. Estar cerca del Padre y seguir lejos de su corazón."
+  },
+  /* W3 */
+  {
+    week:"De Regreso a Casa · Semana 3 — El Peligro de Tener la Razón", day:"Día 1 — El hijo que nunca se fue",
+    verse:"«Mira cuántos años me he quedado aquí sirviéndote, sin darte nunca un momento de disgusto, pero ¿alguna vez has hecho una fiesta para mí y mis amigos?»",
+    ref:"— Lucas 15:29 (The Message)",
+    semana_lectura:"Lucas 15:20-24 (The Message) — «Lee la reacción del hijo mayor como si fuera la primera vez. Presta atención no a lo que dice sino a lo que revela. ¿En qué lugar de tu corazón reconoces esa voz?»",
+    tesis:"Estar en la casa del Padre no garantiza vivir desde el corazón del Padre. El hijo mayor nunca se fue, cumplió todo, y aún así estaba tan perdido como su hermano: en el exterior de la fiesta, incapaz de entrar. La autosuficiencia moral es la forma más sofisticada de orfandad.",
+    proposito:"Identificar las formas en que la buena conducta puede volverse una barrera para recibir la gracia. Esta semana confronta al creyente comprometido, no al prodigal manifiesto: es para el que siente que lleva mucho tiempo sirviendo bien y aun así algo no termina de cuadrar por dentro.",
+    lectura:"La parábola tiene dos historias en una, y Jesús las cuenta con intención. La primera es la del hijo que se fue: escandalosa, vergonzosa, fácil de identificar como pérdida. La segunda es la del hijo que se quedó: respetable, silenciosa, difícil de ver como pérdida. Y sin embargo, al final de la parábola, Jesús deja al hijo mayor afuera, en el patio, negándose a entrar a la fiesta. Que la parábola no tenga resolución para ese hijo no es un descuido narrativo; es el punto central de la historia.<br><br>Jesús está hablando con fariseos y escribas. Con los que siempre estuvieron en casa. Con los que cumplían todo. Y les está diciendo, con una parábola, que cumplir todo no es suficiente si el corazón no está en el lugar correcto.<br><br><span class=\"inline-verse\">«Mira cuántos años me he quedado aquí sirviéndote, sin darte nunca un momento de disgusto, pero ¿alguna vez has hecho una fiesta para mí y mis amigos?» — Lucas 15:29 (The Message)</span><br><br>El argumento del hijo mayor es impecable. Es honesto. Es verificable. Realmente se quedó. Realmente obedeció. Realmente no causó problemas. No está mintiendo ni exagerando. Está presentando una queja legítima desde su punto de vista.<br><br>Y ese es exactamente el problema. Porque lo que la queja revela es que en todos esos años de obediencia, nunca recibió al padre como padre. Lo recibió como jefe. Lo que Nouwen llama una relación de empleado-empleador disfrazada de devoción filial.<br><br>El hijo mayor no disfrutó la herencia. No disfrutó la presencia del padre. Trabajó duro para ganarse lo que ya era suyo. Y cuando vio que la gracia del padre se dispensaba sin merecimiento, la injusticia lo paralizó. Porque si la gracia es gratis, entonces ¿para qué tanto esfuerzo?<br><br>Esa es la trampa de la autosuficiencia moral: convierte el amor de Dios en una competencia. Si el que menos hizo recibe lo mismo, entonces el esfuerzo propio pierde sentido. Y el corazón que operó desde el esfuerzo propio colapsa ante esa conclusión.<br><br>En el cuadro de Rembrandt hay una figura que permanece de pie, a la distancia, mientras el padre se inclina sobre el hijo arrodillado. Es el hijo mayor. Rembrandt lo pintó con una rigidez que contrasta dramáticamente con la ternura de la escena central. No se acerca. No abraza. Observa.<br><br>Nouwen se detiene en sus manos. Están cerradas. Apretadas sobre el bastón que sostiene. No son manos abiertas para recibir o dar; son manos crispadas sobre lo único que confía: su propio sostén.<br><br>El bastón no es un detalle decorativo. Es el símbolo de alguien que lleva tanto tiempo sosteniéndose a sí mismo que ya no sabe cómo soltarse. El hijo mayor no confía en que el padre lo sostenga, aunque ha vivido en su casa toda su vida. Ha aprendido a pararse solo. Y ese aprendizaje, que parecía virtud, se convirtió en su prisión.<br><br>Las manos cerradas no pueden recibir. Y el hijo mayor, afuera, a metros de la fiesta, con la herencia completa esperándolo adentro, no puede entrar. No porque el padre no lo invite —el padre sale a buscarlo también a él, igual que corrió tras el menor—. Sino porque sus manos no están disponibles para recibir lo que se le ofrece.<br><br>Nouwen confiesa que el hijo mayor fue su espejo más difícil. Él, que había pasado décadas sirviendo a otros, enseñando, escribiendo sobre la gracia, descubrió que por dentro vivía con la misma queja silenciosa del hijo mayor: la sensación de no haber recibido suficiente reconocimiento por tanto esfuerzo.<br><br>El resentimiento del hijo mayor es la consecuencia lógica de una identidad construida sobre el desempeño. Si tu valor depende de lo que haces, entonces cada vez que alguien sin méritos recibe lo que tú crees merecer más, la injusticia es real e insoportable. No puedes alegrarte por la gracia que se derrama sobre otros si has pasado años intentando ganarte esa misma gracia con obediencia.<br><br>El antídoto no es esforzarse más ni mejor. El antídoto es soltar el bastón. Abrir las manos. Confiar en que el padre que corrió hacia el hermano también puede sostener al hijo mayor, aunque este nunca se haya atrevido a pedirle que lo hiciera.<br><br><span class=\"inline-verse\">«Tener la razón te puede dejar solo, afuera de la fiesta, con el bastón en las manos. La pregunta no es si tienes razón. La pregunta es si puedes soltar el bastón y entrar.»</span><br><br>Esta semana, los cuatro subtemas explorarán las señales concretas de la mentalidad del hijo mayor en la vida cotidiana, la diferencia entre deber y amor como motor de la obediencia, la queja oculta que muchos creyentes llevan sin nombrarse a sí mismos, y la práctica física de soltar el control que esta semana propone.<br><br>Antes de continuar, detente en esta imagen: tú, con el bastón en las manos, afuera de la fiesta que ya empezó. ¿Qué estás apretando que no te deja entrar?",
+    anchor:"«Tener la razón te puede dejar afuera. Soltar el bastón te deja entrar.»",
+    pregunta:"¿Hay algún área de tu vida donde llevas la cuenta de lo que has dado o hecho para Dios, con una sensación silenciosa de que algo se te debe? ¿Puedes nombrarla honestamente?",
+    practica:"<em>Aplicación de la Semana:</em> Cada noche esta semana, antes de dormir, cierra los puños con fuerza sobre tus rodillas. Reconoce lo que estás aferrado: tu necesidad de control, tus juicios, tu resentimiento. Luego abre las manos y gíralas hacia arriba. Di en voz baja: «Suelto mi justicia propia. Confío en la bondad del Padre.» Permanece así un minuto.",
+    oracion:"«Padre, reconozco que a veces me he parado afuera de Tu fiesta con el bastón en las manos, convencido de que tenía razón. Hoy quiero soltar eso. No porque no duela, sino porque confío en que lo que hay adentro es mejor que lo que estoy apretando afuera. Amén.»",
+    detalle:"Detalle del cuadro: Las manos del Padre. Una fuerte que sostiene, una suave que acaricia.",
+    segs:[1,0,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 3 — El Peligro de Tener la Razón", day:"Día 2 — El servicio que se vuelve carga",
+    verse:"«Vengan a mí todos los que están cansados y llevan cargas pesadas, y yo les daré descanso. Pónganse mi yugo. Déjenme enseñarles, porque yo soy humilde y tierno de corazón, y encontrarán descanso para el alma.»",
+    ref:"— Mateo 11:28-29 (NTV)",
+    lectura:"Hay un cansancio espiritual específico que no viene de hacer demasiado, sino de hacer todo desde el lugar equivocado. Es el cansancio del hijo mayor: años de obediencia que no produjeron descanso sino acumulación de una cuenta pendiente. Sirvió, pero cada servicio se convirtió en una pieza de un argumento que un día iba a presentar.<br><br>Jesús no invitó a descansar a los que no hacían nada. Los invitó a los que cargaban demasiado. Y lo que describe como «carga pesada» no es necesariamente un pecado manifiesto; puede ser perfectamente la carga del desempeño religioso: la obligación constante de cumplir, demostrar, sostener la imagen, no fallar.<br><br>El yugo de Jesús, dice, es liviano. No porque las demandas sean menores, sino porque la carga cambia de naturaleza cuando se lleva desde el amor y no desde la deuda. Un yugo llevado por amor se siente diferente al mismo yugo llevado por miedo. El peso objetivo puede ser el mismo; la experiencia interior es completamente distinta.",
+    verdad:"El agotamiento espiritual no siempre viene de hacer demasiado. Viene de hacer lo correcto desde el lugar incorrecto: desde la obligación en lugar del amor, desde la deuda en lugar de la gratitud. El yugo de Jesús es liviano no porque pida menos, sino porque cambia la fuente.",
+    ideas:["«Hace tantos años que te sirvo» es la frase de un hombre que lleva la cuenta. El que sirve desde el amor no lleva la cuenta porque no hay deuda que saldar.","El cansancio espiritual crónico es un indicador de diagnóstico: algo en la raíz del servicio está mal orientado.","El descanso que Jesús promete no es inactividad; es una manera diferente de estar activo. Desde Su vida en nosotros, no desde nuestro esfuerzo para Él.","La pregunta correcta cuando estás cansado espiritualmente no es: ¿cómo recupero energía para seguir? Es: ¿desde dónde estoy sirviendo?","El hijo mayor podría haber descansado en cualquier momento. El padre le dijo: «todo lo mío es tuyo». Nunca reclamó ese descanso porque no creía que era suyo."],
+    anchor:"«El yugo de Jesús es liviano. Pero solo cuando lo llevas desde el amor.»",
+    pregunta:"¿Hay algo en tu vida cristiana que se ha vuelto una carga pesada? No algo pecaminoso, sino algo bueno que ya no se siente libre. ¿Puedes identificar si lo estás cargando desde el amor o desde la obligación?",
+    practica:"Toma una cosa de tu vida espiritual que hagas regularmente y que en este momento se sienta como obligación más que como expresión de amor. Esta semana, hazla muy lento, o hazla hablando con Dios sobre por qué se siente así. No para dejar de hacerla, sino para identificar honestamente desde dónde la estás haciendo.",
+    oracion:"«Señor, estoy cansado de cargar lo que quizás nunca fue mío para cargar solo. Hoy te pido que me enseñes a llevar Tu yugo contigo, no el mío solo. Muéstrame la diferencia entre la obediencia que nace del amor y la que nace del miedo. Y llévame de una a la otra.»",
+    segs:[1,1,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 3 — El Peligro de Tener la Razón", day:"Día 3 — La queja oculta",
+    verse:"«¿Por qué estás desanimado? ¿Por qué estás tan triste? Pondré mi esperanza en Dios. Nuevamente lo alabaré, ¡mi Salvador y mi Dios!»",
+    ref:"— Salmo 42:5 (NTV)",
+    lectura:"El hijo mayor tiene una queja muy específica: «nunca me has dado ni un cabrito para celebrar con mis amigos». Nunca. Esa palabra revela algo: en todos esos años de obediencia, nunca pidió. Nunca reclamó la herencia que era suya. Nunca disfrutó de la casa que habitaba. Y cuando eso sale a la luz, no sale con claridad y honestidad; sale con resentimiento y acusación.<br><br>Muchos creyentes llevan una queja parecida hacia Dios, sin nombrarla nunca en voz alta. La sienten en ciertos momentos: cuando ven a alguien menos comprometido recibir lo que ellos llevan años pidiendo. Cuando una bendición llega a alguien que «no la merece». Cuando sienten que su fidelidad no ha sido correspondida con la proporción que esperaban.<br><br>El problema con la queja oculta no es que sea pecaminosa; es que, sin nombrarse, no puede sanarse. El salmista del Salmo 42 es honesto con su desánimo: lo nombra, lo lleva ante Dios, lo convierte en diálogo. El hijo mayor, en cambio, lo guardó durante años hasta que explotó en el peor momento posible.<br><br>Dios no se ofende ante las preguntas honestas. Se ofende ante el silencio que acumula amargura. Decirle a Dios «no entiendo por qué» no es falta de fe; es la forma más honesta de relacionarse con Él como Padre.",
+    verdad:"La queja no expresada se convierte en resentimiento. Dios puede manejar tu honestidad; lo que no puede penetrar es el silencio amargo. Nombrar la decepción ante Él es una forma de confiar en que es seguro hacerlo.",
+    ideas:["Guardar una queja hacia Dios no es fe; es distancia. La fe real puede decirle a Dios: «no entiendo esto» y seguir confiando al mismo tiempo.","El hijo mayor llevó años sin pedir. Su silencio no era humildad; era desconfianza encubierta: no creía que el padre le daría lo que pedía, así que prefirió no preguntar.","La amargura espiritual casi siempre tiene una queja sin nombrar en el centro. Encontrarla no la justifica, pero sí la hace tratable.","El Salmo 42 modela algo importante: el creyente que dialoga con su propia alma, que se pregunta «¿por qué estoy así?», que lleva esa honestidad ante Dios, puede moverse. El que guarda silencio se queda atascado.","Dios no te necesita optimista. Te necesita honesto. La honestidad es el punto de partida de la sanidad."],
+    anchor:"«Dios puede manejar tu honestidad. No puede penetrar el silencio amargo.»",
+    pregunta:"¿Hay alguna queja silenciosa en tu corazón hacia Dios? Algo que sientes que te debe, algo que no entiendes, algo en lo que sientes que tu fidelidad no ha sido correspondida. Nómbrala en tu cuaderno, con la misma honestidad que el hijo mayor se la nombró al padre.",
+    practica:"Hoy, escribe una carta honesta a Dios. No una oración perfectamente redactada. Una carta en la que le cuentes lo que realmente piensas sobre una situación que no entiendes o en la que te sientes tratado injustamente. Sin filtros religiosos. Luego léela en voz alta ante Él. Puedes terminar con la frase del salmista: «Aun así, pondré mi esperanza en Ti». Pero no saltes a esa frase sin haber dicho primero lo honesto.",
+    oracion:"«Padre, hoy me atrevo a traerte lo que he estado guardando. No sé si es justo o injusto. Solo sé que está ahí. Y confío en que puedo decírtelo porque eres un Padre, no un juez. Recibe mi honestidad como lo que es: un acto de confianza en Tu carácter.»",
+    segs:[1,1,1,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 3 — El Peligro de Tener la Razón", day:"Día 4 — Soltar el bastón",
+    verse:"«Confíen en el SEÑOR con todo su corazón; no dependan de su propio entendimiento. Busquen su voluntad en todo lo que hagan, y él les mostrará cuál camino tomar.»",
+    ref:"— Proverbios 3:5-6 (NTV)",
+    lectura:"Soltar el control es el movimiento más contraintuitivo de la vida espiritual. Toda nuestra experiencia en el mundo nos enseña lo contrario: el que controla sobrevive, el que se suelta queda vulnerable. Y esa lógica, profundamente instalada, la trasladamos a nuestra relación con Dios.<br><br>El bastón del hijo mayor no era solo orgullo. Era su sistema de supervivencia. Después de tantos años de autosuficiencia, soltar el bastón implicaba admitir que nunca pudo sostenerse solo. Que todo ese tiempo en la casa del padre necesitaba al padre más de lo que reconocía. Y esa admisión es dolorosa cuando has construido tu identidad sobre ser el que no necesita ayuda.<br><br>Proverbios 3 describe una confianza que es total: «con todo tu corazón». No con la parte del corazón que ya está convencida. Con todo, incluida la parte que todavía duda, la que aún no entiende, la que querría ver el plan completo antes de soltarse. Esa confianza total no es un estado que se alcanza de golpe; es una práctica que se cultiva, momento a momento, decisión a decisión.<br><br>Soltar el bastón no significa perder el piso. Significa cambiar el apoyo. En lugar de apoyarte en tu propio entendimiento, te apoyas en Su bondad. En lugar de depender de tu capacidad de controlar los resultados, dependes de Su fidelidad. El suelo no desaparece; cambia.",
+    verdad:"La confianza en Dios no es ingenuidad; es la decisión de cambiar el apoyo. De tu entendimiento al Suyo. De tu control a Su gobierno. Soltar el bastón no te hace vulnerable; te hace disponible.",
+    ideas:["El bastón del hijo mayor era funcional. No era un mal hábito; era un sistema de supervivencia que había servido durante años. Reconocer que ya no necesitas sostenerlo solo no invalida el pasado; lo reencuadra.","Confiar «con todo el corazón» incluye las partes del corazón que todavía dudan. La confianza total no es la ausencia de dudas; es la decisión de no dejar que las dudas gobiernen.","El control que sostienes sobre tu vida espiritual no la hace más segura; la hace más pequeña. Lo que controlas no puede crecer más allá de lo que puedes controlar.","Dios no pide que entiendas el plan antes de confiar. Pide que confíes en Quien tiene el plan.","El hijo mayor tenía al padre a metros de distancia. No necesitaba el bastón. Pero nunca había probado pararse sin él."],
+    anchor:"«Hijo siempre. Nada que exigir. Todo por confiar.»",
+    pregunta:"¿Cuál es el bastón que más te cuesta soltar? ¿Tu necesidad de tener razón, tu control sobre ciertos resultados, tu imagen de creyente comprometido, tu autosuficiencia? Sé específico.",
+    practica:"Cada noche esta semana, antes de dormir, cierra los puños con fuerza sobre tus rodillas. Reconoce lo que estás aferrado: tu necesidad de control, tus juicios, tu resentimiento. Luego abre las manos y gíralas hacia arriba. Di en voz baja: «Señor, suelto mi justicia propia. Suelto mi necesidad de que las cosas sean a mi manera.» Luego abre las manos y gíralas hacia arriba. Di: «Padre, recibo Tu gracia. Confío en Tu bondad más que en mi esfuerzo. Entro en Tu descanso.»",
+    oracion:"«Padre, hoy suelto el bastón. No como un acto de fuerza, sino como un acto de fe. Reconozco que he estado sosteniéndome con algo que Tú nunca pediste que cargara solo. Que mis manos abiertas esta noche sean la señal de que confío en que Tú me sostienes.»",
+    segs:[1,1,1,1,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 3 — El Peligro de Tener la Razón", day:"Día 5 — Entrar a la fiesta",
+    verse:"«Hijo, tú siempre has estado conmigo, y todo lo que tengo es tuyo. Teníamos que celebrar este día feliz con una fiesta, porque tu hermano estaba muerto y ha vuelto a la vida; estaba perdido y ahora ha sido encontrado.»",
+    ref:"— Lucas 15:31-32 (NTV)",
+    lectura:"Las últimas palabras del padre al hijo mayor son quizás las más tiernas de toda la parábola. No lo regaña. No lo corrige con dureza. Sale a buscarlo, igual que corrió tras el menor. Y le dice algo que el hijo mayor nunca había escuchado aunque siempre fue verdad: «Todo lo que tengo es tuyo.»<br><br>No «todo lo que tienes es mío». No «todo lo que te quedé debiendo». Todo lo que tengo es tuyo. El hijo mayor llevaba años trabajando para acceder a algo que ya era suyo. La herencia, la presencia del padre, el descanso de la casa, la alegría de pertenecer. Todo estaba disponible. Nunca lo reclamó porque nunca creyó que era suyo sin merecerlo primero.<br><br>Y ahora el padre lo invita a entrar. La fiesta no es para el hermano que regresó solamente; es para toda la familia. El padre quiere que ambos estén dentro, que ambos celebren, que la historia no termine con uno adentro y otro afuera.<br><br>La parábola no nos dice si el hijo mayor entró. Jesús termina la historia con la invitación abierta. Y esa apertura es deliberada: la pregunta se la deja al oyente. ¿Entras? ¿Puedes soltar lo suficiente como para celebrar la gracia que se derramó sobre alguien que no la mereció? ¿Puedes recibir lo que siempre fue tuyo sin haber tenido que ganarlo?<br><br>Esa es la pregunta que cierra esta semana. No como condenación sino como invitación.",
+    verdad:"La fiesta no termina mientras el padre siga invitando. La pregunta no es si Dios te invita —siempre lo está haciendo. La pregunta es si puedes soltar lo que tienes en las manos para entrar con las manos vacías.",
+    ideas:["«Todo lo que tengo es tuyo» era verdad desde antes de que el hijo mayor lo escuchara. Lo que cambió no fue la realidad; fue el momento en que el padre lo verbalizó porque era necesario.","La incapacidad de alegrarse por la gracia que reciben otros es una señal directa de que todavía operamos desde la lógica del mérito.","Entrar a la fiesta es un acto de fe, no de emoción. No tienes que sentirte listo; tienes que elegir cruzar la puerta.","El padre no le pide al hijo mayor que apruebe lo que hizo. Solo le pide que entre. La comprensión puede venir después; la decisión de entrar es ahora.","La gracia que el padre derramó sobre el hijo menor es exactamente la misma que tiene disponible para el mayor. No hay menos porque uno ya la recibió."],
+    anchor:"«La invitación sigue abierta. ¿Entras?»",
+    pregunta:"¿Hay alguien en tu vida a quien le resulta difícil celebrarle sus bendiciones porque sientes que no las merece tanto como tú? ¿Puedes identificar eso como la misma reacción del hijo mayor y traerla esta semana ante el Padre?",
+    practica:"Esta semana, identifica a alguien con quien tengas esa dificultad: alguien a quien te cuesta celebrar, alguien cuya bendición te genera un nudo interno. No para fingir alegría que no sientes. Sino para hacer lo que el padre hizo: salir de la comodidad de tu posición y moverse hacia esa persona. Puede ser una palabra de aliento, un gesto, una oración por esa persona. Un movimiento pequeño pero real, en dirección contraria a la del hijo mayor que se quedó afuera.",
+    oracion:"«Padre, quiero entrar a la fiesta. No porque lo entienda todo ni porque haya soltado todo. Sino porque me llamas desde adentro y eso es suficiente razón para cruzar la puerta. Aquí voy, con las manos abiertas, sin el bastón.»",
+    segs:[1,1,1,1,1],
+    videoId:"pteWplE_anw",
+    cierreTitulo:"✦ Cierre de la Semana 3 → Puente hacia la Semana 4",
+    cierreTexto:"Esta semana te hizo mirar al hijo que nunca se fue, pero tampoco entró. El hijo mayor revela que uno puede estar cerca de la casa, hacer lo correcto, sostener la responsabilidad, y aun así vivir fuera de la fiesta.<br><br>La gracia del Padre confronta tanto al que se fue como al que se quedó. Sale al camino por el hijo menor y sale de la fiesta por el hijo mayor. A los dos les ofrece lo mismo: entrar al gozo del Padre.<br><br>La última semana no se queda solo en recibir el abrazo. La madurez de hijo consiste en reflejar lo recibido. Las manos que fueron sostenidas por el Padre están llamadas a bendecir. El camino termina mirando cómo vivir desde el amor."
+  },
+  /* W4 */
+  {
+    week:"De Regreso a Casa · Semana 4 — Vivir desde el Amor", day:"Día 1 — De recibir a reflejar",
+    verse:"«Así como el Padre me ha amado a mí, yo los he amado a ustedes. Permanezcan en mi amor.»",
+    ref:"— Juan 15:9 (NTV)",
+    semana_lectura:"Lucas 15:25-32 (The Message) — «Lee el capítulo completo una última vez. Esta vez no leas buscando lo que dice sobre ti. Léelo buscando lo que dice sobre el padre. ¿Qué revela esta historia sobre quién es Dios?»",
+    tesis:"La identidad de hijo no es un destino al que se llega; es una fuente desde la que se vive. El hijo maduro no pasa la vida pidiendo ser amado —pasa la vida expresando el amor que recibió. La Semana 4 es el movimiento desde recibir hacia reflejar.",
+    proposito:"Instalar la comprensión de que la madurez espiritual no es quedarse eternamente en el regazo del Padre, sino crecer hasta tener el mismo corazón del Padre. Esta semana no es un llamado al activismo; es la consecuencia natural de haber recibido el abrazo.",
+    lectura:"Hemos recorrido tres semanas viajando hacia el abrazo de Dios. Hemos visto cómo el hijo menor buscaba su valor fuera, en un país lejano. Hemos visto cómo el hijo mayor lo buscaba dentro, en su propio historial de obediencia. Y hemos visto cómo el Padre salió a buscar a los dos: corrió hacia el que regresaba con vergüenza y salió al patio donde el otro ardía de resentimiento.<br><br>Podría parecer que el viaje termina ahí. En el abrazo. En el regreso. En el descanso de saber que somos amados. Y es verdad que todo comienza en ese lugar. Pero Nouwen, al final de su meditación sobre el cuadro de Rembrandt, nombra un desafío que no esperaba cuando comenzó a escribir. Un amigo le confrontó con una frase que lo detuvo: «Henri, necesitas darte cuenta de que a lo que estás llamado no es a quedarte eternamente como el hijo arrodillado. Estás llamado a convertirte en el padre.»<br><br>La inmadurez espiritual no siempre se parece al hijo pródigo. A veces se parece al creyente de veinte años de fe que todavía vive esperando que alguien lo afirme, lo cuide, lo reconozca, le diga que está haciendo bien. Hay una diferencia entre ser hijo —que es una identidad eterna— y vivir permanentemente como niño espiritual que solo sabe recibir.<br><br>Pablo lo dice en 1 Corintios: hay un tiempo para la leche y hay un tiempo para el alimento sólido. Los herederos son hijos, pero también maduran. La herencia no cambia, pero la responsabilidad que viene con ella crece. El Padre del cuadro no solo abraza al hijo que regresó; lo viste, le pone el anillo, le calza las sandalias. Y esos tres gestos no son solo restauración: son comisión. Ahora tienes el uniforme de la casa, la autoridad del anillo, la libertad de las sandalias. ¿Qué harás con eso?<br><br>El llamado a «volverse el padre» no es convertirse en Dios. Es cultivar el mismo corazón del Padre: la disposición a correr hacia el que regresa, a salir al patio donde el resentido se niega a entrar, a dar sin calcular si el otro lo merece, a bendecir en lugar de acusar.<br><br>Las manos del Padre en el cuadro de Rembrandt han sido el símbolo que guió este curso semana a semana. Las vimos sostener. Las vimos consolar. Las vimos interrumpir el discurso del jornalero. Ahora, en esta última semana, las vemos desde otro ángulo: no son solo manos que reciben al hijo arrodillado. Son manos que bendicen.<br><br>Nouwen observa que la palabra bendecir —bene-dicere— significa literalmente «decir cosas buenas». El Padre no solo abraza; declara. Sus manos posadas sobre los hombros del hijo no son solo consuelo; son comisión. Le están diciendo: ahora tú también puedes hacer esto por otros.<br><br>El hijo que fue vestido, anillado y calzado no lo fue para su propio beneficio exclusivo. Lo fue para que saliera de esa casa diferente a como entró. Con el corazón del Padre. Con la capacidad de ver a los que se pierden y correr hacia ellos. Con la disposición de salir al patio donde los resentidos se niegan a celebrar.<br><br>El mundo está lleno de hijos pródigos que corren vacíos y de hermanos mayores que arden de amargura. El llamado de esta semana es entender que has sido equipado para ser hogar para ellos. No porque seas perfecto, sino porque ya conoces el abrazo.<br><br>Nouwen, meditando en el Padre del cuadro, identifica tres características que definen la identidad madura. No son técnicas ni estrategias; son posturas del corazón que se cultivan con el tiempo: la compasión —permitir que el dolor del otro te toque—; el perdón constante —que no espera que el otro lo merezca—; y la generosidad —«todo lo mío es tuyo», sin calcular lo que queda.<br><br><span class=\"inline-verse\">«No sirves para que Dios te ame. Sirves porque ya te pareces a tu Padre. Esa es la diferencia que lo cambia todo.»</span><br><br>Esta semana, los cuatro subtemas explorarán el movimiento de la niñez espiritual hacia la paternidad; la compasión como decisión de dejar que el dolor ajeno te toque; el perdón no como sentimiento sino como postura; y la práctica final del curso: la bendición secreta.<br><br>Antes de continuar, detente en esta pregunta: ¿hay alguien en tu vida que necesita que seas para él o ella lo que el Padre fue para el hijo que regresó? No el que tiene todo resuelto. Solo el que ya conoce el abrazo.",
+    anchor:"«No sirves para que Dios te ame. Sirves porque ya te pareces a tu Padre.»",
+    pregunta:"¿Hay alguien en tu vida que necesita que seas para él o ella lo que el Padre fue para el hijo que regresó? ¿Qué te detiene de moverte hacia esa persona?",
+    practica:"<em>Aplicación de la Semana:</em> Identifica una persona en tu entorno que sea difícil de amar —un «hijo pródigo» o un «hermano mayor» en tu vida. Esta semana, realiza un acto concreto de bendición hacia esa persona con una condición: debe ser secreto y no debe requerir ningún agradecimiento.",
+    oracion:"«Padre, empecé este viaje preguntándome si eras el tipo de Dios que espera con los brazos cruzados. Hoy lo sé: eres el que corre. Ahora, con estas manos que Tú llenaste, quiero aprender a dar lo que recibí. No para que me quieras más. Sino porque ya sé que me quieres así. Amén.»",
+    detalle:"Detalle del cuadro: El Padre con las manos sobre el hijo — la bendición como comisión.",
+    segs:[1,0,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 4 — Vivir desde el Amor", day:"Día 2 — La compasión como decisión",
+    verse:"«Amados amigos, sigamos amándonos unos a otros, porque el amor viene de Dios. Todo el que ama es un hijo de Dios y conoce a Dios. El que no ama no conoce a Dios, porque Dios es amor.»",
+    ref:"— 1 Juan 4:7-8 (NTV)",
+    lectura:"El padre de la parábola no analizó la situación del hijo desde la ventana. Se conmovió. The Message lo describe con esa fisicalidad que ya conocemos: «con el corazón palpitando, salió corriendo». Lo que el padre sintió no fue un análisis cálido de la situación; fue una emoción que lo movió físicamente hacia el otro.<br><br>Juan lo dice de una manera que no deja espacio para la excepción: el que ama conoce a Dios porque Dios es amor. No es que Dios tenga amor. Dios es amor. Lo que significa que cuando amamos, no solo estamos imitando un comportamiento; estamos canalizando algo de la naturaleza misma de Dios a través de nosotros.<br><br>La compasión que el padre mostró en la parábola no era una decisión racional. Era la expresión natural de quién era. Pero para nosotros, en el proceso de formación, la compasión comienza como decisión antes de volverse natural. No esperas sentirla para actuar; decides actuar y descubres que la emoción llega cuando te mueves.<br><br>Vivir desde el amor significa bajar las defensas que el mundo te enseñó a levantar. Significa permitir que el dolor ajeno aterrice en tu corazón sin que lo proceses inmediatamente como una ecuación de «¿cómo lo resuelvo?» A veces simplemente llorar con el que llora es el acto de amor más profundo que puedes ofrecer.",
+    verdad:"La compasión no es debilidad emocional; es la capacidad de dejar que la realidad del otro te importe realmente. El padre corrió porque le importaba demasiado para quedarse quieto. Ese nivel de disposición es el fruto de la identidad madura.",
+    ideas:["La compasión sin acción es sentimentalismo. La acción sin compasión es eficiencia. Lo que el padre demostró fue las dos cosas al mismo tiempo: se conmovió y actuó.","El análisis del «¿por qué le pasó esto?» suele ser una distancia segura desde la que no tienes que involucrarte emocionalmente. A veces la pregunta más compasiva no es por qué sino simplemente: ¿cómo estás?","Juan dice que el amor viene de Dios. Cuando te falta compasión por alguien, la respuesta no es esforzarte más; es volver a la fuente.","La compasión se cultiva desacelerando. Las personas que más necesitan ser vistas son las que son más fáciles de pasar por alto cuando vas rápido.","El hijo pródigo regresó porque «entró en razón». Pero lo que lo restauró no fue la razón; fue el abrazo del padre. A veces las personas no necesitan que les expliques; necesitan que las abraces."],
+    anchor:"«El padre corrió porque le importaba demasiado para quedarse quieto.»",
+    pregunta:"Cuando ves a alguien perdido —en un error, en una decisión que no entiendes, en un dolor que en parte se causó a sí mismo—, ¿cuál es tu primera reacción interna: el análisis del hermano mayor o la compasión del padre? ¿Qué revela eso?",
+    practica:"Hoy, cuando te encuentres con alguien que está pasando algo difícil —aunque sea una incomodidad menor—, practica esto: antes de ofrecer una solución o un consejo, haz una sola pregunta: «¿Cómo estás con eso?» Y luego cállate y escucha. Sin soluciones inmediatas. Solo presencia.",
+    oracion:"«Padre, ablanda las partes de mi corazón que se han endurecido por protegerme. Quiero que el dolor de las personas que amo me llegue de verdad, no que rebote en una coraza. Haz de mí alguien que puede llorar con el que llora y reír con el que ríe. Amén.»",
+    segs:[1,1,0,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 4 — Vivir desde el Amor", day:"Día 3 — El perdón no es un sentimiento",
+    verse:"«Más bien, sean bondadosos y compasivos unos con otros, y perdónense mutuamente, así como Dios los perdonó a ustedes en Cristo.»",
+    ref:"— Efesios 4:32 (NTV)",
+    lectura:"El padre perdonó al hijo menor antes de que terminara su discurso de arrepentimiento. Y salió al patio a buscar al mayor aunque este lo estaba acusando injustamente. En ninguno de los dos casos esperó a sentir que «estaba listo» para perdonar. En ninguno de los dos casos el perdón dependió de si el hijo lo merecía.<br><br>Pablo en Efesios establece el modelo: perdónense mutuamente, así como Dios los perdonó en Cristo. El «así como» es el estándar. Y el estándar es el perdón que no esperó que mereciéramos nada, que se entregó mientras todavía éramos enemigos.<br><br>Esto confronta directamente la idea más común sobre el perdón: que es un sentimiento que llega cuando estás listo, cuando el tiempo ha sanado suficiente, cuando la otra persona ha demostrado que cambió. Pero el perdón bíblico no está condicionado a ninguna de esas cosas. Es una decisión que se toma antes de sentirla y que va creando el espacio para que el sentimiento llegue después.<br><br>Nouwen lo describe como «saltar el muro» de tus propios argumentos. Tus argumentos pueden ser completamente válidos. Puedes tener toda la razón sobre quién hizo qué y quién debería disculparse primero. Y aun así, el muro de esos argumentos es lo que te mantiene afuera de la libertad que el perdón produce. Saltar ese muro no es justo. Es gracia.",
+    verdad:"El perdón no es un sentimiento que aparece cuando estás listo; es una decisión que se toma antes de estarlo. No libera al otro de su responsabilidad; te libera a ti del peso de cargarla.",
+    ideas:["El perdón no niega que algo malo pasó. Lo que niega es que ese algo malo tenga el derecho de definir el futuro de la relación.","Perdonar no significa restaurar automáticamente la confianza. La confianza se reconstruye con el tiempo; el perdón es la decisión de no retener la deuda.","El resentimiento que no se perdona no daña al otro; te daña a ti. Cargar una ofensa durante años pesa sobre el que la carga, no sobre el que la causó.","El padre del cuadro perdonó al hijo mayor incluso mientras este lo acusaba injustamente. No esperó a que el mayor reconociera que estaba equivocado para salir a buscarlo.","El perdón completo puede tardar. La decisión de perdonar no. Y esa decisión, repetida cada vez que el dolor vuelve, es lo que hace que el proceso avance."],
+    anchor:"«El perdón no espera el sentimiento. El sentimiento llega después de la decisión.»",
+    pregunta:"¿Hay alguien a quien no has perdonado todavía? ¿Estás esperando sentirte listo, o esperando que esa persona reconozca lo que hizo? ¿Qué pasaría si tomaras la decisión de perdonar esta semana, independientemente de los sentimientos?",
+    practica:"Escribe el nombre de una persona a quien te cuesta perdonar. Luego escribe esta frase con su nombre incluido: «Elijo no retener más la deuda de [nombre] contra mí. No porque lo que hizo esté bien. Sino porque el Padre no retuvo la mía.» Lee esa frase en voz alta. No una vez: tres veces. Y si el dolor regresa mañana, repite la decisión. El perdón es una dirección, no un destino al que se llega de una vez.",
+    oracion:"«Padre, hoy elijo soltar una deuda que he estado cargando. No porque sea fácil. Porque Tú soltaste la mía cuando era impagable. Ayúdame a cruzar este muro aunque no sienta que estoy listo. La decisión es ahora. Los sentimientos que vengan después.»",
+    segs:[1,1,1,0,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 4 — Vivir desde el Amor", day:"Día 4 — La generosidad sin cálculo",
+    verse:"«Den, y recibirán. Lo que den a otros les será devuelto por completo: apretado, sacudido para que haya lugar para más, desbordante y derramado sobre el regazo. La cantidad que den determinará la cantidad que recibirán a cambio.»",
+    ref:"— Lucas 6:38 (NTV)",
+    lectura:"«Todo lo que tengo es tuyo.» El padre del cuadro lo dijo sin pensarlo dos veces, sin calcular el inventario de lo que le quedaba, sin evaluar si el hijo mayor lo merecía después de su reacción. Simplemente lo dijo. Porque eso es lo que el amor hace cuando está maduro: da sin llevar la cuenta de lo que queda.<br><br>La generosidad del Padre en la parábola no es la de alguien que tiene mucho y puede darse el lujo. Es la de alguien cuya naturaleza es dar. Dar es lo que hace antes de que alguien lo pida. Dar es lo que hace cuando el que recibe no lo merece. Dar es lo que hace porque no puede hacer otra cosa: es lo que es.<br><br>Lucas 6 lo pone en un contexto práctico: la generosidad que das determina la generosidad que experimentas. No como una fórmula mágica de retorno económico. Sino porque el corazón generoso vive en un mundo diferente al del corazón tacaño. El primero ve oportunidades de dar en todas partes. El segundo vive en escasez aunque tenga suficiente.<br><br>La generosidad del hijo maduro no es solo económica. Es generosidad de tiempo, de atención, de presencia. En un mundo donde todos están ocupados y la atención es el recurso más escaso, sentarse con alguien sin mirar el reloj es un acto profundamente generoso. Dar tu presencia completa a otra persona es dar lo que el Padre da: Él mismo.",
+    verdad:"La generosidad madura no nace del cálculo sino del desbordamiento. Cuando el amor del Padre te ha llenado, lo que das a otros no es lo que te sobra; es lo que naturalmente fluye de una copa llena.",
+    ideas:["La generosidad del hijo inmaduro da para recibir. La del hijo maduro da porque ya recibió. Son gestos que desde afuera se parecen pero desde adentro son completamente distintos.","El hijo mayor tenía acceso a toda la herencia del padre. La escasez con la que vivía no era económica; era una escasez de identidad. Se sentía pobre aunque era rico.","Dar tiempo y presencia completa es la forma de generosidad más contracultural que existe hoy. Es también la que más necesitan las personas a tu alrededor.","La generosidad fluye naturalmente cuando sabes que tienes suficiente. El que vive en escasez de identidad no puede dar libremente porque siente que lo que da se lo quita a sí mismo.","El padre dijo «todo lo mío es tuyo» antes de que el hijo mayor pidiera nada. La generosidad proactiva —la que no espera que te la pidan— es la señal de la identidad más madura."],
+    anchor:"«Da desde la plenitud. Lo que fluye desbordante no agota la copa.»",
+    pregunta:"¿En qué área de tu vida eres más tacaño: tiempo, dinero, atención, elogio, presencia? ¿Esa tacañería viene de una escasez real o de una escasez de identidad —la sensación de que lo que das te lo quitas a ti?",
+    practica:"Esta semana, elige una persona en tu vida que necesite tu presencia más que tus consejos. Aparta tiempo específico para estar con ella sin distracciones: sin teléfono, sin apuro, sin agenda oculta. Solo presencia. Deja que eso cuente como tu acto de generosidad más importante de la semana, aunque no le des nada material.",
+    oracion:"«Padre, llena mi copa primero. Que lo que dé a otros esta semana sea desbordamiento de lo que Tú me diste, no el esfuerzo de quien da desde el vacío. Hazme generoso no porque sea virtuoso sino porque estoy lleno de Ti.»",
+    segs:[1,1,1,1,0]
+  },
+  {
+    week:"De Regreso a Casa · Semana 4 — Vivir desde el Amor", day:"Día 5 — Manos que bendicen — La bendición secreta",
+    verse:"«Así como el Padre me ha amado a mí, yo los he amado a ustedes. Permanezcan en mi amor.»",
+    ref:"— Juan 15:9 (NTV)",
+    lectura:"Las manos del Padre en el cuadro de Rembrandt han acompañado todo este recorrido. Las vimos sostener al hijo arrodillado con una fuerza que no cede y una ternura que no endurece. Las vimos interrumpir el discurso del jornalero antes de que terminara. Las vimos extendidas hacia el hijo mayor en el patio, invitando a entrar.<br><br>Ahora, en el último día de este curso, las vemos desde el ángulo final: manos que bendicen. Nouwen observa que en el cuadro, las manos del padre posadas sobre el hijo no son solo consuelo; son comisión. La postura del padre transmite algo que va más allá del abrazo: le está pasando algo al hijo que estaba arrodillado.<br><br>La bendición, en el lenguaje bíblico, no es solo buenos deseos. Es la declaración de lo que alguien es y para lo que fue hecho. Cuando el padre bendice al hijo con sus manos, le está diciendo: ahora llevas la marca de esta casa. Ahora hablas en nombre de este hogar. Ahora lo que haces refleja quién te crió.<br><br>Juan 15 lo dice en el vocabulario de Jesús: así como el Padre me amó, yo los amé a ustedes. El amor no se origina en nosotros; fluye desde el Padre, pasa por Jesús, llega a nosotros, y desde nosotros debería seguir fluyendo. Es una corriente, no un charco. No acumulas ese amor para ti; lo recibes para darlo.<br><br>El acto de bendecir a otros es el gesto más parecido al Padre que podemos hacer. No requiere poder, recursos ni posición. Requiere haber recibido el abrazo el tiempo suficiente como para querer darlo. Y eso, exactamente eso, es lo que estas cuatro semanas han estado preparando.",
+    verdad:"La identidad de hijo madura cuando deja de preguntar «¿me aman?» y empieza a decir «te amo». Ese movimiento —de recibir a reflejar— es el trayecto completo de este curso resumido en un gesto.",
+    ideas:["Bendecir a alguien no requiere que te lo agradezca. El padre bendijo al hijo que regresó sin esperar nada. Y salió a buscar al que se negaba a entrar sin garantía de que lo recibiría bien.","La bendición más poderosa que puedes dar no siempre es verbal. A veces es presencia, tiempo, atención, acción. Un acto que le dice a alguien: vales lo suficiente como para que yo te dedique esto.","La «bendición secreta» —el acto que nadie sabe, que no espera retorno— es la prueba más honesta de si estás dando desde el amor o desde la expectativa de reconocimiento.","Quien no ha recibido el abrazo del Padre no puede dar el abrazo del Padre. La fuente importa. Por eso las cuatro semanas empezaron donde empezaron: en el regreso, en el abrazo, en las manos.","Este no es el final del camino; es el comienzo de la siguiente etapa. La identidad de hijo que se formó aquí es la plataforma desde la que todo lo demás se construye."],
+    anchor:"«Manos que bendicen. Nada que pedir. Todo por entregar.»",
+    pregunta:"¿A quién puedes bendecir esta semana de una manera que sea completamente secreta, que no requiera agradecimiento y que no cuente con ningún retorno? ¿Qué te dice tu respuesta a esa pregunta sobre el estado de tu identidad de hijo?",
+    practica:"Identifica una persona en tu entorno que sea difícil de amar, que no te caiga bien, o que sientas que no merece tu bondad. Puede ser un «hijo pródigo» o un «hermano mayor» en tu vida. Realiza un acto concreto de bendición hacia esa persona esta semana con una condición: debe ser secreto y no debe requerir agradecimiento. Algunas opciones: orar por ella cinco minutos al día durante toda la semana; enviar un regalo o gesto anónimo; hablar bien de ella a sus espaldas —bendecirla cuando no está; hacer una tarea que le correspondía a ella sin decírselo. Observa qué sucede en tu corazón al hacerlo.",
+    oracion:"«Padre, empecé este viaje preguntándome si eras el tipo de Dios que espera con los brazos cruzados. Hoy lo sé: eres el que corre. Empecé sin saber bien si podía pertenecer a tu casa sin merecerlo. Hoy tengo el vestido puesto, el anillo en el dedo y las sandalias calzadas. No porque me los gané. Porque los recibí. Y ahora, con estas manos que Tú llenaste, quiero aprender a dar lo que recibí. No para que me quieras más. Sino porque ya sé que me quieres así. Y eso es suficiente para empezar a vivir diferente. Amén.»",
+    segs:[1,1,1,1,1],
+    videoId:"h0_9sExm9Sg"
+  }
+];
+
+
+var swsPasajes = ["<div style='margin-bottom:20px'><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:12px'>MSG — Eugene Peterson · Traducción al español</div><p style='margin-bottom:8px'><strong>1</strong> Para ese entonces, muchos hombres y mujeres de dudosa reputación andaban rondando a Jesús, escuchándolo con atención.<br><strong>2</strong> Los fariseos y los maestros de la religión no estaban complacidos, para nada complacidos. Refunfuñaban: «Él recibe a los pecadores y come con ellos, tratándolos como si fueran viejos amigos.»<br><strong>3</strong> Sus murmuraciones dispararon esta historia.<br><strong>4</strong> «Supongan que uno de ustedes tiene cien ovejas y pierde una. ¿No dejaría las noventa y nueve en el desierto para ir a buscar la que se perdió hasta encontrarla?<br><strong>5</strong> Cuando la encuentra, pueden estar seguros de que se la echaría sobre los hombros, lleno de alegría,<br><strong>6</strong> y al llegar a casa llamaría a sus amigos y vecinos diciéndoles: ¡Celebren conmigo! ¡Encontré mi oveja perdida!<br><strong>7</strong> Cuéntenlo seguro — hay más alegría en el cielo por la vida rescatada de un pecador que por noventa y nueve personas buenas que no necesitan que las rescaten.<br><strong>8</strong> «O imaginen a una mujer que tiene diez monedas y pierde una. ¿No encendería una lámpara y barrearía la casa, buscando en cada rincón hasta encontrarla?<br><strong>9</strong> Y cuando la encuentra, pueden estar seguros de que llamará a sus amigas y vecinas: ¡Celebren conmigo! ¡Encontré mi moneda perdida!<br><strong>10</strong> Cuéntenlo seguro — esa es la clase de fiesta que los ángeles de Dios arman cada vez que un alma perdida se vuelve a Dios.»</p></div><hr style='border:none;border-top:1px solid var(--border);margin:20px 0'><div><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:16px'>✦ Joyas de la MSG</div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 1 — Versículo 1</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Hombres y mujeres de dudosa reputación andaban rondando a Jesús, escuchándolo con atención.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Las traducciones tradicionales dicen «pecadores y publicanos se acercaban a él» — correcto pero plano. Peterson hace dos cosas que las traducciones no hacen. Primero, «de dudosa reputación» tiene una textura social que «pecadores» ha perdido por el uso litúrgico: nos recuerda que estas son personas con historia, con rumores que los preceden, con puertas que se cierran cuando entran. Segundo, «rondando» captura la informalidad magnética de la presencia de Jesús: no hay un culto formal ni sistema de admisión. La gente simplemente gravita hacia él. Y «escuchándolo con atención» es el detalle que lo rompe todo: los de afuera son los que más quieren escuchar.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 2 — Versículo 2</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Refunfuñaban.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Una sola palabra, y es la joya más pequeña y más afilada del pasaje. Las traducciones clásicas dicen «murmuraban» o «se quejaban.» Peterson escoge gruñían — el sonido de un animal que percibe una amenaza en su territorio. No es una queja intelectual ni un debate teológico; es una reacción visceral, casi instintiva. El sistema religioso siente que algo en su mundo está siendo violado, y el sonido que produce no es el de la razón sino el del instinto de defensa. La hostilidad farisea no era fría ni calculada. Era caliente, animal, territorial.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 3 — Versículo 3</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Sus murmuraciones dispararon esta historia.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>El griego dice simplemente «les dijo esta parábola.» Peterson convierte esa transición neutral en una imagen de causa y efecto con tensión física: disparó, detonó. No es que Jesús decidiera enseñar sobre la gracia ese día; es que la hostilidad religiosa funcionó como gatillo. La murmuración de los fariseos no interrumpió el ministerio de Jesús; lo provocó. Las parábolas de Lucas 15 no nacen en el aula; nacen en el conflicto. No son lindas historias sobre ovejas — son respuestas de guerra a una teología que excluye.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 4 — Versículo 7</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Hay más alegría en el cielo por la vida rescatada de un pecador que por noventa y nueve personas buenas que no necesitan que las rescaten.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Las traducciones clásicas hablan de «un pecador que se arrepiente.» Peterson expande eso: «la vida rescatada de un pecador.» No es solo un acto puntual de arrepentimiento; es una vida entera que ha sido sacada de un lugar de peligro. «Rescatada» tiene urgencia física — implica que había un peligro real, que alguien actuó, que el resultado es vida donde había amenaza de muerte. Y el contraste con «personas buenas que no necesitan que las rescaten» deja abierta una pregunta incómoda: ¿es que realmente no lo necesitan, o es que creen que no lo necesitan?</div></div><div style='padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 5 — Versículo 10</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Esa es la clase de fiesta que los ángeles de Dios arman cada vez que un alma perdida se vuelve a Dios.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>«Habrá gozo delante de los ángeles de Dios» dice la Reina Valera — correcta, solemne, distante. Peterson hace algo distinto: los ángeles no presencian el gozo, lo organizan. Armar una fiesta es el lenguaje de alguien que pone la música, mueve los muebles, llama a los amigos. El cielo no es un auditorio de observadores reverentes; es una sala que estalla en celebración activa, desordenada, ruidosa. Y «cada vez» subraya que esto no es un evento especial de temporada; es el patrón normal del cielo. Lo que queda flotando es una pregunta incómoda para cualquier comunidad religiosa seria: si el cielo celebra así, ¿por qué nosotros refunfuñamos?</div></div></div>","<div style='margin-bottom:20px'><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:12px'>MSG — Eugene Peterson · Traducción al español</div><p style='margin-bottom:8px'><strong>11</strong> Entonces dijo: «Había una vez un hombre que tenía dos hijos.<br><strong>12</strong> El menor le dijo a su padre: Padre, quiero ahora mismo lo que me corresponde. El padre dividió los bienes entre ellos.<br><strong>13</strong> No pasó mucho tiempo antes de que el hijo menor empacara sus cosas y se fuera a un país lejano. Allá, sin disciplina y desenfrenado, despilfarró todo lo que tenía.<br><strong>14</strong> Después de haber gastado todo su dinero, hubo una gran hambruna en todo ese país y comenzó a pasar necesidad.<br><strong>15</strong> Se contrató con un ciudadano de allá, quien lo mandó a sus campos a darles de comer a los cerdos.<br><strong>16</strong> Tenía tanta hambre que hubiera comido las mazorcas que había en el lodo de los cerdos, pero nadie le daba nada.<br><strong>17</strong> Eso lo hizo volver en sí. Dijo: Todos esos jornaleros que trabajan para mi padre se sientan a comer tres veces al día, y yo aquí muriéndome de hambre.<br><strong>18</strong> Voy a volver donde mi padre. Le diré: Padre, he pecado contra Dios, he pecado ante ti;<br><strong>19</strong> ya no merezco que me llamen tu hijo. Tómame como a uno de tus jornaleros.»</p></div><hr style='border:none;border-top:1px solid var(--border);margin:20px 0'><div><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:16px'>✦ Joyas de la MSG</div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 1 — Versículo 12</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Padre, quiero ahora mismo lo que me corresponde.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Las traducciones clásicas dicen «dame la parte de los bienes que me corresponde» — una petición formal, casi jurídica. Peterson la comprime en una frase sin protocolo ni distancia: quiero ahora mismo. El adverbio lo cambia todo. No es una solicitud, es una demanda con impaciencia incorporada. Y «lo que me corresponde» preserva la frialdad contractual de quien convierte una relación en una transacción. El hijo no está pidiendo libertad; está cobrando una deuda a un padre que todavía está vivo. En la cultura del honor mediterráneo del siglo I, esto era equivalente a desear la muerte del padre en voz alta.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 2 — Versículo 13</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Sin disciplina y desenfrenado, despilfarró todo lo que tenía.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>El griego usa asōtōs — «perdidamente» o «en vida licenciosa.» Peterson elige dos palabras que funcionan como un diagnóstico en dos niveles: sin disciplina apunta a la causa interna (ausencia de estructura, de un centro que organice la voluntad), y desenfrenado apunta al efecto externo (dispersión, disolución, energía derramada sin dirección). No es simplemente que el joven peque; es que se deshace. La ruina del pródigo no fue principalmente moral sino antropológica: un ser humano sin formación interior que, al quedar libre de toda contención externa, se fragmenta.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 3 — Versículo 14</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Comenzó a pasar necesidad.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>El griego dice hustereisthai — carecer, estar en falta. Las traducciones lo rinden como «le faltó todo» o «comenzó a sufrir necesidad.» Pero Peterson en el inglés escoge «he began to hurt» — comenzó a doler. Una sola palabra con cuerpo físico. El hambre duele. El abandono duele. La consecuencia del pecado no es solo una posición jurídica de culpabilidad ante Dios; es algo que se siente en el estómago. Peterson insiste en que la teología tiene temperatura corporal. Esta frase abre la puerta a todas las personas que conocen ese dolor desde adentro — no como concepto sino como experiencia vivida.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 4 — Versículo 17</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Eso lo hizo volver en sí.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>El griego eis heauton de elthōn — «habiendo vuelto a sí mismo» — es una de las frases más ricas del pasaje. Peterson preserva la dimensión física: volver en sí implica que antes estaba fuera de sí — como alguien en trance, operando desde una irrealidad que el hambre finalmente rompe. El arrepentimiento del pródigo no empieza con una oración ni con una decisión teológica; empieza con el olor de los cerdos y el vacío del estómago. El pecado, en la teología narrativa de Lucas 15, no es principalmente desobediencia consciente; es una forma de locura que solo el sufrimiento consigue interrumpir.</div></div><div style='padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 5 — Versículos 18–19</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>He pecado contra Dios, he pecado ante ti; ya no merezco que me llamen tu hijo. Tómame como a uno de tus jornaleros.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>El discurso preparado del pródigo merece leerse como lo que es: un guión de negociación, no una confesión de amor. Hay arrepentimiento genuino en la primera línea, pero la propuesta que sigue es todavía transaccional: tómame como jornalero. El muchacho no está pidiendo ser recibido como hijo; está ofreciendo un contrato de trabajo. Ha bajado sus expectativas pero no ha abandonado la lógica del mérito: si no puedo reclamar herencia, al menos puedo ofrecer servicios. Lo que el versículo 20 revelará de golpe es que el padre va a interrumpir ese discurso antes de que llegue a la propuesta laboral. La gracia no espera que terminemos de negociar.</div></div></div>","<div style='margin-bottom:20px'><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:12px'>MSG — Eugene Peterson · Traducción al español</div><p style='margin-bottom:8px'><strong>20</strong> Se levantó y volvió donde su padre. Cuando todavía estaba lejos, su padre lo vio. Con el corazón acelerado, salió corriendo, lo abrazó y lo besó.<br><strong>21</strong> El hijo empezó su discurso: «Padre, he pecado contra Dios, he pecado ante ti; ya no merezco que me llamen tu hijo.»<br><strong>22</strong> Pero el padre no estaba escuchando. Le estaba diciendo a los siervos: «Rápido. Tráiganle ropa limpia y vístandlo. Pónganle el anillo de la familia en el dedo y sandalias en los pies.<br><strong>23</strong> Luego consigan una novilla engordada y ástenla. ¡Vamos a festejar! ¡Vamos a pasarla de maravilla!<br><strong>24</strong> ¡Mi hijo está aquí — dado por muerto y ahora vivo! ¡Dado por perdido y ahora encontrado!» Y comenzaron a pasarla de maravilla.</p></div><hr style='border:none;border-top:1px solid var(--border);margin:20px 0'><div><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:16px'>✦ Joyas de la MSG</div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 1 — Versículo 20</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Con el corazón acelerado, salió corriendo, lo abrazó y lo besó.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Las traducciones clásicas dicen que el padre «fue movido a misericordia» — teológicamente preciso, emocionalmente aséptico. Peterson hace algo diferente: con el corazón acelerado, latiendo a golpes. No es misericordia abstracta; es una respuesta física de un padre que lleva días mirando hacia el camino. Y la secuencia de verbos — corrió, abrazó, besó — tiene la cadencia de quien no puede detenerse a mitad del camino. Tres acciones sin pausa, sin condición, sin esperar que el discurso preparado sea pronunciado primero. La gracia del padre se mueve más rápido que el arrepentimiento del hijo. Eso no es un detalle menor; es la teología central del evangelio expresada en la velocidad de las piernas de un hombre viejo corriendo por un camino polvoriento.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 2 — Versículo 21</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>El hijo empezó su discurso.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>No dice «el hijo dijo» ni «respondió»; dice empezó su discurso. La palabra discurso carga con la connotación de algo preparado, ensayado, calculado. El lector ya sabe que este muchacho lleva días practicando estas palabras mientras revolvía el lodo de los cerdos. Tiene un guión, tiene una estrategia. Y empezó implica que no terminó. La gracia del padre no espera el final del discurso — entra en la mitad de la primera oración y cambia todos los términos de la conversación. Predicar desde esta palabra es predicar sobre un Dios que interrumpe nuestras negociaciones antes de que las terminemos.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 3 — Versículo 22</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Pero el padre no estaba escuchando.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Posiblemente la línea más escandalosa de todo el pasaje — y casi siempre se predica demasiado rápido. Las traducciones formales pasan directamente a las instrucciones sobre la ropa como si fuera un detalle de transición. Peterson lo detiene en una frase corta e independiente: pero el padre no estaba escuchando. Punto. El padre — que representa a Dios — no está escuchando el discurso de arrepentimiento porque ya está ocupado organizando la fiesta. La restauración está en marcha antes de que la confesión esté completa. Eso no es teología descuidada; es gracia en su forma más pura y más perturbadora.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 4 — Versículo 22 (continuación)</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Ropa limpia. El anillo de la familia. Sandalias en los pies.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Cada uno de estos tres gestos tiene peso cultural específico. La ropa limpia cubre la vergüenza visible — el padre no pide que se bañe primero ni que explique su estado. El anillo de la familia es la firma, la autoridad, la identidad legal: ponérselo al hijo que acaba de despilfarrar la herencia es reinstalarlo como heredero con plena autoridad antes de que haya producido un solo día de trabajo en señal de restitución. Y las sandalias completan la imagen: los esclavos iban descalzos, los hijos libres llevaban sandalias. El padre no lo está recibiendo como jornalero — que era exactamente lo que el hijo venía a proponer.</div></div><div style='padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 5 — Versículos 23–24</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>¡Mi hijo está aquí — dado por muerto y ahora vivo! ¡Dado por perdido y ahora encontrado!</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Peterson convierte el clímax en una explosión de exclamaciones que las traducciones solemnes aplastan. Cuatro frases. Cuatro exclamaciones. Un padre que grita antes de que nadie le haya dado permiso para gritar. Y las dos antítesis — muerto/vivo, perdido/encontrado — no son metáforas decorativas; son la teología de la resurrección anunciada antes de la cruz. Lucas usa aquí el mismo vocabulario que usará para hablar de la resurrección de Jesús. El retorno del hijo no es simplemente una reconciliación familiar emotiva; es una resurrección en miniatura. Y la respuesta apropiada a una resurrección, según el padre, no es una reunión sobria y reflexiva. Es una fiesta con carne asada, música y una alegría que no puede contenerse.</div></div></div>","<div style='margin-bottom:20px'><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:12px'>MSG — Eugene Peterson · Traducción al español</div><p style='margin-bottom:8px'><strong>25</strong> Todo este tiempo su hijo mayor estaba en el campo. Cuando terminó el trabajo del día entró a la casa. Al acercarse, escuchó la música y el baile.<br><strong>26</strong> Llamó a uno de los muchachos de la casa y le preguntó qué estaba pasando.<br><strong>27</strong> Él le dijo: «Tu hermano llegó a casa. Tu padre mandó a hacer un festín — ¡carne asada a las brasas! — porque lo tiene de vuelta sano y salvo.»<br><strong>28</strong> El hermano mayor se fue hecho una furia y se negó a entrar. Su padre salió y trató de hablar con él, pero él no quería escuchar.<br><strong>29</strong> El hijo dijo: «Mira cuántos años llevo aquí sirviéndote, sin darte un solo momento de disgusto, ¿pero alguna vez me has hecho una fiesta a mí y a mis amigos?<br><strong>30</strong> ¡Entonces llega este hijo tuyo que tiró tu dinero con prostitutas y tú te desbordes con un festín!»<br><strong>31</strong> Su padre dijo: «Hijo, no entiendes. Tú estás conmigo todo el tiempo, y todo lo que es mío es tuyo —<br><strong>32</strong> pero este es un momento maravilloso y teníamos que celebrar. Este hermano tuyo estaba muerto, ¡y está vivo! ¡Estaba perdido, y fue encontrado!»</p></div><hr style='border:none;border-top:1px solid var(--border);margin:20px 0'><div><div style='font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:16px'>✦ Joyas de la MSG</div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 1 — Versículo 25</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Todo este tiempo su hijo mayor estaba en el campo.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>La frase es temporal antes de ser espacial: todo este tiempo. No simplemente «el hijo mayor estaba en el campo» sino que ha estado allí durante toda la escena anterior — el regreso, la carrera del padre, el abrazo, el anillo, la fiesta ya comenzada. El hermano mayor no estaba donde ocurrió el milagro porque nunca está donde ocurren los milagros — está donde se cumple con la obligación. Y esa sola frase anticipa todo el conflicto que viene: hay dos historias ocurriendo simultáneamente en la misma propiedad, y solo una de ellas sabe que hay razón para celebrar.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 2 — Versículo 28</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>El hermano mayor se fue hecho una furia y se negó a entrar.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>La Reina Valera dice «entonces se enojó y no quería entrar» — correcto pero plano. Peterson usa se fue hecho una furia — ese paso duro y pesado de quien está furioso y quiere que todos lo noten. Y «berrinche silencioso» añade la dimensión infantil del resentimiento: el modelo de madurez y responsabilidad responde a la gracia del padre con la misma rabieta emocional que un niño a quien no le dieron lo que quería. Además, se negó a entrar es una decisión activa, no una reacción pasiva. La puerta de la fiesta estaba abierta para él exactamente igual que para su hermano. La diferencia es que uno entró corriendo y el otro se plantó afuera.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 3 — Versículos 29–30</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Mira cuántos años llevo aquí sirviéndote. ¡Entonces llega este hijo tuyo!</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Tres detalles sin suavizar. Primero, sirviéndote es la misma palabra que el pródigo usó en su plan de regreso: «tómame como jornalero.» El hermano mayor ha estado viviendo exactamente la vida que el pródigo vino a proponer como castigo — para él, la relación con el padre siempre fue una transacción laboral, no una filiación. Segundo, «sin darte un solo momento de disgusto» es la queja de alguien que lleva años contando sus buenas acciones como depósitos en una cuenta. La obediencia no nació del amor; nació de la expectativa de retribución. Tercero, «este hijo tuyo» — no «mi hermano» — corta el vínculo fraternal con una sola construcción gramatical y devuelve el problema al padre como si fuera responsabilidad exclusiva suya.</div></div><div style='margin-bottom:16px;padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 4 — Versículo 31</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Hijo, no entiendes. Tú estás conmigo todo el tiempo, y todo lo que es mío es tuyo.</div><div style='font-size:13px;color:var(--text);line-height:1.75'>«No entiendes» no es un reproche sino un diagnóstico compasivo. El padre no está enojado; está entristecido. Y lo que sigue es quizás la revelación más perturbadora de toda la parábola: el hermano mayor lleva años creyendo que trabaja para ganarse algo que ya le pertenecía. Ha vivido como jornalero en la casa de su propio padre. La fiesta que nunca nadie le hizo estaba disponible en cualquier momento; solo tenía que pedirla. La tragedia del hermano mayor no es que el padre lo haya tratado injustamente. Es que nunca supo que era hijo. Estuvo adentro toda su vida sintiéndose afuera.</div></div><div style='padding:14px 16px;background:rgba(200,168,75,.05);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0'><div style='font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px'>JOYA 5 — Versículo 32</div><div style='font-size:12px;font-style:italic;color:var(--muted);margin-bottom:8px'>Teníamos que celebrar. Este hermano tuyo estaba muerto, ¡y está vivo!</div><div style='font-size:13px;color:var(--text);line-height:1.75'>Dos detalles finales. Primero: teníamos que celebrar — no «quisimos» ni «decidimos». Era una necesidad, una obligación del corazón que no podía no ocurrir. La alegría del padre no es opcional ni discrecional; es tan inevitable como el llanto ante la muerte. Segundo: «este hermano tuyo» — el padre hace exactamente lo contrario que hizo el hermano mayor. El hermano dijo «este hijo tuyo» para cortar el vínculo; el padre dice «este hermano tuyo» para restaurarlo. Con la misma construcción gramatical, en sentido inverso. La parábola no termina con el pródigo adentro y el fariseo afuera. Termina con el padre parado en el umbral, con una mano hacia la fiesta y otra extendida hacia el hijo que todavía no sabe que también es bienvenido.</div></div></div>"];
+
+var currentDay = 0;
+var weekStarts = [0,5,10,15];
+var weekTabIds = ['tab-w1','tab-w2','tab-w3','tab-w4'];
+
+function goTab(name, btn) {
+  document.querySelectorAll('.s-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.wk-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goWeek(wIdx, btn) {
+  var unlocked = unlockedDays();
+  var firstDay = weekStarts[wIdx];
+  /* Si la semana completa no ha empezado aún, mostrar primer día bloqueado */
+  var targetDay = (firstDay < unlocked) ? firstDay : firstDay;
+  document.querySelectorAll('.s-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-day').classList.add('active');
+  document.querySelectorAll('.wk-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  loadDay(targetDay);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function loadDay(idx) {
+  if(idx<0) idx=0;
+  if(idx>19) idx=19;
+  currentDay = idx;
+  var unlocked = unlockedDays();
+  var dayContent = document.getElementById('dayContent');
+  var lockedState = document.getElementById('lockedState');
+
+  /* Sync progress strip and nav arrows regardless of lock state */
+  var d = swsDays[idx];
+  document.getElementById('dayWeekLabel').textContent = d.week;
+  document.getElementById('dayTitle').textContent = d.day;
+  for(var i=0;i<5;i++){
+    var el=document.getElementById('ds'+i);
+    el.className='ds-seg';
+    if(d.segs[i]===1){
+      var isLast=(i===4)||(i<4&&d.segs[i+1]===0);
+      el.classList.add(isLast?'now':'done');
+    }
+  }
+  document.getElementById('btnPrev').disabled=(idx===0);
+  document.getElementById('btnNext').disabled=(idx===19);
+  /* sync week tab */
+  var wIdx=Math.floor(idx/5);
+  document.querySelectorAll('.wk-tab').forEach(t=>t.classList.remove('active'));
+  var tabEl = document.getElementById(weekTabIds[wIdx]);
+  if(tabEl) tabEl.classList.add('active');
+
+  /* LOCKED */
+  if (idx >= unlocked) {
+    dayContent.style.display = 'none';
+    lockedState.style.display = 'block';
+    var unlockDate = unlockDateFor(idx);
+    var days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    var label = 'Disponible el ' + days[unlockDate.getDay()] + ' ' + unlockDate.getDate() + ' de ' + months[unlockDate.getMonth()];
+    document.getElementById('lockedDateLabel').textContent = label;
+    return;
+  }
+
+  /* UNLOCKED */
+  dayContent.style.display = 'block';
+  lockedState.style.display = 'none';
+
+  document.getElementById('dayVerse').innerHTML = d.verse;
+  document.getElementById('dayRef').textContent = d.ref;
+  document.getElementById('dayLectura').innerHTML = d.lectura;
+  document.getElementById('dayAnchor').textContent = d.anchor;
+  /* semana/tesis/proposito — only for day 1 of each week */
+  var isDayOne = (idx % 5 === 0);
+  document.getElementById('semanaBlock').style.display = (isDayOne && d.semana_lectura) ? 'block' : 'none';
+  document.getElementById('tesisBlock').style.display = (isDayOne && d.tesis) ? 'block' : 'none';
+  document.getElementById('propositoBlock').style.display = (isDayOne && d.proposito) ? 'block' : 'none';
+  if(isDayOne && d.semana_lectura) document.getElementById('semanaLectura').textContent = d.semana_lectura;
+  var pBtn = document.getElementById('pasajeBtn');
+  var weekIdx = Math.floor(idx/5); window._pasajeActual = (isDayOne && swsPasajes[weekIdx]) ? swsPasajes[weekIdx] : '';
+  window._pasajeLabel = (isDayOne && d.semana_lectura) ? d.semana_lectura.split('—')[0].trim() : 'Texto de la Semana';
+  pBtn.style.display = (isDayOne && swsPasajes[weekIdx]) ? 'block' : 'none';
+  if(isDayOne && d.tesis) document.getElementById('tesisTxt').textContent = d.tesis;
+  if(isDayOne && d.proposito) document.getElementById('propositoTxt').textContent = d.proposito;
+  /* cuadro del cuadro — show on day 1 of each week */
+  var cuadroBlock = document.getElementById('cuadroBlock');
+  var weekIdx = Math.floor(idx / 5); // 0-3
+  if(isDayOne && weekIdx < 4){
+    document.getElementById('cuadroImg').src = CUADRO_IMGS[weekIdx];
+    document.getElementById('cuadroCaption').textContent = CUADRO_CAPTIONS[weekIdx];
+    cuadroBlock.style.display = 'block';
+  } else {
+    cuadroBlock.style.display = 'none';
+  }
+  document.getElementById('dayPregunta').innerHTML = d.pregunta;
+  document.getElementById('dayPractica').innerHTML = d.practica;
+  document.getElementById('dayOracion').innerHTML = d.oracion;
+  var cierreBlock = document.getElementById('cierreBlock');
+  var cierreTitle = document.getElementById('cierreTitle');
+  var cierreText = document.getElementById('cierreText');
+  if(d.cierreTexto){
+    cierreTitle.innerHTML = d.cierreTitulo || '✦ Cierre de la Semana';
+    cierreText.innerHTML = d.cierreTexto;
+    cierreBlock.style.display = 'block';
+  } else if(idx === swsDays.length - 1){
+    cierreTitle.innerHTML = '✦ Cierre del Curso';
+    cierreText.innerHTML = 'Este recorrido llegó a su final. Pero la identidad de hijo no termina aquí — empieza a vivirse desde aquí.<br><br>Comenzaste con la imagen del Padre que corre. Terminaste con las manos que bendicen.<br>En el medio, recibiste el vestido, el anillo y las sandalias.<br><br>Ahora sal a hacer lo mismo por alguien más.';
+    cierreBlock.style.display = 'block';
+  } else {
+    cierreBlock.style.display = 'none';
+  }
+  /* video block */
+  var vBlock = document.getElementById('videoBlock');
+  var vFrame = document.getElementById('videoFrame');
+  if(d.videoId){
+    vFrame.src = 'https://www.youtube.com/embed/' + d.videoId + '?rel=0&modestbranding=1';
+    vBlock.style.display = 'block';
+  } else {
+    vFrame.src = '';
+    vBlock.style.display = 'none';
+  }
+  /* verdad central */
+  var vBlock2 = document.getElementById('verdadBlock');
+  var iBlock = document.getElementById('ideasBlock');
+  if(d.verdad){
+    vBlock2.style.display='block';
+    document.getElementById('dayVerdad').textContent = d.verdad;
+  } else { vBlock2.style.display='none'; }
+  if(d.ideas && d.ideas.length){
+    iBlock.style.display='block';
+    var ul = document.getElementById('dayIdeas');
+    ul.innerHTML = d.ideas.map(function(i){return '<li>'+i+'</li>';}).join('');
+  } else { iBlock.style.display='none'; }
+  var doneBtn=document.getElementById('btnDone');
+  doneBtn.textContent='✓ Marcar día completado';
+  doneBtn.disabled=false;
+  doneBtn.style.opacity='1';
+}
+
+function navDay(dir){
+  loadDay(currentDay+dir);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function markDone(btn){
+  btn.textContent='✓ ¡Bien hecho, caminante!';
+  btn.style.opacity='.6';
+  btn.disabled=true;
+  var nextIdx = currentDay + 1;
+  if(nextIdx <= 19 && nextIdx < unlockedDays()) {
+    setTimeout(function(){ loadDay(nextIdx); }, 1800);
+  }
+}
+
+function backToCourse(){
+  goTab('intro', document.getElementById('tab-intro'));
+}
+function openPasaje(){
+  document.getElementById('pasajeModalLabel').textContent = '📖 ' + (window._pasajeLabel || 'Texto de la Semana');
+  document.getElementById('pasajeModalContent').innerHTML = window._pasajeActual || '';
+  document.getElementById('pasajeModal').style.display = 'block';
+  document.getElementById('pasajeModal').scrollTop = 0;
+}
+</script>
+<div id="pasajeModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);overflow-y:auto;-webkit-overflow-scrolling:touch;">
+  <div style="max-width:680px;margin:24px auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;position:relative;">
+    <button onclick="document.getElementById('pasajeModal').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--ice);margin-bottom:12px" id="pasajeModalLabel">📖 Texto de la Semana</div>
+    <div id="pasajeModalContent" style="font-size:14px;color:var(--text);line-height:1.85;"></div>
+    <button class="btn btn-ghost" style="width:100%;margin-top:24px" onclick="document.getElementById('pasajeModal').style.display='none'">Cerrar</button>
+  </div>
+</div>
+</div><!-- /mainContent -->
+</body>
+</html>
