@@ -2,7 +2,14 @@
 <html lang="es" data-theme="noche">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Protocolo Metanoia · The Way</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#080C12">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="THE WAY">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-any-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">
 <style>/* ===== PIEL DE PROTOCOLO METANOIA (kit de piel · propuesta B2/A8) =====
    Todo lo que hace que este curso se vea como Metanoia y no como otro curso de THE WAY vive AQUÍ.
    El esqueleto (estructura, jornadas, pasos, Bitácora, sendero de piedras, reglas) NO está aquí: es común a todos los cursos.
@@ -29,7 +36,7 @@
   --ink-on-gold:#1A1405;--focus:#F2D27A;--danger:#E58E8E;
   --read-bg:var(--deep);--read-ink:#ECE9DF;--read-muted:#A9B9C2;--read-rule:rgba(255,255,255,.12);--field-bg:rgba(255,255,255,.045);
   --rs:1;
-  --f-ui:'DM Sans',system-ui,sans-serif;--f-disp:'Bebas Neue',Impact,sans-serif;--f-read:'Crimson Pro',Georgia,serif;
+  --f-ui:'DM Sans',system-ui,sans-serif;--f-disp:'Bebas Neue',Impact,sans-serif;--f-read:'DM Sans',system-ui,sans-serif;
 }
 [data-theme=papel]{--night:#E9E3D3;--deep:#F3EEE2;--surface:#FBF8F0;--card:#FFFFFF;--border:rgba(20,30,40,.12);--border2:rgba(20,30,40,.28);
   --gold:#7A5C12;--gold-l:#5E460A;--ice:#2D5670;--text:#1B2430;--muted:#4D5A65;--faint:#6B7782;--green-xl:#22633B;--green-l:#2F7A4B;
@@ -125,7 +132,7 @@ h1,h2,h3,h4{margin:0}
 [data-theme=papel] .hero .tag{color:#F2D27A}
 .sec{padding:34px 0;border-top:1px solid var(--border)}
 .sec h3.t{font-family:var(--f-disp);font-weight:400;font-size:clamp(26px,5.4cqi,38px);letter-spacing:.05em;margin-bottom:16px}
-.prose p{font-family:var(--f-read);font-size:calc(1.2rem*var(--rs));line-height:1.65;margin:0 0 .9em;color:var(--read-ink)}
+.prose p{font-family:var(--f-read);font-size:calc(.9375rem*var(--rs));line-height:1.6;margin:0 0 .9em;color:var(--read-ink)}
 .weeks{display:grid;gap:12px}@container app (min-width:640px){.weeks{grid-template-columns:1fr 1fr}}
 .wk{border:1px solid var(--border);border-top:4px solid var(--c);border-radius:14px;padding:14px 16px;background:var(--surface)}
 .wk .n{font-size:11px;letter-spacing:.16em;font-weight:700;color:var(--c)}
@@ -149,7 +156,7 @@ h1,h2,h3,h4{margin:0}
 /* ===== bienvenida / final ===== */
 .calm{max-width:640px;margin:0 auto;padding:36px 22px 70px;text-align:left}
 .calm h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(40px,10cqi,72px);line-height:.95;letter-spacing:.04em;margin-bottom:22px}
-.calm .lit p{font-family:var(--f-read);font-size:calc(1.3rem*var(--rs));line-height:1.65;margin:0 0 1em;color:var(--read-ink)}
+.calm .lit p{font-family:var(--f-read);font-size:calc(1.15rem*var(--rs));line-height:1.6;margin:0 0 1em;color:var(--read-ink)}
 .calm .lit p.key{padding:14px 16px;border-left:3px solid var(--gold);background:var(--field-bg);border-radius:0 12px 12px 0}
 .final-sun{width:120px;height:60px;margin:0 0 18px;border-radius:120px 120px 0 0;background:radial-gradient(circle at 50% 100%,var(--dawn),transparent 70%);opacity:.9}
 
@@ -186,7 +193,7 @@ h1,h2,h3,h4{margin:0}
 .blk>.bd{padding:16px}@container app (min-width:640px){.blk>.bd{padding:20px 26px}}
 .blk>.ft{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 16px;border-top:1px solid var(--border);background:var(--night)}
 .read{background:var(--read-bg);color:var(--read-ink);border-radius:12px;padding:6px 2px}
-.read p,.read li,.read .q{font-family:var(--f-read);font-size:calc(1.22rem*var(--rs));line-height:1.7;max-width:66ch;margin:0 0 .85em}
+.read p,.read li,.read .q{font-family:var(--f-read);font-size:calc(.9375rem*var(--rs));line-height:1.6;max-width:66ch;margin:0 0 .85em}
 .read h4{font-family:var(--f-ui);font-size:12px;letter-spacing:.14em;color:var(--dawn);margin:1.6em 0 .6em;max-width:66ch}
 .read h4.stars{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--read-ink);letter-spacing:.1em}
 .read h4.stars b{flex:none;width:34px;height:34px;border-radius:9px;background:var(--gold);color:var(--ink-on-gold);display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-size:22px;letter-spacing:0}
@@ -206,8 +213,8 @@ h1,h2,h3,h4{margin:0}
 .vstates{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .field{margin:18px 0;padding:14px;border:1px solid var(--border2);border-radius:14px;background:var(--card)}
 .field label.t{display:block;font-family:var(--f-ui);font-weight:800;font-size:12.5px;letter-spacing:.1em;color:var(--gold-l);margin-bottom:6px}
-.field .pr{font-family:var(--f-read);font-style:italic;font-size:calc(1.12rem*var(--rs));line-height:1.55;margin:0 0 10px;color:var(--read-ink)}
-.field textarea{width:100%;min-height:104px;resize:vertical;border-radius:10px;border:1px solid var(--border2);background:var(--field-bg);color:var(--text);padding:12px;font-family:var(--f-read);font-size:calc(1.15rem*var(--rs));line-height:1.55}
+.field .pr{font-family:var(--f-read);font-style:italic;font-size:calc(.9375rem*var(--rs));line-height:1.55;margin:0 0 10px;color:var(--read-ink)}
+.field textarea{width:100%;min-height:104px;resize:vertical;border-radius:10px;border:1px solid var(--border2);background:var(--field-bg);color:var(--text);padding:12px;font-family:var(--f-read);font-size:calc(1.04rem*var(--rs));line-height:1.55}
 .field textarea::placeholder{color:var(--muted);opacity:1}
 .field textarea[readonly]{border-style:dashed;opacity:.92}
 .field .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
@@ -266,7 +273,7 @@ h1,h2,h3,h4{margin:0}
 /* ===== v0.2 · calendario con orden, sendero de piedras, insignias, Bitácora local ===== */
 .btn[aria-disabled=true]{opacity:.55}
 .orden{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:14px 0;padding:12px 16px;border-radius:14px;border:1px solid var(--dawn);background:rgba(233,169,126,.09);font-family:var(--f-read);font-size:1.1rem;line-height:1.45}
-.lockday{margin-top:16px;text-align:left}.lockday .eyebrow{display:flex;align-items:center;gap:6px}.lockday .lk{font-family:var(--f-read);font-size:1.3rem;line-height:1.5;margin:8px 0 16px}
+.lockday{margin-top:16px;text-align:left}.lockday .eyebrow{display:flex;align-items:center;gap:6px}.lockday .lk{font-family:var(--f-read);font-size:1.15rem;line-height:1.5;margin:8px 0 16px}
 .piedrascard{margin-top:14px}.piedrascard .mj{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
 svg.piedras{width:150px;height:auto;color:var(--text);flex:none}
 .badges{list-style:none;margin:6px 0 14px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
@@ -469,7 +476,36 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
  [data-design=b] .body[data-side=auto] .side,[data-design=b] .body[data-side=open] .side{display:block;position:static;z-index:auto;width:290px;box-shadow:none}
  [data-design=b] .body[data-side=open] .scrim{display:none}
 }
-.pend,.vstates{display:none!important}</style></head>
+.pend,.vstates{display:none!important}
+/* ===== G-2/G-3/G-5 (aprobadas por Juan el 9-nov) ===== */
+/* Paso 0 (aprobado por Juan el 9-nov): TODAS las ventanas se anclan a la pantalla visible (no al final de la página),
+   con altura máxima, desplazamiento interno y las áreas seguras del iPhone. */
+.ov{position:fixed;inset:0;z-index:300;padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+.md{max-height:calc(100% - 12px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+@container app (min-width:640px){.ov{padding-bottom:env(safe-area-inset-bottom)}.md{max-height:calc(100% - 48px);padding-bottom:20px}}
+.field .fvacio{margin:0;padding:12px 14px;border:1px dashed var(--border2);border-radius:10px;color:var(--muted);font-style:italic;font-size:14px}
+.notasficha{margin:4px 0 18px;padding:14px;border-radius:14px;border:1px solid var(--border2);background:var(--field-bg)}
+.notasficha .nota{margin:10px 0 0;padding:10px 12px;border-left:3px solid var(--dawn);background:rgba(233,169,126,.07);border-radius:0 10px 10px 0;font-size:13px}
+.dondeg{margin:10px 0 0;padding:10px 12px;border-radius:10px;border-left:3px solid var(--dawn);background:rgba(233,169,126,.09);font-size:14px;line-height:1.5}
+/* ===== M1/M2 (propuesta 9-nov · TRABAJO_VISUAL): puentes a S.T.A.R.S. y Bookclub y tarjeta «Lectura en…» dentro de la escena ===== */
+.bridge{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;border:1px solid var(--border2);background:var(--card);margin-bottom:16px}
+.bridge.br-stars{border-left:4px solid var(--gold);--tool:var(--gold-l);--tool-bg:rgba(200,168,75,.15)}
+.bridge.br-book{border-left:4px solid var(--dawn);--tool:var(--dawn);--tool-bg:rgba(233,169,126,.15)}
+.br-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.br-tool{display:inline-flex;align-items:center;gap:7px;padding:5px 12px 5px 9px;border-radius:99px;font-weight:700;font-size:13px;letter-spacing:.03em;background:var(--tool-bg);color:var(--tool)}
+.br-kind{font-size:13px;color:var(--muted)}
+.br-row{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.br-row+.br-row{padding-top:12px;border-top:1px solid var(--border2)}
+.br-ref{font-family:var(--f-ui);font-weight:700;font-size:1.12rem;line-height:1.3;color:var(--text)}
+.bridge .br-btn{width:100%;gap:8px;white-space:normal;text-align:center;line-height:1.25;padding-top:8px;padding-bottom:8px}
+.br-note{margin:0;font-size:13px;line-height:1.4;color:var(--muted)}
+@container app (min-width:560px){.br-row{flex-direction:row;align-items:center;justify-content:space-between;gap:16px}.bridge .br-btn{width:auto;flex:none}}
+.retcard{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--dawn);font-size:14px;line-height:1.4;margin-bottom:14px}
+.retcard .rt-t{display:flex;gap:8px;align-items:flex-start}
+.retcard .rt-t svg{flex:none;margin-top:2px;color:var(--dawn)}
+.retcard .rt-a{display:flex;gap:8px;flex-wrap:wrap}
+.retcard .rt-a .btn{flex:1 1 160px}
+</style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
 <script>window.FINAL=true;window.GATED=true;window.GEO={"TRAIL": [[[50.1, 86.1], [56.9, 73.1], [43.4, 68.5]], [[44.1, 57.4], [44.0, 51.3], [32.9, 45.4]], [[24.8, 38.3], [28.9, 35.9], [25.2, 33.3]]], "CAMP": [[37.1, 62.7], [25.4, 41.6], [22.8, 30.8]], "DOOR": [[44.8, 92.2], [40.4, 60.0], [21.4, 41.8]]};</script>
@@ -488,7 +524,7 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
  var NAV='<nav class="tw-nav" aria-label="THE WAY">\n  <div class="pb-brand"><svg class="tw-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><polygon points="2,56 15,29 28,56" fill="#A8C4D4" stroke="#A8C4D4" stroke-width="2.4" stroke-linejoin="round"/><polygon points="36,56 50,25 62,56" fill="#2B4A70" stroke="#2B4A70" stroke-width="2.4" stroke-linejoin="round"/><polygon points="12,56 32,8 52,56" fill="#C8A84B" stroke="#C8A84B" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 56 C 38 52, 24 44.5, 35 38.5 C 41 35, 29 29.5, 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg><span class="pb-wm">THE <span>WAY</span></span></div>\n  <a class="pb-cta" id="salir" href="../index.html">Salir</a>\n</nav>';
  function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
  function salir(destino){
-  try{localStorage.removeItem('tw_nick')}catch(e){}
+  try{localStorage.removeItem('tw_nick');localStorage.removeItem('tw_metanoia_ret')}catch(e){}
   var S=window.TW_SESION;
   Promise.resolve().then(function(){return S&&typeof S.salir==='function'?S.salir():null}).catch(function(){}).then(function(){location.href=destino||'../index.html'});
  }
@@ -574,6 +610,14 @@ if(FINAL){S.hoy=d0(new Date());S.inicio=lunesDe(S.hoy);S.vid='sin';S.view='landi
 const PROG_KEY='tw_metanoia_prog',ISOD=/^\d{4}-\d{2}-\d{2}$/;
 function progLoad(){try{const o=JSON.parse(localStorage.getItem(PROG_KEY)||'null');if(!o||o.v!==1||!ISOD.test(o.inicio||''))return null;const done={},step={},closedOn={},badges={};(Array.isArray(o.done)?o.done:[]).forEach(n=>{if(Number.isInteger(n)&&n>=1&&n<=20)done[n]=true});for(const k in (o.step||{}))if(/^\d{1,2}:\d{1,2}$/.test(k)&&o.step[k]===true)step[k]=true;for(const k in (o.closedOn||{}))if(/^\d{1,2}$/.test(k)&&ISOD.test(o.closedOn[k]||''))closedOn[k]=o.closedOn[k];for(const k in (o.badges||{}))if(/^[a-z]{1,20}$/.test(k)&&o.badges[k]===true)badges[k]=true;return{inicio:o.inicio,done,step,closedOn,badges,welcomed:o.welcomed===true}}catch(e){return null}}
 function progSave(){if(!FINAL||S.demo||!(S.welcomed||Object.keys(S.done).some(k=>S.done[k])))return;try{const st={};for(const k in S.step)if(S.step[k])st[k]=true;localStorage.setItem(PROG_KEY,JSON.stringify({v:1,inicio:iso(S.inicio),done:Object.keys(S.done).filter(k=>S.done[k]).map(Number),step:st,closedOn:S.closedOn,badges:S.badges,welcomed:!!S.welcomed}))}catch(e){}}
+/* M1-b (aprobada por Juan el 9-nov): recuerda en este dispositivo qué lectura abrió ESTA cuenta (día, tipo de bloque y referencia;
+   nada del texto) para que la tarjeta «Lectura en…» no se pierda si el teléfono cierra la pestaña o la app mientras se lee en
+   S.T.A.R.S. o Bookclub. Va ligada al uid de la sesión (TW_SESION.usuario(), sin tocar sesion.js): si no hay uid o es de otra
+   cuenta, no se usa y se borra. También se borra al «Salir». Caduca a las 6 horas. Para retirarla: RET_GUARDA=false. */
+const RET_GUARDA=true,RET_KEY='tw_metanoia_ret';
+function retUid(){try{const s=window.TW_SESION,u=s&&typeof s.usuario==='function'?s.usuario():null;return u&&typeof u.uid==='string'&&u.uid?u.uid:null}catch(e){return null}}
+function retSave(){if(!FINAL||!RET_GUARDA)return;try{const u=retUid();(S.ret&&u)?localStorage.setItem(RET_KEY,JSON.stringify({u,dest:S.ret.dest,ref:S.ret.ref,k:S.ret.k,n:S.ret.n,t:Date.now()})):localStorage.removeItem(RET_KEY)}catch(e){}}
+function retLoad(){if(!FINAL||!RET_GUARDA)return null;try{const o=JSON.parse(localStorage.getItem(RET_KEY)||'null');if(!o)return null;const u=retUid();if(!u||o.u!==u||!(Date.now()-o.t<6*36e5)||!Number.isInteger(o.n)||o.n<1||o.n>20||!['palabra','libro'].includes(o.k)){localStorage.removeItem(RET_KEY);return null}return {dest:o.k==='palabra'?'S.T.A.R.S.':'Bookclub',ref:String(o.ref||'').slice(0,120),k:o.k,n:o.n}}catch(e){return null}}
 if(FINAL){const pg=progLoad();if(pg){S.inicio=fromIso(pg.inicio);S.done=pg.done;S.step=pg.step;S.closedOn=pg.closedOn;S.badges=pg.badges;S.welcomed=pg.welcomed}}
 /* A55 (7-nov): en la versión final NO existe la pantalla «De la montaña al curso»; el curso abre en su landing y «MI MAPA» vuelve al MI MAPA real (window.MAPA_URL, por defecto ../mi-mapa/index.html). */
 const isWE=d=>[0,6].includes(d0(d).getDay());
@@ -610,14 +654,15 @@ const FIELD={};/* FIELD[sem][ln] = {key,i,c} */
 for(const k in D.fichas){const s=FSEM[k];FIELD[s]=FIELD[s]||{};D.fichas[k].forEach((c,i)=>{FIELD[s][c.ln]={fk:k,i,c,key:k+':'+i}})}
 const fstatus=k=>{const n=D.fichas[k].length;let g=0,b=0;D.fichas[k].forEach((_,i)=>{const s=S.stat[k+':'+i];if(s==='guardado')g++;else if(S.val[k+':'+i])b++});return g===n?'Guardada':(g||b?'En curso':'Sin empezar')};
 const locked=key=>key.startsWith('inicial:')&&S.done[1];
+const fichaVacios=()=>D.fichas.inicial.reduce((c,_,i)=>c+((S.val['inicial:'+i]||'').trim()?0:1),0);/* G-1 */
 function fieldHTML(F){
  const {key,c}=F,st=S.stat[key]||(S.val[key]?'borrador':''),lk=locked(key);
  const pr=c.p.map(p=>`<p class="pr">${md(p)}</p>`).join('');
  const tag=lk?'<span class="pill ok" id="st-'+key+'">Preservada</span>':`<span class="pill ${st==='guardado'?'ok':st==='borrador'?'dawn':''}" id="st-${key}">${st==='guardado'?svLabel():st==='borrador'?brLabel():'Sin escribir'}</span>`;
  return `<div class="field"><label class="t" for="f-${key}">${esc(sc(c.t))}</label>${pr}
- <textarea id="f-${key}" data-key="${key}" placeholder="Escribe aquí tu respuesta." ${(lk||!canWork(S.day))?'readonly':''}>${esc(S.val[key]||'')}</textarea>
+ ${lk&&!(S.val[key]||'').trim()?`<p class="fvacio" id="f-${key}">Sin escribir</p>`:`<textarea id="f-${key}" data-key="${key}" placeholder="Escribe aquí tu respuesta." ${(lk||!canWork(S.day))?'readonly':''}>${esc(S.val[key]||'')}</textarea>`}
  <div class="row">${tag}${lk?`<button class="btn sm ghost" data-act="nota">Agregar nota fechada</button>`:`<button class="btn sm" data-act="save" data-key="${key}">Guardar</button>`}</div>
- ${key.startsWith('inicial:')&&S.notas.length?S.notas.map(n=>`<div class="nota"><b>Nota del ${esc(n.d)}</b><br>${esc(n.t)}</div>`).join(''):''}</div>`;
+ </div>${key==='inicial:'+(D.fichas.inicial.length-1)&&S.notas.length?`<div class="notasficha" aria-label="Notas fechadas"><div class="eyebrow">Notas fechadas</div>${S.notas.map(n=>`<div class="nota"><b>Nota del ${esc(n.d)}</b><br>${esc(n.t)}</div>`).join('')}</div>`:''}`;
 }
 const PRAC=D.practicas||{};
 const PA={};for(const n in PRAC)PRAC[n].campos.forEach((c,i)=>{c.i=i;(PA[n]=PA[n]||{})[c.at]=(PA[n][c.at]||[]).concat([c])});
@@ -679,14 +724,21 @@ function videoHTML(d){
  else inner=`<button class="play" data-act="vid" data-v="reanuda" aria-label="Reproducir video">${ic('play')}</button>`;
  return `<div class="vid" role="group" aria-label="Video de apertura">${inner}<div class="cap">${cap}</div></div>
  <div class="vstates noprint" aria-label="Estados del reproductor (solo pruebas)">${['listo','carga','sin','error','reanuda'].map(x=>`<button class="pill ${S.vid===x?'gold':''}" data-act="vid" data-v="${x}">${({listo:'Listo',carga:'Cargando',sin:'Sin video',error:'Error',reanuda:'Reanudar'})[x]}</button>`).join('')}</div>`}
+/* M3/M4 (propuesta 9-nov): S.T.A.R.S. abre el capítulo con ?read=Libro_capítulo (soporte ya publicado en S.T.A.R.S.);
+   Bookclub abre el libro (Bookclub aún no admite abrir un capítulo). La referencia sale de los datos del día, sin cambiarla. */
+const STARS_URL='https://starsmsgapp.netlify.app/',BOOK_URL='https://bookclublhscol.netlify.app/libros/gana-la-guerra-en-tu-mente-json.html';
+function pasajes(ref){return String(ref||'').split(/\s*;\s*/).filter(Boolean).map(t=>{const m=t.match(/^((?:\d\s*)?[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+(?:\s+[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*)\s+(\d+)/);return {t,lib:m?m[1].replace(/\s+/g,' '):null,cap:m?+m[2]:null}})}
+function puenteURL(k,p){if(k!=='palabra')return BOOK_URL;if(!p||!p.lib)return STARS_URL;return STARS_URL+'?read='+encodeURIComponent(p.lib.replace(/ /g,'_')+'_'+p.cap)}
 function bridgeHTML(d,k){
- const dest=k==='palabra'?'S.T.A.R.S.':'Bookclub',ref=k==='palabra'?d.biblia:d.libro;
- return `<div class="bridge"><div class="ref"><span class="pill dawn">${ic('ext','').replace('<svg','<svg width="14" height="14"')} Sales de The Way → ${dest}</span><span class="muted">${k==='palabra'?'Lectura de hoy':'Lectura que acompaña'}</span><b>${esc(ref)}</b></div>
- <div><button class="btn sm pri" data-act="bridge" data-k="${k}">Abrir en ${dest}</button> <span class="muted" style="font-size:12px;margin-left:6px">Regresas a esta misma jornada.</span></div></div>`}
+ const pal=k==='palabra',dest=pal?'S.T.A.R.S.':'Bookclub',ps=pal?pasajes(d.biblia):[{t:d.libro}];
+ const filas=ps.map((p,i)=>`<div class="br-row"><b class="br-ref">${esc(p.t)}</b><button class="btn sm pri br-btn" data-act="bridge" data-k="${k}" data-p="${i}">${pal?(p.lib?'Abrir el capítulo '+esc(p.lib+' '+p.cap):'Abrir S.T.A.R.S.'):'Abrir el libro en Bookclub'}${ic('ext').replace('<svg','<svg width="15" height="15"')}</button></div>`).join('');
+ return `<div class="bridge ${pal?'br-stars':'br-book'}"><div class="br-top"><span class="br-tool">${ic(pal?'palabra':'libro').replace('<svg','<svg width="16" height="16"')}${dest}</span><span class="br-kind">${pal?'Lectura de hoy':'Lectura que acompaña'}</span></div>${filas}<p class="br-note">Regresas a esta misma jornada.</p></div>`}
+/* M1 (propuesta 9-nov): la tarjeta «Lectura en…» va dentro de la escena de lectura, debajo de su encabezado; ya no es una barra fija arriba. */
+function retHTML(d,k){if(!S.ret||S.ret.k!==k||(S.ret.n&&S.ret.n!==d.n))return '';return `<div class="retcard" role="status"><div class="rt-t">${ic('back').replace('<svg','<svg width="16" height="16"')}<span>Lectura en <b>${esc(S.ret.dest)}</b> · ${esc(S.ret.ref)}</span></div><div class="rt-a"><button class="btn sm pri" data-act="retok">Marcar lectura como hecha</button><button class="btn sm ghost" data-act="retx">Cerrar</button></div></div>`}
 function blockHTML(d,b,idx){
  const k=b.tipo,[lab,icn]=BL[k]||['Contenido','leccion'],ok=S.step[d.n+':'+idx],out=(k==='palabra'||k==='libro');
  let body='';
- if(out)body+=bridgeHTML(d,k);
+ if(out)body+=retHTML(d,k)+bridgeHTML(d,k);
  const r=linesHTML(b,d);
  if(k==='video'){body+=`<div class="read">${r.html}</div>`+videoHTML(d)}
  else body+=`<div class="read">${r.html}</div>`;
@@ -712,8 +764,25 @@ const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('metanoia-bitacora'
 async function storeGet(key){const db=await idb();return new Promise((res,rej)=>{const q=db.transaction('kv').objectStore('kv').get(key||'bitacora');q.onsuccess=()=>{res(q.result||null);db.close()};q.onerror=()=>{rej(q.error);db.close()}})}
 async function storePut(o,key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(o,key||'bitacora');t.oncomplete=()=>{res(true);db.close()};t.onerror=()=>{rej(t.error);db.close()}})}
 function snapshot(){const val={},stat={};for(const k in S.user){if(k in S.val)val[k]=S.val[k];if(S.stat[k])stat[k]=S.stat[k]}return{tipo:'bitacora-protocolo-metanoia',version:1,val,stat,notas:S.notas,backupAt:S.backupAt}}
-function persistSoon(){if(!STORE.ok||S.demo)return;clearTimeout(STORE.t);STORE.t=setTimeout(()=>{storePut(snapshot()).catch(e=>{STORE.ok=false;STORE.err=String(e)})},350)}
+function persistSoon(){const k=BKEY();if(!STORE.ok||S.demo||!k)return;clearTimeout(STORE.t);STORE.t=setTimeout(()=>{storePut(snapshot(),k).catch(e=>{STORE.ok=false;STORE.err=String(e)})},350)}
 async function storeDel(key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').delete(key);t.oncomplete=()=>{res(true);db.close()};t.onerror=()=>{rej(t.error);db.close()}})}
+/* G-4 (aprobada por Juan el 9-nov): la Bitácora y el PIN se guardan POR CUENTA en este dispositivo ('bitacora:<uid>' y 'pin:<uid>';
+   el uid sale de TW_SESION.usuario(), sin tocar sesion.js). Sin cuenta no se lee ni se escribe. Lo guardado antes con la clave única
+   ('bitacora', 'pin') lo reclama UNA sola vez la primera cuenta que abre el curso tras la actualización ('reclamo' = su uid): se copia,
+   se verifica leyendo de vuelta y solo entonces se retira lo antiguo. Si la verificación falla, lo antiguo se conserva (solo esa cuenta
+   puede leerlo) y se avisa. Las copias de seguridad no cambian de formato: se siguen leyendo las ya existentes. */
+const BKEY=()=>{const u=retUid();return u?'bitacora:'+u:null},PKEY=()=>{const u=retUid();return u?'pin:'+u:null};
+async function reclamoMio(){const u=retUid();return !!u&&(await storeGet('reclamo'))===u}
+async function migrarBitacora(){const u=retUid(),r={aviso:''};if(!u)return r;const marca=await storeGet('reclamo');if(marca&&marca!==u)return r;
+ for(const [viejo,nuevo] of [['bitacora','bitacora:'+u],['pin','pin:'+u]]){const o=await storeGet(viejo);if(o==null)continue;
+  if(!marca)await storePut(u,'reclamo');
+  if(await storeGet(nuevo)!=null)continue;
+  try{await storePut(o,nuevo);const b=await storeGet(nuevo);if(JSON.stringify(b)!==JSON.stringify(o))throw new Error('verificación');await storeDel(viejo)}
+  catch(e){try{await storeDel(nuevo)}catch(x){}r.aviso='No pudimos pasar tu Bitácora guardada a tu cuenta. Sigue guardada como antes en este dispositivo; guarda una copia de seguridad.'}}
+ return r}
+async function bitacoraLeer(){const k=BKEY();if(!k)return null;const o=await storeGet(k);if(o!=null)return o;return (await reclamoMio())?await storeGet('bitacora'):null}
+async function pinLeer(){const k=PKEY();if(!k)return null;const o=await storeGet(k);if(o!=null)return o;return (await reclamoMio())?await storeGet('pin'):null}
+async function pinBorrar(){const k=PKEY();if(k)await storeDel(k);if(await reclamoMio())await storeDel('pin')}
 const b64u=a=>btoa(String.fromCharCode(...new Uint8Array(a))),unb64=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 async function pinHash(pin,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pin),'PBKDF2',false,['deriveBits']);return b64u(await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:120000,hash:'SHA-256'},k,256))}
 async function pinMake(pin){const salt=crypto.getRandomValues(new Uint8Array(16));return{salt:b64u(salt),hash:await pinHash(pin,salt)}}
@@ -727,6 +796,7 @@ function applyData(c,backupAt){S.val=c.val;S.stat=c.stat;S.notas=c.notas;S.user=
 
 /* ---------- Bitácora local (B8 · PROPUESTA) ---------- */
 function localCard(){const real=STORE.ok&&!S.demo;return `<div class="card local" style="margin-top:16px"><div class="eyebrow">${ic('shield').replace('<svg','<svg width="14" height="14"')} Tu Bitácora vive en tu teléfono</div><p class="lc">Lo que escribes se guarda solo en tu dispositivo. The Way no lo recibe ni puede leerlo. Al servidor solo viaja que te inscribiste, tu fecha de inicio y qué jornadas marcaste.</p>
+<p class="dondeg">Lo que escribes se guarda en este dispositivo y en esta forma de abrir THE WAY (navegador o app instalada). Si abres THE WAY de otra forma, no lo verás allí. Guarda tu copia de seguridad.</p>
 <div class="lcb"><button class="btn sm pri" data-act="backup">Guardar copia de seguridad</button><button class="btn sm" data-act="restore">Restaurar copia</button><button class="btn sm ghost" data-act="pin">PIN · ${S.pin?'activado':'desactivado'}</button><button class="btn sm ghost" data-act="install">Instalar en mi celular</button></div>
 <p class="muted" style="font-size:12.5px;line-height:1.55;margin:10px 0 0">${S.backupAt?'Última copia: '+esc(S.backupAt)+'. ':'Aún no has guardado una copia. '}Si pierdes el teléfono o borras los datos del navegador sin una copia, la Bitácora no se puede recuperar. No se sincroniza entre dispositivos.</p>
 <input type="file" id="restoreFile" accept=".json,application/json" hidden>
@@ -779,7 +849,7 @@ function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
  if(!isOpen(n))return `<div class="wrap">${head}<div class="card lockday"><div class="eyebrow">${ic('lock').replace('<svg','<svg width="14" height="14"')} Todavía cerrada</div><p class="lk">Esta jornada se abre el ${fmtL(abre(n))} a las 12 de la noche.</p><button class="btn pri" data-act="go" data-v="hoy">Volver al territorio</button></div></div>`;
  const steps=d.bloques,fu=firstUndone(),nx=nextStep(n),N=steps.length;
  const si=Math.min(S.sceneDay===n?S.scene:Math.max(0,nx),N-1),b=steps[si],last=si===N-1;
- return `<div class="wrap">${S.ret?`<div class="retbar" role="status">${ic('back').replace('<svg','<svg width="16" height="16"')}<span>Lectura en <b>${esc(S.ret.dest)}</b> · ${esc(S.ret.ref)}</span><button class="btn sm" data-act="retok">Marcar lectura como hecha</button><button class="btn sm ghost" data-act="retx">Cerrar</button></div>`:''}
+ return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
  <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i><span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span></button>`).join('')}</nav>
@@ -866,7 +936,7 @@ function vDia(){if(S.design==='b')return vDiaB();const d=dia(S.day),w=d.semana,n
  const head=`<div class="dayhead" style="--c:${MOV[w].c}"><span class="mv">${MOV[w].n}</span><span class="eyebrow">Semana ${w} de 4 · Día ${n} de 20 · ${d.dsem}</span><h1>${esc(sc(d.titulo))}</h1>${chip(n)}</div>`;
  if(!isOpen(n))return `<div class="wrap">${head}<div class="card lockday"><div class="eyebrow">${ic('lock').replace('<svg','<svg width="14" height="14"')} Todavía cerrada</div><p class="lk">Esta jornada se abre el ${fmtL(abre(n))} a las 12 de la noche.</p><button class="btn pri" data-act="go" data-v="hoy">Volver a Hoy</button></div></div>`;
  const steps=d.bloques.map((b,i)=>({b,i})),fu=firstUndone(),nx=nextStep(n);
- return `<div class="wrap">${S.ret?`<div class="retbar" role="status">${ic('back').replace('<svg','<svg width="16" height="16"')}<span>Lectura en <b>${esc(S.ret.dest)}</b> · ${esc(S.ret.ref)}</span><button class="btn sm" data-act="retok">Marcar lectura como hecha</button><button class="btn sm ghost" data-act="retx">Cerrar</button></div>`:''}
+ return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
  <nav class="route" aria-label="Ruta de la jornada">${steps.map(({b,i})=>`<button data-act="jump" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${nx===i?'aria-current="step"':''}>${ic(S.step[n+':'+i]?'check':(BL[b.tipo]||['','leccion'])[1])}${(BL[b.tipo]||['Contenido'])[0].split(' · ')[0]}</button>`).join('')}</nav>
@@ -926,7 +996,7 @@ const HAMB='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="
 /* A56: la barra superior oficial es la de MI MAPA (idéntica); solo la landing de THE WAY añade los botones de las otras herramientas. En la versión final va arriba de todo; los controles propios del curso quedan en la franja de abajo. */
 const OFICIAL='<nav class="tw-nav" aria-label="THE WAY">\n  <div class="pb-brand"><svg class="tw-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><polygon points="2,56 15,29 28,56" fill="#A8C4D4" stroke="#A8C4D4" stroke-width="2.4" stroke-linejoin="round"/><polygon points="36,56 50,25 62,56" fill="#2B4A70" stroke="#2B4A70" stroke-width="2.4" stroke-linejoin="round"/><polygon points="12,56 32,8 52,56" fill="#C8A84B" stroke="#C8A84B" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 56 C 38 52, 24 44.5, 35 38.5 C 41 35, 29 29.5, 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg><span class="pb-wm">THE <span>WAY</span></span></div>\n  <a class="pb-cta" id="salir" href="../index.html">Salir</a>\n</nav>';
 function oficialHTML(){return FINAL?OFICIAL:''}
-document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('#salir');if(!a)return;try{localStorage.removeItem('tw_nick')}catch(x){}const S=window.TW_SESION;if(S&&typeof S.salir==='function'){e.preventDefault();Promise.resolve().then(()=>S.salir()).catch(()=>{}).then(()=>{location.href=a.getAttribute('href')||'../index.html'})}});
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('#salir');if(!a)return;try{localStorage.removeItem('tw_nick');localStorage.removeItem('tw_metanoia_ret')}catch(x){}const S=window.TW_SESION;if(S&&typeof S.salir==='function'){e.preventDefault();Promise.resolve().then(()=>S.salir()).catch(()=>{}).then(()=>{location.href=a.getAttribute('href')||'../index.html'})}});
 function barHTML(){const inC=COURSE.includes(S.view);
  if(FINAL)return `<header class="bar hud">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a MI MAPA</button></div><span class="sp"></span>${inC?topnav():''}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College"><svg class="gear" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div></header>`;
  return `<header class="bar">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">${ic('back').replace('<svg','<svg width="18" height="18"')}<span>MI MAPA</span></button>
@@ -951,6 +1021,7 @@ function modalHTML(){const m=S.modal;if(!m)return '';
  if(m.t==='piedras'){const c=doneCount();return `<div class="ov" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="Cómo se vería en MI MAPA" data-stop="1">${FINAL?'':'<span class="pill dawn">Maqueta · propuesta B9</span>'}<h3>Así se vería en MI MAPA</h3>
  <div class="mapmock"><div class="mm1"><div><small>Mentalidad · Renovación</small><b>Protocolo Metanoia</b></div>${lastDone()>=20?'<span class="pill ok">Recorrida</span>':'<span class="pill gold">En camino</span>'}</div>${piedrasSVG(c)}${badgesHTML()}<div class="mm1 lk"><div><small>CUMBRE · RENOVACIÓN</small><b>Se abre al conquistar la montaña</b></div><span class="pill">${ic('lock').replace('<svg','<svg width="13" height="13"')} Bloqueada</span></div></div>
  <p class="muted" style="font-size:12.5px;line-height:1.55;margin:10px 0 0">Un solo sendero de piedras y las mismas insignias para todos los cursos. El curso solo informa qué jornadas se marcaron.</p><div style="margin-top:12px"><button class="btn pri" data-act="mx">Cerrar</button></div></div></div>`}
+ if(m.t==='ficha')return `<div class="ov ov-fijo" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="Ficha inicial incompleta" data-stop="1"><h3>Tu Ficha inicial no está completa</h3><p style="font-size:15px;line-height:1.55">Tu Ficha inicial tiene ${m.n} ${m.n===1?'campo':'campos'} sin escribir. Al cerrar la jornada quedará preservada y ya no podrás escribirla; solo podrás agregar notas fechadas.</p><div class="lcb" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" data-act="fichaescribir">Escribir ahora</button><button class="btn ghost" data-act="close" data-ok="1">Cerrar así</button></div></div></div>`;
  if(m.t==='nota')return `<div class="ov" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="Nota fechada" data-stop="1"><h3>Nota fechada</h3><p class="muted" style="font-size:13px;line-height:1.5">Tu punto de partida permanece intacto. La nota se suma aparte, con fecha.</p>
  <textarea id="notaTxt" style="width:100%;min-height:110px;border-radius:10px;border:1px solid var(--border2);background:var(--field-bg);color:var(--text);padding:12px;font-family:var(--f-read);font-size:1.1rem" placeholder="Escribe aquí tu respuesta."></textarea>
  <div style="display:flex;gap:10px;margin-top:12px"><button class="btn pri" data-act="notaok">Agregar nota</button><button class="btn ghost" data-act="mx">Cancelar</button></div></div></div>`;return ''}
@@ -992,10 +1063,10 @@ document.addEventListener('click',e=>{
    if(!S.step[k]){if(!prevDone(n)){toast('Primero termina el Día '+firstUndone()+'.');break}if(i!==nx){toast('Primero marca «'+stepName(n,nx)+'».');break}S.step[k]=true}
    else{if(dia(n).bloques.some((_,j)=>j>i&&S.step[n+':'+j])){toast('Para desmarcar este paso, primero desmarca los siguientes.');break}if(S.done[n]){toast('Reabre la jornada para cambiar sus pasos.');break}S.step[k]=false}
    render(true);break}
-  case 'bridge':{const k=el.dataset.k,pal=k==='palabra',d=dia(S.day),dest=pal?'S.T.A.R.S.':'Bookclub',url=pal?'https://starsmsgapp.netlify.app/':'https://bookclublhscol.netlify.app/';const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.style.display='none';document.body.appendChild(a);a.click();a.remove();S.ret={dest:dest,ref:pal?d.biblia:d.libro,k:k};render(true);const t=document.querySelector('.retbar');if(t)t.scrollIntoView({block:'nearest'});break}
+  case 'bridge':{const k=el.dataset.k,pal=k==='palabra',d=dia(S.day),dest=pal?'S.T.A.R.S.':'Bookclub',ps=pal?pasajes(d.biblia):[{t:d.libro}],p=ps[+el.dataset.p||0]||ps[0],url=puenteURL(k,p);const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.style.display='none';document.body.appendChild(a);a.click();a.remove();S.ret={dest:dest,ref:p.t,k:k,n:d.n};retSave();render(true);const t=document.querySelector('.retcard');if(t)t.scrollIntoView({block:'nearest'});break}
   case 'mret':{const m=S.modal;S.ret={dest:m.dest,ref:m.ref,k:m.k};S.modal=null;render(true);const t=document.querySelector('.retbar');if(t)t.scrollIntoView({block:'nearest'});break}
-  case 'retok':{const d=dia(S.day),i=d.bloques.findIndex(b=>b.tipo===S.ret.k);if(i>=0&&!S.step[d.n+':'+i]){if(!prevDone(d.n)){toast('Primero termina el Día '+firstUndone()+'.');break}const nx=nextStep(d.n);if(i!==nx){toast('Primero marca «'+stepName(d.n,nx)+'».');break}S.step[d.n+':'+i]=true}S.ret=null;render(true);break}
-  case 'retx':S.ret=null;render(true);break;
+  case 'retok':{const d=dia(S.day),i=d.bloques.findIndex(b=>b.tipo===S.ret.k);if(i>=0&&!S.step[d.n+':'+i]){if(!prevDone(d.n)){toast('Primero termina el Día '+firstUndone()+'.');break}const nx=nextStep(d.n);if(i!==nx){toast('Primero marca «'+stepName(d.n,nx)+'».');break}S.step[d.n+':'+i]=true}S.ret=null;retSave();render(true);break}
+  case 'retx':S.ret=null;retSave();render(true);break;
   case 'mx':S.modal=null;render(true);break;
   case 'aa':S.modal={t:'aa'};render(true);break;
   case 'rs':S.rs=+v;render(true);break;
@@ -1005,20 +1076,22 @@ document.addEventListener('click',e=>{
   case 'nota':S.modal={t:'nota'};render(true);break;
   case 'notaok':{const t=($('#notaTxt').value||'').trim();if(t){S.notas.push({t,d:new Date().toLocaleDateString('es',{day:'numeric',month:'long',year:'numeric'})+(S.demo?' (simulada)':'')});persistSoon()}S.modal=null;render(true);break}
   case 'close':{const n=S.day;if(!isOpen(n))break;if(!prevDone(n)){toast('Primero termina el Día '+firstUndone()+'.');break}const nx=nextStep(n);if(nx!==-1){toast('Aún falta: «'+stepName(n,nx)+'».');break}
+   if(n===1&&!el.dataset.ok){const v=fichaVacios();if(v){S.modal={t:'ficha',n:v};render(true);break}}S.modal=null;
    let ins='';S.done[n]=true;S.closedOn[n]=iso(S.hoy);if(isWE(S.hoy)&&d0(abre(n))<d0(S.hoy)&&!S.badges.volvi){S.badges.volvi=true;ins='Insignia · Volví al camino. '}
    if(n%5===0&&n<20){S.weekDone=n/5;go('semana')}else if(n===20){go('final')}else{toast(ins+'Jornada '+n+' completada'+'');setTimeout(()=>{S.day=Math.min(20,n+1);go('hoy')},700)}break}
   case 'reopen':if(S.done[S.day+1]){toast('Para reabrir este día, primero reabre el Día '+(S.day+1)+'.');break}S.done[S.day]=false;delete S.closedOn[S.day];render(true);break;
   case 'backup':{const o={tipo:'bitacora-protocolo-metanoia',version:1,exportado:iso(new Date()),val:S.val,stat:S.stat,notas:S.notas};
    try{const bl=new Blob([JSON.stringify(o,null,1)],{type:'application/json'}),u=URL.createObjectURL(bl),a2=document.createElement('a');a2.href=u;a2.download='bitacora-metanoia-'+iso(new Date())+'.json';document.body.appendChild(a2);a2.click();a2.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);S.backupAt=iso(new Date());persistSoon();toast('Copia guardada: se descargó un archivo en tu dispositivo.')}catch(err){toast('No se pudo guardar la copia en este entorno.')}break}
   case 'restore':{const f=document.getElementById('restoreFile');if(f)f.click();break}
+  case 'fichaescribir':{S.modal=null;const i=dia(1).bloques.findIndex(b=>b.tipo==='bitacora');S.day=1;S.view='dia';if(i>=0){S.sceneDay=1;S.scene=i}render(true);setTimeout(()=>{const t=[...document.querySelectorAll('textarea[data-key^="inicial:"]')].find(x=>!x.value.trim());if(t){t.scrollIntoView({block:'center'});t.focus()}},120);break}
   case 'pin':S.modal={t:'pin'};render(true);break;
   case 'pinset':(async()=>{try{const a=($('#pinIn')||{}).value||'',b=($('#pinIn2')||{}).value||'';if(!window.crypto||!crypto.subtle||!STORE.ok){S.modal={t:'pin',err:'Aquí no se puede guardar un PIN. Abre la app desde su dirección habitual.'};render(true);return}
-   if(!S.pin){if(!/^\d{4,6}$/.test(a)){S.modal={t:'pin',err:'Escribe de 4 a 6 dígitos.'};render(true);return}if(a!==b){S.modal={t:'pin',err:'Los dos PIN no coinciden.'};render(true);return}await storePut(await pinMake(a),'pin');S.pin=true;S.modal=null;render(true);toast('PIN activado.')}
-   else{const rec=await storeGet('pin');if(!(await pinOk(a,rec))){S.modal={t:'pin',err:'Ese no es tu PIN.'};render(true);return}await storeDel('pin');S.pin=false;S.modal=null;render(true);toast('PIN quitado.')}}catch(err){S.modal={t:'pin',err:'No se pudo guardar el PIN.'};render(true)}})();break;
-  case 'unlock':(async()=>{try{const rec=await storeGet('pin');if(await pinOk(($('#pinIn')||{}).value||'',rec)){S.locked=false;S.modal=null;render(false)}else{S.modal={t:'lock',err:'Ese no es tu PIN.'};render(true)}}catch(err){S.modal={t:'lock',err:'No se pudo comprobar el PIN.'};render(true)}})();break;
+   if(!S.pin){if(!/^\d{4,6}$/.test(a)){S.modal={t:'pin',err:'Escribe de 4 a 6 dígitos.'};render(true);return}if(a!==b){S.modal={t:'pin',err:'Los dos PIN no coinciden.'};render(true);return}if(!PKEY())throw 0;await storePut(await pinMake(a),PKEY());S.pin=true;S.modal=null;render(true);toast('PIN activado.')}
+   else{const rec=await pinLeer();if(!(await pinOk(a,rec))){S.modal={t:'pin',err:'Ese no es tu PIN.'};render(true);return}await pinBorrar();S.pin=false;S.modal=null;render(true);toast('PIN quitado.')}}catch(err){S.modal={t:'pin',err:'No se pudo guardar el PIN.'};render(true)}})();break;
+  case 'unlock':(async()=>{try{const rec=await pinLeer();if(await pinOk(($('#pinIn')||{}).value||'',rec)){S.locked=false;S.modal=null;render(false)}else{S.modal={t:'lock',err:'Ese no es tu PIN.'};render(true)}}catch(err){S.modal={t:'lock',err:'No se pudo comprobar el PIN.'};render(true)}})();break;
   case 'forgot':S.modal={t:'lock',forgot:true};render(true);break;
   case 'lockback':S.modal={t:'lock'};render(true);break;
-  case 'wipe':(async()=>{try{await storeDel('pin');await storeDel('bitacora')}catch(err){}location.reload()})();break;
+  case 'wipe':(async()=>{try{const k=BKEY(),mio=await reclamoMio();await pinBorrar();if(k)await storeDel(k);if(mio)await storeDel('bitacora')}catch(err){}location.reload()})();break;
   case 'install':S.modal={t:'install'};render(true);break;
   case 'piedras':S.modal={t:'piedras'};render(true);break;
   case 'ex':S.ex=!S.ex;render(true);break;
@@ -1058,10 +1131,11 @@ function preset(p){S.done={};S.step={};S.val={};S.stat={};S.notas=[];S.welcomed=
  if(q.get('preset'))preset(q.get('preset'));
  if(q.get('view')){if(q.get('day'))S.day=+q.get('day');S.view=q.get('view')}
  /* A59: «Lección del día» desde MI MAPA (?ir=hoy): directo a la jornada que toca, sin pasar por la landing ni la bienvenida */
+ if(FINAL&&!q.get('view')&&!q.get('ir')){const r=retLoad();if(r&&isOpen(r.n)){const i=dia(r.n).bloques.findIndex(b=>b.tipo===r.k);if(i>=0){S.ret=r;S.welcomed=true;S.day=r.n;S.view='dia';S.sceneDay=r.n;S.scene=i}}}
  if(FINAL&&q.get('ir')==='hoy'&&!q.get('view')){S.welcomed=true;S.sceneDay=null;S.day=cur();S.view=doneCount()>=20?'final':'dia'}
  if(q.get('week'))S.weekDone=+q.get('week');if(q.get('vid'))S.vid=q.get('vid');if(q.get('design'))S.design=q.get('design')==='b'?'b':'a';if(q.get('side'))S.side=q.get('side')==='open'?'open':q.get('side')==='closed'?'closed':'auto';if(q.get('hoy'))S.hoy=fromIso(q.get('hoy'));if(q.get('finde')){while(!isWE(S.hoy))S.hoy=addD(S.hoy,1)}if(q.get('modal'))S.modal={t:q.get('modal')};if(q.get('ex'))S.ex=true;
  render(false);
- (async()=>{try{const o=await storeGet();STORE.ok=true;if(!q.get('preset')&&!q.get('view')){const pr=await storeGet('pin');if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
+ (async()=>{try{const mg=await migrarBitacora();if(mg.aviso)setTimeout(()=>toast(mg.aviso),400);const o=await bitacoraLeer();STORE.ok=!!BKEY();if(!STORE.ok)STORE.err='sin cuenta';if(!q.get('preset')&&!q.get('view')){const pr=await pinLeer();if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
 
 }</script>
 </body></html>

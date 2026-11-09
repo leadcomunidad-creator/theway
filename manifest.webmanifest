@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "THE WAY",
+  "short_name": "THE WAY",
+  "description": "Disfruta El Buen Camino · El College",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#080C12",
+  "theme_color": "#080C12",
+  "icons": [
+    { "src": "/assets/icon-any-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-any-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
