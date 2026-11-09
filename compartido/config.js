@@ -1,0 +1,1 @@
+(function(){'use strict';window.TW_CONFIG={projectId:'stars-plus',apiKey:'AIzaSyAqS3sMT0tsOm2G5eINckrLGA-1Qj4u6Y8',authDomain:'stars-plus.firebaseapp.com',appId:'1:138459401399:web:aaee2ce217192390ae5132'};})();

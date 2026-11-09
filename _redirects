@@ -1,0 +1,4 @@
+/app/mi-mapa    /mi-mapa/   302
+/app/mi-mapa/*  /mi-mapa/   302
+/app/*          /           302
+/landing/*      /           302
