@@ -209,6 +209,10 @@ h1,h2,h3,h4{margin:0}
 .vid{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#101c2a,#1e2a38 50%,#33281e);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;text-align:center;padding:16px}
 .vid .play{width:68px;height:68px;border-radius:50%;background:var(--gold);color:var(--ink-on-gold);display:flex;align-items:center;justify-content:center;border:0}
 .vid .play svg{width:30px;height:30px}.vid .cap{position:absolute;left:12px;right:12px;bottom:10px;font-size:12px;color:var(--muted);text-align:left}
+.vid.vid-yt{padding:0;background:#000}
+.vid.vid-yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-alt{margin:8px 0 14px;font-size:14px}
+.vid-alt a{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--gold-l);font-weight:600;text-decoration:none}
 .vid .spin{width:34px;height:34px;border-radius:50%;border:3px solid var(--border2);border-top-color:var(--gold);animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 .vstates{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .field{margin:18px 0;padding:14px;border:1px solid var(--border2);border-radius:14px;background:var(--card)}
@@ -714,7 +718,13 @@ function linesHTML(b,d){
  fl();if(lastLn!=null&&AT[lastLn]){AT[lastLn].forEach(c=>out.push(praHTML(d.n,c)));used=true}return {html:out.join(''),used}}
 
 /* ---------- bloques de jornada ---------- */
+/* Etapa 4 (autorizada por Juan el 9-nov): videos semanales ya publicados en YouTube (no listados), por semana.
+   Solo la Semana 1 tiene video; las demás semanas siguen mostrando «Video disponible pronto». */
+const VIDEOS={1:'722P_oOOCCk'};
 function videoHTML(d){
+ const yt=VIDEOS[d.semana];
+ if(yt)return `<div class="vid vid-yt" role="group" aria-label="Video de apertura"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0" title="Video de apertura de la semana" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+ <p class="vid-alt"><a href="https://youtu.be/${yt}" target="_blank" rel="noopener noreferrer">${ic('ext').replace('<svg','<svg width="14" height="14"')} Ver en YouTube</a></p>`;
  const v=S.vid,cap=FINAL?'':'Video incrustado en The Way';
  let inner='';
  if(v==='sin')inner=`<div><div class="pill dawn" style="margin-bottom:10px">Video disponible pronto</div><p style="margin:0;font-size:14px;color:var(--muted);max-width:34ch">Todavía no está disponible. Puedes seguir con la lectura y volver a verlo más adelante.</p></div>`;
