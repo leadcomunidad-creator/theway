@@ -595,6 +595,232 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 [data-piel=v2] .tz .day[aria-current] .num{color:var(--gold-l)}
 [data-piel=v2] .tz .day .tt{font-size:14px;font-weight:500}
 @media (prefers-reduced-motion:reduce){[data-piel=v2] .nd.s-cur{animation:none}}
+
+/* ===== PIEL V3 · REDISEÑO (fase curso: Territorio, Hoy, Todo el camino, Jornada, Bitácora, Mapa personal y Ajustes) =====
+   Solo se activa con data-piel="v3" en <html> (?piel=v3, recordado en este dispositivo como tw_piel). Sin ese atributo nada de este bloque aplica.
+   Referencia: prototipo «Metanoia Curso Adaptable» (handoff de Design v3, 12-nov). Corte: menos de 900 px = móvil (barra inferior); desde 900 px = escritorio.
+   Solo tokens que ya existen. Colores de semana --m1..--m4 en Noche: los del código (decisión pendiente de Juan). Papel: los del README de Design.
+   Las zonas ilustradas (paisaje, portada de Hoy, cabecera de la jornada, tarjeta del Mapa) siguen oscuras en Papel. */
+[data-piel=v3][data-theme=noche]{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
+ --gold:#C8A84B;--gold-l:#DEC06A;--ice:#A8C4D4;--text:#EAE8E0;--muted:#9DB0BB;--faint:#7A8E9A;--green:#3D7A54;--green-l:#52A06E;--green-xl:#6DC48A;--ink-on-gold:#080C12;--focus:#DEC06A;
+ --read-bg:#0C1520;--read-ink:#EAE8E0;--read-muted:#9DB0BB;--read-rule:rgba(255,255,255,.12);--field-bg:rgba(255,255,255,.045)}
+[data-piel=v3][data-theme=papel]{--night:#E9E3D3;--deep:#F3EEE2;--surface:#FBF8F0;--card:#FFFFFF;--border:rgba(20,30,40,.12);--border2:rgba(20,30,40,.28);
+ --gold:#7A5C12;--gold-l:#5E460A;--ice:#2D5670;--text:#1B2430;--muted:#4D5A65;--faint:#6B7782;--green-xl:#22633B;--green-l:#2F7A4B;--ink-on-gold:#FFF8E1;--focus:#8A5A06;
+ --read-bg:#F3EEE2;--read-ink:#1B2430;--read-muted:#4D5A65;--read-rule:rgba(20,30,40,.14);--field-bg:rgba(20,30,40,.045);
+ --m1:#5A43A8;--m2:#22633B;--m3:#8A5A06;--m4:#255E80}
+/* zonas ilustradas: en Papel conservan los tokens de Noche */
+[data-piel=v3][data-theme=papel] .terr,[data-piel=v3][data-theme=papel] .hero3,[data-piel=v3][data-theme=papel] .scenehead,[data-piel=v3][data-theme=papel] .mp3,[data-piel=v3][data-theme=papel] .mapdoc h2{
+ --m1:#a79bea;--m2:#5cc08a;--m3:#e5b04e;--m4:#8fc4e8;--text:#EAE8E0;--muted:#9DB0BB;--gold:#C8A84B;--gold-l:#DEC06A;--ink-on-gold:#080C12;--surface:#111C28;--deep:#0C1520;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);color:#EAE8E0}
+@keyframes twPulse3{0%,100%{box-shadow:0 0 0 6px rgba(200,168,75,.18),0 0 24px rgba(200,168,75,.55)}50%{box-shadow:0 0 0 12px rgba(200,168,75,.08),0 0 34px rgba(200,168,75,.75)}}
+/* sin barras de desplazamiento visibles */
+[data-piel=v3] *{scrollbar-width:none}[data-piel=v3] *::-webkit-scrollbar{width:0;height:0}
+[data-piel=v3] .app,[data-piel=v3] .main{background:var(--night)}
+[data-piel=v3] .btn{border-radius:12px}[data-piel=v3] .btn.sm{border-radius:10px}
+[data-piel=v3] .ttl3{font:400 22px/1 var(--f-disp);letter-spacing:.04em;color:var(--text);margin:28px 0 12px}
+/* --- barra del curso --- */
+[data-piel=v3] body.bare .app>.bar.hud{align-items:center;gap:14px;min-height:68px;padding:10px 18px;background:var(--night);border-bottom:1px solid var(--border)}
+[data-piel=v3] body.bare .bar .hudt h1{font-size:24px;letter-spacing:1.6px}
+[data-piel=v3] body.bare .bar .hudt .back{color:var(--muted)}
+[data-piel=v3] body.bare .bar.hud .hamb{width:42px;height:42px;border-radius:12px;background:transparent;border:1px solid var(--border2);color:var(--text);-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-piel=v3] .bar .sp:has(+.topnav){display:none}
+[data-piel=v3] body.bare .bar.hud .topnav{flex:1;align-items:center;justify-content:space-between;gap:14px;padding:0;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-piel=v3] .topnav .tn-g{display:flex;gap:3px;margin:0 auto;padding:4px;border-radius:14px;border:1px solid var(--border);background:var(--deep)}
+[data-piel=v3] body.bare .bar.hud .topnav .tn-g .ibtn{min-height:38px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:none;color:var(--muted);font:600 13px var(--f-ui)}
+[data-piel=v3] body.bare .bar.hud .topnav .tn-g .ibtn:hover{color:var(--text)}
+[data-piel=v3] body.bare .bar.hud .topnav .tn-g .ibtn.on{background:rgba(200,168,75,.16);border-color:rgba(200,168,75,.5);color:var(--gold-l)}
+[data-piel=v3] body.bare .bar.hud .topnav .ibtn.lecT{flex:none;min-height:46px;padding:0 8px 0 16px;margin:0;border-radius:12px;gap:10px;font:700 13px var(--f-ui)}
+[data-piel=v3] .topnav .lecT .lp{background:var(--night);color:var(--gold-l);border-radius:8px;padding:6px 9px;font:700 12px var(--f-ui)}
+[data-piel=v3] body.bare .bar.hud .vsw{gap:2px;padding:0;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-piel=v3] body.bare .bar.hud .vsw .ibtn{min-width:42px;min-height:42px;border-radius:12px;color:var(--muted)}
+@container app (max-width:1199px){[data-piel=v3] .topnav .lecT .lt{display:none}[data-piel=v3] body.bare .bar.hud .topnav .tn-g .ibtn{padding:0 10px}}
+/* --- barra inferior flotante (menos de 900 px) --- */
+[data-piel=v3] .tabs{margin:0 14px calc(14px + env(safe-area-inset-bottom,0px));padding:6px;gap:4px;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:rgba(17,28,40,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+[data-piel=v3][data-theme=papel] .tabs{background:color-mix(in srgb,var(--surface) 92%,transparent);border-color:var(--border2)}
+[data-piel=v3] .tabs button{min-height:52px;border-radius:16px;border:1px solid transparent;color:var(--muted);font-weight:600}
+[data-piel=v3] .tabs button[aria-current=page]{background:rgba(200,168,75,.16);border-color:rgba(200,168,75,.5);color:var(--gold-l)}
+@container app (max-width:899px){
+ [data-piel=v3] .bar .hamb{display:none!important}
+ [data-piel=v3] body.bare .app>.bar.hud{min-height:0;padding:12px 16px}
+ [data-piel=v3] body.bare .bar .hudt h1{font-size:22px}
+}
+/* --- escritorio (desde 900 px): barra superior, columna derecha; recorrido ☰ (fijo desde 1100 px) --- */
+@container app (min-width:900px){
+ [data-piel=v3] .tabs{display:none}
+ [data-piel=v3] .topnav{display:flex}
+ [data-piel=v3] .rail{display:block;width:320px;padding:22px 18px 30px}
+}
+@container app (min-width:1100px){[data-piel=v3][data-design=b] .body .side{width:272px}}
+@container app (min-width:1400px){[data-piel=v3] .rail{width:360px}[data-piel=v3][data-design=b] .body .side{width:300px}}
+[data-piel=v3] .side{background:var(--night);border-right:1px solid var(--border);padding:16px 12px}
+[data-piel=v3] .side h4{margin:16px 4px 8px;font-size:11px;letter-spacing:.08em}
+[data-piel=v3] .side .day,[data-piel=v3] .tz .day{align-items:center;gap:12px;min-height:0;border-radius:14px;background:var(--surface);border:1px solid var(--border)}
+[data-piel=v3] .side .day{padding:10px 12px;margin:0 0 6px}
+[data-piel=v3] .side .day[aria-current],[data-piel=v3] .tz .day[aria-current]{background:rgba(200,168,75,.12);border-color:rgba(200,168,75,.55)}
+[data-piel=v3] .side .day .num,[data-piel=v3] .tz .day .num{width:24px;height:auto;border:0;border-radius:0;background:none;font:400 24px/1 var(--f-disp);color:var(--muted)}
+[data-piel=v3] .side .day.done .num,[data-piel=v3] .tz .day.done .num{color:var(--green-xl)}
+[data-piel=v3] .side .day[aria-current] .num,[data-piel=v3] .tz .day[aria-current] .num{color:var(--gold-l)}
+[data-piel=v3] .side .day .tt{font-size:13px;font-weight:500}
+[data-piel=v3] .side::before{content:"Todo el camino";display:block;margin:0 4px 4px;font:400 20px/1 var(--f-disp);letter-spacing:.06em;color:var(--text)}
+[data-piel=v3] .side .day{display:grid;grid-template-columns:24px minmax(0,1fr);gap:2px 12px}
+[data-piel=v3] .side .day .rg{grid-column:2;display:flex;align-items:flex-start;margin:0}[data-piel=v3] .side .day .rg .pill{padding:2px 7px;font-size:10.5px;border:0;background:none}
+[data-piel=v3] .side .day .rg .pill svg{display:none}
+/* --- columna derecha --- */
+[data-piel=v3] .rail{background:var(--night);border-left:1px solid var(--border)}
+[data-piel=v3] .rail .rh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 14px}
+[data-piel=v3] .rail h4,[data-piel=v3] .rail .ttl3{font:400 22px/1 var(--f-disp);letter-spacing:.04em;color:var(--text);margin:0}
+[data-piel=v3] .rail .ttl3{margin:28px 0 12px}[data-piel=v3] .rail>.ttl3:first-child{margin-top:0}
+[data-piel=v3] .rail .rh small{font:700 11px/1.3 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+[data-piel=v3] .rail .ring3{width:200px}[data-piel=v3] .rail .ring3 .in{background:var(--night);color:var(--text)}[data-piel=v3] .rail .ring3 .ne{color:var(--muted)}
+[data-piel=v3] .side .day .rg .pill{padding:0;margin-top:2px}
+[data-piel=v3] .rail .stp{min-height:50px;margin:0 0 6px;padding:8px 12px;gap:12px;border-radius:14px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px}
+[data-piel=v3] .rail .stp i{width:28px;height:28px;border:1px solid var(--border2);font-size:12px}
+[data-piel=v3] .rail .stp.cur{border-color:var(--gold);background:rgba(200,168,75,.1);color:var(--text)}
+[data-piel=v3] .rail .stp.cur i{border:2px solid var(--gold);color:var(--gold)}
+[data-piel=v3] .rail .btn{width:100%}
+[data-piel=v3][data-v3v=bitacora] .rail{display:none!important}
+.mp3{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;width:100%;min-height:130px;margin:0 0 10px;padding:14px;border-radius:16px;border:1px solid var(--border);text-align:left;color:#EAE8E0;background:linear-gradient(180deg,rgba(8,12,18,.05) 15%,rgba(8,12,18,.88)),var(--hero-169) 50% 42%/cover no-repeat}
+.mp3 .k{font:700 10px/1.3 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:#C8A84B}
+.mp3 b{font:400 22px/1 var(--f-disp);letter-spacing:.02em;font-weight:400}
+.fi3{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:0 0 8px;border-radius:14px;border:1px solid var(--border);background:var(--surface)}
+.fi3>i{flex:none;width:5px;height:30px;border-radius:3px;background:var(--c)}
+.fi3 b{display:block;font-size:13.5px}.fi3 small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.fi3 em{margin-left:auto;font-style:normal;font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+/* --- Territorio --- */
+[data-piel=v3] .terr{background:#1a1636}
+[data-piel=v3] .tb.t1,[data-piel=v3] .tb.t2,[data-piel=v3] .tb.t3,[data-piel=v3] .tb.t4{background:linear-gradient(180deg,#191632,#272153 55%,#1c1940);border-top:1px solid rgba(255,255,255,.06)}
+[data-piel=v3] .tb .rg,[data-piel=v3] .tb .tr,[data-piel=v3] .tb .sun{display:none}
+[data-piel=v3] .tb .wm{top:44%;font-size:clamp(56px,11cqi,120px);letter-spacing:-.02em;opacity:.12}
+[data-piel=v3] .tb.t1 .wm,[data-piel=v3] .tb.t1 .wl{color:var(--m1)}[data-piel=v3] .tb.t2 .wm,[data-piel=v3] .tb.t2 .wl{color:var(--m2)}
+[data-piel=v3] .tb.t3 .wm,[data-piel=v3] .tb.t3 .wl{color:var(--m3)}[data-piel=v3] .tb.t4 .wm,[data-piel=v3] .tb.t4 .wl{color:var(--m4)}
+[data-piel=v3] .tb .wl{position:absolute;left:22px;top:20px;z-index:2;font:700 11px/1 var(--f-ui);letter-spacing:.13em;text-transform:uppercase}
+[data-piel=v3] .tpath path:first-child{stroke:rgba(236,231,218,.5);stroke-dasharray:2 6}
+[data-piel=v3] .tpath path+path{stroke:#C8A84B;stroke-width:3}
+[data-piel=v3] .nd{width:42px;height:42px;background:rgba(8,12,18,.6);border:1px solid rgba(255,255,255,.14);color:#EAE8E0;font:700 15px var(--f-ui)}
+[data-piel=v3] .nd.s-done{background:#3D7A54;border-color:#6DC48A;color:#EAE8E0}
+[data-piel=v3] .nd.s-cur{width:56px;height:56px;border:3px solid #C8A84B;background:#080C12;color:#EAE8E0;font-size:18px;animation:twPulse3 2.4s ease-in-out infinite}
+[data-piel=v3] .nd.s-wait{border:1.5px dashed rgba(236,231,218,.5)}
+[data-piel=v3] .nd.s-next{opacity:1;color:#7A8E9A}
+[data-piel=v3] .nd .lb{max-width:min(230px,40cqi);font:600 13px/1.3 var(--f-ui);color:#EAE8E0;background:rgba(8,12,18,.55);border:1px solid rgba(255,255,255,.06);padding:7px 12px;border-radius:10px}
+[data-piel=v3] .nd.s-next .lb{filter:blur(3.5px);opacity:1;color:#B9C3C9}
+[data-piel=v3] .nd.s-cur .lb{font-size:14px;background:rgba(8,12,18,.85);border-color:rgba(200,168,75,.6)}
+[data-piel=v3] .tgo .btn{min-height:38px;border-radius:99px;background:rgba(8,12,18,.7);color:#EAE8E0;border:1px solid rgba(200,168,75,.5);font-weight:700;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+[data-piel=v3] .tcard{padding:16px 12px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(0deg,rgba(26,22,54,.96) 40%,transparent)}
+[data-piel=v3] .tcard .c{max-width:520px;background:color-mix(in srgb,var(--surface) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(200,168,75,.5);border-radius:22px;padding:16px}
+[data-piel=v3] .tcard .eyebrow{font-size:11px;font-weight:700;letter-spacing:.02em}
+[data-piel=v3] .tcard h2{font-size:clamp(26px,5cqi,30px);letter-spacing:.02em;margin:4px 0 6px}
+[data-piel=v3] .tcard .muted{font-size:12px!important}
+[data-piel=v3] .tcard .btn.pri{width:100%;min-height:48px;margin-top:6px;font-size:14px;font-weight:700}
+/* --- Hoy (al pie del Territorio) --- */
+[data-piel=v3] .tfoot{max-width:800px;margin:0 auto}
+.hero3{position:relative;overflow:hidden;padding:28px 18px 24px;border-radius:22px;border:1px solid var(--border);text-align:center;color:#EAE8E0;
+ background:linear-gradient(180deg,rgba(8,12,18,.72),rgba(8,12,18,.35) 30%,rgba(8,12,18,.72) 70%,#080C12),var(--hero-916) 50% 30%/cover no-repeat}
+.hero3 .tx{min-width:0}
+.ring3{width:196px;aspect-ratio:1;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#C8A84B 0 var(--p),rgba(255,255,255,.1) var(--p) 100%);box-shadow:0 0 60px rgba(200,168,75,.2)}
+.ring3 .in{width:86%;aspect-ratio:1;border-radius:50%;background:rgba(8,12,18,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#EAE8E0}
+.ring3 .dd{font:700 11px/1 var(--f-ui);letter-spacing:.18em;text-transform:uppercase;color:#C8A84B}
+.ring3 b{font:400 60px/1 var(--f-disp);margin-top:8px}
+.ring3 .ne{font-size:12px;color:#B9C3C9}
+.hero3 .chipw{display:inline-block;margin-top:18px;padding:3px 10px;border-radius:99px;font:700 11px/1.4 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:#080C12;background:var(--c)}
+.hero3 h2{margin:10px 0 8px;font:400 clamp(30px,6cqi,52px)/1 var(--f-disp);letter-spacing:.01em}
+.hero3 .meta{font-size:13px;color:#B9C3C9}.hero3 .meta em{color:#DEC06A}
+.hero3 .btn.pri{margin-top:16px;min-height:52px;padding:0 28px;border-radius:99px;font-weight:700;box-shadow:0 0 28px rgba(200,168,75,.4);background:#C8A84B;border-color:#C8A84B;color:#080C12}
+@container app (min-width:640px){.hero3{display:grid;grid-template-columns:auto minmax(0,1fr);gap:30px;align-items:center;padding:30px;text-align:left;
+ background:linear-gradient(90deg,rgba(8,12,18,.88),rgba(8,12,18,.4) 62%,rgba(8,12,18,.62)),var(--hero-169) 50% 42%/cover no-repeat}.hero3 .chipw{margin-top:0}}
+@container app (max-width:639px){[data-piel=v3] .hero3{margin:-26px -18px 0;padding-top:44px;border:0;border-radius:0}}
+.tiles3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tiles3 .tile{min-height:84px;padding:12px;border-radius:14px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;text-align:left;background:var(--surface);border:1px solid var(--border);color:var(--text);font:inherit}
+.tiles3 .tile .tg{font-size:11.5px;font-weight:700;color:var(--muted)}.tiles3 .tile .nm{font-size:13.5px;font-weight:700;line-height:1.25}
+.tiles3 .tile.ok{background:rgba(61,122,84,.18);border-color:rgba(109,196,138,.4)}.tiles3 .tile.ok .tg{color:var(--green-xl)}
+.tiles3 .tile.cur{background:rgba(200,168,75,.12);border:1.5px solid var(--gold);box-shadow:0 0 20px rgba(200,168,75,.25)}.tiles3 .tile.cur .tg{color:var(--gold)}
+@container app (min-width:640px){.hoy3 .tiles3 .tile{min-height:104px;padding:16px}.hoy3 .tiles3 .tile .nm{font-size:15px}}
+[data-piel=v3] .tfoot>.eyebrow{margin-top:28px}
+[data-piel=v3] .tfoot>.card{border-radius:20px;padding:20px}
+[data-piel=v3] .tfoot>.card>.eyebrow{font:400 22px/1 var(--f-disp);letter-spacing:.04em;color:var(--text)}
+[data-piel=v3] .recov li{padding:14px 0;font-size:14.5px;font-weight:500}
+[data-piel=v3] .recov .pill.dawn{border-color:rgba(200,168,75,.6);color:var(--gold-l);font-weight:700}
+@container app (min-width:900px){[data-piel=v3] .tfoot>.piedrascard{display:none}}
+/* --- sendero de piedras (columna derecha y pie del Territorio) --- */
+[data-piel=v3] .piedrascard.p3{margin-top:14px;text-align:center}
+[data-piel=v3] .rail .piedrascard.p3{margin:0;padding:0;background:none;border:0;border-radius:0}
+.p3 .ttl3{text-align:left;margin-top:0}
+.cairn{display:flex;flex-direction:column-reverse;align-items:center;gap:3px;padding:18px 0 12px;background:radial-gradient(ellipse at 50% 85%,rgba(200,168,75,.12),transparent 65%)}
+.cairn .cr{display:flex;gap:3px;justify-content:center;transform:translateX(var(--sh))}
+.cairn i{display:block;width:var(--w);height:var(--h);border-radius:var(--r);transform:rotate(var(--rt));border:1.5px dashed color-mix(in srgb,var(--text) 22%,transparent)}
+.cairn i.f{background:linear-gradient(180deg,#DEC06A,#A98A35);border:1px solid rgba(0,0,0,.25);box-shadow:0 2px 6px rgba(200,168,75,.35)}
+.cairn i.nx{border:1.5px dashed var(--gold)}
+.p3 .cnt{font:400 44px/1 var(--f-disp);letter-spacing:.02em;margin:8px 0 6px;color:var(--text)}.p3 .cnt span{color:var(--gold)}
+.p3 .lc3{font-size:13px;line-height:1.5;margin:0 auto 10px;max-width:34ch;color:var(--text)}
+.p3 .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:6px 0 12px}.p3 .chips .pill{color:var(--text)}
+.p3 .sm3{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 14px}
+.p3 .badges{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));text-align:left}
+/* --- Todo el camino: 4 semanas como etapas (2 columnas desde 900 px, 4 desde 1100 px) --- */
+[data-piel=v3] .tz{margin:14px 0;padding:16px 14px 10px;border-radius:20px;color:var(--text);border:1px solid var(--border);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 120px),var(--surface)}
+[data-piel=v3] .tzh{gap:8px 10px;padding:0 0 12px}
+[data-piel=v3] .tzh .v{padding:3px 10px;border-radius:99px;font:700 11px/1.4 var(--f-ui);letter-spacing:.04em;color:#080C12;background:var(--c)}
+[data-piel=v3][data-theme=papel] .tzh .v{color:#FFF8E1}
+[data-piel=v3] .tzh small{font-size:12px;color:var(--muted)}
+[data-piel=v3] .tzh .meter{flex-basis:100%;order:9;height:4px;background:var(--border)}[data-piel=v3] .tzh .meter i{background:var(--c)}
+[data-piel=v3] .tz .day{padding:12px;margin:0 0 8px;background:var(--deep)}
+[data-piel=v3] .tz .day .tt{font-size:14px;font-weight:500}[data-piel=v3] .tz .day .mm{font-size:11.5px}
+@container app (min-width:900px){
+ [data-piel=v3][data-v3v=indice] .main>.wrap{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;align-items:start;padding:28px 24px 40px}
+ [data-piel=v3][data-v3v=indice] .main>.wrap>:not(.tz){grid-column:1/-1}
+ [data-piel=v3][data-v3v=indice] .side,[data-piel=v3][data-v3v=indice] .bar .hamb,[data-piel=v3][data-v3v=indice] .scrim{display:none!important}
+ [data-piel=v3][data-v3v=indice] .tz .day{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 12px;align-items:start}
+ [data-piel=v3][data-v3v=indice] .tz .day .rg{grid-column:2;margin:4px 0 0;align-items:flex-start}
+}
+@container app (min-width:1100px){[data-piel=v3][data-v3v=indice] .main>.wrap{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* --- Jornada --- */
+[data-piel=v3] .scenehead{background:linear-gradient(180deg,color-mix(in srgb,var(--c) 24%,#14122a),#14122a)!important;color:#EAE8E0}
+[data-piel=v3] .scenehead .mv{padding:3px 10px;border-radius:99px;background:var(--c);color:#080C12;font-size:11px;letter-spacing:.04em}
+[data-piel=v3] .scenehead .eyebrow{color:#EAE8E0;letter-spacing:.02em;font-size:12px}
+[data-piel=v3] .scenehead h1{font-size:clamp(34px,7cqi,48px);letter-spacing:.01em}
+@container app (min-width:900px){[data-piel=v3] .scenehead{margin:0 0 16px;padding:26px 28px;border-radius:24px}[data-piel=v3] .scenes,[data-piel=v3] .scn{display:none}}
+[data-piel=v3] .scenes{padding:14px 4px 8px}
+[data-piel=v3] .scenes::before{top:32px;height:2px;background:var(--border2)}
+[data-piel=v3] .scenes button{font-size:10.5px}
+[data-piel=v3] .scenes button i{width:36px;height:36px;border:1px solid var(--border2);background:var(--surface);color:var(--muted)}
+[data-piel=v3] .scenes button.ok i{background:var(--c);border-color:var(--c);color:#080C12}
+[data-piel=v3] .scenes button[aria-current=step] i{border:2px solid var(--gold);background:rgba(200,168,75,.15);color:var(--gold);box-shadow:0 0 16px rgba(200,168,75,.5)}
+[data-piel=v3] .scene .blk{border-radius:22px;border:1px solid var(--border);background:var(--surface)}
+[data-piel=v3] .blk>.hd{gap:14px;padding:16px 18px;background:transparent}
+[data-piel=v3] .blk>.hd .ic{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--deep);color:var(--gold-l)}
+[data-piel=v3] .blk>.hd .k{font-size:11px;letter-spacing:.16em;color:var(--gold)}
+[data-piel=v3] .blk>.hd .h{font:400 26px/1.05 var(--f-disp);letter-spacing:.02em}
+[data-piel=v3] .blk>.ft{background:transparent}
+[data-piel=v3] .snav .btn{min-height:52px;border-radius:14px}[data-piel=v3] .snav .btn.pri{font-weight:700}
+/* --- Bitácora --- */
+[data-piel=v3] .bcard{position:relative;border-radius:18px;background:var(--surface)}
+[data-piel=v3] .bcard::before{content:"";position:absolute;left:14px;top:17px;width:5px;height:34px;border-radius:3px;background:var(--c,var(--text))}
+[data-piel=v3] .bcard.start{border-color:rgba(200,168,75,.45)}[data-piel=v3] .bcard.start::before{background:var(--text)}
+[data-piel=v3] .bcard>.hd{padding:16px 16px 14px 30px}
+[data-piel=v3] .bcard .hd .nm{font:700 17px/1.2 var(--f-ui)}
+[data-piel=v3] .bcard .hd small{color:var(--muted);letter-spacing:.06em}
+[data-piel=v3] .local{border-radius:20px}
+/* --- Mapa personal (solo en pantalla; al imprimir sigue el documento de papel de siempre) --- */
+@media screen{
+ [data-piel=v3] .mapdoc{max-width:820px;padding:0 22px 22px;overflow:hidden;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:none}
+ [data-piel=v3] .mapdoc h2{margin:0 -22px 16px;padding:96px 22px 18px;font-size:clamp(26px,5cqi,34px);background:linear-gradient(180deg,rgba(8,12,18,.12),rgba(8,12,18,.86)),var(--hero-169) 50% 40%/cover no-repeat}
+ [data-piel=v3] .mapdoc .pat{margin:0 0 14px;padding:0;border:0}
+ [data-piel=v3] .mapdoc .pat label{font:700 11px var(--f-ui);letter-spacing:.14em;color:var(--gold)}
+ [data-piel=v3] .mapdoc .ms{margin:0 0 12px;padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--deep)}
+ [data-piel=v3] .mapdoc .ms h3{color:var(--gold-l)}
+ [data-piel=v3] .mapdoc label{color:var(--muted)}
+ [data-piel=v3] .mapdoc input{border:1px dashed var(--border2);border-radius:10px;background:var(--field-bg);color:var(--text)}
+ [data-piel=v3] .mapdoc .hint{color:var(--muted)}[data-piel=v3] .mapdoc .ex{color:var(--text)}
+}
+@container app (min-width:640px){@media screen{[data-piel=v3] .mapdoc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;align-items:start}[data-piel=v3] .mapdoc>*{grid-column:1/-1}[data-piel=v3] .mapdoc>.ms{grid-column:auto}}}
+/* --- Ajustes y avisos --- */
+[data-piel=v3] .md{border-radius:22px 22px 0 0;padding:22px;background:var(--surface)}
+@container app (min-width:640px){[data-piel=v3] .md{border-radius:22px}}
+[data-piel=v3] .md h3{font-size:30px;letter-spacing:.02em}
+[data-piel=v3] .md[aria-label=Ajustes] .route{gap:8px;overflow:visible;flex-wrap:wrap}
+[data-piel=v3] .md[aria-label=Ajustes] .route button{min-height:44px;min-width:56px;justify-content:center;padding:0 16px;border-radius:99px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font-weight:700}
+[data-piel=v3] .md[aria-label=Ajustes] .route button[aria-pressed=true]{border-color:var(--gold)!important;color:var(--gold-l)!important;background:rgba(200,168,75,.1)}
+[data-piel=v3] .md[aria-label=Ajustes] .cl .btn{min-height:44px;background:var(--deep);font-weight:700}
+[data-piel=v3] .md[aria-label=Ajustes] .btn.pri{width:100%;min-height:48px;border-radius:14px}
+[data-piel=v3] .toast{top:72px;bottom:auto;border-radius:14px;background:#1C2A3C;color:#EAE8E0;border:1px solid #C8A84B}
+@media (prefers-reduced-motion:reduce){[data-piel=v3] .nd.s-cur{animation:none}}
 </style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
@@ -849,7 +1075,7 @@ function racha(){const L=lastDone();let run=0,best=0;for(let k=1;k<=L;k++){const
 function piedrasSVG(c){const rows=[6,5,4,3,2];let k=0,o='';rows.forEach((rc,r)=>{const x0=(220-rc*30+4)/2;for(let i=0;i<rc;i++){k++;const col=MOV[Math.ceil(k/5)].c,f=k<=c;o+=`<rect x="${x0+i*30}" y="${132-r*28}" width="26" height="22" rx="9" ${f?`fill="${col}" fill-opacity=".9" stroke="${col}"`:'fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="3 3"'} stroke-width="1.5"/>`}});return `<svg class="piedras" viewBox="0 0 220 160" role="img" aria-label="Sendero de piedras: ${c} de 20 piedras">${o}</svg>`}
 function badgeList(){const L=[1,2,3,4].map(w=>({t:'Semana '+w,s:MOV[w].n,q:'Termina sus 5 jornadas',c:MOV[w].c,on:[1,2,3,4,5].every(x=>S.done[(w-1)*5+x])}));L.push({t:'Volví al camino',s:'Te pusiste al día',q:'Se gana al hacer en fin de semana una jornada que te quedó pendiente',c:'var(--dawn)',on:!!S.badges.volvi});L.push({t:'Ruta recorrida',s:'Protocolo Metanoia',q:'Se gana al terminar las 20 jornadas',c:'var(--gold)',on:lastDone()>=20});return L}
 function badgesHTML(){return `<ul class="badges">${badgeList().map(b=>`<li class="${b.on?'on':''}" style="--c:${b.c}"><i aria-hidden="true">${b.on?ic('check'):''}</i><span><b>${b.t}</b><small>${b.on?b.s:'Por recorrer · '+b.q}</small></span></li>`).join('')}</ul>`}
-function piedrasCard(){const c=doneCount(),r=racha();return `<div class="card piedrascard"><div class="eyebrow">Tu sendero de piedras</div><div class="mj">${piedrasSVG(c)}<div><div class="disp" style="font-size:30px;letter-spacing:.05em">${c} de 20 piedras</div><p class="muted" style="font-size:13px;line-height:1.5;margin:4px 0 8px">Cada jornada suma una piedra. El sendero de piedras solo crece.</p><div class="muted" style="font-size:13px">Pasos seguidos: <b>${r.seguidos}</b> · Mejor tramo: <b>${r.mejor}</b></div><p class="muted" style="font-size:12px;margin:6px 0 0">Si el tramo se corta, no se pierde nada: tu sendero de piedras sigue ahí.</p></div></div>${badgesHTML()}${FINAL?'':`<button class="btn sm ghost" data-act="piedras">Ver cómo se vería en MI MAPA</button>`}</div>`}
+function piedrasCard(){if(S.piel==='v3')return piedrasV3();const c=doneCount(),r=racha();return `<div class="card piedrascard"><div class="eyebrow">Tu sendero de piedras</div><div class="mj">${piedrasSVG(c)}<div><div class="disp" style="font-size:30px;letter-spacing:.05em">${c} de 20 piedras</div><p class="muted" style="font-size:13px;line-height:1.5;margin:4px 0 8px">Cada jornada suma una piedra. El sendero de piedras solo crece.</p><div class="muted" style="font-size:13px">Pasos seguidos: <b>${r.seguidos}</b> · Mejor tramo: <b>${r.mejor}</b></div><p class="muted" style="font-size:12px;margin:6px 0 0">Si el tramo se corta, no se pierde nada: tu sendero de piedras sigue ahí.</p></div></div>${badgesHTML()}${FINAL?'':`<button class="btn sm ghost" data-act="piedras">Ver cómo se vería en MI MAPA</button>`}</div>`}
 
 /* ---------- Bitácora local: guardado REAL en el dispositivo (almacenamiento del navegador) ----------
    Guardado real: lo escrito (val, stat, notas) se guarda en el almacenamiento del navegador, se pide almacenamiento persistente
@@ -912,7 +1138,7 @@ function paisajeHTML(){
  const n=cur(),all=lastDone()>=20,P=[...Array(20)].map((_,i)=>tpos(i+1)),mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
  const dp=pts=>pts.length<2?'':'M'+pts[0]+pts.slice(1).map((p,i)=>i==pts.length-2?'L'+p:'Q'+pts[i+1]+' '+mid(pts[i+1],pts[i+2])).join('');
  const gold=all?20:n;
- let h='<div class="tbands" aria-hidden="true">'+[4,3,2,1].map(w=>`<div class="tb t${w}">${ridgeSVG(w)}<div class="wm">${MOV[w].n}</div>${S.piel==='v2'?`<div class="wl">Semana ${w} · ${MOV[w].n}</div>`:''}${w===4?'<i class="sun"></i>':''}<i class="tr"></i></div>`).join('')+'</div>';
+ let h='<div class="tbands" aria-hidden="true">'+[4,3,2,1].map(w=>`<div class="tb t${w}">${ridgeSVG(w)}<div class="wm">${MOV[w].n}</div>${S.piel==='v2'||S.piel==='v3'?`<div class="wl">Semana ${w} · ${MOV[w].n}</div>`:''}${w===4?'<i class="sun"></i>':''}<i class="tr"></i></div>`).join('')+'</div>';
  h+=`<div class="tcol" role="list" aria-label="Tu camino: ${doneCount()} de 20 jornadas recorridas"><svg class="tpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${dp(P)}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.4" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>${gold>1?`<path d="${dp(P.slice(0,gold))}" fill="none" stroke="#e8b94a" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`:''}</svg>`;
  D.dias.forEach(d=>{const k=d.n,[x,y]=tpos(k),st=dstate(k),side=x>50?'l':'r',w=d.semana;
   const lab=st==='next'?`Se abre ${fmtC(abre(k))} a las 12 de la noche`:(st==='done'?'Completada':(st==='cur'?'Te toca':'Abierta, en espera'));
@@ -925,6 +1151,22 @@ function hoyV2(n,d,w){const B=d.bloques,k=B.filter((_,i)=>S.step[n+':'+i]).lengt
  <span class="chipw" style="--c:${MOV[w].c}">${MOV[w].n} · Semana ${w}</span><h2>${esc(sc(d.titulo))}</h2>
  <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button>
  <div class="tiles">${B.map((b,i)=>{const ok=!!S.step[n+':'+i],cu=i===nx;return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc((BL[b.tipo]||['Contenido'])[0])}: ${ok?'Completada':cu?'Te toca':'Paso '+(i+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':i+1}</span><span class="nm">${esc((BL[b.tipo]||['Contenido'])[0])}</span></button>`}).join('')}</div></section>`}
+/* Rediseño v3 (fase curso): piezas de presentación que solo se dibujan con ?piel=v3. Solo LEEN el estado (S.step, S.done, fichas, racha);
+   sus botones usan acciones que ya existían (day, go, jump). No hay acciones nuevas. */
+function ringV3(n,d){const B=d.bloques,k=B.filter((_,i)=>S.step[n+':'+i]).length,pc=Math.round(100*k/B.length);return `<div class="ring3" style="--p:${pc}%"><div class="in"><span class="dd">Día ${n} · ${esc(d.dsem)}</span><b>${pc}%</b><span class="ne">${k} de ${B.length} escenas</span></div></div>`}
+function tilesV3(n,d,corto){const nx=nextStep(n);return `<div class="tiles3">${d.bloques.map((b,i)=>{const ok=!!S.step[n+':'+i],cu=i===nx,nm=(BL[b.tipo]||['Contenido'])[0].split(corto?' · ':'\n')[0];return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc(nm)}: ${ok?'Completada':cu?'Te toca':'Paso '+(i+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':String(i+1).padStart(2,'0')}</span><span class="nm">${esc(nm)}</span></button>`}).join('')}</div>`}
+function hoyV3(n,d,w){return `<section class="hoy3" aria-label="Hoy: Día ${n}"><div class="hero3">${ringV3(n,d)}<div class="tx"><span class="chipw" style="--c:${MOV[w].c}">${MOV[w].n} · Semana ${w}</span><h2>${esc(sc(d.titulo))}</h2><div class="meta">Día ${n} de 20 · ${esc(d.dsem)} · <em>${esc(d.biblia)}</em></div>
+ <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button></div></div><h3 class="ttl3">Las escenas de hoy</h3>${tilesV3(n,d)}</section>`}
+function cairnV3(c){const R=[5,4,4,3,2,1,1],SH=[0,8,-6,7,-4,5,2],DW=[-3,2,0,4,-1],HR=[.56,.62,.5,.6,.66],RT=[-4,3,-2,5,0],RA=['52% 48% 46% 54% / 60% 55% 45% 40%','45% 55% 50% 50% / 50% 60% 40% 50%','60% 40% 55% 45% / 55% 45% 55% 45%','50% 50% 42% 58% / 62% 48% 52% 38%','48% 52% 58% 42% / 45% 58% 42% 55%'];let k=0;
+ return `<div class="cairn" role="img" aria-label="Sendero de piedras: ${c} de 20 piedras">${R.map((m,r)=>`<div class="cr" style="--sh:${SH[r]}px">${Array.from({length:m},()=>{const i=k++,v=(i*7)%5,sw=38-r*3.8;return `<i class="${i<c?'f':i===c?'nx':''}" style="--w:${Math.round(sw+DW[v])}px;--h:${Math.round(sw*HR[v])}px;--r:${RA[v]};--rt:${RT[v]}deg"></i>`}).join('')}</div>`).join('')}</div>`}
+function piedrasV3(){const c=doneCount(),r=racha();return `<div class="card piedrascard p3"><h3 class="ttl3">Tu sendero de piedras</h3>${cairnV3(c)}<div class="cnt">${c} <span>de 20</span> piedras</div><p class="lc3">Cada jornada suma una piedra. El sendero de piedras solo crece.</p><div class="chips"><span class="pill">Pasos seguidos <b>${r.seguidos}</b></span><span class="pill">Mejor tramo <b>${r.mejor}</b></span></div><p class="sm3">Si el tramo se corta, no se pierde nada: tu sendero de piedras sigue ahí.</p>${badgesHTML()}${FINAL?'':`<button class="btn sm ghost" data-act="piedras">Ver cómo se vería en MI MAPA</button>`}</div>`}
+function bitaCardV3(){return `<h3 class="ttl3">Mi Bitácora</h3><button class="mp3" data-act="go" data-v="mapa"><span class="k">Tu Mapa Personal se elabora en el Día 20</span><b>Mi Mapa Personal de Renovación</b></button><button class="btn ghost" data-act="go" data-v="bitacora">Abrir mi Bitácora</button>`}
+function fichasV3(){const dd={inicial:1,s1:5,s2:10,s3:15,s4:19};return `<h3 class="ttl3">Lo que se suma a tu Mapa</h3>${['inicial','s1','s2','s3','s4'].map(k=>`<div class="fi3" style="--c:${k==='inicial'?'var(--text)':MOV[FSEM[k]].c}"><i></i><span><b>${FNOM[k]}</b><small>${k==='inicial'?'Ficha inicial · Día 1':'Semana '+FSEM[k]+' · '+MOV[FSEM[k]].n+' · Día '+dd[k]}</small></span><em>${fstatus(k)}</em></div>`).join('')}`}
+function railV3(){const v=S.view;let h='';
+ if(v==='dia'){const m=S.day,dd=dia(m),B=dd.bloques;h=`<div class="rh"><h4>Tu ruta de hoy</h4><small>${B.filter((_,i)=>S.step[m+':'+i]).length} de ${B.length}</small></div>${B.map((b,i)=>`<button class="stp ${S.step[m+':'+i]?'ok':''} ${nextStep(m)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[m+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}`}
+ else if(v==='hoy'){const n=cur(),d=dia(n),w=d.semana;if(lastDone()<20&&isOpen(n))h=`<div class="rh"><h4>Tu ruta de hoy</h4><small style="color:${MOV[w].c}">${MOV[w].n} · Semana ${w}</small></div>${ringV3(n,d)}<div style="height:18px"></div>${tilesV3(n,d,1)}`}
+ else if(v==='mapa')h=fichasV3();
+ return `<aside class="rail" aria-label="${v==='dia'?'En esta jornada':'Tu avance'}">${h}${v==='mapa'?'':bitaCardV3()}${piedrasV3()}</aside>`}
 function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount();
  const espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
  let card;
@@ -936,7 +1178,7 @@ function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&i
   <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button></div>`;
  else card=`<div class="c"><span class="eyebrow">${n===1?'Tu primera jornada':'Estás al día'}</span><h2>La siguiente jornada se abre pronto</h2><div class="muted" style="font-size:13px">Día ${n} de 20 · se abre el ${fmtL(abre(n))} a las 12 de la noche.</div></div>`;
  return `<div class="hoyB"><div class="tgo"><button class="btn sm" data-act="irhoy">Ir a hoy</button></div>${paisajeHTML()}<div class="tcard">${card}</div>
- <div class="wrap tfoot">${S.piel==='v2'&&op?hoyV2(n,d,w):''}<p class="eyebrow">Al pie del camino</p>${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
+ <div class="wrap tfoot">${S.piel==='v2'&&op?hoyV2(n,d,w):''}${S.piel==='v3'&&op?hoyV3(n,d,w):''}<p class="eyebrow">Al pie del camino</p>${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
  ${piedrasCard()}
  ${S.backupAt===null&&doneCount()>=5?`<div class="card" style="margin-top:14px"><div class="eyebrow">Tu Bitácora</div><p class="muted" style="font-size:13px;margin:6px 0 10px">Vive solo en tu teléfono y aún no tiene una copia de seguridad.</p><button class="btn sm" data-act="backup">Guardar copia de seguridad</button></div>`:''}
  <div style="display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr 1fr"><button class="btn ghost" data-act="go" data-v="bitacora">${ic('bitacora').replace('<svg','<svg width="18" height="18"')} Mi Bitácora</button><button class="btn ghost" data-act="go" data-v="mapa">${ic('map').replace('<svg','<svg width="18" height="18"')} Mi Mapa Personal</button></div></div></div>`}
@@ -1089,7 +1331,7 @@ function vMapa(){
 
 /* ---------- estructura ---------- */
 function sideHTML(){return `<nav class="side" id="side" aria-label="Recorrido del curso">${[1,2,3,4].map(w=>`<h4 style="color:${MOV[w].c}">${MOV[w].n}</h4>${D.dias.filter(d=>d.semana===w).map(d=>dayRow(d,1)).join('')}`).join('')}</nav>`}
-function railHTML(){const n=S.day,d=dia(n);
+function railHTML(){if(S.piel==='v3')return railV3();const n=S.day,d=dia(n);
  if(S.view==='dia'){return `<aside class="rail" aria-label="En esta jornada"><h4>Tu ruta de hoy</h4>${d.bloques.map((b,i)=>`<button class="stp ${S.step[n+':'+i]?'ok':''} ${nextStep(n)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[n+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}<hr style="border:0;border-top:1px solid var(--border);margin:14px 0"><h4>Mi Bitácora</h4><button class="btn sm ghost" data-act="go" data-v="bitacora" style="width:100%">Abrir mi Bitácora</button></aside>`}
  return `<aside class="rail"><h4>Tu avance</h4>${S.piel==='v2'?`<div class="ring" style="--p:${doneCount()*5}%"><div class="in"><b>${doneCount()}</b><span class="ne">de 20</span></div></div>`:''}<p class="muted" style="font-size:13px;line-height:1.5">${Object.keys(S.done).filter(k=>S.done[k]).length} de 20 jornadas completadas.</p><button class="btn sm ghost" data-act="go" data-v="mapa" style="width:100%">Mi Mapa Personal</button></aside>`}
 const COURSE=['hoy','indice','dia','semana','bitacora','mapa'];
@@ -1110,6 +1352,7 @@ function lecLabel(){const i=lecInfo();return 'Lección del día: '+(i.all?'curso
 function tabsHTML(){const li=lecInfo(),lecOn=S.view==='dia'&&S.day===cur()&&!li.all;const T=[['hoy',S.design==='b'?'Territorio':'Hoy','home'],['indice',S.design==='b'?'Camino':'Índice','list'],['bitacora','Bitácora','bitacora'],['mapa','Mapa','map']];
  return `<nav class="tabs" aria-label="Navegación principal">${T.map(t=>`<button data-act="go" data-v="${t[0]}" ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy'&&!lecOn)?'aria-current="page"':''}>${ic(t[2])}${t[1]}</button>`).join('')}<button class="lecb" data-act="lecdia" aria-label="${lecLabel()}" ${lecOn?'aria-current="page"':''}><span class="lp">${li.t}</span>Lección del día</button></nav>`}
 function topnav(){const T=[['hoy',S.design==='b'?'Territorio':'Hoy'],['indice',S.design==='b'?'Todo el camino':'Índice'],['bitacora','Bitácora'],['mapa','Mapa personal']];
+ if(S.piel==='v3')return `<div class="topnav" role="navigation" aria-label="Secciones"><span class="tn-g">${T.map(t=>`<button class="ibtn ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy')?'on':''}" data-act="go" data-v="${t[0]}">${t[1]}</button>`).join('')}</span><button class="ibtn lecT" data-act="lecdia" aria-label="${lecLabel()}"><span>Lección<span class="lt"> del día</span></span><span class="lp">${lecInfo().t}</span></button></div>`;
  return `<div class="topnav" role="navigation" aria-label="Secciones">${T.map(t=>`<button class="ibtn ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy')?'on':''}" data-act="go" data-v="${t[0]}">${t[1]}</button>`).join('')}<button class="ibtn lecT" data-act="lecdia" aria-label="${lecLabel()}">Lección del día · ${lecInfo().t}</button></div>`}
 const COLLEGE=[['Mayor que mi realidad','https://mayorquemirealidad.netlify.app/',1],['S.T.A.R.S.','https://starsmsgapp.netlify.app/',1],['Bookclub','https://bookclublhscol.netlify.app/',1],['Staff','https://collegelhscol.netlify.app/#staff',1],['THE WAY · inicio','https://thewaylhscol.netlify.app/',1],['Volver a LHSCOL','https://lhscolweb.netlify.app/',0]];
 function modalHTML(){const m=S.modal;if(!m)return '';
@@ -1132,7 +1375,7 @@ const VIEWS={entrada:vEntrada,landing:vLanding,bienvenida:vBienvenida,hoy:vHoy,i
 function setAh(){const a=$('#app');if(a)document.documentElement.style.setProperty('--ah',a.clientHeight+'px')}
 window.addEventListener('resize',setAh);
 function render(keep){if(FINAL){S.hoy=d0(new Date());progSave()}const main=$('#main'),top=keep&&main?main.scrollTop:0;const v=S.view,inC=COURSE.includes(v);
- document.documentElement.setAttribute('data-theme',S.theme);document.documentElement.setAttribute('data-design',S.design);if(S.piel==='v2')document.documentElement.setAttribute('data-piel','v2');else document.documentElement.removeAttribute('data-piel');document.documentElement.style.setProperty('--rs',S.rs);
+ document.documentElement.setAttribute('data-theme',S.theme);document.documentElement.setAttribute('data-design',S.design);if(S.piel==='v2'||S.piel==='v3')document.documentElement.setAttribute('data-piel',S.piel);else document.documentElement.removeAttribute('data-piel');if(S.piel==='v3')document.documentElement.setAttribute('data-v3v',v);else document.documentElement.removeAttribute('data-v3v');document.documentElement.style.setProperty('--rs',S.rs);
  $('#stagewrap').setAttribute('data-dev',S.dev);setAh();
  const faltan=GATED?necesita(v):[];let body;if(faltan.length){pedirDias(faltan);body=cargandoHTML(faltan)}else body=VIEWS[v]();
  $('#app').innerHTML=oficialHTML()+barHTML()+`<div class="body" data-side="${S.side}">${inC?sideHTML()+'<button class="scrim" data-act="side" aria-label="Cerrar el recorrido" tabindex="-1"></button>':''}<main class="main" id="main" tabindex="-1">${body}</main>${inC?railHTML():''}</div>${inC?tabsHTML():''}${modalHTML()}${S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:''}`;
@@ -1236,7 +1479,8 @@ function preset(p){S.done={};S.step={};S.val={};S.stat={};S.notas=[];S.welcomed=
  if(FINAL&&!q.get('view')&&!q.get('ir')){const r=retLoad();if(r&&isOpen(r.n)){const i=dia(r.n).bloques.findIndex(b=>b.tipo===r.k);if(i>=0){S.ret=r;S.welcomed=true;S.day=r.n;S.view='dia';S.sceneDay=r.n;S.scene=i}}}
  if(FINAL&&q.get('ir')==='hoy'&&!q.get('view')){S.welcomed=true;S.sceneDay=null;S.day=cur();S.view=doneCount()>=20?'final':'dia'}
  /* Rediseño v2 (etapa 1): piel nueva solo con ?piel=v2 (o si este dispositivo ya la eligió); ?piel=actual la apaga */
- try{const pq=q.get('piel');if(pq==='v2'||pq==='actual')localStorage.setItem('tw_piel',pq);S.piel=localStorage.getItem('tw_piel')==='v2'?'v2':null}catch(e){S.piel=q.get('piel')==='v2'?'v2':null}
+ /* Rediseño v3 (fase curso): ?piel=v3 activa la piel v3 (recordada igual que v2); ?piel=v2 sigue igual; cualquier otro valor no cambia nada */
+ try{const pq=q.get('piel');if(pq==='v2'||pq==='v3'||pq==='actual')localStorage.setItem('tw_piel',pq);const lp=localStorage.getItem('tw_piel');S.piel=lp==='v2'||lp==='v3'?lp:null}catch(e){const pq=q.get('piel');S.piel=pq==='v2'||pq==='v3'?pq:null}
  if(q.get('week'))S.weekDone=+q.get('week');if(q.get('vid'))S.vid=q.get('vid');if(q.get('design'))S.design=q.get('design')==='b'?'b':'a';if(q.get('side'))S.side=q.get('side')==='open'?'open':q.get('side')==='closed'?'closed':'auto';if(q.get('hoy'))S.hoy=fromIso(q.get('hoy'));if(q.get('finde')){while(!isWE(S.hoy))S.hoy=addD(S.hoy,1)}if(q.get('modal'))S.modal={t:q.get('modal')};if(q.get('ex'))S.ex=true;
  render(false);
  (async()=>{try{const mg=await migrarBitacora();if(mg.aviso)setTimeout(()=>toast(mg.aviso),400);const o=await bitacoraLeer();STORE.ok=!!BKEY();if(!STORE.ok)STORE.err='sin cuenta';if(!q.get('preset')&&!q.get('view')){const pr=await pinLeer();if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
