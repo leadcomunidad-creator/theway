@@ -821,6 +821,65 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 [data-piel=v3] .md[aria-label=Ajustes] .btn.pri{width:100%;min-height:48px;border-radius:14px}
 [data-piel=v3] .toast{top:72px;bottom:auto;border-radius:14px;background:#1C2A3C;color:#EAE8E0;border:1px solid #C8A84B}
 @media (prefers-reduced-motion:reduce){[data-piel=v3] .nd.s-cur{animation:none}}
+/* ===== PIEL V3 · AJUSTES de la fase curso (orden 2026-11-12 08:15) ===== */
+/* 1 · una sola barra superior (.b3): escritorio ☰ · THE WAY | PROTOCOLO METANOIA / ‹ Volver a Mi Mapa · Renovación · Ruta 2 · pestañas · Lección del día · Info · Ajustes */
+[data-piel=v3] .bar.b3 .back3,[data-piel=v3] .bar.b3 .dp3,[data-piel=v3] .bar.b3 .rt3{display:none}
+[data-piel=v3] .bar.b3 .tw3{flex:none;display:block;font:400 22px/1 var(--f-disp);letter-spacing:1px;color:var(--text);white-space:nowrap}
+[data-piel=v3] .bar.b3 .tw3 span{color:var(--gold)}
+[data-piel=v3] .bar.b3 .tw3::after{content:"";display:inline-block;vertical-align:middle;width:1px;height:30px;margin:-6px 0 0 14px;background:var(--border2)}
+[data-piel=v3] body.bare .bar.b3 .hudt .back{white-space:nowrap}
+[data-piel=v3] body.bare .bar.hud .topnav .ibtn.lecT.on{outline:2px solid var(--gold-l);outline-offset:3px}
+[data-piel=v3] .md .salir3{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;margin-top:10px;border-radius:14px;text-decoration:none}
+[data-piel=v3] body.bare .bar.b3 .topnav .tn-g .ibtn{white-space:nowrap}
+@container app (min-width:900px) and (max-width:1199px){[data-piel=v3] .bar.b3 .tw3{font-size:20px}[data-piel=v3] .bar.b3 .tw3::after{margin-left:10px}
+ [data-piel=v3] body.bare .app>.bar.b3{gap:10px;padding:10px 14px}[data-piel=v3] body.bare .bar.b3 .hudt h1{font-size:22px;letter-spacing:1px}[data-piel=v3] body.bare .bar.b3 .hudt .back{font-size:11px}
+ [data-piel=v3] body.bare .bar.b3 .topnav{gap:10px}[data-piel=v3] body.bare .bar.b3 .topnav .tn-g .ibtn{padding:0 8px;font-size:12.5px}
+ [data-piel=v3] body.bare .bar.b3 .topnav .ibtn.lecT{padding:0 6px 0 12px}[data-piel=v3] body.bare .bar.b3 .vsw .ibtn{min-width:38px}}
+/* celular y 768: ‹ Mi Mapa · PROTOCOLO METANOIA / Renovación · Ruta 2 · píldora «Día N» · Info · Ajustes */
+@container app (max-width:899px){
+ [data-piel=v3] body.bare .app>.bar.b3{align-items:center;gap:8px;min-height:0;padding:12px 14px 12px 16px}
+ [data-piel=v3] .bar.b3 .tw3,[data-piel=v3] .bar.b3 .hudt .back{display:none}
+ [data-piel=v3] .bar.b3 .back3{display:inline-flex;flex:none;align-items:center;height:36px;padding:0 11px;border-radius:12px;border:1px solid var(--border2);background:var(--surface);color:var(--text);font:600 12px var(--f-ui);white-space:nowrap}
+ [data-piel=v3] .bar.b3 .hudt{flex:1;min-width:0}
+ [data-piel=v3] body.bare .bar.b3 .hudt h1{font-size:22px;letter-spacing:.8px}
+ [data-piel=v3] .bar.b3 .rt3{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+ [data-piel=v3] .bar.b3 .dp3{display:inline-flex;flex:none;align-items:center;min-height:28px;padding:0 10px;border:0;border-radius:99px;background:var(--gold);color:var(--ink-on-gold);font:700 12px var(--f-ui);white-space:nowrap}
+ [data-piel=v3] body.bare .bar.b3 .vsw .ibtn{min-width:38px;padding:0 6px}
+}
+@container app (max-width:420px){[data-piel=v3] body.bare .bar.b3 .hudt h1{font-size:20px;letter-spacing:.5px}[data-piel=v3] body.bare .app>.bar.b3{gap:6px;padding:10px 10px 10px 12px}[data-piel=v3] body.bare .bar.b3 .vsw .ibtn{min-width:34px;padding:0 4px}}
+/* 2 · cápsula flotante (menos de 900 px): Territorio · Hoy · Camino · Bitácora */
+@container app (max-width:899px){
+ [data-piel=v3] .tabs.t3{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;transform:translateX(-50%);width:calc(100% - 28px);max-width:440px;height:62px;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:6px;gap:4px;box-shadow:0 12px 32px rgba(0,0,0,.4)}
+ [data-piel=v3] .tabs.t3 button{min-height:0;height:100%;gap:4px;font-size:11px}
+ [data-piel=v3] .tabs.t3 button svg{width:18px;height:18px}
+ [data-piel=v3] .main{padding-bottom:96px}
+ [data-piel=v3] .tcard{bottom:76px;background:none}
+ [data-piel=v3] .bk3{display:inline-flex;align-items:center;min-height:36px;margin:0 0 14px;padding:0 14px;border-radius:99px;border:1px solid var(--border2);background:transparent;color:var(--text);font:600 13px var(--f-ui)}
+}
+@container app (min-width:900px){[data-piel=v3] .bk3{display:none}}
+[data-piel=v3] .mp3.bm3{min-height:150px;margin:0 0 16px;border-radius:22px}[data-piel=v3] .mp3.bm3 b{font-size:clamp(24px,5cqi,30px)}
+/* 3 · pantalla Hoy (hoy3) */
+[data-piel=v3] .hoy3w>.card{margin-top:14px}
+[data-piel=v3] .hoy3w>.cj3 h2{font:400 clamp(28px,6cqi,40px)/1 var(--f-disp);letter-spacing:.02em;margin:8px 0 10px}
+@container app (min-width:900px){[data-piel=v3] .hoy3w>.b2{display:none}}
+/* 4 · Territorio: espacio bajo el mapa (el nodo de hoy queda sobre la tarjeta) y «Ir a hoy» oculto en celular */
+[data-piel=v3] .hoyB .terr{padding-bottom:var(--tpb,230px);background:linear-gradient(180deg,#1c1940,#14122a) 0 100%/100% var(--tpb,230px) no-repeat,#14122a}[data-piel=v3] .hoyB .tbands{bottom:var(--tpb,230px)}
+@container app (max-width:899px){[data-piel=v3] .hoyB{--tpb:380px}[data-piel=v3][data-v3v=hoy] .main{padding-bottom:0}[data-piel=v3] .hoyB .tcard{margin-top:-300px}}
+@container app (max-width:599px){[data-piel=v3] .tgo{display:none}}
+/* 5 · 768: Territorio con «Tu ruta de hoy» de 300 px a la derecha (solo esta pantalla) */
+@container app (min-width:600px) and (max-width:899px){[data-piel=v3][data-v3v=hoy] .rail{display:block;width:300px;padding:20px 18px 110px}}
+/* 6 · Jornada en celular: los 6 pasos de 48 px con etiqueta corta, sin desplazamiento horizontal */
+[data-piel=v3] .scenes .sl3{display:none}
+@container app (max-width:599px){
+ [data-piel=v3] .scenes{overflow:visible;justify-content:space-between;gap:0;padding:14px 0 8px}
+ [data-piel=v3] .scenes button{flex:0 0 48px;width:48px;min-width:48px;padding:0;font-size:10px}
+ [data-piel=v3] .scenes::before{left:24px;right:24px}
+ [data-piel=v3] .scenes .sl3{display:block}[data-piel=v3] .scenes .ll3{display:none}
+}
+/* 7 · Mapa personal: «Solo consulta por ahora» en la columna derecha (escritorio); en celular sigue antes del documento */
+[data-piel=v3] .rail .av3{margin:0 0 24px;padding:18px;border-radius:20px;border:1px solid rgba(200,168,75,.45);background:var(--surface)}
+[data-piel=v3] .rail .av3 .eyebrow{color:var(--gold)}
+@container app (min-width:900px){[data-piel=v3][data-v3v=mapa] .main>.wrap>.card.noprint{display:none}}
 </style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
@@ -1165,8 +1224,29 @@ function fichasV3(){const dd={inicial:1,s1:5,s2:10,s3:15,s4:19};return `<h3 clas
 function railV3(){const v=S.view;let h='';
  if(v==='dia'){const m=S.day,dd=dia(m),B=dd.bloques;h=`<div class="rh"><h4>Tu ruta de hoy</h4><small>${B.filter((_,i)=>S.step[m+':'+i]).length} de ${B.length}</small></div>${B.map((b,i)=>`<button class="stp ${S.step[m+':'+i]?'ok':''} ${nextStep(m)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[m+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}`}
  else if(v==='hoy'){const n=cur(),d=dia(n),w=d.semana;if(lastDone()<20&&isOpen(n))h=`<div class="rh"><h4>Tu ruta de hoy</h4><small style="color:${MOV[w].c}">${MOV[w].n} · Semana ${w}</small></div>${ringV3(n,d)}<div style="height:18px"></div>${tilesV3(n,d,1)}`}
- else if(v==='mapa')h=fichasV3();
+ else if(v==='mapa')h=(mapaEdit()?'':avisoMapaV3())+fichasV3();
  return `<aside class="rail" aria-label="${v==='dia'?'En esta jornada':'Tu avance'}">${h}${v==='mapa'?'':bitaCardV3()}${piedrasV3()}</aside>`}
+/* Rediseño v3 (ajustes, orden 0815) ---------------------------------------------------------------------------------
+   Solo con ?piel=v3. Sin acciones nuevas: los botones usan go, day, lecdia, how, aa y side, que ya existían. */
+/* «Solo consulta por ahora» en la columna derecha del Mapa personal (escritorio); mismos textos y botones que vMapa */
+function avisoMapaV3(){return `<div class="card av3"><div class="eyebrow">Solo consulta por ahora</div><p class="muted" style="font-size:13.5px;line-height:1.55;margin:6px 0 10px">Tu Mapa Personal se elabora en el Día 20${isOpen(20)?'':' (se abre '+fmtL(abre(20))+')'}. Hasta entonces puedes ver cómo es; lo que vas registrando está en tu Bitácora.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="go" data-v="bitacora">Ver mi Bitácora</button>${isOpen(20)?'<button class="btn sm ghost" data-act="day" data-n="20">Ir al Día 20</button>':''}</div></div>`}
+/* Pantalla Hoy (vista «hoy3», solo v3): portada con anillo, mosaico 3×2 de escenas, «Para ponerte al día» y lo que antes iba al pie del Territorio */
+function vHoy3(){if(S.piel!=='v3'){S.view='hoy';return vHoy()}
+ const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount(),espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
+ const sinJ=all?`<div class="card cj3"><div><span class="eyebrow">Curso terminado</span></div><h2>Llegaste a la cumbre</h2><button class="btn pri" data-act="go" data-v="final">Ver pantalla final</button></div>`
+  :`<div class="card cj3"><div><span class="eyebrow">${n===1?'Tu primera jornada':'Estás al día'}</span></div><h2>La siguiente jornada se abre pronto</h2><div class="muted" style="font-size:13px">Día ${n} de 20 · se abre el ${fmtL(abre(n))} a las 12 de la noche.</div></div>`;
+ return `<div class="wrap tfoot hoy3w">${op?hoyV3(n,d,w):sinJ}${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
+ ${piedrasCard()}
+ ${S.backupAt===null&&doneCount()>=5?`<div class="card" style="margin-top:14px"><div class="eyebrow">Tu Bitácora</div><p class="muted" style="font-size:13px;margin:6px 0 10px">Vive solo en tu teléfono y aún no tiene una copia de seguridad.</p><button class="btn sm" data-act="backup">Guardar copia de seguridad</button></div>`:''}
+ <div class="b2" style="display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr 1fr"><button class="btn ghost" data-act="go" data-v="bitacora">${ic('bitacora').replace('<svg','<svg width="18" height="18"')} Mi Bitácora</button><button class="btn ghost" data-act="go" data-v="mapa">${ic('map').replace('<svg','<svg width="18" height="18"')} Mi Mapa Personal</button></div></div>`}
+/* Etiquetas cortas de los 6 pasos de la Jornada en celular (las largas siguen desde 600 px) */
+const BLC3={apertura:'Apertura',palabra:'Palabra',libro:'Libro',video:'Video',leccion:'Lección',bitacora:'Bitácora',cierre:'Cierre'};
+/* Barra única del curso (reemplaza la oficial «THE WAY · Salir» + la del curso). «Salir» pasa a Ajustes. */
+const SLID3='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>';
+function barV3(inC){return `<header class="bar hud b3">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back3" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Mi Mapa</button><span class="tw3" aria-hidden="true">THE <span>WAY</span></span><div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a Mi Mapa · Renovación · Ruta 2</button><small class="rt3">Renovación · Ruta 2</small></div>${inC?topnav():''}${inC?`<button class="dp3" data-act="lecdia" aria-label="${lecLabel()}">${lecInfo().t}</button>`:''}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College">${SLID3}</button></div></header>`}
+/* Cápsula flotante (menos de 900 px): Territorio · Hoy · Camino · Bitácora. En la Jornada y en Mapa personal no se marca ninguna. */
+function tabsV3(){const T=[['hoy','Territorio','home'],['hoy3','Hoy','sun'],['indice','Camino','list'],['bitacora','Bitácora','bitacora']];
+ return `<nav class="tabs t3" aria-label="Navegación principal">${T.map(t=>`<button data-act="go" data-v="${t[0]}" ${S.view===t[0]?'aria-current="page"':''}>${ic(t[2])}${t[1]}</button>`).join('')}</nav>`}
 function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount();
  const espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
  let card;
@@ -1177,12 +1257,17 @@ function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&i
   ${espera.length?`<p class="muted" style="font-size:12.5px;margin:0 0 8px">Para ponerte al día, en orden: ${espera.map(i=>'Día '+i).join(' · ')}.</p>`:''}
   <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button></div>`;
  else card=`<div class="c"><span class="eyebrow">${n===1?'Tu primera jornada':'Estás al día'}</span><h2>La siguiente jornada se abre pronto</h2><div class="muted" style="font-size:13px">Día ${n} de 20 · se abre el ${fmtL(abre(n))} a las 12 de la noche.</div></div>`;
+ /* Rediseño v3 (ajustes): con ?piel=v3 el Territorio queda solo con el mapa y su tarjeta; el pie pasa a la pantalla Hoy (vHoy3) */
+ if(S.piel==='v3')return `<div class="hoyB"><div class="tgo"><button class="btn sm" data-act="irhoy">Ir a hoy</button></div>${paisajeHTML()}<div class="tcard">${card}</div></div>`;
  return `<div class="hoyB"><div class="tgo"><button class="btn sm" data-act="irhoy">Ir a hoy</button></div>${paisajeHTML()}<div class="tcard">${card}</div>
- <div class="wrap tfoot">${S.piel==='v2'&&op?hoyV2(n,d,w):''}${S.piel==='v3'&&op?hoyV3(n,d,w):''}<p class="eyebrow">Al pie del camino</p>${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
+ <div class="wrap tfoot">${S.piel==='v2'&&op?hoyV2(n,d,w):''}<p class="eyebrow">Al pie del camino</p>${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
  ${piedrasCard()}
  ${S.backupAt===null&&doneCount()>=5?`<div class="card" style="margin-top:14px"><div class="eyebrow">Tu Bitácora</div><p class="muted" style="font-size:13px;margin:6px 0 10px">Vive solo en tu teléfono y aún no tiene una copia de seguridad.</p><button class="btn sm" data-act="backup">Guardar copia de seguridad</button></div>`:''}
  <div style="display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr 1fr"><button class="btn ghost" data-act="go" data-v="bitacora">${ic('bitacora').replace('<svg','<svg width="18" height="18"')} Mi Bitácora</button><button class="btn ghost" data-act="go" data-v="mapa">${ic('map').replace('<svg','<svg width="18" height="18"')} Mi Mapa Personal</button></div></div></div>`}
-function centerHoy(){const m=$('#main'),c=document.querySelector('.wk-pos .walker')||document.querySelector('.wk-pos');if(!m||!c)return;/* A60: siempre donde está el muñequito (antes caía al Día 20 si la jornada aún no abría) */const mr=m.getBoundingClientRect(),cr=c.getBoundingClientRect();m.scrollTop+=(cr.top-mr.top)-m.clientHeight*0.42}
+function centerHoy(){const m=$('#main'),c=document.querySelector('.wk-pos .walker')||document.querySelector('.wk-pos');if(!m||!c)return;/* A60: siempre donde está el muñequito (antes caía al Día 20 si la jornada aún no abría) */const mr=m.getBoundingClientRect(),cr=c.getBoundingClientRect();m.scrollTop+=(cr.top-mr.top)-(S.piel==='v3'?cimaV3(m,mr):m.clientHeight*0.42)}
+/* Rediseño v3 (ajustes): el caminante y el nodo de hoy quedan ENCIMA de la tarjeta del Territorio (antes la tarjeta los tapaba en celular).
+   Devuelve a qué altura de #main va la cabeza del caminante: el nodo (87 px bajo la cabeza) queda al 60 % del espacio libre sobre la tarjeta. */
+function cimaV3(m,mr){const t=document.querySelector('.tcard .c'),lim=t?t.getBoundingClientRect().top-mr.top:m.clientHeight;return Math.max(12,lim*0.6-87)}
 function vIndiceB(){return `<div class="wrap"><p class="eyebrow">Los cuatro terrenos · 20 jornadas</p><h1 class="disp" style="font-size:clamp(34px,8cqi,56px);margin:6px 0 4px">Todo el camino</h1>
  <div class="route" role="tablist">${['todas','pendientes'].map(t=>`<button role="tab" aria-selected="${S.tab===t}" class="pill ${S.tab===t?'gold':''}" style="min-height:40px" data-act="tab" data-v="${t}">${t==='todas'?'Todas las jornadas':'Pendientes'}</button>`).join('')}</div>
  ${[1,2,3,4].map(w=>{const ds=D.dias.filter(d=>d.semana===w&&(S.tab==='todas'||dstate(d.n)==='wait'||dstate(d.n)==='cur')),nd=[1,2,3,4,5].filter(x=>S.done[(w-1)*5+x]).length;
@@ -1196,7 +1281,7 @@ function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
  return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
- <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i><span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span></button>`).join('')}</nav>
+ <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i>${S.piel==='v3'?`<span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`:`<span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`}</button>`).join('')}</nav>
  <p class="muted scn">Escena ${si+1} de ${N}</p>
  <div class="scene" style="--c:${MOV[w].c}">${blockHTML(d,b,si)}</div>
  <div class="snav"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>← Escena anterior</button>
@@ -1305,7 +1390,7 @@ function vBitacora(){
  const ord=['inicial','s1','s2','s3','s4'],dd={inicial:1,s1:5,s2:10,s3:15,s4:19};
  return `<div class="wrap wide"><p class="eyebrow">Una sola Bitácora · privada</p><h1 class="disp" style="font-size:clamp(34px,8cqi,56px);margin:6px 0 8px;letter-spacing:.05em">Mi Bitácora</h1>
  <div class="priv" style="margin-bottom:16px">${ic('shield')}<span>Tus respuestas son privadas y no tienes obligación de compartirlas. El curso no sustituye la atención profesional cuando la necesites.</span></div>
- <div class="bgrid">${ord.map(k=>{const st=fstatus(k),c=MOV[FSEM[k]].c;
+ ${S.piel==='v3'?'<button class="mp3 bm3" data-act="go" data-v="mapa"><span class="k">Tu Mapa Personal se elabora en el Día 20</span><b>Mi Mapa Personal de Renovación</b></button>':''}<div class="bgrid">${ord.map(k=>{const st=fstatus(k),c=MOV[FSEM[k]].c;
   return `<article class="bcard ${k==='inicial'?'start':''}" style="--c:${c}"><div class="hd"><div><small>${k==='inicial'?'FICHA INICIAL':'SEMANA '+FSEM[k]+' · '+MOV[FSEM[k]].n}</small><div class="nm">${FNOM[k]}</div></div><span style="margin-left:auto" class="pill ${k==='inicial'&&S.done[1]?'ok':st==='Guardada'?'ok':st==='En curso'?'dawn':''}">${k==='inicial'&&S.done[1]?ic('lock').replace('<svg','<svg width="13" height="13"')+' Preservada':st}</span></div>
   <div class="bd">${notasSemana(FSEM[k],k)}${D.fichas[k].map((f,i)=>{const v=S.val[k+':'+i];return `<div class="fr"><b>${esc(f.t)}</b>${v?`<span>${esc(v)}</span>`:`<span class="e">Sin escribir</span>`}</div>`}).join('')}
   ${k==='inicial'&&S.notas.length?S.notas.map(n=>`<div class="field" style="margin:8px 0"><div class="nota" style="margin:0"><b>Nota del ${esc(n.d)}</b><br>${esc(n.t)}</div></div>`).join(''):''}
@@ -1322,7 +1407,7 @@ function vMapa(){
   if(sm&&!/_/.test(s)){html.push(`${sec?'</div>':''}<div class="ms"><h3>${esc(s)}</h3>${exOn&&EX[sm[1]]?`<div class="ex">${esc(EX[sm[1]])}</div>`:''}`);sec=sm[1];return}
   if(/_{4,}/.test(s)){const lab=s.replace(/_{4,}/g,'').trim().replace(/:$/,'')||'Escribe aquí';const k='mapa:'+(fi++);html.push(`<label for="m${k}">${esc(lab)}</label><input id="m${k}" data-key="${k}" value="${esc(S.val[k]||'')}" ${ro}>`);return}
   html.push(`<p class="hint">${esc(s)}</p>`)});
- return `<div class="wrap wide"><p class="eyebrow">Una página · privada</p><h1 class="disp" style="font-size:clamp(34px,8cqi,56px);margin:6px 0 10px;letter-spacing:.05em">Mi Mapa Personal de Renovación</h1>
+ return `<div class="wrap wide">${S.piel==='v3'?'<button class="bk3 noprint" data-act="go" data-v="bitacora">‹ Bitácora</button>':''}<p class="eyebrow">Una página · privada</p><h1 class="disp" style="font-size:clamp(34px,8cqi,56px);margin:6px 0 10px;letter-spacing:.05em">Mi Mapa Personal de Renovación</h1>
  <div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">${isOpen(20)?`<button class="btn sm ${exOn?'pri':'ghost'}" data-act="ex" aria-pressed="${exOn}">Ver ejemplo del curso</button>`:''}${mapaEdit()&&!FINAL?'<button class="btn sm ghost" data-act="demo">Rellenar con datos de demostración (solo pruebas)</button>':''}<button class="btn sm ghost" data-act="print">Imprimir / guardar PDF</button></div>
  ${mapaEdit()?'':`<div class="card noprint" style="margin:0 0 14px"><div class="eyebrow">Solo consulta por ahora</div><p class="muted" style="font-size:13.5px;line-height:1.55;margin:6px 0 10px">Tu Mapa Personal se elabora en el Día 20${isOpen(20)?'':' (se abre '+fmtL(abre(20))+')'}. Hasta entonces puedes ver cómo es; lo que vas registrando está en tu Bitácora.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="go" data-v="bitacora">Ver mi Bitácora</button>${isOpen(20)?'<button class="btn sm ghost" data-act="day" data-n="20">Ir al Día 20</button>':''}</div></div>`}
  
@@ -1334,14 +1419,14 @@ function sideHTML(){return `<nav class="side" id="side" aria-label="Recorrido de
 function railHTML(){if(S.piel==='v3')return railV3();const n=S.day,d=dia(n);
  if(S.view==='dia'){return `<aside class="rail" aria-label="En esta jornada"><h4>Tu ruta de hoy</h4>${d.bloques.map((b,i)=>`<button class="stp ${S.step[n+':'+i]?'ok':''} ${nextStep(n)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[n+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}<hr style="border:0;border-top:1px solid var(--border);margin:14px 0"><h4>Mi Bitácora</h4><button class="btn sm ghost" data-act="go" data-v="bitacora" style="width:100%">Abrir mi Bitácora</button></aside>`}
  return `<aside class="rail"><h4>Tu avance</h4>${S.piel==='v2'?`<div class="ring" style="--p:${doneCount()*5}%"><div class="in"><b>${doneCount()}</b><span class="ne">de 20</span></div></div>`:''}<p class="muted" style="font-size:13px;line-height:1.5">${Object.keys(S.done).filter(k=>S.done[k]).length} de 20 jornadas completadas.</p><button class="btn sm ghost" data-act="go" data-v="mapa" style="width:100%">Mi Mapa Personal</button></aside>`}
-const COURSE=['hoy','indice','dia','semana','bitacora','mapa'];
+const COURSE=['hoy','indice','dia','semana','bitacora','mapa','hoy3'];
 function sideVisible(){const f=$('#frame');return S.side==='open'||(S.side==='auto'&&f&&f.clientWidth>=1100)}
 const HAMB='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 /* A56: la barra superior oficial es la de MI MAPA (idéntica); solo la landing de THE WAY añade los botones de las otras herramientas. En la versión final va arriba de todo; los controles propios del curso quedan en la franja de abajo. */
 const OFICIAL='<nav class="tw-nav" aria-label="THE WAY">\n  <div class="pb-brand"><svg class="tw-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><polygon points="2,56 15,29 28,56" fill="#A8C4D4" stroke="#A8C4D4" stroke-width="2.4" stroke-linejoin="round"/><polygon points="36,56 50,25 62,56" fill="#2B4A70" stroke="#2B4A70" stroke-width="2.4" stroke-linejoin="round"/><polygon points="12,56 32,8 52,56" fill="#C8A84B" stroke="#C8A84B" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 56 C 38 52, 24 44.5, 35 38.5 C 41 35, 29 29.5, 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg><span class="pb-wm">THE <span>WAY</span></span></div>\n  <a class="pb-cta" id="salir" href="../index.html">Salir</a>\n</nav>';
 function oficialHTML(){return FINAL?OFICIAL:''}
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('#salir');if(!a)return;try{localStorage.removeItem('tw_nick');localStorage.removeItem('tw_metanoia_ret')}catch(x){}const S=window.TW_SESION;if(S&&typeof S.salir==='function'){e.preventDefault();Promise.resolve().then(()=>S.salir()).catch(()=>{}).then(()=>{location.href=a.getAttribute('href')||'../index.html'})}});
-function barHTML(){const inC=COURSE.includes(S.view);
+function barHTML(){const inC=COURSE.includes(S.view);if(S.piel==='v3'&&FINAL)return barV3(inC);
  if(FINAL)return `<header class="bar hud">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a MI MAPA</button></div><span class="sp"></span>${inC?topnav():''}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College"><svg class="gear" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div></header>`;
  return `<header class="bar">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">${ic('back').replace('<svg','<svg width="18" height="18"')}<span>MI MAPA</span></button>
  ${FINAL?'<div class="brand"><div>Protocolo Metanoia</div></div>':'<div class="brand"><span aria-hidden="true" style="color:var(--gold)">▲</span><div>The Way<small>Protocolo Metanoia</small></div></div>'}<span class="sp"></span>${inC?topnav():''}
@@ -1349,17 +1434,17 @@ function barHTML(){const inC=COURSE.includes(S.view);
 /* A60: «Lección del día» también dentro del curso: la jornada que toca (la primera sin terminar, aunque vayas atrasada) */
 function lecInfo(){const all=doneCount()>=20,n=cur();return all?{t:'Completo',n:20,all:true}:(!isOpen(n)&&n>1?{t:'Al día',n,all:false}:{t:'Día '+n,n,all:false})}
 function lecLabel(){const i=lecInfo();return 'Lección del día: '+(i.all?'curso completo':i.t==='Al día'?'estás al día, la siguiente jornada aún no se abre':i.t)}
-function tabsHTML(){const li=lecInfo(),lecOn=S.view==='dia'&&S.day===cur()&&!li.all;const T=[['hoy',S.design==='b'?'Territorio':'Hoy','home'],['indice',S.design==='b'?'Camino':'Índice','list'],['bitacora','Bitácora','bitacora'],['mapa','Mapa','map']];
+function tabsHTML(){if(S.piel==='v3')return tabsV3();const li=lecInfo(),lecOn=S.view==='dia'&&S.day===cur()&&!li.all;const T=[['hoy',S.design==='b'?'Territorio':'Hoy','home'],['indice',S.design==='b'?'Camino':'Índice','list'],['bitacora','Bitácora','bitacora'],['mapa','Mapa','map']];
  return `<nav class="tabs" aria-label="Navegación principal">${T.map(t=>`<button data-act="go" data-v="${t[0]}" ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy'&&!lecOn)?'aria-current="page"':''}>${ic(t[2])}${t[1]}</button>`).join('')}<button class="lecb" data-act="lecdia" aria-label="${lecLabel()}" ${lecOn?'aria-current="page"':''}><span class="lp">${li.t}</span>Lección del día</button></nav>`}
 function topnav(){const T=[['hoy',S.design==='b'?'Territorio':'Hoy'],['indice',S.design==='b'?'Todo el camino':'Índice'],['bitacora','Bitácora'],['mapa','Mapa personal']];
- if(S.piel==='v3')return `<div class="topnav" role="navigation" aria-label="Secciones"><span class="tn-g">${T.map(t=>`<button class="ibtn ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy')?'on':''}" data-act="go" data-v="${t[0]}">${t[1]}</button>`).join('')}</span><button class="ibtn lecT" data-act="lecdia" aria-label="${lecLabel()}"><span>Lección<span class="lt"> del día</span></span><span class="lp">${lecInfo().t}</span></button></div>`;
+ if(S.piel==='v3')return `<div class="topnav" role="navigation" aria-label="Secciones"><span class="tn-g">${T.map(t=>`<button class="ibtn ${S.view===t[0]?'on':''}" data-act="go" data-v="${t[0]}">${t[1]}</button>`).join('')}</span><button class="ibtn lecT${S.view==='hoy3'?' on':''}" data-act="lecdia" aria-label="${lecLabel()}"><span>Lección<span class="lt"> del día</span></span><span class="lp">${lecInfo().t}</span></button></div>`;
  return `<div class="topnav" role="navigation" aria-label="Secciones">${T.map(t=>`<button class="ibtn ${S.view===t[0]||(S.view==='dia'&&t[0]==='hoy')?'on':''}" data-act="go" data-v="${t[0]}">${t[1]}</button>`).join('')}<button class="ibtn lecT" data-act="lecdia" aria-label="${lecLabel()}">Lección del día · ${lecInfo().t}</button></div>`}
 const COLLEGE=[['Mayor que mi realidad','https://mayorquemirealidad.netlify.app/',1],['S.T.A.R.S.','https://starsmsgapp.netlify.app/',1],['Bookclub','https://bookclublhscol.netlify.app/',1],['Staff','https://collegelhscol.netlify.app/#staff',1],['THE WAY · inicio','https://thewaylhscol.netlify.app/',1],['Volver a LHSCOL','https://lhscolweb.netlify.app/',0]];
 function modalHTML(){const m=S.modal;if(!m)return '';
  if(m.t==='aa')return `<div class="ov" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="Ajustes" data-stop="1"><h3>Ajustes</h3>
  <p class="muted" style="font-size:13px;margin:0 0 6px">Tamaño del texto</p><div class="route">${[[0.9,'A−'],[1,'A'],[1.2,'A+'],[1.4,'A++']].map(x=>`<button class="${S.rs===x[0]?'':''}" data-act="rs" data-v="${x[0]}" aria-pressed="${S.rs===x[0]}" style="${S.rs===x[0]?'border-color:var(--gold);color:var(--gold-l)':''}">${x[1]}</button>`).join('')}</div>
  <p class="muted" style="font-size:13px;margin:8px 0 6px">Tema</p><div class="route">${[['noche','Noche'],['papel','Papel']].map(x=>`<button data-act="theme" data-v="${x[0]}" aria-pressed="${S.theme===x[0]}" style="${S.theme===x[0]?'border-color:var(--gold);color:var(--gold-l)':''}">${x[1]}</button>`).join('')}</div>
- <p class="muted" style="font-size:13px;margin:14px 0 6px">Herramientas del College</p><div class="cl" style="display:grid;gap:8px;grid-template-columns:1fr 1fr">${COLLEGE.map(x=>`<a class="btn ghost sm" href="${x[1]}" ${x[2]?'target="_blank" rel="noopener"':''}>${x[0]}</a>`).join('')}</div><div style="margin-top:14px"><button class="btn pri" data-act="mx">Listo</button></div></div></div>`;
+ <p class="muted" style="font-size:13px;margin:14px 0 6px">Herramientas del College</p><div class="cl" style="display:grid;gap:8px;grid-template-columns:1fr 1fr">${COLLEGE.map(x=>`<a class="btn ghost sm" href="${x[1]}" ${x[2]?'target="_blank" rel="noopener"':''}>${x[0]}</a>`).join('')}</div><div style="margin-top:14px"><button class="btn pri" data-act="mx">Listo</button></div>${S.piel==='v3'&&FINAL?'<a id="salir" class="btn ghost salir3" href="../index.html">Salir</a>':''}</div></div>`;
  if(m.t==='lock'){const f=m.forgot;return `<div class="ov"><div class="md" role="dialog" aria-modal="true" aria-label="Tu PIN" data-stop="1"><h3>${f?'Olvidé mi PIN':'Escribe tu PIN'}</h3>${f?`<p class="muted" style="font-size:13px;line-height:1.55">Si olvidas el PIN, la Bitácora guardada en este dispositivo se borra y la recuperas con tu copia de seguridad. Nadie más puede abrirla.</p><div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap"><button class="btn pri" data-act="wipe">Borrar y empezar de nuevo</button><button class="btn ghost" data-act="lockback">Volver</button></div>`:`<label class="sr" for="pinIn">PIN</label><input id="pinIn" type="password" inputmode="numeric" autocomplete="off" maxlength="6" style="width:100%;font-size:22px;letter-spacing:.4em;padding:12px;border-radius:10px;border:1px solid var(--border2);background:var(--field-bg);color:var(--text)">${m.err?`<p role="alert" style="color:var(--dawn);font-size:13px;margin:8px 0 0">${esc(m.err)}</p>`:''}<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap"><button class="btn pri" data-act="unlock">Abrir</button><button class="btn ghost" data-act="forgot">Olvidé mi PIN</button></div>`}</div></div>`}
  if(m.t==='pin')return `<div class="ov" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="PIN" data-stop="1"><h3>PIN</h3><p class="muted" style="font-size:13px;line-height:1.55">Un PIN de 4 a 6 dígitos que se pide al abrir la Bitácora en este dispositivo. Si lo olvidas, la Bitácora guardada aquí se borra y la recuperas con tu copia de seguridad.</p>${S.pin?`<label class="sr" for="pinIn">PIN actual</label><input id="pinIn" type="password" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="PIN actual" class="pinf">`:`<label class="sr" for="pinIn">PIN nuevo</label><input id="pinIn" type="password" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="PIN nuevo (4 a 6 dígitos)" class="pinf"><label class="sr" for="pinIn2">Repite el PIN</label><input id="pinIn2" type="password" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="Repite el PIN" class="pinf" style="margin-top:8px">`}${m.err?`<p role="alert" style="color:var(--dawn);font-size:13px;margin:8px 0 0">${esc(m.err)}</p>`:''}<div style="display:flex;gap:10px;margin-top:12px"><button class="btn pri" data-act="pinset">${S.pin?'Quitar PIN':'Activar PIN'}</button><button class="btn ghost" data-act="mx">Cerrar</button></div></div></div>`;
  if(m.t==='install')return `<div class="ov" data-act="mx"><div class="md" role="dialog" aria-modal="true" aria-label="Instalar en el celular" data-stop="1"><h3>Instalar en mi celular</h3><p class="muted" style="font-size:13px;line-height:1.55">Instalada, se abre como una app, funciona sin conexión y tu Bitácora se queda protegida en tu teléfono.</p><p style="margin:10px 0 4px"><b>iPhone</b> · en Safari: Compartir → Añadir a pantalla de inicio.</p><p style="margin:0 0 10px"><b>Android</b> · en Chrome: menú ⋮ → Instalar aplicación.</p><p class="muted" style="font-size:12.5px;line-height:1.5">En iPhone, Safari puede borrar los datos de un sitio que no está instalado si pasan unos 7 días sin abrirlo. Por eso conviene instalarla y guardar copias.</p><div style="margin-top:12px"><button class="btn pri" data-act="mx">Entendido</button></div></div></div>`;
@@ -1371,14 +1456,14 @@ function modalHTML(){const m=S.modal;if(!m)return '';
  <textarea id="notaTxt" style="width:100%;min-height:110px;border-radius:10px;border:1px solid var(--border2);background:var(--field-bg);color:var(--text);padding:12px;font-family:var(--f-read);font-size:1.1rem" placeholder="Escribe aquí tu respuesta."></textarea>
  <div style="display:flex;gap:10px;margin-top:12px"><button class="btn pri" data-act="notaok">Agregar nota</button><button class="btn ghost" data-act="mx">Cancelar</button></div></div></div>`;return ''}
 
-const VIEWS={entrada:vEntrada,landing:vLanding,bienvenida:vBienvenida,hoy:vHoy,indice:vIndice,dia:vDia,semana:vSemana,bitacora:vBitacora,mapa:vMapa,final:vFinal};
+const VIEWS={entrada:vEntrada,landing:vLanding,bienvenida:vBienvenida,hoy:vHoy,indice:vIndice,dia:vDia,semana:vSemana,bitacora:vBitacora,mapa:vMapa,final:vFinal,hoy3:vHoy3};
 function setAh(){const a=$('#app');if(a)document.documentElement.style.setProperty('--ah',a.clientHeight+'px')}
 window.addEventListener('resize',setAh);
 function render(keep){if(FINAL){S.hoy=d0(new Date());progSave()}const main=$('#main'),top=keep&&main?main.scrollTop:0;const v=S.view,inC=COURSE.includes(v);
  document.documentElement.setAttribute('data-theme',S.theme);document.documentElement.setAttribute('data-design',S.design);if(S.piel==='v2'||S.piel==='v3')document.documentElement.setAttribute('data-piel',S.piel);else document.documentElement.removeAttribute('data-piel');if(S.piel==='v3')document.documentElement.setAttribute('data-v3v',v);else document.documentElement.removeAttribute('data-v3v');document.documentElement.style.setProperty('--rs',S.rs);
  $('#stagewrap').setAttribute('data-dev',S.dev);setAh();
  const faltan=GATED?necesita(v):[];let body;if(faltan.length){pedirDias(faltan);body=cargandoHTML(faltan)}else body=VIEWS[v]();
- $('#app').innerHTML=oficialHTML()+barHTML()+`<div class="body" data-side="${S.side}">${inC?sideHTML()+'<button class="scrim" data-act="side" aria-label="Cerrar el recorrido" tabindex="-1"></button>':''}<main class="main" id="main" tabindex="-1">${body}</main>${inC?railHTML():''}</div>${inC?tabsHTML():''}${modalHTML()}${S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:''}`;
+ $('#app').innerHTML=(S.piel==='v3'?'':oficialHTML())+barHTML()+`<div class="body" data-side="${S.side}">${inC?sideHTML()+'<button class="scrim" data-act="side" aria-label="Cerrar el recorrido" tabindex="-1"></button>':''}<main class="main" id="main" tabindex="-1">${body}</main>${inC?railHTML():''}</div>${inC?tabsHTML():''}${modalHTML()}${S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:''}`;
  if(S.locked)$('#app').innerHTML=oficialHTML()+`<header class="bar"><div class="brand"><span aria-hidden="true" style="color:var(--gold)">▲</span><div>The Way<small>Protocolo Metanoia</small></div></div></header>`+modalHTML();
  const mm=$('#main');if(mm)mm.scrollTop=top;
  if(S.design==='b'&&v==='hoy'&&!keep){centerHoy();requestAnimationFrame(centerHoy)}
@@ -1400,7 +1485,7 @@ document.addEventListener('click',e=>{
   case 'tab':S.tab=v;render(true);break;
   case 'scene':S.sceneDay=S.day;S.scene=Math.max(0,+el.dataset.i);render(false);break;
   case 'irhoy':centerHoy();break;
-  case 'lecdia':{S.welcomed=true;const n=cur();S.day=n;go(doneCount()>=20?'final':'dia');break}
+  case 'lecdia':{S.welcomed=true;const n=cur();S.day=n;go(doneCount()>=20?'final':S.piel==='v3'?'hoy3':'dia');break}
   case 'reintentar':{for(const k in PEND)if(PEND[k]==='error')delete PEND[k];render(true);break}
   case 'side':{S.side=sideVisible()?'closed':'open';const bd=document.querySelector('.body');if(bd)bd.dataset.side=S.side;const hb=document.querySelector('.hamb');if(hb)hb.setAttribute('aria-expanded',String(sideVisible()));break}
   case 'jump':{if(S.design==='b'){S.sceneDay=S.day;S.scene=+el.dataset.i;render(false);break}const t=document.getElementById('b'+el.dataset.i);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});break}
@@ -1481,6 +1566,8 @@ function preset(p){S.done={};S.step={};S.val={};S.stat={};S.notas=[];S.welcomed=
  /* Rediseño v2 (etapa 1): piel nueva solo con ?piel=v2 (o si este dispositivo ya la eligió); ?piel=actual la apaga */
  /* Rediseño v3 (fase curso): ?piel=v3 activa la piel v3 (recordada igual que v2); ?piel=v2 sigue igual; cualquier otro valor no cambia nada */
  try{const pq=q.get('piel');if(pq==='v2'||pq==='v3'||pq==='actual')localStorage.setItem('tw_piel',pq);const lp=localStorage.getItem('tw_piel');S.piel=lp==='v2'||lp==='v3'?lp:null}catch(e){const pq=q.get('piel');S.piel=pq==='v2'||pq==='v3'?pq:null}
+ /* Rediseño v3 (ajustes): «Hoy» (hoy3) existe solo con la piel v3; sin ella cae en «hoy». Con v3, «Lección del día» desde MI MAPA (?ir=hoy) llega a Hoy */
+ if(S.view==='hoy3'&&S.piel!=='v3')S.view='hoy';if(S.piel==='v3'&&FINAL&&q.get('ir')==='hoy'&&!q.get('view')&&S.view==='dia')S.view='hoy3';
  if(q.get('week'))S.weekDone=+q.get('week');if(q.get('vid'))S.vid=q.get('vid');if(q.get('design'))S.design=q.get('design')==='b'?'b':'a';if(q.get('side'))S.side=q.get('side')==='open'?'open':q.get('side')==='closed'?'closed':'auto';if(q.get('hoy'))S.hoy=fromIso(q.get('hoy'));if(q.get('finde')){while(!isWE(S.hoy))S.hoy=addD(S.hoy,1)}if(q.get('modal'))S.modal={t:q.get('modal')};if(q.get('ex'))S.ex=true;
  render(false);
  (async()=>{try{const mg=await migrarBitacora();if(mg.aviso)setTimeout(()=>toast(mg.aviso),400);const o=await bitacoraLeer();STORE.ok=!!BKEY();if(!STORE.ok)STORE.err='sin cuenta';if(!q.get('preset')&&!q.get('view')){const pr=await pinLeer();if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
