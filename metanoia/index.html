@@ -896,7 +896,9 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
  [data-piel=v3][data-v3v=dia] .tabs.t3{display:none}
  /* B · barra fija abajo: «‹ Anterior» + botón principal; respeta la zona segura y no tapa el final (ocupa su propio sitio al final del contenido) */
  [data-piel=v3][data-v3v=dia] .main{padding-bottom:0;scroll-padding-bottom:120px}
- [data-piel=v3] .jbar3{position:sticky;bottom:0;z-index:20;display:flex;gap:10px;padding:14px max(16px,calc((100% - 680px)/2)) calc(16px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,transparent,var(--night) 35%)}
+ [data-piel=v3] .jbar3{position:sticky;bottom:0;z-index:20;display:flex;gap:10px;padding:12px max(16px,calc((100% - 680px)/2)) calc(16px + env(safe-area-inset-bottom,0px));background:var(--night)}
+ /* (pulido 16:40) fondo sólido del color de la página bajo los botones + degradado corto (28 px) encima que funde con el contenido y no captura toques */
+ [data-piel=v3] .jbar3::before{content:"";position:absolute;left:0;right:0;top:-28px;height:28px;background:linear-gradient(180deg,color-mix(in srgb,var(--night) 0%,transparent),var(--night));pointer-events:none}
  [data-piel=v3] .jbar3 .btn{min-height:54px;margin:0;border-radius:16px;font-size:15px;font-weight:700}
  [data-piel=v3] .jbar3>.btn:first-child{flex:none;padding:0 18px}
  [data-piel=v3] .jbar3>.btn:last-child{flex:1;min-width:0}
@@ -1302,37 +1304,30 @@ function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
  if(!isOpen(n))return `<div class="wrap">${head}<div class="card lockday"><div class="eyebrow">${ic('lock').replace('<svg','<svg width="14" height="14"')} Todavía cerrada</div><p class="lk">Esta jornada se abre el ${fmtL(abre(n))} a las 12 de la noche.</p><button class="btn pri" data-act="go" data-v="hoy">Volver al territorio</button></div></div>`;
  const steps=d.bloques,fu=firstUndone(),nx=nextStep(n),N=steps.length;
  const si=Math.min(S.sceneDay===n?S.scene:Math.max(0,nx),N-1),b=steps[si],last=si===N-1;
- if(S.piel==='v3'&&movilV3())return jornadaMovilV3(d,w,n,head,steps,fu,nx,N,si,b,last);
+ /* fin = el botón de avanzar de la escena (Siguiente escena / Cerrar jornada / Reabrir). Una sola fuente para la .snav y para la barra fija de v3 en móvil */
+ const fin=last?(S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`):`<button class="btn ${S.step[n+':'+si]?'pri':''}" data-act="scene" data-i="${si+1}">Siguiente escena →</button>`;
+ let bh=blockHTML(d,b,si),barra='';const jm=S.piel==='v3'&&movilV3();
+ if(jm){const m=!S.step[n+':'+si]&&bh.match(/<div class="ft">(<button[^>]*data-act="step"[^>]*>[^<]*<\/button>)<\/div><\/section>$/);if(m)bh=bh.slice(0,bh.length-m[0].length)+'</section>';barra=jbarV3(si,N,m?m[1]:fin)}
  return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
  <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i>${S.piel==='v3'?`<span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`:`<span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`}</button>`).join('')}</nav>
  <p class="muted scn">Escena ${si+1} de ${N}</p>
- <div class="scene" style="--c:${MOV[w].c}">${blockHTML(d,b,si)}</div>
+ <div class="scene" style="--c:${MOV[w].c}">${bh}</div>${jm?'':`
  <div class="snav"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>← Escena anterior</button>
- ${last?(S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`):`<button class="btn ${S.step[n+':'+si]?'pri':''}" data-act="scene" data-i="${si+1}">Siguiente escena →</button>`}</div>
+ ${fin}</div>`}
  <div class="dayend"><button class="btn ghost sm" data-act="day" data-n="${Math.max(1,n-1)}" ${n===1?'disabled':''}>← Día anterior</button><button class="btn ghost sm" data-act="go" data-v="hoy">Volver al territorio</button></div>
- </div>`}
+ </div>${barra}`}
 /* Rediseño v3 (Jornada en móvil, orden 2026-11-12 12:05): por debajo de 900 px la Jornada lleva una barra fija abajo con «‹ Anterior» y el botón
    principal de la escena. Solo cambia DÓNDE se dibujan botones que ya existían; no hay acciones nuevas ni se tocan los manejadores.
    - «‹ Anterior» = el mismo «← Escena anterior» (scene, data-i=si-1, desactivado en la escena 1).
    - Botón principal: paso sin marcar → el MISMO botón step que dibuja blockHTML (se toma tal cual de su HTML y sale de la escena);
      paso marcado → «Siguiente escena →» (scene); última escena marcada → «Cerrar jornada…» (close) o «Reabrir esta jornada» (reopen), como en .snav.
    - «Desmarcar» sigue dentro de la escena. La .snav no se dibuja en móvil (sus botones están en la barra): no quedan copias ocultas.
-   Desde 900 px no se dibuja nada de esto y la Jornada es la de siempre. */
+   Desde 900 px no se dibuja nada de esto y la Jornada es la de siempre.
+   (Pulido 16:40) Una sola fuente: el marcado de la Jornada vive solo en vDiaB; aquí solo queda la barra. */
 function movilV3(){const f=$('#frame');return !!f&&f.clientWidth<900}
-function jornadaMovilV3(d,w,n,head,steps,fu,nx,N,si,b,last){
- const ok=!!S.step[n+':'+si],bh=blockHTML(d,b,si),m=bh.match(/<div class="ft">(<button[^>]*data-act="step"[^>]*>[^<]*<\/button>)<\/div><\/section>$/);
- const prin=!ok&&m?m[1]:!last?`<button class="btn ${S.step[n+':'+si]?'pri':''}" data-act="scene" data-i="${si+1}">Siguiente escena →</button>`:(S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`);
- const esc3=!ok&&m?bh.slice(0,bh.length-m[0].length)+'</section>':bh;
- return `<div class="wrap">
- ${head}
- ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
- <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i><span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span></button>`).join('')}</nav>
- <p class="muted scn">Escena ${si+1} de ${N}</p>
- <div class="scene" style="--c:${MOV[w].c}">${esc3}</div>
- <div class="dayend"><button class="btn ghost sm" data-act="day" data-n="${Math.max(1,n-1)}" ${n===1?'disabled':''}>← Día anterior</button><button class="btn ghost sm" data-act="go" data-v="hoy">Volver al territorio</button></div>
- </div><div class="jbar3" role="group" aria-label="Escena ${si+1} de ${N}"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>‹ Anterior</button>${prin}</div>`}
+function jbarV3(si,N,prin){return `<div class="jbar3" role="group" aria-label="Escena ${si+1} de ${N}"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>‹ Anterior</button>${prin}</div>`}
 /* si la ventana cruza los 900 px estando en la Jornada, se vuelve a dibujar con la versión que toca (solo presentación) */
 window.addEventListener('resize',()=>{if(S.piel==='v3'&&S.view==='dia'&&S.day&&isOpen(S.day)&&!!document.querySelector('.jbar3')!==movilV3())render(true)});
 
