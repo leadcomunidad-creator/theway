@@ -880,6 +880,14 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 [data-piel=v3] .rail .av3{margin:0 0 24px;padding:18px;border-radius:20px;border:1px solid rgba(200,168,75,.45);background:var(--surface)}
 [data-piel=v3] .rail .av3 .eyebrow{color:var(--gold)}
 @container app (min-width:900px){[data-piel=v3][data-v3v=mapa] .main>.wrap>.card.noprint{display:none}}
+/* ===== PIEL V3 · CIERRE de la fase curso (orden 2026-11-12 10:25) ===== */
+/* 1 · Todo el camino por debajo de 600 px: el chip de estado baja debajo de los datos de la fila (como el prototipo); título y datos usan todo el ancho */
+@container app (max-width:599px){
+ [data-piel=v3] .tz .day{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 12px;align-items:start}
+ [data-piel=v3] .tz .day .rg{grid-column:2;margin:6px 0 0;align-items:flex-start}
+}
+/* 2 · Mapa personal: título claro sobre un degradado más oscuro (contraste ≥ 4,5:1). Solo en pantalla: la impresión no cambia */
+@media screen{[data-piel=v3] .mapdoc h2{color:#EAE8E0;text-shadow:0 2px 14px rgba(0,0,0,.55);background:linear-gradient(180deg,rgba(8,12,18,.12),rgba(8,12,18,.55) 45%,rgba(8,12,18,.9)),var(--hero-169) 50% 40%/cover no-repeat}}
 </style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
