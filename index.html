@@ -28,6 +28,13 @@
 <meta name="twitter:description" content="Disfruta El Buen Camino · El College">
 <meta name="twitter:image" content="https://thewaylhscol.netlify.app/assets/og-theway.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script>
+/* REDISEÑO V3 · interruptor de piel (igual que en metanoia/index.html): ?piel=v3 la activa, ?piel=actual la apaga, ?piel=v2 se recuerda para el curso.
+   La elección se guarda en localStorage['tw_piel'] (mismo origen: se comparte con el curso). Solo con v3 se pone data-piel="v3" en <html>. */
+(function(){var q;try{q=new URLSearchParams(location.search).get('piel')}catch(e){q=null}
+try{if(q==='v2'||q==='v3'||q==='actual')localStorage.setItem('tw_piel',q);if(localStorage.getItem('tw_piel')==='v3')document.documentElement.setAttribute('data-piel','v3')}
+catch(e){if(q==='v3')document.documentElement.setAttribute('data-piel','v3')}})();
+</script>
 <style>
 :root {
   --night:     #080C12;
@@ -1247,6 +1254,225 @@ footer.pf{background:var(--night);border-top:1px solid var(--border);padding:0;t
 .pb-wm span{color:var(--gold)}
 @media(max-width:899px){.tw-logo{width:40px;height:40px}.pb-wm{font-size:28px}}
 </style>
+<style>
+/* ═══ REDISEÑO V3 · LANDING (orden 2026-11-12_2225 · prototipo «THE WAY Landing Adaptable») ═══
+   Todo cuelga de html[data-piel=v3]. Sin ese atributo nada de este bloque aplica y el marcado v3 no existe.
+   Cortes: < 600 px celular · 600–899 px móvil ancho (768) · ≥ 900 px escritorio. */
+html[data-piel=v3] #parentBar,html[data-piel=v3] #panel-home,html[data-piel=v3] .panel,html[data-piel=v3] footer.pf{display:none!important}
+html[data-piel=v3] body::before{display:none}
+html[data-piel=v3] body{background:#080C12}
+[data-piel=v3] .v3l,[data-piel=v3] .v3h,[data-piel=v3] .v3f{font-family:'DM Sans',sans-serif;color:#EAE8E0;line-height:normal}
+[data-piel=v3] .v3l *,[data-piel=v3] .v3h *,[data-piel=v3] .v3f *{box-sizing:border-box}
+[data-piel=v3] .v3l section{padding:0;scroll-margin-top:80px}
+[data-piel=v3] .v3l p,[data-piel=v3] .v3l h1,[data-piel=v3] .v3l h2,[data-piel=v3] .v3l h3,[data-piel=v3] .v3l figure,[data-piel=v3] .v3l blockquote{margin:0}
+[data-piel=v3] .v3l :focus-visible,[data-piel=v3] .v3h :focus-visible,[data-piel=v3] .v3f :focus-visible{outline:2px solid #DEC06A;outline-offset:3px}
+
+/* barra superior: transparente sobre el hero, sólida al bajar */
+[data-piel=v3] .v3h{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;gap:16px;padding:0 20px;background:linear-gradient(180deg,rgba(8,12,18,.65),rgba(8,12,18,0));border-bottom:1px solid transparent;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:background .25s,border-color .25s}
+[data-piel=v3] .v3h.v3h-sol{background:rgba(8,12,18,.92);border-bottom-color:rgba(255,255,255,.06)}
+[data-piel=v3] .v3h-brand{display:flex;align-items:center;gap:12px;flex:none;text-decoration:none;color:#EAE8E0}
+[data-piel=v3] .v3h-brand svg{width:40px;height:40px;display:block}
+[data-piel=v3] .v3h-wm{font:28px/1 'Bebas Neue',sans-serif;letter-spacing:.05em;white-space:nowrap}
+[data-piel=v3] .v3h-wm span,[data-piel=v3] .v3-gold{color:#C8A84B}
+[data-piel=v3] .v3h-sp{flex:1}
+[data-piel=v3] .v3h-sp2,[data-piel=v3] .v3h nav{display:none}
+[data-piel=v3] .v3h nav{position:static;height:auto;padding:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;z-index:auto;gap:4px;align-items:center}
+[data-piel=v3] .v3h nav a{display:flex;align-items:center;height:40px;padding:0 14px;border-radius:10px;color:#C9D1D6;font:600 14px 'DM Sans',sans-serif;text-decoration:none;transition:color .2s}
+[data-piel=v3] .v3h nav a:hover{color:#EAE8E0}
+[data-piel=v3] .v3-cta{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:none;background:#C8A84B;color:#16120A;font:700 14px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;text-decoration:none}
+[data-piel=v3] .v3-cta:hover{background:#DEC06A}
+
+/* contenedor */
+[data-piel=v3] .v3-wrap{max-width:none;margin:0 auto;padding-left:20px;padding-right:20px}
+[data-piel=v3] .v3-lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;color:#6DC48A;text-transform:uppercase}
+[data-piel=v3] .v3-h2{margin-top:8px!important;font:400 46px/.92 'Bebas Neue',sans-serif;letter-spacing:0}
+[data-piel=v3] .v3-body{font-size:15px;line-height:1.6;color:#B9C3C9;text-wrap:pretty}
+[data-piel=v3] .v3-two{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+
+/* hero (la misma ilustración de hoy, .hero-bg) */
+[data-piel=v3] .v3-hero{position:relative;height:700px;overflow:hidden}
+/* celular (< 600 px): encuadre corrido de 50 % a 44 % para que ninguna luz dorada del sendero quede detrás de «WAY» (contraste ≥ 3:1, título grande) */
+[data-piel=v3] .v3-hero .hero-bg{background-position:44% 0}
+[data-piel=v3] .v3-hero .hero-bg::after{display:none}
+[data-piel=v3] .v3-hero-fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.55) 0%,rgba(8,12,18,0) 18%,rgba(8,12,18,0) 45%,rgba(8,12,18,.7) 72%,#080C12 100%)}
+[data-piel=v3] .v3-hero-in{position:absolute;left:0;right:0;bottom:36px}
+[data-piel=v3] .v3-hero h1{font:400 96px/.85 'Bebas Neue',sans-serif;letter-spacing:1px}
+[data-piel=v3] .v3-tag{font:italic 400 28px/1.1 'Crimson Pro',serif;color:#DEC06A;margin-top:8px!important}
+[data-piel=v3] .v3-hero-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+[data-piel=v3] .v3-btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;height:52px;padding:0 22px;border-radius:14px;font:700 14px 'DM Sans',sans-serif;line-height:1.25;cursor:pointer;text-decoration:none}
+[data-piel=v3] .v3-btn-ghost{border:1px solid rgba(255,255,255,.22);background:rgba(8,12,18,.55);color:#EAE8E0;font-weight:600}
+[data-piel=v3] .v3-btn-gold{border:none;background:#C8A84B;color:#080C12;box-shadow:0 0 24px rgba(200,168,75,.35)}
+[data-piel=v3] .v3-btn-gold:hover{background:#DEC06A}
+[data-piel=v3] .v3-btn-ghost:hover{background:rgba(8,12,18,.75)}
+
+/* la invitación */
+[data-piel=v3] .v3-inv{padding-top:30px!important;align-items:start}
+[data-piel=v3] .v3-inv-txt{display:grid;gap:12px;padding-top:14px}
+[data-piel=v3] .v3-quote{font:italic 400 20px/1.35 'Crimson Pro',serif;color:#DEC06A;text-wrap:pretty}
+[data-piel=v3] .v3-fit{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+[data-piel=v3] .v3-fit-c{border-radius:18px;padding:16px}
+[data-piel=v3] .v3-fit-no{background:#111C28;border:1px solid rgba(255,255,255,.07)}
+[data-piel=v3] .v3-fit-es{background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.4)}
+[data-piel=v3] .v3-fit-l{font-size:11px;font-weight:700;letter-spacing:1.4px;color:#8FA1AC}
+[data-piel=v3] .v3-fit-es .v3-fit-l{color:#DEC06A}
+[data-piel=v3] .v3-fit ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.4;color:#B9C3C9}
+[data-piel=v3] .v3-fit li{display:flex;gap:10px;align-items:flex-start}
+[data-piel=v3] .v3-fit li i{flex:none;width:10px;height:9px;margin-top:4px;background:#8FA1AC;clip-path:polygon(50% 0,100% 100%,0 100%);opacity:.7}
+[data-piel=v3] .v3-fit b{color:#EAE8E0;font-weight:600}
+[data-piel=v3] .v3-fit-def{font-size:13px;line-height:1.5;margin-top:12px!important;text-wrap:pretty}
+[data-piel=v3] .v3-fit-def b{font-weight:600}
+
+/* cómo funciona */
+[data-piel=v3] .v3-how{padding-top:40px!important}
+[data-piel=v3] .v3-how .v3-two,[data-piel=v3] .v3-rec .v3-two{align-items:end}
+[data-piel=v3] .v3-how .v3-h2{font-size:40px}
+[data-piel=v3] .v3-lv{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+[data-piel=v3] .v3-lv li{display:flex;gap:14px}
+[data-piel=v3] .v3-lv-m{display:flex;flex-direction:column;align-items:center;width:40px;flex:none}
+[data-piel=v3] .v3-lv-m i{display:block;background:#C8A84B;clip-path:polygon(50% 0,100% 100%,0 100%)}
+[data-piel=v3] .v3-lv-m b{flex:1;width:1px;background:rgba(200,168,75,.3);margin:6px 0}
+[data-piel=v3] .v3-lv li:last-child .v3-lv-m b{display:none}
+[data-piel=v3] .v3-lv-t{flex:1;padding-bottom:18px}
+[data-piel=v3] .v3-lv h3{font:400 24px/1 'Bebas Neue',sans-serif;letter-spacing:.5px}
+[data-piel=v3] .v3-lv-d{font-size:14px;line-height:1.5;color:#B9C3C9;margin-top:4px!important;text-wrap:pretty}
+[data-piel=v3] .v3-lv-x{font-size:12px;line-height:1.4;color:#DEC06A;margin-top:6px!important}
+
+/* el recorrido · expediciones (carrusel en móvil, 3 en fila en escritorio) */
+[data-piel=v3] .v3-rec{padding-top:40px!important}
+[data-piel=v3] .v3-rec .v3-h2{font-size:34px;line-height:.95}
+[data-piel=v3] .v3-exps{display:flex;gap:10px;overflow-x:auto;padding:16px 22px 0;scroll-snap-type:x mandatory;margin:0 auto;list-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+[data-piel=v3] .v3-exps::-webkit-scrollbar{display:none}
+[data-piel=v3] .v3-exp{flex:none;width:280px;border-radius:20px;overflow:hidden;scroll-snap-align:start;border:1px solid rgba(255,255,255,.08);background:#111C28;display:flex;flex-direction:column}
+[data-piel=v3] .v3-exp-img{position:relative;height:190px;overflow:hidden}
+[data-piel=v3] .v3-exp-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+[data-piel=v3] .v3-exp-img::after{content:'';position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(180deg,rgba(17,28,40,0),#111C28)}
+[data-piel=v3] .v3-exp-b{padding:4px 18px 18px;display:flex;flex-direction:column;gap:2px;flex:1}
+[data-piel=v3] .v3-exp-o{font-size:11px;font-weight:700;letter-spacing:1.6px;color:#DEC06A;text-transform:uppercase}
+[data-piel=v3] .v3-exp h3{font:400 36px/1 'Bebas Neue',sans-serif;margin-top:2px}
+[data-piel=v3] .v3-exp-q{font:italic 400 17px/1.25 'Crimson Pro',serif;color:#DEC06A}
+[data-piel=v3] .v3-exp-d{display:none;font-size:13px;line-height:1.5;color:#B9C3C9;margin-top:8px!important;text-wrap:pretty}
+[data-piel=v3] .v3-exp-m{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+[data-piel=v3] .v3-exp-m span{font:600 11px 'DM Sans',sans-serif;padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.16);color:#EAE8E0}
+
+/* empieza desde adentro */
+[data-piel=v3] .v3-end{padding-bottom:48px}
+[data-piel=v3] .v3-close{position:relative;margin-top:30px;border-radius:24px;overflow:hidden;border:1px solid rgba(200,168,75,.3);display:grid;grid-template-columns:minmax(0,1fr);align-items:center}
+[data-piel=v3] .v3-close-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 40%;filter:brightness(.72) saturate(1.1)}
+[data-piel=v3] .v3-close-fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,0) 0%,rgba(8,12,18,.15) 40%,rgba(8,12,18,.9) 68%)}
+[data-piel=v3] .v3-phone-box{position:relative;order:1;display:flex;justify-content:center;align-items:flex-start;height:395px;overflow:hidden;padding-top:28px}
+[data-piel=v3] .v3-phone{position:relative;box-sizing:content-box;width:240px;height:490px;flex:none;border-radius:34px;border:7px solid #05070c;background:#080C12;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);transform:scale(.7);transform-origin:50% 0}
+[data-piel=v3] .v3-close-t{position:relative;order:2;padding:4px 20px 24px}
+[data-piel=v3] .v3-close .v3-h2{font-size:34px;margin-top:6px!important}
+[data-piel=v3] .v3-close-p{font-size:13px;line-height:1.55;color:#C9D1D6;margin-top:10px!important;text-wrap:pretty}
+[data-piel=v3] .v3-close-p2{color:#EAE8E0;margin:8px 0 16px!important}
+[data-piel=v3] .v3-close .v3-btn{width:100%;font-size:15px;padding:0 28px;box-shadow:none}
+[data-piel=v3] .v3-wa{margin-top:14px!important;font-size:13px;line-height:1.5;color:#C9D1D6;text-align:center}
+[data-piel=v3] .v3-wa a{color:#DEC06A;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* Mateo 11:28-30 */
+[data-piel=v3] .v3-verse{margin:30px auto 0!important;max-width:620px;text-align:center}
+[data-piel=v3] .v3-verse blockquote{font:italic 400 17px/1.5 'Crimson Pro',serif;color:#C9D1D6}
+[data-piel=v3] .v3-verse blockquote span{display:block}
+[data-piel=v3] .v3-verse figcaption{margin-top:10px;font:700 11px 'DM Sans',sans-serif;letter-spacing:1.6px;color:#DEC06A}
+
+/* pie de El College */
+[data-piel=v3] .v3f{background:#080C12;border-top:1px solid rgba(255,255,255,.06);padding:0;text-align:left}
+[data-piel=v3] .v3f-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px;max-width:1280px;margin:0 auto;padding:40px 20px 44px}
+[data-piel=v3] .v3f-col{flex:1 1 300px;min-width:0}
+[data-piel=v3] .v3f-brand{display:flex;align-items:center;gap:14px;--ec-logo:48px}
+[data-piel=v3] .v3f .pb-name{font-size:19px}
+[data-piel=v3] .v3f-tag{max-width:340px;margin:16px 0 0;font-size:15px;line-height:1.55;color:#A8C4D4}
+[data-piel=v3] .v3f nav{position:static;height:auto;padding:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;z-index:auto;flex:2 1 440px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:14px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+[data-piel=v3] .v3f-row{display:flex;flex-wrap:wrap;gap:12px 22px}
+[data-piel=v3] .v3f-row a{color:#A8C4D4;text-decoration:none;transition:color .2s}
+[data-piel=v3] .v3f-row a:hover,[data-piel=v3] .v3f-row a[aria-current=page]{color:#DEC06A}
+[data-piel=v3] .v3f-legal{flex:1 1 100%;font-size:13px;line-height:1.7;color:#7A8E9A}
+
+/* 600–899 px (768): móvil ancho */
+@media(min-width:600px){
+  [data-piel=v3] .v3h{padding:0 40px}
+  [data-piel=v3] .v3-cta{padding:0 22px}
+  [data-piel=v3] .v3-wrap{max-width:640px;padding-left:40px;padding-right:40px}
+  [data-piel=v3] .v3-hero{height:860px}
+  [data-piel=v3] .v3-hero .hero-bg{background-position:50% 0}
+  [data-piel=v3] .v3-hero-in{bottom:56px}
+  [data-piel=v3] .v3-hero h1{font-size:128px}
+  [data-piel=v3] .v3-tag{font-size:34px}
+  [data-piel=v3] .v3-h2{font-size:56px}
+  [data-piel=v3] .v3-body{font-size:16px}
+  [data-piel=v3] .v3-inv{padding-top:44px!important}
+  [data-piel=v3] .v3-quote{font-size:22px}
+  [data-piel=v3] .v3-fit{gap:14px}
+  [data-piel=v3] .v3-fit-c{padding:22px}
+  [data-piel=v3] .v3-fit ul,[data-piel=v3] .v3-fit-def,[data-piel=v3] .v3-close-p{font-size:15px}
+  [data-piel=v3] .v3-how,[data-piel=v3] .v3-rec{padding-top:56px!important}
+  [data-piel=v3] .v3-how .v3-h2{font-size:50px}
+  [data-piel=v3] .v3-rec .v3-h2,[data-piel=v3] .v3-close .v3-h2{font-size:44px}
+  [data-piel=v3] .v3-exps{max-width:720px;padding:16px 40px 0}
+  [data-piel=v3] .v3-exp{width:320px}
+  [data-piel=v3] .v3-exp-img{height:210px}
+  [data-piel=v3] .v3-close,[data-piel=v3] .v3-verse{margin-top:44px!important}
+  [data-piel=v3] .v3-phone-box{height:444px}
+  [data-piel=v3] .v3-phone{transform:scale(.8)}
+  [data-piel=v3] .v3-verse blockquote{font-size:20px}
+  [data-piel=v3] .v3-end{padding-bottom:72px}
+  [data-piel=v3] .v3f-wrap{gap:30px 48px;padding:48px 40px 52px}
+  [data-piel=v3] .v3f-row{gap:10px 28px}
+  [data-piel=v3] .v3f-brand{--ec-logo:52px}
+  [data-piel=v3] .v3f .pb-name{font-size:21px}
+}
+/* ≥ 900 px: escritorio */
+@media(min-width:900px){
+  [data-piel=v3] .v3h{height:72px;padding:0 36px}
+  [data-piel=v3] .v3h-brand svg{width:44px;height:44px}
+  [data-piel=v3] .v3h-wm{font-size:31px}
+  [data-piel=v3] .v3h-sp2{display:block}
+  [data-piel=v3] .v3h nav{display:flex}
+  [data-piel=v3] .v3-wrap{max-width:1200px;padding-left:36px;padding-right:36px}
+  [data-piel=v3] .v3-two{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px}
+  [data-piel=v3] .v3-hero{height:min(760px,calc(100vh - 40px));min-height:560px}
+  [data-piel=v3] .v3-hero .hero-bg{background-position:50% 30%}
+  [data-piel=v3] .v3-hero-fade{background:linear-gradient(180deg,rgba(8,12,18,.45) 0%,rgba(8,12,18,0) 20%,rgba(8,12,18,0) 45%,rgba(8,12,18,.65) 75%,#080C12 100%),linear-gradient(90deg,rgba(8,12,18,.55),rgba(8,12,18,0) 55%)}
+  [data-piel=v3] .v3-hero-in{bottom:72px}
+  [data-piel=v3] .v3-hero h1{font-size:148px}
+  [data-piel=v3] .v3-tag{font-size:40px}
+  [data-piel=v3] .v3-hero-btns{grid-template-columns:auto auto;max-width:520px}
+  [data-piel=v3] .v3-h2{font-size:72px}
+  [data-piel=v3] .v3-inv{padding-top:72px!important}
+  [data-piel=v3] .v3-inv-txt{padding-top:26px}
+  [data-piel=v3] .v3-how,[data-piel=v3] .v3-rec{padding-top:88px!important}
+  [data-piel=v3] .v3-how .v3-h2{font-size:64px}
+  [data-piel=v3] .v3-rec .v3-h2,[data-piel=v3] .v3-close .v3-h2{font-size:56px}
+  [data-piel=v3] .v3-lv{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  [data-piel=v3] .v3-lv li{background:#111C28;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:20px 18px 4px}
+  [data-piel=v3] .v3-lv-m b{display:none}
+  [data-piel=v3] .v3-exps{max-width:1200px;margin:24px auto 0;padding:0 36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;overflow:visible}
+  [data-piel=v3] .v3-exp{width:auto}
+  [data-piel=v3] .v3-exp-img{height:240px}
+  [data-piel=v3] .v3-exp-d{display:block}
+  [data-piel=v3] .v3-close{margin-top:72px!important;grid-template-columns:minmax(0,1fr) 400px}
+  [data-piel=v3] .v3-close-fade{background:linear-gradient(90deg,rgba(8,12,18,.88) 0%,rgba(8,12,18,.5) 48%,rgba(8,12,18,.08) 100%)}
+  [data-piel=v3] .v3-phone-box{order:2;height:540px;padding-top:34px}
+  [data-piel=v3] .v3-phone{transform:rotate(-4deg)}
+  [data-piel=v3] .v3-close-t{order:1;padding:44px 0 44px 48px}
+  [data-piel=v3] .v3-close .v3-btn{width:auto}
+  [data-piel=v3] .v3-wa{text-align:left}
+  [data-piel=v3] .v3-verse{margin-top:72px!important}
+  [data-piel=v3] .v3f-wrap{padding:48px 36px 52px}
+}
+@media(min-width:1280px){
+  [data-piel=v3] .v3h{padding:0 48px}
+  [data-piel=v3] .v3-wrap{padding-left:48px;padding-right:48px}
+  [data-piel=v3] .v3-hero h1{font-size:168px}
+  [data-piel=v3] .v3-exps{padding:0 48px}
+  [data-piel=v3] .v3-close{grid-template-columns:minmax(0,1fr) 460px}
+  [data-piel=v3] .v3f-wrap{padding:48px 48px 52px}
+}
+@media(prefers-reduced-motion:reduce){
+  [data-piel=v3] .v3h,[data-piel=v3] .v3h *,[data-piel=v3] .v3l *,[data-piel=v3] .v3f *{transition:none!important;animation:none!important}
+  html[data-piel=v3]{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -1957,6 +2183,102 @@ function mmCloseRoutes(id) {
     <div class="pf-legal">© 2026 LHSCOL · Manizales, Colombia. Hecho con ♥ en el Eje Cafetero.</div>
   </div>
 </footer>
+
+<script>
+/* ═══ REDISEÑO V3 · LANDING (orden 2026-11-12_2225) ═══
+   Solo se dibuja con data-piel="v3" en <html> (lo pone el interruptor del <head>). Sin v3 este bloque no hace nada
+   y la página queda como la publicada. Textos: los de esta misma página. Los paneles antiguos no se borran: con v3 quedan ocultos
+   (display:none) y ningún botón ni enlace lleva a ellos.
+   Estados: visitante (sin sesión) · con sesión (TW_SESION.usuario()). El ingreso es el mismo doLogin() de siempre.
+   «Empezar hoy» abre el WhatsApp de THE WAY (provisional, hasta que exista el formulario propio). */
+(function(){
+  var H=document.documentElement; if(H.getAttribute('data-piel')!=='v3')return;
+  var WA_INSCRIBIR='https://wa.me/573173708570?text=Hola%2C%20quiero%20inscribirme%20en%20el%20taller%20Protocolo%20Metanoia';
+  var WA_INFO='https://wa.me/573173708570?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20THE%20WAY.';
+  var LOGO='<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><polygon points="2,56 15,29 28,56" fill="#A8C4D4" stroke="#A8C4D4" stroke-width="2.4" stroke-linejoin="round"/><polygon points="36,56 50,25 62,56" fill="#2B4A70" stroke="#2B4A70" stroke-width="2.4" stroke-linejoin="round"/><polygon points="12,56 32,8 52,56" fill="#C8A84B" stroke="#C8A84B" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 56 C 38 52, 24 44.5, 35 38.5 C 41 35, 29 29.5, 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg>';
+  var EXPS=[
+    ['Primera expedición','Mentalidad','¿Quién soy y cómo proceso la realidad?','mentalidad','66% 58%','Una brújula iluminada en la montaña, de noche','Aquí se trabaja la manera en que comprendes quién eres, desde dónde vives y cómo interpretas lo que te pasa. Recorres Identidad, Sanidad y Renovación para dejar de responder desde heridas o ideas que ya no son verdad.',['Identidad','Sanidad','Renovación']],
+    ['Segunda expedición','Capacidad','¿Tengo el motor para sostenerlo?','capacidad','74% 48%','Un farol encendido en un sendero de montaña, de noche','Aquí se desarrollan las inteligencias que sostienen una vida interior ordenada: espiritual, emocional y física. No basta con entender la verdad; necesitas la estabilidad para vivirla en tus decisiones diarias.',['Espiritual','Emocional','Física']],
+    ['Tercera expedición','Habilidad','¿Puedo ejecutar con excelencia?','habilidad','68% 42%','Una cuerda asegurada en la montaña, de noche','Aquí la formación interior se hace visible en la manera en que vives, te relacionas y sirves. Desarrollas habilidades personales, relacionales y vocacionales para construir con madurez e impacto.',['Personal','Relacional','Vocacional']]];
+  var NIVELES=[
+    ['Expediciones',30,'Son los grandes procesos de transformación que propone THE WAY. Cada una se concentra en una dimensión esencial de la vida que necesita ser trabajada con profundidad.','Las tres expediciones son Mentalidad, Capacidad y Habilidad.'],
+    ['Montañas',22,'Son los temas centrales que se recorren dentro de cada expedición. Cada tema es una montaña por conquistar.','Por ejemplo, la expedición Mentalidad incluye Identidad, Sanidad y Renovación.'],
+    ['Rutas',14,'Son los recorridos concretos dentro de cada montaña: el camino que te acompaña a comprender, practicar y llevar esa transformación a tu vida mediante pequeños pasos diarios y guiados, para conquistar esa montaña.','En Identidad: De Regreso a Casa, Sit · Walk · Stand y Como en el Cielo.']];
+  var PIE=[
+    [['LHSCOL','https://lhscolweb.netlify.app/'],['El College','https://collegelhscol.netlify.app/']],
+    [['Mayor que mi realidad','https://mayorquemirealidad.netlify.app/'],['S.T.A.R.S.','https://starsmsgapp.netlify.app/'],['THE WAY','https://thewaylhscol.netlify.app/',1],['Bookclub','https://bookclublhscol.netlify.app/'],['Staff','https://collegelhscol.netlify.app/#staff']],
+    [['Linktree','https://linktr.ee/lhscol'],['Instagram','https://www.instagram.com/lhscol/'],['YouTube','https://www.youtube.com/@lhscol?sub_confirmation=1'],['Comunidad · WhatsApp','https://chat.whatsapp.com/Cns0HVMBa3C1PztdvhEn55']]];
+  /* botones que cambian según el estado (data-v3b: cab = barra, hero = portada, cierre = «Empieza desde adentro») */
+  function boton(k,ses){
+    if(k==='cab') return ses?'<button type="button" class="v3-cta" data-v3b="cab" data-v3-ir="1">Mi Mapa</button>':'<button type="button" class="v3-cta" data-v3b="cab" data-v3-ir="1">Ingresar</button>';
+    return ses?'<button type="button" class="v3-btn v3-btn-gold" data-v3b="'+k+'" data-v3-ir="1">Ir a Mi Mapa</button>'
+              :'<a class="v3-btn v3-btn-gold" data-v3b="'+k+'" href="'+WA_INSCRIBIR+'" target="_blank" rel="noopener">Empezar hoy</a>';
+  }
+  var h=[];
+  h.push('<header class="v3h" id="v3Barra"><a class="v3h-brand" href="https://thewaylhscol.netlify.app/" aria-label="THE WAY · inicio">'+LOGO+'<span class="v3h-wm" aria-hidden="true">THE <span>WAY</span></span></a>'
+    +'<span class="v3h-sp"></span><nav aria-label="Secciones"><a href="#v3-invitacion">La invitación</a><a href="#v3-como">Cómo funciona</a><a href="#v3-recorrido">El recorrido</a></nav><span class="v3h-sp v3h-sp2"></span>'+boton('cab',false)+'</header>');
+  h.push('<main class="v3l" id="v3Landing">');
+  h.push('<section class="v3-hero"><div class="hero-bg" aria-hidden="true"></div><div class="v3-hero-fade" aria-hidden="true"></div><div class="v3-hero-in"><div class="v3-wrap">'
+    +'<h1>THE <span class="v3-gold">WAY</span></h1><p class="v3-tag">Disfruta El Buen Camino.</p>'
+    +'<div class="v3-hero-btns"><a class="v3-btn v3-btn-ghost" href="#v3-invitacion">Leer la invitación</a>'+boton('hero',false)+'</div></div></div></section>');
+  h.push('<div class="v3-wrap">');
+  h.push('<section class="v3-two v3-inv" id="v3-invitacion"><div><p class="v3-lbl">La invitación</p><h2 class="v3-h2">JESÚS ES <span class="v3-gold">EL CAMINO</span>.</h2></div>'
+    +'<div class="v3-inv-txt"><p class="v3-body">Si estás cansado de sostener por fuera una vida que por dentro se siente fragmentada, Jesús te invita a caminar con Él.</p>'
+    +'<p class="v3-body">No te llama a correr más, a demostrar más ni a construir una mejor versión de ti mismo por tus propias fuerzas. Te invita a detenerte, escuchar su voz y permitir que Él transforme lo profundo de tu interior.</p>'
+    +'<p class="v3-quote">El Buen Camino es caminar con Jesús hacia una transformación que comienza por dentro y se hace visible por fuera.</p></div></section>');
+  h.push('<div class="v3-fit"><div class="v3-fit-c v3-fit-no"><p class="v3-fit-l">THE WAY NO ES</p><ul>'
+    +'<li><i aria-hidden="true"></i><span><b>Desarrollo personal</b> con lenguaje cristiano.</span></li>'
+    +'<li><i aria-hidden="true"></i><span><b>Una carrera</b> para demostrar que eres mejor.</span></li>'
+    +'<li><i aria-hidden="true"></i><span><b>Una metáfora de montaña</b> sin fundamento.</span></li></ul></div>'
+    +'<div class="v3-fit-c v3-fit-es"><p class="v3-fit-l">THE WAY ES</p><p class="v3-fit-def"><b>Una experiencia de formación dentro de El College:</b> un camino para caminar con Jesús, mirar con honestidad lo que ocurre dentro de ti y aprender a vivir desde la verdad, la gracia y la libertad que Él ofrece.</p></div></div>');
+  h.push('<section class="v3-how" id="v3-como"><div class="v3-two"><div><p class="v3-lbl">Cómo funciona</p><h2 class="v3-h2">NO ES UN CURSO,<br><span class="v3-gold">ES UNA EXPEDICIÓN</span>.</h2></div>'
+    +'<p class="v3-body">THE WAY no es un curso bíblico más. Es un proceso continuo de transformación con Jesús, diseñado para que la verdad transforme progresivamente tu realidad: tu manera de pensar, vivir y relacionarte.</p></div><ol class="v3-lv">');
+  NIVELES.forEach(function(n){h.push('<li><span class="v3-lv-m" aria-hidden="true"><i style="width:'+n[1]+'px;height:'+n[1]+'px"></i><b></b></span><div class="v3-lv-t"><h3>'+n[0]+'</h3><p class="v3-lv-d">'+n[2]+'</p><p class="v3-lv-x">'+n[3]+'</p></div></li>')});
+  h.push('</ol></section>');
+  h.push('<section class="v3-rec" id="v3-recorrido"><div class="v3-two"><div><p class="v3-lbl">El recorrido</p><h2 class="v3-h2">UN CAMINO. <span class="v3-gold">TRES EXPEDICIONES</span>.</h2></div>'
+    +'<p class="v3-body">THE WAY es una travesía de transformación que se recorre en tres grandes expediciones: Mentalidad, Capacidad y Habilidad. Cada una trabaja una dimensión esencial de tu vida.</p></div></section>');
+  h.push('</div>');
+  h.push('<ul class="v3-exps" aria-label="Las tres expediciones">');
+  EXPS.forEach(function(e){
+    h.push('<li class="v3-exp"><div class="v3-exp-img"><img src="assets/v3/exp-'+e[3]+'.webp" srcset="assets/v3/exp-'+e[3]+'.webp 1400w, assets/v3/exp-'+e[3]+'-hd.webp 2400w" sizes="(min-width:900px) 390px, 320px" width="1400" height="764" loading="lazy" decoding="async" alt="'+e[5]+'" style="object-position:'+e[4]+'"></div>'
+      +'<div class="v3-exp-b"><p class="v3-exp-o">'+e[0]+'</p><h3>'+e[1]+'</h3><p class="v3-exp-q">'+e[2]+'</p><p class="v3-exp-d">'+e[6]+'</p><div class="v3-exp-m">'+e[7].map(function(m){return '<span>'+m+'</span>'}).join('')+'</div></div></li>');
+  });
+  h.push('</ul>');
+  h.push('<div class="v3-wrap v3-end"><div class="v3-close"><img class="v3-close-bg" src="assets/v3/mapa-general-hd.webp" alt="" loading="lazy" decoding="async"><div class="v3-close-fade" aria-hidden="true"></div>'
+    +'<div class="v3-phone-box"><div class="v3-phone" role="img" aria-label="Así se ve Mi Mapa por dentro"><div aria-hidden="true">'
+    +'<img src="assets/v3/mapa-renovacion.webp" alt="" loading="lazy" decoding="async" style="position:absolute;top:34px;left:0;width:auto;height:440px;max-width:none;transform:translateX(-26%)">'
+    +'<div style="position:absolute;top:0;left:0;right:0;height:34px;display:flex;align-items:center;gap:6px;padding:0 12px;background:rgba(8,12,18,.94);border-bottom:1px solid rgba(255,255,255,.06)"><span style="width:12px;height:11px;background:#C8A84B;clip-path:polygon(50% 0,100% 100%,0 100%)"></span><span style="font:13px/1 \'Bebas Neue\';letter-spacing:.05em">THE <span style="color:#C8A84B">WAY</span></span><span style="flex:1"></span><span style="font:600 8px \'DM Sans\';padding:3px 7px;border:1px solid rgba(255,255,255,.2);border-radius:99px">Salir</span></div>'
+    +'<div style="position:absolute;top:44px;left:12px;font:20px/.95 \'Bebas Neue\';text-shadow:0 2px 10px rgba(0,0,0,.8)">MI MAPA<div style="font:600 8px \'DM Sans\';color:#C9D1D6;margin-top:2px">Mentalidad · Montaña Renovación</div></div>'
+    +'<div style="position:absolute;left:113px;top:284px;transform:translate(-50%,-100%);white-space:nowrap;background:#C8A84B;color:#100A00;font:700 7px \'DM Sans\';letter-spacing:1px;padding:4px 7px;border-radius:99px;box-shadow:0 4px 12px rgba(0,0,0,.5)">ESTÁS AQUÍ EN METANOIA</div>'
+    +'<div style="position:absolute;left:113px;top:298px;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:2px solid #DEC06A;background:radial-gradient(circle,rgba(200,168,75,.5),rgba(8,12,18,.6));box-shadow:0 0 12px 3px rgba(222,192,106,.5)"></div>'
+    +'<div style="position:absolute;left:8px;right:8px;bottom:52px;padding:9px 10px;border-radius:12px;background:rgba(12,21,32,.94);border:1px solid rgba(200,168,75,.55)"><div style="font:700 7px \'DM Sans\';letter-spacing:1px;color:#6DC48A">RUTA 2 · ESTÁS AQUÍ</div><div style="font:16px/1 \'Bebas Neue\';margin-top:3px">Protocolo Metanoia</div><div style="margin-top:6px;height:18px;border-radius:6px;background:#C8A84B;color:#080C12;font:700 8px/18px \'DM Sans\';text-align:center">Continuar · Día 1</div></div>'
+    +'<div style="position:absolute;left:0;right:0;bottom:0;height:44px;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:rgba(8,12,18,.96);border-top:1px solid rgba(255,255,255,.06);font:600 6.5px/1.3 \'DM Sans\';color:#7A8E9A;text-align:center"><span style="color:#DEC06A">◎<br>Mi posición</span><span>▲<br>Montaña</span><span>⛰<br>Expedición</span><span>▦<br>Mapa</span><span style="color:#DEC06A"><b style="display:inline-block;padding:1px 5px;border-radius:99px;background:#C8A84B;color:#100A00">Día 1</b><br>Lección</span></div>'
+    +'</div></div></div>'
+    +'<div class="v3-close-t"><p class="v3-lbl">Disfruta El Buen Camino</p><h2 class="v3-h2">EMPIEZA <span class="v3-gold">DESDE ADENTRO.</span></h2>'
+    +'<p class="v3-close-p">Es hora de dar el primer paso en una misma dirección: caminar con Jesús y permitir que su verdad transforme progresivamente tu manera de pensar, vivir y relacionarte.</p>'
+    +'<p class="v3-close-p v3-close-p2">Entra a tu mapa, conoce el Campamento Base y comienza El Buen Camino.</p>'
+    +boton('cierre',false)
+    +'<p class="v3-wa">¿Tienes preguntas sobre THE WAY? <a href="'+WA_INFO+'" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p></div></div>');
+  h.push('<figure class="v3-verse"><blockquote><span>¿Estás cansado? ¿Agotado? ¿Quemado por la religión? Ven a mí.</span><span>Camina conmigo y trabaja conmigo, observa cómo lo hago.</span><span>Aprende los ritmos no forzados de la gracia.</span><span>No pondré sobre ti nada pesado ni que no puedas llevar.</span><span>Camina conmigo y aprenderás a vivir libre y livianamente.</span></blockquote><figcaption>MATEO 11:28-30</figcaption></figure></div>');
+  h.push('</main>');
+  h.push('<footer class="v3f"><div class="v3f-wrap"><div class="v3f-col"><div class="v3f-brand"><span class="ec-logo"><img src="https://collegelhscol.netlify.app/icons/logo-lhscol.png" alt="" width="56" height="56" onerror="this.parentNode.classList.add(\'fb\')"><svg viewBox="0 0 56 56" aria-hidden="true" focusable="false"><rect width="56" height="56" rx="12" fill="#D9923B"/><rect x="4" y="4" width="48" height="48" rx="9" fill="#62686F"/><rect x="7" y="7" width="42" height="42" rx="7" fill="#1F3A5F"/><rect x="12.5" y="12.5" width="31" height="31" rx="4.5" fill="#9DB69A"/><rect x="18" y="18" width="20" height="20" rx="2.5" fill="#1E2420"/></svg></span><span class="pb-sep" aria-hidden="true"></span><span class="pb-name">El College</span></div>'
+    +'<p class="v3f-tag">Todo lo que necesitas para ir más profundo.</p></div><nav aria-label="Pie de página">');
+  PIE.forEach(function(r){h.push('<div class="v3f-row">'+r.map(function(l){return l[2]?'<a href="'+l[1]+'" aria-current="page">'+l[0]+'</a>':'<a href="'+l[1]+'" target="_blank" rel="noopener">'+l[0]+'</a>'}).join('')+'</div>')});
+  h.push('</nav><div class="v3f-legal">© 2026 LHSCOL · Manizales, Colombia. Hecho con ♥ en el Eje Cafetero.</div></div></footer>');
+  document.body.insertAdjacentHTML('afterbegin',h.join(''));
+
+  function conSesion(){var S=window.TW_SESION;try{return !!(S&&S.usuario&&S.usuario())}catch(e){return false}}
+  function pintar(){var s=conSesion();H.setAttribute('data-v3-estado',s?'sesion':'visitante');
+    ['cab','hero','cierre'].forEach(function(k){var el=document.querySelector('[data-v3b="'+k+'"]');if(el)el.outerHTML=boton(k,s)})}
+  /* «Ingresar», «Mi Mapa» e «Ir a Mi Mapa» usan el mismo doLogin() de siempre (con sesión va directo a mi-mapa/index.html) */
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-v3-ir]');if(!b)return;e.preventDefault();if(typeof doLogin==='function')doLogin()});
+  var barra=document.getElementById('v3Barra');
+  function alBajar(){barra.classList.toggle('v3h-sol',(window.scrollY||window.pageYOffset)>40)}
+  window.addEventListener('scroll',alBajar,{passive:true});alBajar();
+  pintar();
+  document.addEventListener('DOMContentLoaded',function(){pintar();var S=window.TW_SESION;if(S&&typeof S.listo==='function'){try{S.listo().then(pintar,function(){})}catch(e){}}});
+})();
+</script>
 
 <script>
 /* ── STARS ── */
