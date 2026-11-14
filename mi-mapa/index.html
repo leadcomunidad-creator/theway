@@ -1115,7 +1115,12 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  new MutationObserver(function(){niebla();vivo()}).observe(wo,{attributes:true,attributeFilter:['class']});
  new MutationObserver(function(){niebla();decorar();vivo()}).observe($('pv'),{childList:true});
  addEventListener('resize',trazo);addEventListener('pageshow',todo);addEventListener('storage',todo);document.addEventListener('visibilitychange',function(){if(!document.hidden)todo()});
+ /* «Mi posición» apunta al caminante (Juan, 13-nov): solo cambia el punto al que mira la cámara de «Mi posición» (aquiXY, que usa goal);
+    el zoom, el encuadre y las demás cámaras son los de siempre. Fuera de la montaña donde se cursa sigue igual que hoy. */
+ var aquiXY0=aquiXY;
+ aquiXY=function(){if(AQUI.mt>0&&cur===AQUI.mt){var p=enSendero(avance().h);return {mx:p.x/16,my:p.y/9}}return aquiXY0()};
  trazo();niebla();decorar();vivo();
+ if(mode==='position'&&!fview){var g0=goal('position');cam.tx=g0.tx;cam.ty=g0.ty;cam.s=g0.s;put()} /* la cámara inicial se calculó antes de este bloque */
  /* al cargar, la Parte 1 ya dibujó su ficha por defecto (la de la bandera); se cambia por la ficha con el avance */
  if(!fview&&!q.hidden&&$('pO').textContent==='Ruta 2 · Inicio de ruta'&&$('pT').textContent==='Protocolo Metanoia')meta($('v3card'));
 })();
