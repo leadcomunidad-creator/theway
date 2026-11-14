@@ -494,6 +494,66 @@ html[data-piel=v3]{--v3pw:0px}
 @media(min-width:1440px){[data-piel=v3] .v3c{grid-template-columns:400px minmax(0,1fr)}}
 @media(min-width:900px) and (max-width:1279px){[data-piel=v3] .v3c .fm3{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){[data-piel=v3] #v3p *,[data-piel=v3] .v3c *{transition:none!important;animation:none!important}}
+
+/* ═══ REDISEÑO V3 · MI MAPA · Parte 2: el mapa vivo (orden 2026-11-13_2236, aprobada por Juan a las 17:44) ═══
+   Niebla sobre lo «por revelar», sendero vivo con el caminante (Renovación · Ruta 2) y fichas con el avance del curso.
+   Todo cuelga de [data-piel=v3]; el marcado lo crea el bloque v3 del script (sin la piel no existe). */
+@keyframes v3Drift{0%{transform:translate(-50%,-50%) translateX(-14%) scale(1);opacity:.7}50%{opacity:1}100%{transform:translate(-50%,-50%) translateX(14%) scale(1.15);opacity:.8}}
+@keyframes v3Bg{0%{background-position:0% 0%,100% 0%,50% 100%}100%{background-position:40% 8%,60% 12%,90% 85%}}
+@keyframes v3Ants{to{stroke-dashoffset:calc(-28px * var(--inv,1) * var(--u,1))}}
+@keyframes v3Glow{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes v3Bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* niebla (las nubes se dibujan dentro del mundo; su tamaño sigue el ancho de la imagen, --bw) */
+[data-piel=v3] #v3fog{position:absolute;inset:0;pointer-events:none;z-index:4}
+[data-piel=v3] .v3nube{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;animation:v3Drift var(--d,9s) ease-in-out var(--dl,0s) infinite alternate}
+[data-piel=v3] .v3niebla{opacity:.5!important}
+[data-piel=v3] .v3niebla6{opacity:.6!important}
+[data-piel=v3] .v3fogmask{position:absolute;inset:0;pointer-events:none;z-index:4;-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-20%' y='-20%' width='140%' height='140%'><feGaussianBlur stdDeviation='1.6'/></filter></defs><polygon filter='url(%23b)' fill='white' points='38.5,-5 38.5,60 41,66 47.5,70 47.5,78.5 58,78.5 58,105 105,105 105,-5'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-20%' y='-20%' width='140%' height='140%'><feGaussianBlur stdDeviation='1.6'/></filter></defs><polygon filter='url(%23b)' fill='white' points='38.5,-5 38.5,60 41,66 47.5,70 47.5,78.5 58,78.5 58,105 105,105 105,-5'/></svg>");-webkit-mask-size:100% 100%;mask-size:100% 100%;background:radial-gradient(40% 30% at 30% 30%,rgba(196,210,222,.55),transparent 70%),radial-gradient(45% 35% at 75% 40%,rgba(196,210,222,.5),transparent 70%),radial-gradient(60% 40% at 55% 80%,rgba(196,210,222,.45),transparent 70%);background-size:120% 120%,120% 120%,120% 120%;animation:v3Bg 12s ease-in-out infinite alternate}
+/* cumbre con rombo en vez de candado (el candado sigue en el marcado; solo no se ve) */
+[data-piel=v3] .mk.pk[data-s=locked] svg{display:none}
+[data-piel=v3] .mk.pk[data-s=locked]::before{content:"";width:13px;height:13px;border:2px solid currentColor;border-radius:2px;transform:rotate(45deg)}
+[data-piel=v3] #gworld .mk[data-s=locked] svg{display:none}
+/* sendero vivo y caminante */
+[data-piel=v3] #v3way{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible}
+[data-piel=v3] #v3way path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+[data-piel=v3] #v3way .ah{stroke:rgba(222,192,106,.75);stroke-width:calc(2.6px * var(--inv,1) * var(--u,1));stroke-dasharray:calc(2px * var(--inv,1) * var(--u,1)) calc(12px * var(--inv,1) * var(--u,1));animation:v3Ants 1.6s linear infinite;filter:drop-shadow(0 0 2px rgba(0,0,0,.9))}
+[data-piel=v3] #v3way .gl{stroke:rgba(222,192,106,.55);stroke-width:calc(9px * var(--inv,1) * var(--u,1));filter:blur(3px);animation:v3Glow 2.6s ease-in-out infinite}
+[data-piel=v3] #v3way .wk{stroke:#DEC06A;stroke-width:calc(3.5px * var(--inv,1) * var(--u,1))}
+[data-piel=v3] #v3walk{position:absolute;width:28px;height:42px;margin:-42px 0 0 -14px;transform:scale(var(--inv,1));transform-origin:50% 100%;pointer-events:none;z-index:9}
+[data-piel=v3] #v3walk svg{display:block;width:28px;height:42px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.6));animation:v3Bob 1.8s ease-in-out infinite}
+[data-piel=v3] #v3walk b{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);white-space:nowrap;background:var(--gold);color:#100A00;font:700 10px 'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase;padding:6px 11px;border-radius:99px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+[data-piel=v3] #v3walk b::after{content:"";position:absolute;left:50%;bottom:-4px;width:8px;height:8px;background:var(--gold);transform:translateX(-50%) rotate(45deg)}
+[data-piel=v3] #world.v3vivo #pin{display:none!important}
+[data-piel=v3] #pv .mk.st.v3hoy{border:2px solid var(--gold-l);background:rgba(200,168,75,.22);color:var(--gold-l);opacity:1}
+/* leyenda */
+[data-piel=v3] .legend .v3ln{display:inline-block;width:14px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:radial-gradient(closest-side,rgba(198,212,224,.9),rgba(198,212,224,0))}
+/* fichas con el avance del curso (dentro de la misma #pop) */
+[data-piel=v3] #v3x{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+[data-piel=v3] #v3x[hidden]{display:none!important}
+[data-piel=v3] .v3wk{display:flex;flex-wrap:wrap;gap:6px}
+[data-piel=v3] .v3wk span{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:0 10px;border-radius:99px;border:1px solid rgba(255,255,255,.1);font:600 11px 'DM Sans',sans-serif;color:#8FA1AC}
+[data-piel=v3] .v3wk span i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+[data-piel=v3] .v3wk span.on{border-color:var(--c);color:var(--text)}
+[data-piel=v3] .v3wk span.fut{border-style:dashed}
+[data-piel=v3] .v3st{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;margin:0}
+[data-piel=v3] .v3st div{padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+[data-piel=v3] .v3st dt{font:700 10px 'DM Sans',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#8FA1AC}
+[data-piel=v3] .v3st dd{margin:2px 0 0;font:600 15px 'DM Sans',sans-serif;color:var(--text)}
+[data-piel=v3] .v3dots{display:flex;gap:8px}
+[data-piel=v3] .v3dots i{width:16px;height:16px;border-radius:50%;border:1.5px dashed rgba(122,142,154,.75)}
+[data-piel=v3] .v3dots i.h{border:1.5px solid var(--green-xl);background:var(--green)}
+[data-piel=v3] .v3dots i.hoy{border:2px solid var(--gold);background:rgba(200,168,75,.25)}
+[data-piel=v3] .v3days{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+[data-piel=v3] .v3days li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px dashed rgba(122,142,154,.45);font:600 13px 'DM Sans',sans-serif;color:#C9D1D6}
+[data-piel=v3] .v3days li.h{border:1px solid rgba(109,196,138,.5)}
+[data-piel=v3] .v3days li.hoy{border:1.5px solid var(--gold)}
+[data-piel=v3] .v3days li b{font-weight:700;color:var(--text)}
+[data-piel=v3] .v3days li em{margin-left:auto;font:700 10px 'DM Sans',sans-serif;font-style:normal;letter-spacing:1.2px;color:#8FA1AC}
+[data-piel=v3] .v3days li.h em{color:var(--green-xl)}
+[data-piel=v3] .v3days li.hoy em{color:var(--gold-l)}
+[data-piel=v3] #pop #v3b2{margin-top:8px;width:100%}
+@media(max-width:899px){[data-piel=v3] .v3wk,[data-piel=v3] .v3days{display:none}[data-piel=v3] #v3x{gap:10px;margin-top:10px}[data-piel=v3] .v3st dd{font-size:14px}}
+@media(prefers-reduced-motion:reduce){[data-piel=v3] .v3nube,[data-piel=v3] .v3fogmask,[data-piel=v3] #v3way path,[data-piel=v3] #v3walk svg{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -885,6 +945,7 @@ function lecPintar(){var s=lecEstado(),a=$('lec'),n=$('lecN');if(!a||!n)return;
 lecPintar();addEventListener('pageshow',lecPintar);addEventListener('storage',lecPintar);document.addEventListener('visibilitychange',function(){if(!document.hidden)lecPintar()});
 window.mapaPrueba={unirTodas:function(){for(var r=0;r<4;r++)if(!sim.join[r])sim.join[r]=new Date(sim.hoy);refresh()}}; /* gancho para las pruebas automáticas */
 $('amb').src=$('art').src;['gamb','gdimX'].forEach(function(i){$(i).src=$('gart').src});$('tamb').src=$('tart').src;buildG();buildT();setMtn(AQUI.mt);$('hudP').textContent='Expedición Mentalidad · Montaña '+PVS[AQUI.mt].nom;size();render();renderSim();var g=goal('position');cam=g;put();
+var V3={}; /* rediseño v3: enlace entre la Parte 1 (piel) y la Parte 2 (mapa vivo); vacío sin la piel v3 */
 /* ═══ REDISEÑO V3 · MI MAPA · Parte 1: la piel (orden 2026-11-13_0713) ═══
    Solo con data-piel="v3" en <html>. No cambia ninguna función de arriba: mueve de sitio los mismos elementos
    (escalas y «Lección del día» a la barra superior en escritorio; la ficha #pop al panel derecho o abajo en móvil),
@@ -904,9 +965,10 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
   if(k!==antes){antes=k;dispatchEvent(new Event('resize'))}}
  /* ficha por defecto: la misma que hoy al tocar la bandera de Protocolo Metanoia (buildPv, ruta 2 de Renovación) */
  var DEF_O='Ruta 2 · Inicio de ruta',DEF_T='Protocolo Metanoia';
- function def(){if(fview)return;popPv($('v3card'),DEF_O,DEF_T,'Mentalidad → Renovación · 20 jornadas. Se abre por autorización de Juan.',false);
+ function def(){if(fview)return;if(V3.meta){V3.meta($('v3card'));return} /* Parte 2: la ficha de Protocolo Metanoia con el avance del curso */
+  popPv($('v3card'),DEF_O,DEF_T,'Mentalidad → Renovación · 20 jornadas. Se abre por autorización de Juan.',false);
   var l=$('pL');l.hidden=false;l.textContent='Ingresar';l.removeAttribute('aria-disabled');l.tabIndex=0;l.href=AQUI.url}
- function marca(){q.classList.toggle('v3def',$('pO').textContent===DEF_O&&$('pT').textContent===DEF_T)}
+ function marca(){q.classList.toggle('v3def',($('pO').textContent===DEF_O&&$('pT').textContent===DEF_T)||!!(V3.esMeta&&V3.esMeta()))}
  new MutationObserver(function(){if(q.hidden&&!fview)def();marca()}).observe(q,{attributes:true,attributeFilter:['hidden'],subtree:true,childList:true,characterData:true});
  /* recorrido del panel (escritorio): los mismos textos y acciones que la vista Clásica y los marcadores del mapa */
  function fila(tag,tit,aqui,mark,fn){var b=document.createElement('button');b.type='button';b.className='v3p-row';b.setAttribute('aria-current',aqui?'true':'false');
@@ -948,6 +1010,114 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  new MutationObserver(function(){lay();if(!fview&&q.hidden)def()}).observe(document.body,{attributes:true,attributeFilter:['class']});
  (mq.addEventListener?mq.addEventListener('change',function(){lay();estado();filas()}):mq.addListener(function(){lay();estado();filas()}));
  lay();filas();def();clasica();
+})();
+/* ═══ REDISEÑO V3 · MI MAPA · Parte 2: el mapa vivo (orden 2026-11-13_2236, aprobada por Juan el 13-nov a las 17:44) ═══
+   Solo con data-piel="v3". El avance de Metanoia sale SOLO de tw_metanoia_prog (lo guarda el curso en este dispositivo), con la
+   misma lectura que lecEstado(); aquí nunca se escribe. No cambia Motor, sim, doorSt, pos, ws, lecEstado, la sesión ni A81, y las
+   cámaras y coordenadas son las de siempre. Niebla, sendero, caminante y fichas: README §3, mejoras 1, 2 y 5. */
+if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
+ var q=$('pop'),DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes'],
+  SEM=[{n:'Reemplazar',c:'#a79bea'},{n:'Reentrenar',c:'#5cc08a'},{n:'Replantear',c:'#e5b04e'},{n:'Recuperar',c:'#8fc4e8'}], /* nombres (MOV) y colores Noche del curso */
+  CORTA=new Intl.DateTimeFormat('es',{weekday:'short',day:'numeric',month:'short'});
+ /* ---- avance del curso (solo lectura) ---- */
+ function hoyD(){var h=new Date();return new Date(h.getFullYear(),h.getMonth(),h.getDate())}
+ function avance(){var o=null;try{o=JSON.parse(localStorage.getItem('tw_metanoia_prog')||'null')}catch(e){}
+  var L=lecEstado(),dn={},h=0,ini=null;
+  if(L.k!=='nuevo'&&o&&o.v===1&&/^\d{4}-\d{2}-\d{2}$/.test(o.inicio||'')){(Array.isArray(o.done)?o.done:[]).forEach(function(n){if(Number.isInteger(n)&&n>=1&&n<=20&&!dn[n]){dn[n]=1;h++}});
+   var t=o.inicio.split('-');ini=new Date(+t[0],+t[1]-1,+t[2])}
+  return {k:L.k,n:L.n,dn:dn,h:h,ini:ini,cw:L.k==='fin'?4:Math.floor((L.n-1)/5)}}
+ function abreW(A,w){return A.ini?new Date(A.ini.getFullYear(),A.ini.getMonth(),A.ini.getDate()+7*w):null}
+ function abreDia(A,n){return A.ini?new Date(A.ini.getFullYear(),A.ini.getMonth(),A.ini.getDate()+7*Math.floor((n-1)/5)+((n-1)%5)):null}
+ function hechasW(A,w){var c=0;for(var j=1;j<=5;j++)if(A.dn[5*w+j])c++;return c}
+ function estW(A,w){return hechasW(A,w)===5?'hecha':w===A.cw?'hoy':w<A.cw?'pasada':'futura'}
+ function enHoy(A){return A.k==='hoy'||A.k==='nuevo'}
+ function espera(A){var f=abreDia(A,A.n),t=f?' se abre el '+F(f):' se abre pronto';return A.n>1?'Estás al día · el Día '+A.n+t:'El Día 1'+t}
+ /* ---- sendero: tabla WAY del prototipo (Renovación · Ruta 2), de la bandera al campamento de llegada ---- */
+ var WAY=[[40.4,60.0],[44.1,57.4],[47.3,56.1],[49.8,54.2],[49.2,52.6],[46.5,51.8],[44.0,51.3],[40.5,49.9],[37.4,48.4],[34.6,46.8],[32.9,45.4],[31.8,43.8],[29.5,42.8],[25.4,41.6]],
+  ETAPA=[0,1,6,10,13]; /* puntos de WAY donde están la bandera y las etapas 1 a 4 (las mismas coordenadas de PVD.renovacion) */
+ function curva(){var P=WAY.map(function(p){return [p[0]*16,p[1]*9]}),S=[],L=[],ix=[0];
+  for(var i=0;i<P.length-1;i++){var p0=P[Math.max(0,i-1)],p1=P[i],p2=P[i+1],p3=P[Math.min(P.length-1,i+2)],
+    c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+   for(var k=i?1:0;k<=20;k++){var u=k/20,a=1-u,x=a*a*a*p1[0]+3*a*a*u*c1[0]+3*a*u*u*c2[0]+u*u*u*p2[0],y=a*a*a*p1[1]+3*a*a*u*c1[1]+3*a*u*u*c2[1]+u*u*u*p2[1];
+    L.push(S.length?L[L.length-1]+Math.hypot(x-S[S.length-1][0],y-S[S.length-1][1]):0);S.push([x,y])}
+   ix.push(S.length-1)}
+  return {S:S,L:L,ix:ix}}
+ var CV=curva();
+ /* el caminante avanza por jornadas TERMINADAS (decisión de Juan): con 5·k terminadas está en la etapa k; entre medias, en proporción a lo largo del tramo */
+ function enSendero(h){var wk=Math.min(4,Math.floor(h/5)),f=wk<4?(h%5)/5:0,a=CV.L[CV.ix[ETAPA[wk]]],b=wk<4?CV.L[CV.ix[ETAPA[wk+1]]]:a,t=a+(b-a)*f,i=0;
+  while(i<CV.L.length-2&&CV.L[i+1]<t)i++;var s=(CV.L[i+1]-CV.L[i])||1,r=Math.max(0,Math.min(1,(t-CV.L[i])/s)),p=CV.S[i],n=CV.S[i+1];
+  return {i:i,x:p[0]+(n[0]-p[0])*r,y:p[1]+(n[1]-p[1])*r}}
+ /* ---- marcado nuevo (solo v3) ---- */
+ var NS='http://www.w3.org/2000/svg',sv=document.createElementNS(NS,'svg');sv.id='v3way';sv.setAttribute('viewBox','0 0 1600 900');sv.setAttribute('preserveAspectRatio','none');sv.setAttribute('aria-hidden','true');
+ sv.innerHTML='<path class="ah"></path><path class="gl"></path><path class="wk"></path>';
+ var nieb=document.createElement('div');nieb.id='v3fog';nieb.setAttribute('aria-hidden','true');
+ var wk=document.createElement('div');wk.id='v3walk';
+ wk.innerHTML='<svg viewBox="0 0 24 36" aria-hidden="true"><circle cx="12" cy="6" r="4.5" fill="#f3ead7"/><path d="M12 11c-5 0-7 4-7 9v8h4v-6h6v6h4v-8c0-5-2-9-7-9Z" fill="#e8b94a"/><rect x="15" y="12" width="6" height="11" rx="2" fill="#7a5a1c"/></svg><b></b>'; /* el caminante con mochila del curso (walkerSVG) */
+ wo.insertBefore(nieb,$('pv'));wo.insertBefore(sv,$('pv'));wo.appendChild(wk);
+ var gm=document.createElement('div');gm.className='v3fogmask';gm.setAttribute('aria-hidden','true');$('gworld').insertBefore(gm,$('gpin'));
+ G.forEach(function(g){if((g.e||0)>0)g.el.classList.add('v3niebla')});
+ if(mk[16])mk[16].classList.add('v3niebla6'); /* cumbre de Identidad bajo el velo */
+ var lg=document.querySelector('.legend');if(lg&&lg.children[3]){lg.children[3].hidden=true;var ln=document.createElement('span');ln.innerHTML='<i class="v3ln"></i>En la niebla · por revelar';lg.appendChild(ln)}
+ /* ---- niebla: solo sobre lo «por revelar» (README mejora 1; puntos del prototipo, [x %, y %, radio % del ancho]) ---- */
+ var FOG_REN=[[44,93,7],[52,86,6],[57,75,5],[46,70,3.6],[33,73,6],[64,88,7],[73,79,7],[24,83,7],[60,63,4],[14,70,7],[82,66,6],[38,99,8],[90,85,7],
+  [24,34,3.6],[21,29,4.5],[30,33,3.4],[35,11,6],[29,20,7],[44,18,8],[17,22,7],[50,29,5.5],[11,36,6],[40,27,4.5],[60,14,8],[8,14,8],[70,28,7],[55,4,9],[85,12,8],[80,40,6]],
+  FOG_ID=[[35,11,6],[29,7,6],[42,6,6],[24,15,5],[47,14,5]];
+ function rejilla(){var o=[];[8,22,36,50,64,78,92].forEach(function(y,j){[6,20,34,48,62,76,90].forEach(function(x){o.push([x+(j%2?7:0),y,8.5])})});return o}
+ var clave='';
+ function niebla(){var k=cur===2?'ren':cur===1?'san':'id';if(k===clave)return;clave=k;
+  var P=k==='ren'?FOG_REN:k==='san'?rejilla():FOG_ID,a=k==='ren'?.5:k==='san'?.34:.38,c=function(v){return 'calc(var(--bw) * '+(v/100).toFixed(4)+')'};
+  nieb.innerHTML=P.map(function(p,i){var r=p[2];return '<i class="v3nube" style="left:'+p[0]+'%;top:'+p[1]+'%;width:'+c(r*2.6)+';height:'+c(r*1.3)+';background:radial-gradient(closest-side,rgba(198,212,224,'+a+'),rgba(198,212,224,'+(a*.45).toFixed(2)+') 55%,rgba(198,212,224,0));filter:blur(max(6px,'+c(r*.18)+'));--d:'+(7+(i%5)*1.6).toFixed(1)+'s;--dl:-'+((i*2.3)%7).toFixed(1)+'s"></i>'}).join('')}
+ /* ---- montañas Sanidad y Renovación: marcadores bajo la niebla al 50 % y etapas de la Ruta 2 con el avance ---- */
+ var EST={hecha:'terminada',hoy:'en curso',pasada:'abierta',futura:'aún cerrada'};
+ function decorar(){if(!cur)return;var P=$('pv'),A=avance(),ren=cur===AQUI.mt,sts=P.querySelectorAll('.mk.st'),drs=P.querySelectorAll('.dr'),mls=P.querySelectorAll('.ml'),pk=P.querySelector('.mk.pk');
+  for(var i=0;i<sts.length;i++){var r=Math.floor(i/4),mia=ren&&r===AQUI.ruta,b=sts[i];b.classList.toggle('v3niebla',!mia);if(!mia)continue;
+   (function(b,w){var e=estW(A,w);b.dataset.s=e==='hecha'?'reached':e==='futura'?'locked':'open';b.classList.toggle('v3hoy',e==='hoy');b.innerHTML=e==='hecha'?CHK:'<span>'+(w+1)+'</span>';
+    b.setAttribute('aria-label','Ruta 2 · Etapa '+(w+1)+' de 4 · Protocolo Metanoia: Semana '+(w+1)+' · '+SEM[w].n+' — '+EST[e]);
+    b.onclick=function(ev){ev.stopPropagation();etapa(w,b)}})(b,i%4)}
+  for(var d=0;d<drs.length;d++){var miaD=ren&&d===AQUI.ruta;drs[d].classList.toggle('v3niebla',!miaD);if(miaD)drs[d].onclick=function(ev){ev.stopPropagation();meta(this)}}
+  for(var m=0;m<mls.length;m++)mls[m].classList.toggle('v3niebla6',!(ren&&m===AQUI.ruta));
+  if(pk)pk.classList.add('v3niebla')}
+ /* ---- sendero vivo y caminante (solo en Renovación, la montaña donde se cursa) ---- */
+ function vivo(){var on=wo.classList.contains('pv')&&cur===AQUI.mt;wo.classList.toggle('v3vivo',on);sv.style.display=on?'':'none';wk.style.display=on?'':'none';if(!on)return;
+  var A=avance(),p=enSendero(A.h),S=CV.S,f=function(n){return n.toFixed(1)},pt=function(z){return f(z[0])+' '+f(z[1])};
+  var hecho='M'+S.slice(0,p.i+1).map(pt).join(' L')+' L'+f(p.x)+' '+f(p.y),falta='M'+f(p.x)+' '+f(p.y)+S.slice(p.i+1).map(function(z){return ' L'+pt(z)}).join('');
+  sv.querySelector('.ah').setAttribute('d',falta);sv.querySelector('.gl').setAttribute('d',hecho);sv.querySelector('.wk').setAttribute('d',hecho);
+  wk.style.left=(p.x/16)+'%';wk.style.top=(p.y/9)+'%';wk.querySelector('b').textContent='Estás aquí en Metanoia · '+$('lecN').textContent}
+ function trazo(){sv.style.setProperty('--u',(1600/BW).toFixed(4))}
+ /* ---- fichas con el avance (la misma #pop, con un bloque más; README mejora 5) ---- */
+ var x=document.createElement('div');x.id='v3x';x.hidden=true;q.insertBefore(x,$('pL'));
+ var b2=document.createElement('a');b2.id='v3b2';b2.className='btn btn-ghost';b2.hidden=true;b2.textContent='Ver el curso';b2.href=AQUI.url;q.appendChild(b2);
+ var sig=null,tipo=null;
+ function firma(){return $('pO').textContent+'|'+$('pT').textContent+'|'+$('pD').textContent}
+ function listo(t){x.hidden=false;sig=firma();tipo=t}
+ new MutationObserver(function(){if(sig!==null&&(q.hidden||firma()!==sig)){sig=null;tipo=null;x.hidden=true;b2.hidden=true}}).observe(q,{attributes:true,attributeFilter:['hidden'],subtree:true,childList:true,characterData:true});
+ function chips(on){return '<div class="v3wk" aria-label="Semanas del curso">'+SEM.map(function(s,i){return '<span class="'+(i===on?'on':i>on?'fut':'')+'" style="--c:'+s.c+'"><i aria-hidden="true"></i>'+s.n+'</span>'}).join('')+'</div>'}
+ function datos(a){a=a.filter(Boolean);return '<dl class="v3st" style="--n:'+a.length+'">'+a.map(function(z){return '<div><dt>'+z[0]+'</dt><dd>'+z[1]+'</dd></div>'}).join('')+'</dl>'}
+ function boton(texto,href){var l=$('pL');l.hidden=false;l.textContent=texto;l.href=href;l.removeAttribute('aria-disabled');l.removeAttribute('tabindex')}
+ function meta(el){var A=avance(),cw=Math.min(A.cw,3),ok=enHoy(A);
+  popPv(el,'Ruta 2 · Estás aquí','Protocolo Metanoia',A.k==='fin'?'Curso completo · 20 de 20 jornadas':A.k==='espera'?espera(A):'Hoy · Día '+A.n+' · '+DIAS[(A.n-1)%5],true);
+  if(ok)boton('Continuar · Día '+A.n,'../metanoia/index.html?ir=hoy');else boton('Ver el curso',AQUI.url);
+  x.innerHTML=chips(A.cw)+datos([['Semana',(cw+1)+' de 4'],['Jornadas',A.h+' de 20'],['Piedras',String(A.h)]]);b2.hidden=!ok;listo('meta')}
+ function etapa(w,el){var A=avance(),e=estW(A,w),hw=hechasW(A,w),ab=abreW(A,w),abierta=!!ab&&ab<=hoyD();
+  var d=e==='hoy'?(A.k==='espera'?espera(A)+'.':A.k==='nuevo'?'El Día 1 te espera. Cada jornada terminada suma una piedra a tu sendero.':'Día '+A.n+' en curso. Cada jornada terminada suma una piedra a tu sendero.')
+   :e==='futura'?(ab?'Se abre el '+F(ab)+', hayas terminado o no la semana anterior.':'Se abre el lunes siguiente a la semana anterior, hayas terminado o no.')
+   :(ab?'Abrió el '+F(ab)+'. ':'')+(hw===5?'Semana terminada.':'Te quedan '+(5-hw)+' jornadas por terminar.');
+  popPv(el,'Ruta 2 · Etapa '+(w+1)+' de 4 · Protocolo Metanoia','Semana '+(w+1)+' · '+SEM[w].n,d,true);
+  if(e==='hoy'&&enHoy(A))boton('Continuar · Día '+A.n,'../metanoia/index.html?ir=hoy');else if(e!=='futura')boton('Ver el curso',AQUI.url);
+  var dots='',dias='';for(var j=0;j<5;j++){var n=5*w+j+1,h=!!A.dn[n],hy=!h&&n===A.n&&enHoy(A);
+   dots+='<i class="'+(h?'h':hy?'hoy':'')+'"></i>';dias+='<li class="'+(h?'h':hy?'hoy':'')+'"><b>Día '+n+'</b><span>'+DIAS[j]+'</span><em>'+(h?'HECHA':hy?'HOY':DIAS[j].slice(0,3).toUpperCase())+'</em></li>'}
+  x.innerHTML=chips(w)+'<div class="v3dots" role="img" aria-label="Jornadas de esta semana: '+hw+' de 5 terminadas">'+dots+'</div>'
+   +datos([ab?[abierta?'Abrió':'Se abre',CORTA.format(ab).replace(/\./g,'')]:null,['Jornadas',hw+' de 5']])+'<ol class="v3days" aria-label="Jornadas de la semana '+(w+1)+'">'+dias+'</ol>';
+  b2.hidden=true;listo('etapa')}
+ V3.meta=meta;V3.esMeta=function(){return tipo==='meta'&&sig!==null&&firma()===sig};
+ /* ---- cuándo se vuelve a dibujar ---- */
+ function todo(){niebla();decorar();vivo();if(tipo==='meta'&&!q.hidden&&firma()===sig&&q.classList.contains('v3def'))meta($('v3card'))}
+ new MutationObserver(function(){niebla();vivo()}).observe(wo,{attributes:true,attributeFilter:['class']});
+ new MutationObserver(function(){niebla();decorar();vivo()}).observe($('pv'),{childList:true});
+ addEventListener('resize',trazo);addEventListener('pageshow',todo);addEventListener('storage',todo);document.addEventListener('visibilitychange',function(){if(!document.hidden)todo()});
+ trazo();niebla();decorar();vivo();
+ /* al cargar, la Parte 1 ya dibujó su ficha por defecto (la de la bandera); se cambia por la ficha con el avance */
+ if(!fview&&!q.hidden&&$('pO').textContent==='Ruta 2 · Inicio de ruta'&&$('pT').textContent==='Protocolo Metanoia')meta($('v3card'));
 })();
 })();
 </script>
