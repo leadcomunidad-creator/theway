@@ -1133,7 +1133,13 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
     el zoom, el encuadre y las demás cámaras son los de siempre. Fuera de la montaña donde se cursa sigue igual que hoy. */
  var aquiXY0=aquiXY;
  aquiXY=function(){if(AQUI.mt>0&&cur===AQUI.mt){var p=enSendero(avance().h);return {mx:p.x/16,my:p.y/9}}return aquiXY0()};
+ /* Montaña en celular (ajustes, Juan 14-nov): en la montaña donde se cursa y con pantalla de menos de 700 px, la cámara de «Montaña»
+    se acerca un poco (1,3) y mira al caminante, para que su rótulo no se corte ni quede bajo la tarjeta. En escritorio, en otras
+    montañas y en las demás escalas, la cámara es la de siempre. */
+ var goal0=goal;
+ goal=function(m){if(m==='mountain'&&mode==='mountain'&&W<700&&AQUI.mt>0&&cur===AQUI.mt){var a=aquiXY(),s=1.3;return clamp({s:s,tx:W*.5-a.mx/100*BW*s,ty:H*.3-a.my/100*BH*s})}return goal0(m)};
  trazo();niebla();decorar();vivo();
+ if(mode==='mountain'&&!fview){var g1=goal('mountain');cam.tx=g1.tx;cam.ty=g1.ty;cam.s=g1.s;put()}
  if(mode==='position'&&!fview){var g0=goal('position');cam.tx=g0.tx;cam.ty=g0.ty;cam.s=g0.s;put()} /* la cámara inicial se calculó antes de este bloque */
  /* al cargar, la Parte 1 ya dibujó su ficha por defecto (la de la bandera); se cambia por la ficha con el avance */
  if(!fview&&!q.hidden&&$('pO').textContent==='Ruta 2 · Inicio de ruta'&&$('pT').textContent==='Protocolo Metanoia')meta($('v3card'));

@@ -270,6 +270,16 @@ h1,h2,h3,h4{margin:0}
 .ext{border:1px dashed var(--dawn);border-radius:14px;padding:16px;background:var(--night);margin:12px 0}
 .toast{position:absolute;left:50%;bottom:78px;transform:translateX(-50%);z-index:60;max-width:92%;padding:10px 16px;border-radius:12px;background:var(--card);border:1px solid var(--gold);font-size:13px;box-shadow:0 10px 30px #000a}
 @container app (min-width:1100px){.toast{bottom:24px}}
+/* Ajustes 14-nov · Bitácora: aviso de guardado frágil (a) y «Guarda tu copia ahora» al cerrar una jornada (b, d). Con y sin v3 */
+.avisog{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(233,169,126,.45);background:rgba(233,169,126,.1);font-size:14px;line-height:1.5;color:var(--text)}
+.avisog svg{flex:none;width:18px;height:18px;margin-top:2px;color:var(--dawn)}
+.cierre{position:absolute;left:50%;bottom:132px;transform:translateX(-50%);z-index:59;width:min(92%,420px);box-sizing:border-box;padding:16px 44px 16px 18px;border-radius:16px;background:var(--card);border:1px solid var(--gold);color:var(--text);box-shadow:0 10px 30px #000a}
+.cierre b{display:block;font-size:15px}.cierre p{margin:4px 0 0;font-size:14px;line-height:1.5}.cierre .f1{color:var(--muted);font-size:13px}.cierre .btn{margin-top:12px}
+.cierre .cx{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;border-radius:10px;background:none;color:var(--muted);font-size:22px;line-height:1;cursor:pointer}
+@container app (min-width:1100px){.cierre{bottom:78px}}
+[data-piel=v3] .cierre{bottom:100px;background:#1C2A3C;color:#EAE8E0;border-color:#C8A84B}
+[data-piel=v3] .cierre .f1,[data-piel=v3] .cierre .cx{color:#B9C3C9}
+@container app (min-width:1100px){[data-piel=v3] .cierre{bottom:24px}}
 .retbar{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 12px;border-radius:12px;background:var(--card);border:1px solid var(--dawn);font-size:13px;margin-bottom:12px}
 
 @container app (max-width:440px){.bar .back span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.brand{font-size:19px}.brand small{font-size:9px;letter-spacing:.1em}.bar{gap:2px;padding:6px 8px}}
@@ -360,6 +370,24 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 .gate-wa:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 .gate-a{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .gate-a .btn{flex:1 1 180px}
+/* v3 (B3, 14-nov) · «Aún no vemos tu acceso» con el diseño de Registro Adaptable. Solo existe con la piel v3 */
+.gate3 .gate-card{max-width:440px;padding:30px 24px 22px;background:#111C28;border:1px solid rgba(255,255,255,.08);border-radius:22px;color:#EAE8E0}
+.gate3 .g3-ic{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(200,168,75,.14);border:1.5px solid rgba(200,168,75,.5);color:#DEC06A}
+.gate3 .g3-ic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.gate3 .gate-t{margin:18px 0 0;font:400 44px/.95 'Bebas Neue',Impact,sans-serif;letter-spacing:.02em;color:#EAE8E0}
+.gate3 .gate-t span{color:#C8A84B}
+.gate3 .gate-p{margin:12px 0 0;font-size:15px;line-height:1.55;color:#B9C3C9}
+.gate3 .gate-p+.gate-p{margin-top:8px}
+.gate3 .gate-p b{color:#EAE8E0}
+.gate3 .g3-a{display:grid;gap:10px;margin-top:22px}
+.gate3 .g3-a .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border-radius:14px;font:700 15px 'DM Sans',system-ui,sans-serif;text-decoration:none}
+.gate3 .g3-a .btn.pri{background:#C8A84B;color:#080C12;border:none}
+.gate3 .g3-a .btn.ghost{background:transparent;color:#EAE8E0;border:1px solid rgba(255,255,255,.18);font-size:14px}
+.gate3 .g3-reg{display:block;text-align:center;font-size:13px;color:#A9B6BE;padding:8px;text-decoration:none}
+.gate3 .g3-reg span{color:#DEC06A;font-weight:700}
+.gate3 .g3-back{display:block;margin:2px auto 0;background:none;border:0;color:#A9B6BE;font:600 13px 'DM Sans',system-ui,sans-serif;padding:8px;cursor:pointer}
+.gate3 a:focus-visible,.gate3 button:focus-visible{outline:2px solid #DEC06A;outline-offset:2px}
+@media(max-width:599px){.gate3 .gate-t{font-size:40px}}
 
 /* ===== DISEÑO B · «El territorio» (PROPUESTA ALTERNATIVA al Diseño A «Noche y oro») =====
    Misma app, mismas reglas y mismos textos que A. Cambia la forma de recorrerla:
@@ -872,10 +900,70 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 [data-piel=v3] .scenes .sl3{display:none}
 @container app (max-width:599px){
  [data-piel=v3] .scenes{overflow:visible;justify-content:space-between;gap:0;padding:14px 0 8px}
- [data-piel=v3] .scenes button{flex:0 0 48px;width:48px;min-width:48px;padding:0;font-size:10px}
+ [data-piel=v3] .scenes button{flex:0 1 48px;width:48px;min-width:40px;padding:0;font-size:10px}
  [data-piel=v3] .scenes::before{left:24px;right:24px}
  [data-piel=v3] .scenes .sl3{display:block}[data-piel=v3] .scenes .ll3{display:none}
 }
+/* 7 · Landing del curso v3 (B2, 14-nov): «Mi Mapa Adaptable», pantalla 6 */
+[data-piel=v3] .cl3-hero .in{max-width:1160px;padding:0 20px 22px}
+[data-piel=v3] .cl3-hero .eyebrow{color:#F0C9A8;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+[data-piel=v3] .cl3-hero h1{color:#F3EAD7}
+[data-piel=v3] .cl3-g{max-width:1160px;margin:0 auto;padding:22px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:36px;align-items:start}
+[data-piel=v3] .cl3-m{min-width:0}
+[data-piel=v3] .cl3-f{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+[data-piel=v3] .cl3-f div{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
+[data-piel=v3] .cl3-f b{display:block;font:400 28px/1 var(--f-disp);letter-spacing:.02em}
+[data-piel=v3] .cl3-f span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+[data-piel=v3] .cl3-intro{margin-top:18px;font-family:var(--f-read);font-size:1.05rem;line-height:1.6}
+[data-piel=v3] .cl3-intro p,[data-piel=v3] .cl3-p p{margin:0 0 .8em}
+[data-piel=v3] .cl3-p{font-family:var(--f-read);line-height:1.6}
+[data-piel=v3] .cl3-sec{padding-top:30px;margin-top:30px;border-top:1px solid var(--border)}
+[data-piel=v3] .cl3-h{margin:0 0 14px;font:400 26px/1 var(--f-disp);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+[data-piel=v3] .cl3-s{margin:-8px 0 10px;font-size:12.5px;color:var(--muted)}
+[data-piel=v3] .cl3-wk,[data-piel=v3] .cl3-how{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+[data-piel=v3] .wk3{border:1px solid var(--border);border-top:4px solid var(--c);border-radius:14px;padding:14px 16px;background:var(--surface)}
+[data-piel=v3] .wk3 small{display:block;font:700 11px var(--f-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+[data-piel=v3] .wk3 b{display:block;font:400 30px/1.05 var(--f-disp);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+[data-piel=v3] .wk3 em{display:block;font-family:var(--f-read);font-style:italic;color:var(--muted);margin:2px 0 10px}
+[data-piel=v3] .wk3 p{margin:0;font-size:14px;line-height:1.55}
+[data-piel=v3] .hw3{padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+[data-piel=v3] .hw3 .i3{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(200,168,75,.12);color:var(--gold-l)}
+[data-piel=v3] .hw3 .i3 svg{width:22px;height:22px}
+[data-piel=v3] .hw3 b{font:700 15px var(--f-ui)}
+[data-piel=v3] .hw3 p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+[data-piel=v3] .cl3-key{margin:14px 0 0;font-family:var(--f-read);font-size:1.1rem;line-height:1.5}
+[data-piel=v3] .cl3-chk{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+[data-piel=v3] .cl3-chk li{display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+[data-piel=v3] .cl3-chk li>span:first-child{flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;display:grid;place-items:center;background:rgba(109,196,138,.18);color:var(--green-xl);font:700 11px var(--f-ui)}
+[data-piel=v3] .cl3-dots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 12px}
+[data-piel=v3] .cl3-dots div{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+[data-piel=v3] .cl3-dots span{display:flex;gap:4px}
+[data-piel=v3] .cl3-dots i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+[data-piel=v3] .cl3-dots small{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+[data-piel=v3] .cl3-mp{display:flex;gap:16px;align-items:center;padding:16px;border:1px solid var(--gold);border-radius:16px;background:linear-gradient(135deg,rgba(200,168,75,.1),transparent)}
+[data-piel=v3] .cl3-mp .doc{flex:none;width:74px;height:98px;box-sizing:border-box;border-radius:6px;background:#F3EEE2;padding:8px 7px;display:flex;flex-direction:column;gap:5px;box-shadow:0 6px 18px #0008}
+[data-piel=v3] .cl3-mp .doc i{display:block;height:4px;border-radius:2px;background:#9aa4ad}[data-piel=v3] .cl3-mp .doc i:first-child{height:6px;width:70%;background:#7A5C12}
+[data-piel=v3] .cl3-mp p{margin:0 0 .5em;font-size:14px;line-height:1.5}
+[data-piel=v3] .cl3-r{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--border);margin-bottom:6px}
+[data-piel=v3] .cl3-r>span{width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;font:700 11px var(--f-ui);background:rgba(255,255,255,.06);color:var(--muted)}
+[data-piel=v3] .cl3-r.ok{background:rgba(61,122,84,.1);border-color:rgba(109,196,138,.35)}
+[data-piel=v3] .cl3-r.ok>span{background:rgba(109,196,138,.2);color:var(--green-xl)}
+[data-piel=v3] .cl3-r b{display:block;font-size:14px;font-weight:600;line-height:1.4}
+[data-piel=v3] .cl3-r small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+[data-piel=v3] .cl3-n{display:flex;gap:8px;align-items:flex-start;margin-top:4px;padding:10px 12px;border-radius:12px;background:rgba(168,196,212,.08);border:1px solid rgba(168,196,212,.25);font-size:12.5px;line-height:1.45;color:var(--ice)}
+[data-piel=v3] .cl3-n svg{flex:none;width:15px;height:15px;margin-top:1px}[data-piel=v3] .cl3-n b{color:var(--text)}
+[data-piel=v3] .cl3-side{position:sticky;top:24px;background:var(--surface);border:1px solid var(--border2);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px}
+[data-piel=v3] .cl3-side .w{font:700 11px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--green-xl)}
+[data-piel=v3] .cl3-side .t{font:400 30px/1 var(--f-disp);letter-spacing:.04em;text-transform:uppercase}
+[data-piel=v3] .cl3-side hr{border:0;height:1px;width:100%;background:var(--border);margin:4px 0}
+[data-piel=v3] .cl3-side .cl3-h{font-size:22px;margin:0}[data-piel=v3] .cl3-side .cl3-s{margin:-6px 0 4px}[data-piel=v3] .cl3-side .cl3-r{margin:0}
+[data-piel=v3] .cl3-cta{width:100%;min-height:54px;border-radius:16px;font-size:15px}
+[data-piel=v3] .cl3-back{width:100%;min-height:44px;border-radius:14px}
+[data-piel=v3] .cl3-bot{position:sticky;bottom:0;z-index:2;padding:16px 20px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,transparent,var(--night) 35%)}
+@container app (min-width:600px){[data-piel=v3] .cl3-h{font-size:30px}[data-piel=v3] .cl3-wk{grid-template-columns:repeat(2,minmax(0,1fr))}[data-piel=v3] .cl3-how{grid-template-columns:repeat(3,minmax(0,1fr))}[data-piel=v3] .cl3-g,[data-piel=v3] .cl3-hero .in{padding-left:32px;padding-right:32px}[data-piel=v3] .cl3-bot{padding-left:32px;padding-right:32px}}
+@container app (min-width:900px){[data-piel=v3] .cl3-g{grid-template-columns:minmax(0,1fr) 340px}[data-piel=v3] .cl3-rq,[data-piel=v3] .cl3-bot{display:none}[data-piel=v3] .cl3-f b{font-size:34px}}
+@container app (min-width:1280px){[data-piel=v3] .cl3-g{grid-template-columns:minmax(0,1fr) 380px}}
+@container app (max-width:899px){[data-piel=v3] .cl3-side{display:none}}
 /* 7 · Mapa personal: «Solo consulta por ahora» en la columna derecha (escritorio); en celular sigue antes del documento */
 [data-piel=v3] .rail .av3{margin:0 0 24px;padding:18px;border-radius:20px;border:1px solid rgba(200,168,75,.45);background:var(--surface)}
 [data-piel=v3] .rail .av3 .eyebrow{color:var(--gold)}
@@ -940,7 +1028,26 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
  function pideEntrar(){
   pantalla({t:'Entra para continuar',p:['Para abrir Protocolo Metanoia, primero ingresa con tu cuenta de Google.'],a:[{id:'twi',txt:'Ingresar',pri:true,fn:function(){location.href='../index.html'}}]});
  }
+ /* v3 (B3, 14-nov): ¿está activa la piel v3? Misma regla que el interruptor del curso (?piel=… y luego localStorage['tw_piel']) */
+ function piel3(){var q=null;try{q=new URLSearchParams(location.search).get('piel')}catch(e){}if(q==='v2'||q==='v3'||q==='actual')return q==='v3';try{return localStorage.getItem('tw_piel')==='v3'}catch(e){return false}}
+ /* «Aún no vemos tu acceso» con v3: mismos destinos que hoy («Entrar con otra cuenta» = salir; «‹ Volver a Mi Mapa»), más WhatsApp y «Registrarme»,
+    que por ahora abre el WhatsApp de THE WAY con el mismo mensaje de «Empezar hoy» de la landing (el formulario aún no existe). La lógica de acceso no cambia. */
+ function sinAcceso3(correo){
+  var WA='573173708570',msg='Hola, no veo mi acceso a Metanoia.'+(correo?' Entré con el correo '+correo+'.':'');
+  app.innerHTML=NAV+'<main class="gate gate3"><section class="card gate-card" role="alert" aria-live="polite">'
+   +'<div class="g3-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>'
+   +'<h1 class="gate-t">AÚN NO VEMOS TU <span>ACCESO.</span></h1>'
+   +'<p class="gate-p">'+(correo?'Entraste con <b>'+esc(correo)+'</b>.':'Entraste con tu cuenta de Google.')+'</p>'
+   +'<p class="gate-p">Si acabas de registrarte, puede tardar un poco en activarse: te escribimos por WhatsApp cuando esté listo. Si te registraste con otro correo, entra con esa cuenta.</p>'
+   +'<div class="g3-a"><button class="btn pri" id="two" type="button">Entrar con otra cuenta</button>'
+   +'<a class="btn ghost" id="twwa" href="https://wa.me/'+WA+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>'
+   +'<a class="g3-reg" id="twreg" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero inscribirme en el taller Protocolo Metanoia')+'" target="_blank" rel="noopener noreferrer">¿Todavía no te registras? <span>Registrarme</span></a>'
+   +'<button class="g3-back" id="twm" type="button">‹ Volver a Mi Mapa</button></div></section></main>';
+  document.getElementById('two').onclick=function(){salir('../index.html')};
+  document.getElementById('twm').onclick=function(){location.href=window.MAPA_URL||'../mi-mapa/index.html'};
+ }
  function sinAcceso(correo){
+  if(piel3())return sinAcceso3(correo);
   var WA='573173708570';
   var msg='Hola, no veo mi acceso a Metanoia.'+(correo?' Entré con el correo '+correo+'.':'');
   var c=' Si crees que es un error, escríbenos a <a class="gate-wa" href="https://wa.me/'+WA+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener noreferrer">+57 317 370 8570</a> por WhatsApp.';
@@ -1166,7 +1273,7 @@ function piedrasCard(){if(S.piel==='v3')return piedrasV3();const c=doneCount(),r
    Guardado real: lo escrito (val, stat, notas) se guarda en el almacenamiento del navegador, se pide almacenamiento persistente
    y hay copia de seguridad/restauración por archivo. SIMULADO: PIN, instalación como app, recordatorios, y el estado de jornadas
    (en el producto viaja al servidor sin el contenido escrito, B8). Los estados de ejemplo (barra) no escriben en el almacenamiento. */
-const STORE={ok:false,persist:null,err:'',t:null};
+const STORE={ok:false,persist:null,err:'',t:null,persisted:null,privado:false};
 const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('metanoia-bitacora',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
 async function storeGet(key){const db=await idb();return new Promise((res,rej)=>{const q=db.transaction('kv').objectStore('kv').get(key||'bitacora');q.onsuccess=()=>{res(q.result||null);db.close()};q.onerror=()=>{rej(q.error);db.close()}})}
 async function storePut(o,key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(o,key||'bitacora');t.oncomplete=()=>{res(true);db.close()};t.onerror=()=>{rej(t.error);db.close()}})}
@@ -1195,6 +1302,20 @@ async function pinHash(pin,salt){const k=await crypto.subtle.importKey('raw',new
 async function pinMake(pin){const salt=crypto.getRandomValues(new Uint8Array(16));return{salt:b64u(salt),hash:await pinHash(pin,salt)}}
 async function pinOk(pin,rec){return rec&&await pinHash(pin,unb64(rec.salt))===rec.hash}
 async function persistAsk(){try{if(navigator.storage&&navigator.storage.persist){STORE.persist=await navigator.storage.persist()}else STORE.persist=null}catch(e){STORE.persist=null}}
+/* Ajustes 14-nov · Bitácora (a): aviso de guardado frágil. SOLO AVISA: no bloquea ni cambia cómo, dónde o cuándo se guarda.
+   Se muestra si el navegador no concede almacenamiento persistente (persisted()/persist(), sin pedir permiso nuevo) o si parece una
+   ventana privada (cuota de almacenamiento muy pequeña, como en Chrome/Edge de incógnito; o Firefox privado sin service worker).
+   No es infalible: Safari privado no se distingue con certeza (se avisa porque Safari no concede persistencia fuera de la app instalada). */
+async function fragilDetect(){try{if(navigator.storage&&navigator.storage.persisted)STORE.persisted=await navigator.storage.persisted()}catch(e){}
+ try{if(navigator.storage&&navigator.storage.estimate){const q=(await navigator.storage.estimate()).quota,lim=(performance&&performance.memory&&performance.memory.jsHeapSizeLimit)?performance.memory.jsHeapSizeLimit*2:120*1048576;if(q&&q<lim)STORE.privado=true}}catch(e){}
+ try{if(/Firefox\//.test(navigator.userAgent)&&!('serviceWorker' in navigator))STORE.privado=true}catch(e){}}
+function fragil(){return STORE.ok&&!S.demo&&(STORE.privado||STORE.persist===false||(STORE.persist!==true&&STORE.persisted===false))}
+function avisoG(){return fragil()?`<div class="avisog" data-aj14="g" role="note">${ic('shield')}<span>Lo que escribas se guarda solo en este dispositivo y puede perderse al cerrar. Usa una pestaña normal (no privada) y guarda tu copia de seguridad.</span></div>`:''}
+/* Ajustes 14-nov · Bitácora (b) y (d): al cerrar una jornada, en la pantalla a la que se llega (Hoy, Semana o Final) aparece una vez
+   «Guarda tu copia ahora» con el botón de siempre (data-act="backup"). En el Día 1 lleva además el aviso de la Ficha inicial.
+   En Semana, si aún no hay copia, ya está la tarjeta de copia de esa pantalla y no se repite. Se quita al navegar, con × o al guardar la copia. */
+function cierreHTML(){const c=S.cierre;if(!c||S.locked||(S.view==='semana'&&!S.backupAt))return '';
+ return `<div class="cierre" data-aj14="c" role="region" aria-label="Jornada ${c.n} completada"><button class="cx" data-act="cierrex" aria-label="Cerrar este aviso">×</button><b>Jornada ${c.n} completada</b><p>Guarda tu copia ahora.</p>${c.n===1?'<p class="f1">Tu Ficha inicial queda guardada y bloqueada en este dispositivo. No está en nuestros servidores: guarda tu copia de seguridad.</p>':''}<button class="btn sm pri" data-act="backup">Guardar copia de seguridad</button></div>`}
 function cleanBackup(o){if(!o||o.tipo!=='bitacora-protocolo-metanoia'||typeof o.val!=='object'||!o.val)throw 0;const ok=k=>/^[A-Za-z0-9:_]{1,40}$/.test(k),val={},stat={};
  for(const k in o.val)if(ok(k)&&typeof o.val[k]==='string'&&o.val[k].length<20000)val[k]=o.val[k];
  for(const k in (o.stat||{}))if(ok(k)&&['guardado','borrador'].includes(o.stat[k]))stat[k]=o.stat[k];
@@ -1202,7 +1323,7 @@ function cleanBackup(o){if(!o||o.tipo!=='bitacora-protocolo-metanoia'||typeof o.
 function applyData(c,backupAt){S.val=c.val;S.stat=c.stat;S.notas=c.notas;S.user={};for(const k in c.val)S.user[k]=1;if(backupAt!==undefined)S.backupAt=backupAt}
 
 /* ---------- Bitácora local (B8 · PROPUESTA) ---------- */
-function localCard(){const real=STORE.ok&&!S.demo;return `<div class="card local" style="margin-top:16px"><div class="eyebrow">${ic('shield').replace('<svg','<svg width="14" height="14"')} Tu Bitácora vive en tu teléfono</div><p class="lc">Lo que escribes se guarda solo en tu dispositivo. The Way no lo recibe ni puede leerlo. Al servidor solo viaja que te inscribiste, tu fecha de inicio y qué jornadas marcaste.</p>
+function localCard(){const real=STORE.ok&&!S.demo;return `<div class="card local" style="margin-top:16px"><div class="eyebrow">${ic('shield').replace('<svg','<svg width="14" height="14"')} Tu Bitácora se guarda en este dispositivo y en este navegador</div><p class="lc">Lo que escribes se guarda solo en tu dispositivo. The Way no lo recibe ni puede leerlo. Al servidor solo viaja que te inscribiste, tu fecha de inicio y qué jornadas marcaste.</p>
 <p class="dondeg">Lo que escribes se guarda en este dispositivo y en esta forma de abrir THE WAY (navegador o app instalada). Si abres THE WAY de otra forma, no lo verás allí. Guarda tu copia de seguridad.</p>
 <div class="lcb"><button class="btn sm pri" data-act="backup">Guardar copia de seguridad</button><button class="btn sm" data-act="restore">Restaurar copia</button><button class="btn sm ghost" data-act="pin">PIN · ${S.pin?'activado':'desactivado'}</button><button class="btn sm ghost" data-act="install">Instalar en mi celular</button></div>
 <p class="muted" style="font-size:12.5px;line-height:1.55;margin:10px 0 0">${S.backupAt?'Última copia: '+esc(S.backupAt)+'. ':'Aún no has guardado una copia. '}Si pierdes el teléfono o borras los datos del navegador sin una copia, la Bitácora no se puede recuperar. No se sincroniza entre dispositivos.</p>
@@ -1310,7 +1431,7 @@ function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
  if(jm){const m=!S.step[n+':'+si]&&bh.match(/<div class="ft">(<button[^>]*data-act="step"[^>]*>[^<]*<\/button>)<\/div><\/section>$/);if(m)bh=bh.slice(0,bh.length-m[0].length)+'</section>';barra=jbarV3(si,N,m?m[1]:fin)}
  return `<div class="wrap">
  ${head}
- ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
+ ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}${avisoG()}
  <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i>${S.piel==='v3'?`<span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`:`<span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`}</button>`).join('')}</nav>
  <p class="muted scn">Escena ${si+1} de ${N}</p>
  <div class="scene" style="--c:${MOV[w].c}">${bh}</div>${jm?'':`
@@ -1351,7 +1472,36 @@ function vEntrada(){
 
 function splitLanding(){const B=D.aprobados.landing,secs=[];let c={t:null,i:[]};
  B.forEach(x=>{if(x[0]==='h3'){secs.push(c);c={t:x[1],i:[]}}else c.i.push(x)});secs.push(c);return secs}
-function vLanding(){
+/* v3 (B2, 14-nov) · Landing del curso con el diseño de «Mi Mapa Adaptable» (pantalla 6) y README §4: hero → cifras → introducción →
+   Cuatro semanas → Cómo aprenderás → Las 20 jornadas → Lo que te llevarás. Textos del material (los mismos de vLanding) y el mismo botón
+   de hoy (data-act="enter", «Comenzar el curso»). Requisitos y «una ruta a la vez» son SOLO texto informativo: no hay lógica nueva.
+   Escritorio (≥ 900 px): requisitos y botón en una tarjeta fija a la derecha. Móvil: requisitos al final y el botón fijo abajo. */
+function vLandingV3(){
+ const S0=splitLanding(),hero=S0[0],h1=hero.i.find(x=>x[0]==='h1')[1],ps=hero.i.filter(x=>x[0]==='p'),tag=ps[0][1].replace(/\*/g,'');
+ const nb=D.dias.map(d=>d.bloques.length),mn=Math.min(...nb),mx=Math.max(...nb);
+ const reglas=`<h2 class="cl3-h">Requisitos</h2><p class="cl3-s">Basta con cumplir uno de los dos.</p>
+ <div class="cl3-r"><span aria-hidden="true">1</span><div><b>Haber cursado la montaña Sanidad y la primera ruta de Renovación</b></div></div>
+ <div class="cl3-r ok"><span aria-hidden="true">✓</span><div><b>O que el curso esté autorizado sin requisito previo</b><small>Autorizado por Juan · abierto</small></div></div>
+ <div class="cl3-n">${ic('info')}<span>Solo se puede cursar <b>una ruta a la vez</b>.</span></div>`;
+ const cta='<button class="btn pri cl3-cta" data-act="enter">Comenzar el curso</button>';
+ let h=`<div class="cl3"><header class="hero cl3-hero"><div class="in"><div class="eyebrow">The Way · Mentalidad · Renovación</div><h1>${esc(S.design==='b'?sc(h1):h1)}</h1><p class="tag">${esc(tag)}</p></div></header>
+ <div class="cl3-g"><div class="cl3-m">
+ <div class="cl3-f"><div><b>4</b><span>semanas</span></div><div><b>20</b><span>jornadas</span></div><div><b>${mn===mx?mn:mn+'–'+mx}</b><span>escenas por jornada</span></div></div>
+ <div class="cl3-intro">${ps.slice(1).map(p=>`<p>${md(p[1])}</p>`).join('')}</div>`;
+ S0.slice(1).forEach(s=>{h+=`<section class="cl3-sec" aria-labelledby="c3l${s.t.length}"><h2 class="cl3-h" id="c3l${s.t.length}">${esc(s.t)}</h2>`;
+  if(/Cuatro semanas/.test(s.t)){const ws=[];for(let i=0;i<s.i.length;i+=3)ws.push(s.i.slice(i,i+3));
+   h+=`<div class="cl3-wk">${ws.map((w,i)=>{const[a,b]=w[0][1].replace(/\*/g,'').split(' — ');return `<div class="wk3" style="--c:${MOV[i+1].c}"><small>${esc(a)}</small><b>${esc(b)}</b><em>${md(w[1][1])}</em><p>${md(w[2][1])}</p></div>`}).join('')}</div>`}
+  else if(/Cómo aprenderás/.test(s.t)){const ic3=['palabra','libro','leccion'];const t=s.i;
+   h+=`<div class="cl3-how">${[0,2,4].map((k,i)=>`<div class="hw3"><span class="i3">${ic(ic3[i])}</span><b>${esc(t[k][1].replace(/\*/g,''))}</b><p>${md(t[k+1][1])}</p></div>`).join('')}</div><p class="cl3-key">${md(t[6][1])}</p>`}
+  else if(/20 jornadas/.test(s.t)){const li=s.i.filter(x=>x[0]==='li'),ps2=s.i.filter(x=>x[0]==='p');
+   h+=`<ul class="cl3-chk">${li.map(x=>`<li><span aria-hidden="true">✓</span><span>${md(x[1])}</span></li>`).join('')}</ul><div class="cl3-dots" aria-hidden="true">${[1,2,3,4].map(w=>`<div style="--c:${MOV[w].c}"><span>${'<i></i>'.repeat(5)}</span><small>${MOV[w].n}</small></div>`).join('')}</div><div class="cl3-p">${ps2.map(x=>`<p>${md(x[1])}</p>`).join('')}</div>`}
+  else if(/te llevarás/.test(s.t)){h+=`<div class="cl3-mp"><div class="doc" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div>${s.i.map(x=>`<p>${md(x[1])}</p>`).join('')}</div></div>`}
+  else h+=`<div class="cl3-p">${s.i.map(x=>`<p>${md(x[1])}</p>`).join('')}</div>`;
+  h+='</section>'});
+ h+=`<section class="cl3-sec cl3-rq">${reglas}</section></div>
+ <aside class="cl3-side" aria-label="Inscripción"><small class="w">Mentalidad · Renovación · Ruta 2</small><b class="t">Protocolo Metanoia</b><hr>${reglas}${cta}<button class="btn ghost cl3-back" data-act="go" data-v="entrada">Seguir explorando el mapa</button></aside></div>
+ <div class="cl3-bot">${cta}</div></div>`;return h}
+function vLanding(){if(S.piel==='v3')return vLandingV3();
  const S0=splitLanding(),hero=S0[0],h1=hero.i.find(x=>x[0]==='h1')[1],ps=hero.i.filter(x=>x[0]==='p');
  const tag=ps[0][1].replace(/\*/g,'');
  let h=`<header class="hero"><div class="in"><div class="eyebrow">The Way · Mentalidad · Renovación</div><h1>${esc(S.design==='b'?sc(h1):h1)}</h1><p class="tag">${esc(tag)}</p>${S.design==='b'?'<button class="btn pri herocta" data-act="enter">Entrar al territorio</button>':''}</div></header><div class="wrap">
@@ -1409,7 +1559,7 @@ function vDia(){if(S.design==='b')return vDiaB();const d=dia(S.day),w=d.semana,n
  const steps=d.bloques.map((b,i)=>({b,i})),fu=firstUndone(),nx=nextStep(n);
  return `<div class="wrap">
  ${head}
- ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}
+ ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}${avisoG()}
  <nav class="route" aria-label="Ruta de la jornada">${steps.map(({b,i})=>`<button data-act="jump" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${nx===i?'aria-current="step"':''}>${ic(S.step[n+':'+i]?'check':(BL[b.tipo]||['','leccion'])[1])}${(BL[b.tipo]||['Contenido'])[0].split(' · ')[0]}</button>`).join('')}</nav>
  ${steps.map(({b,i})=>blockHTML(d,b,i)).join('')}
  <div class="dayend"><button class="btn ghost" data-act="day" data-n="${Math.max(1,n-1)}" ${n===1?'disabled':''}>← Día anterior</button>
@@ -1431,7 +1581,7 @@ function notasSemana(w,k){if(k==='inicial'||k==='s4')return '';const ns=Object.k
 function vBitacora(){
  const ord=['inicial','s1','s2','s3','s4'],dd={inicial:1,s1:5,s2:10,s3:15,s4:19};
  return `<div class="wrap wide"><p class="eyebrow">Una sola Bitácora · privada</p><h1 class="disp" style="font-size:clamp(34px,8cqi,56px);margin:6px 0 8px;letter-spacing:.05em">Mi Bitácora</h1>
- <div class="priv" style="margin-bottom:16px">${ic('shield')}<span>Tus respuestas son privadas y no tienes obligación de compartirlas. El curso no sustituye la atención profesional cuando la necesites.</span></div>
+ <div class="priv" style="margin-bottom:16px">${ic('shield')}<span>Tus respuestas son privadas y no tienes obligación de compartirlas. El curso no sustituye la atención profesional cuando la necesites.</span></div>${avisoG()}
  ${S.piel==='v3'?'<button class="mp3 bm3" data-act="go" data-v="mapa"><span class="k">Tu Mapa Personal se elabora en el Día 20</span><b>Mi Mapa Personal de Renovación</b></button>':''}<div class="bgrid">${ord.map(k=>{const st=fstatus(k),c=MOV[FSEM[k]].c;
   return `<article class="bcard ${k==='inicial'?'start':''}" style="--c:${c}"><div class="hd"><div><small>${k==='inicial'?'FICHA INICIAL':'SEMANA '+FSEM[k]+' · '+MOV[FSEM[k]].n}</small><div class="nm">${FNOM[k]}</div></div><span style="margin-left:auto" class="pill ${k==='inicial'&&S.done[1]?'ok':st==='Guardada'?'ok':st==='En curso'?'dawn':''}">${k==='inicial'&&S.done[1]?ic('lock').replace('<svg','<svg width="13" height="13"')+' Preservada':st}</span></div>
   <div class="bd">${notasSemana(FSEM[k],k)}${D.fichas[k].map((f,i)=>{const v=S.val[k+':'+i];return `<div class="fr"><b>${esc(f.t)}</b>${v?`<span>${esc(v)}</span>`:`<span class="e">Sin escribir</span>`}</div>`}).join('')}
@@ -1505,14 +1655,14 @@ function render(keep){if(FINAL){S.hoy=d0(new Date());progSave()}const main=$('#m
  document.documentElement.setAttribute('data-theme',S.theme);document.documentElement.setAttribute('data-design',S.design);if(S.piel==='v2'||S.piel==='v3')document.documentElement.setAttribute('data-piel',S.piel);else document.documentElement.removeAttribute('data-piel');if(S.piel==='v3')document.documentElement.setAttribute('data-v3v',v);else document.documentElement.removeAttribute('data-v3v');document.documentElement.style.setProperty('--rs',S.rs);
  $('#stagewrap').setAttribute('data-dev',S.dev);setAh();
  const faltan=GATED?necesita(v):[];let body;if(faltan.length){pedirDias(faltan);body=cargandoHTML(faltan)}else body=VIEWS[v]();
- $('#app').innerHTML=(S.piel==='v3'?'':oficialHTML())+barHTML()+`<div class="body" data-side="${S.side}">${inC?sideHTML()+'<button class="scrim" data-act="side" aria-label="Cerrar el recorrido" tabindex="-1"></button>':''}<main class="main" id="main" tabindex="-1">${body}</main>${inC?railHTML():''}</div>${inC?tabsHTML():''}${modalHTML()}${S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:''}`;
+ $('#app').innerHTML=(S.piel==='v3'?'':oficialHTML())+barHTML()+`<div class="body" data-side="${S.side}">${inC?sideHTML()+'<button class="scrim" data-act="side" aria-label="Cerrar el recorrido" tabindex="-1"></button>':''}<main class="main" id="main" tabindex="-1">${body}</main>${inC?railHTML():''}</div>${inC?tabsHTML():''}${cierreHTML()}${modalHTML()}${S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:''}`;
  if(S.locked)$('#app').innerHTML=oficialHTML()+`<header class="bar"><div class="brand"><span aria-hidden="true" style="color:var(--gold)">▲</span><div>The Way<small>Protocolo Metanoia</small></div></div></header>`+modalHTML();
  const mm=$('#main');if(mm)mm.scrollTop=top;
  if(S.design==='b'&&v==='hoy'&&!keep){centerHoy();requestAnimationFrame(centerHoy)}
  document.querySelectorAll('.protobar [data-dev]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dev===S.dev));
  const hi=$('#hoy');if(hi)hi.value=iso(S.hoy);document.querySelectorAll('.protobar [data-design]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.design===S.design))}
 function toast(t){S.toast=t;render(true);clearTimeout(toast.h);toast.h=setTimeout(()=>{S.toast=null;render(true)},2600)}
-function go(v,opt){if(FINAL&&v==='entrada'){location.href=window.MAPA_URL||'../mi-mapa/index.html';return}if(v==='dia')S.sceneDay=null;if(S.side==='open'){const f=$('#frame');if(f&&f.clientWidth<1100)S.side='closed'}S.view=v;if(opt)Object.assign(S,opt);render(false);const m=$('#main');if(m)m.scrollTop=0}
+function go(v,opt){if(FINAL&&v==='entrada'){location.href=window.MAPA_URL||'../mi-mapa/index.html';return}if(v==='dia')S.sceneDay=null;if(S.side==='open'){const f=$('#frame');if(f&&f.clientWidth<1100)S.side='closed'}S.cierre=null;S.view=v;if(opt)Object.assign(S,opt);render(false);const m=$('#main');if(m)m.scrollTop=0}
 
 /* ---------- eventos ---------- */
 document.addEventListener('click',e=>{
@@ -1550,10 +1700,11 @@ document.addEventListener('click',e=>{
   case 'close':{const n=S.day;if(!isOpen(n))break;if(!prevDone(n)){toast('Primero termina el Día '+firstUndone()+'.');break}const nx=nextStep(n);if(nx!==-1){toast('Aún falta: «'+stepName(n,nx)+'».');break}
    if(n===1&&!el.dataset.ok){const v=fichaVacios();if(v){S.modal={t:'ficha',n:v};render(true);break}}S.modal=null;
    let ins='';S.done[n]=true;S.closedOn[n]=iso(S.hoy);if(isWE(S.hoy)&&d0(abre(n))<d0(S.hoy)&&!S.badges.volvi){S.badges.volvi=true;ins='Insignia · Volví al camino. '}
-   if(n%5===0&&n<20){S.weekDone=n/5;go('semana')}else if(n===20){go('final')}else{toast(ins+'Jornada '+n+' completada'+'');setTimeout(()=>{S.day=Math.min(20,n+1);go('hoy')},700)}break}
+   if(n%5===0&&n<20){S.weekDone=n/5;go('semana',{cierre:{n}})}else if(n===20){go('final',{cierre:{n}})}else{toast(ins+'Jornada '+n+' completada'+'');setTimeout(()=>{S.day=Math.min(20,n+1);go('hoy',{cierre:{n}})},700)}break}
+  case 'cierrex':S.cierre=null;render(true);break;
   case 'reopen':if(S.done[S.day+1]){toast('Para reabrir este día, primero reabre el Día '+(S.day+1)+'.');break}S.done[S.day]=false;delete S.closedOn[S.day];render(true);break;
   case 'backup':{const o={tipo:'bitacora-protocolo-metanoia',version:1,exportado:iso(new Date()),val:S.val,stat:S.stat,notas:S.notas};
-   try{const bl=new Blob([JSON.stringify(o,null,1)],{type:'application/json'}),u=URL.createObjectURL(bl),a2=document.createElement('a');a2.href=u;a2.download='bitacora-metanoia-'+iso(new Date())+'.json';document.body.appendChild(a2);a2.click();a2.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);S.backupAt=iso(new Date());persistSoon();toast('Copia guardada: se descargó un archivo en tu dispositivo.')}catch(err){toast('No se pudo guardar la copia en este entorno.')}break}
+   try{const bl=new Blob([JSON.stringify(o,null,1)],{type:'application/json'}),u=URL.createObjectURL(bl),a2=document.createElement('a');a2.href=u;a2.download='bitacora-metanoia-'+iso(new Date())+'.json';document.body.appendChild(a2);a2.click();a2.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);S.backupAt=iso(new Date());S.cierre=null;persistSoon();toast('Copia guardada: se descargó un archivo en tu dispositivo.')}catch(err){toast('No se pudo guardar la copia en este entorno.')}break}
   case 'restore':{const f=document.getElementById('restoreFile');if(f)f.click();break}
   case 'fichaescribir':{S.modal=null;const i=dia(1).bloques.findIndex(b=>b.tipo==='bitacora');S.day=1;S.view='dia';if(i>=0){S.sceneDay=1;S.scene=i}render(true);setTimeout(()=>{const t=[...document.querySelectorAll('textarea[data-key^="inicial:"]')].find(x=>!x.value.trim());if(t){t.scrollIntoView({block:'center'});t.focus()}},120);break}
   case 'pin':S.modal={t:'pin'};render(true);break;
@@ -1612,7 +1763,7 @@ function preset(p){S.done={};S.step={};S.val={};S.stat={};S.notas=[];S.welcomed=
  if(S.view==='hoy3'&&S.piel!=='v3')S.view='hoy';if(S.piel==='v3'&&FINAL&&q.get('ir')==='hoy'&&!q.get('view')&&S.view==='dia')S.view='hoy3';
  if(q.get('week'))S.weekDone=+q.get('week');if(q.get('vid'))S.vid=q.get('vid');if(q.get('design'))S.design=q.get('design')==='b'?'b':'a';if(q.get('side'))S.side=q.get('side')==='open'?'open':q.get('side')==='closed'?'closed':'auto';if(q.get('hoy'))S.hoy=fromIso(q.get('hoy'));if(q.get('finde')){while(!isWE(S.hoy))S.hoy=addD(S.hoy,1)}if(q.get('modal'))S.modal={t:q.get('modal')};if(q.get('ex'))S.ex=true;
  render(false);
- (async()=>{try{const mg=await migrarBitacora();if(mg.aviso)setTimeout(()=>toast(mg.aviso),400);const o=await bitacoraLeer();STORE.ok=!!BKEY();if(!STORE.ok)STORE.err='sin cuenta';if(!q.get('preset')&&!q.get('view')){const pr=await pinLeer();if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
+ (async()=>{try{const mg=await migrarBitacora();if(mg.aviso)setTimeout(()=>toast(mg.aviso),400);const o=await bitacoraLeer();STORE.ok=!!BKEY();if(!STORE.ok)STORE.err='sin cuenta';await fragilDetect();if(!q.get('preset')&&!q.get('view')){const pr=await pinLeer();if(pr){S.pin=true;S.locked=true;S.modal={t:'lock'}}}if(o&&!q.get('preset')&&!q.get('view')){try{const c=cleanBackup(o);applyData(c,o.backupAt||null);render(true)}catch(e){}}else render(true)}catch(e){STORE.ok=false;STORE.err=String(e&&e.message||e);render(true)}})()});
 
 }</script>
 </body></html>

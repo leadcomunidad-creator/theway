@@ -1336,6 +1336,7 @@ html[data-piel=v3] body{background:#080C12}
 [data-piel=v3] .v3-lv h3{font:400 24px/1 'Bebas Neue',sans-serif;letter-spacing:.5px}
 [data-piel=v3] .v3-lv-d{font-size:14px;line-height:1.5;color:#B9C3C9;margin-top:4px!important;text-wrap:pretty}
 [data-piel=v3] .v3-lv-x{font-size:12px;line-height:1.4;color:#DEC06A;margin-top:6px!important}
+[data-piel=v3] .v3-how-txt{display:grid;gap:12px}
 
 /* el recorrido · expediciones (carrusel en móvil, 3 en fila en escritorio) */
 [data-piel=v3] .v3-rec{padding-top:40px!important}
@@ -1446,6 +1447,7 @@ html[data-piel=v3] body{background:#080C12}
   [data-piel=v3] .v3-lv{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
   [data-piel=v3] .v3-lv li{background:#111C28;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:20px 18px 4px}
   [data-piel=v3] .v3-lv-m b{display:none}
+  [data-piel=v3] .v3-lv li.v3-lv-raiz{grid-column:1/-1;align-items:center;padding:18px 18px 4px;border-color:rgba(200,168,75,.35)}
   [data-piel=v3] .v3-exps{max-width:1200px;margin:24px auto 0;padding:0 36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;overflow:visible}
   [data-piel=v3] .v3-exp{width:auto}
   [data-piel=v3] .v3-exp-img{height:240px}
@@ -2201,6 +2203,7 @@ function mmCloseRoutes(id) {
     ['Segunda expedición','Capacidad','¿Tengo el motor para sostenerlo?','capacidad','74% 48%','Un farol encendido en un sendero de montaña, de noche','Aquí se desarrollan las inteligencias que sostienen una vida interior ordenada: espiritual, emocional y física. No basta con entender la verdad; necesitas la estabilidad para vivirla en tus decisiones diarias.',['Espiritual','Emocional','Física']],
     ['Tercera expedición','Habilidad','¿Puedo ejecutar con excelencia?','habilidad','68% 42%','Una cuerda asegurada en la montaña, de noche','Aquí la formación interior se hace visible en la manera en que vives, te relacionas y sirves. Desarrollas habilidades personales, relacionales y vocacionales para construir con madurez e impacto.',['Personal','Relacional','Vocacional']]];
   var NIVELES=[
+    ['THE WAY',38,'Es el camino completo que hemos diseñado dentro de El College para la transformación interna: una experiencia de formación espiritual y práctica para vivir de adentro hacia afuera, caminando con Jesús.',''],
     ['Expediciones',30,'Son los grandes procesos de transformación que propone THE WAY. Cada una se concentra en una dimensión esencial de la vida que necesita ser trabajada con profundidad.','Las tres expediciones son Mentalidad, Capacidad y Habilidad.'],
     ['Montañas',22,'Son los temas centrales que se recorren dentro de cada expedición. Cada tema es una montaña por conquistar.','Por ejemplo, la expedición Mentalidad incluye Identidad, Sanidad y Renovación.'],
     ['Rutas',14,'Son los recorridos concretos dentro de cada montaña: el camino que te acompaña a comprender, practicar y llevar esa transformación a tu vida mediante pequeños pasos diarios y guiados, para conquistar esa montaña.','En Identidad: De Regreso a Casa, Sit · Walk · Stand y Como en el Cielo.']];
@@ -2232,8 +2235,9 @@ function mmCloseRoutes(id) {
     +'<li><i aria-hidden="true"></i><span><b>Una metáfora de montaña</b> sin fundamento.</span></li></ul></div>'
     +'<div class="v3-fit-c v3-fit-es"><p class="v3-fit-l">THE WAY ES</p><p class="v3-fit-def"><b>Una experiencia de formación dentro de El College:</b> un camino para caminar con Jesús, mirar con honestidad lo que ocurre dentro de ti y aprender a vivir desde la verdad, la gracia y la libertad que Él ofrece.</p></div></div>');
   h.push('<section class="v3-how" id="v3-como"><div class="v3-two"><div><p class="v3-lbl">Cómo funciona</p><h2 class="v3-h2">NO ES UN CURSO,<br><span class="v3-gold">ES UNA EXPEDICIÓN</span>.</h2></div>'
-    +'<p class="v3-body">THE WAY no es un curso bíblico más. Es un proceso continuo de transformación con Jesús, diseñado para que la verdad transforme progresivamente tu realidad: tu manera de pensar, vivir y relacionarte.</p></div><ol class="v3-lv">');
-  NIVELES.forEach(function(n){h.push('<li><span class="v3-lv-m" aria-hidden="true"><i style="width:'+n[1]+'px;height:'+n[1]+'px"></i><b></b></span><div class="v3-lv-t"><h3>'+n[0]+'</h3><p class="v3-lv-d">'+n[2]+'</p><p class="v3-lv-x">'+n[3]+'</p></div></li>')});
+    +'<div class="v3-how-txt"><p class="v3-body">THE WAY no es un curso bíblico más. Es un proceso continuo de transformación con Jesús, diseñado para que la verdad transforme progresivamente tu realidad: tu manera de pensar, vivir y relacionarte.</p>'
+    +'<p class="v3-body">Usamos la analogía de una expedición de alta montaña porque este camino se recorre, no solo se estudia. Cada expedición te permite adentrarte en una dimensión esencial de la vida; dentro de ella encontrarás montañas para ir a fondo y rutas concretas para avanzar con claridad, paso a paso.</p></div></div><ol class="v3-lv">');
+  NIVELES.forEach(function(n,i){h.push('<li'+(i?'':' class="v3-lv-raiz"')+'><span class="v3-lv-m" aria-hidden="true"><i style="width:'+n[1]+'px;height:'+n[1]+'px"></i><b></b></span><div class="v3-lv-t"><h3>'+n[0]+'</h3><p class="v3-lv-d">'+n[2]+'</p>'+(n[3]?'<p class="v3-lv-x">'+n[3]+'</p>':'')+'</div></li>')});
   h.push('</ol></section>');
   h.push('<section class="v3-rec" id="v3-recorrido"><div class="v3-two"><div><p class="v3-lbl">El recorrido</p><h2 class="v3-h2">UN CAMINO. <span class="v3-gold">TRES EXPEDICIONES</span>.</h2></div>'
     +'<p class="v3-body">THE WAY es una travesía de transformación que se recorre en tres grandes expediciones: Mentalidad, Capacidad y Habilidad. Cada una trabaja una dimensión esencial de tu vida.</p></div></section>');
@@ -2780,6 +2784,7 @@ document.addEventListener('DOMContentLoaded',function(){
   /* Canvas stars */
   (function(){
     var c=document.getElementById('heroCanvas');if(!c)return;
+    if(document.documentElement.getAttribute('data-piel')==='v3')return; /* v3 (ajustes 14-nov): con la landing v3 este lienzo queda oculto; no se anima */
     var p=c.parentElement;var w=p.offsetWidth||window.innerWidth;var h=p.offsetHeight||window.innerHeight;
     c.width=w;c.height=h;var ctx=c.getContext('2d');var S=[];
 
