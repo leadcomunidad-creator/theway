@@ -553,6 +553,19 @@ html[data-piel=v3]{--v3pw:0px}
 [data-piel=v3] .v3days li.hoy em{color:var(--gold-l)}
 [data-piel=v3] #pop #v3b2{margin-top:8px;width:100%}
 @media(max-width:899px){[data-piel=v3] .v3wk,[data-piel=v3] .v3days{display:none}[data-piel=v3] #v3x{gap:10px;margin-top:10px}[data-piel=v3] .v3st dd{font-size:14px}}
+/* ═══ Parte 3 · el viaje y la luz (orden 2026-11-13_2353, aprobada el 14-nov) ═══ */
+@keyframes v3Tw{0%,100%{opacity:.15}50%{opacity:1}}
+@keyframes v3Fuego{0%{opacity:.7;transform:translate(-50%,-50%) scale(1)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.14)}50%{opacity:.8;transform:translate(-50%,-50%) scale(.94)}75%{opacity:.95;transform:translate(-50%,-50%) scale(1.06)}100%{opacity:.75;transform:translate(-50%,-50%) scale(1)}}
+@keyframes v3Resp{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+[data-piel=v3] #v3amb,[data-piel=v3] .v3amb{position:absolute;inset:0;pointer-events:none;z-index:3}
+[data-piel=v3] #world.pv #v3amb{display:block}
+[data-piel=v3] .v3est{position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(var(--inv,1));animation:v3Tw 3s ease-in-out infinite;pointer-events:none}
+[data-piel=v3] .v3luz{position:absolute;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen;pointer-events:none}
+[data-piel=v3] .v3luz.v3fuego{animation:v3Fuego 1.2s ease-in-out infinite alternate}
+[data-piel=v3] .v3luz.v3resp{animation:v3Resp 6s ease-in-out infinite}
+/* el viaje lo hacen las animaciones del script: sin los fundidos de siempre, que se pisarían con él */
+[data-piel=v3] #exp,[data-piel=v3] #tri,[data-piel=v3] #world{transition:none}
+@media(prefers-reduced-motion:reduce){[data-piel=v3] .v3est,[data-piel=v3] .v3luz{animation:none!important}}
 @media(prefers-reduced-motion:reduce){[data-piel=v3] .v3nube,[data-piel=v3] .v3fogmask,[data-piel=v3] #v3way path,[data-piel=v3] #v3walk svg{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1109,6 +1122,7 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
   x.innerHTML=chips(w)+'<div class="v3dots" role="img" aria-label="Jornadas de esta semana: '+hw+' de 5 terminadas">'+dots+'</div>'
    +datos([ab?[abierta?'Abrió':'Se abre',CORTA.format(ab).replace(/\./g,'')]:null,['Jornadas',hw+' de 5']])+'<ol class="v3days" aria-label="Jornadas de la semana '+(w+1)+'">'+dias+'</ol>';
   b2.hidden=true;listo('etapa')}
+ V3.avance=avance; /* Parte 3: la luz de la Ruta 2 crece con las jornadas terminadas (solo lectura) */
  V3.meta=meta;V3.esMeta=function(){return tipo==='meta'&&sig!==null&&firma()===sig};
  /* ---- cuándo se vuelve a dibujar ---- */
  function todo(){niebla();decorar();vivo();if(tipo==='meta'&&!q.hidden&&firma()===sig&&q.classList.contains('v3def'))meta($('v3card'))}
@@ -1123,6 +1137,65 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  if(mode==='position'&&!fview){var g0=goal('position');cam.tx=g0.tx;cam.ty=g0.ty;cam.s=g0.s;put()} /* la cámara inicial se calculó antes de este bloque */
  /* al cargar, la Parte 1 ya dibujó su ficha por defecto (la de la bandera); se cambia por la ficha con el avance */
  if(!fview&&!q.hidden&&$('pO').textContent==='Ruta 2 · Inicio de ruta'&&$('pT').textContent==='Protocolo Metanoia')meta($('v3card'));
+})();
+/* ═══ REDISEÑO V3 · MI MAPA · Parte 3: el viaje y la luz (orden 2026-11-13_2353, aprobada por Juan el 14-nov a las 00:16) ═══
+   Solo con data-piel="v3". (1) Ilustraciones HD de assets/v3/mimapa/ con srcset (sin v3 siguen las de dentro del HTML);
+   (2) luz y ambiente del prototipo (estrellas, fogatas, sol, luna, brillo de la cumbre y luz cálida sobre la Ruta 2);
+   (3) viaje continuo entre escalas: cambia CÓMO se llega (acercarse o alejarse con fundido, ~0,95 s), no a dónde: mismos botones,
+   misma setMode() y mismas cámaras de destino. Pellizcar para cambiar de escala queda fuera (decisión de Juan). */
+if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
+ /* ---- 1. imágenes: tamaños generados en este PC (1600) + la de hoy + la HD del handoff (mismo encuadre) ---- */
+ var IMG={identidad:[1600,6400],sanidad:[1600,2560,6400],renovacion:[1600,2560,6400],mentalidad:[1600,2400,4000],general:[1600,4000]},MTK=['identidad','sanidad','renovacion'];
+ function juego(k){return IMG[k].map(function(w){return '../assets/v3/mimapa/'+k+'-'+w+'.webp '+w+'w'}).join(', ')}
+ var art=$('art'),tart=$('tart'),gart=$('gart'),gdx=$('gdimX'),artK='';
+ function tamanos(){var z=Math.round(BW*(W<700?1.55:2))+'px',b=Math.round(BW)+'px'; /* el mayor acercamiento de «Mi posición» y el de Expedición/Mapa */
+  art.sizes=z;tart.sizes=b;gart.sizes=b;gdx.sizes=b}
+ function escenaArt(){var k=MTK[cur]||'identidad';if(k===artK)return;artK=k;art.srcset=juego(k)}
+ tart.srcset=juego('mentalidad');gart.srcset=juego('general');gdx.srcset=juego('general');tamanos();escenaArt();
+ new MutationObserver(escenaArt).observe(art,{attributes:true,attributeFilter:['src']}); /* setMtn() cambia src; aquí se cambia el juego */
+ addEventListener('resize',tamanos);
+ /* ---- 2. luz y ambiente (README mejora 4; posiciones, tamaños y ritmos del prototipo) ---- */
+ var amb=document.createElement('div');amb.id='v3amb';amb.setAttribute('aria-hidden','true');wo.insertBefore(amb,$('v3fog')||$('pv'));
+ var ambT=document.createElement('div');ambT.className='v3amb';ambT.setAttribute('aria-hidden','true');$('tw').insertBefore(ambT,$('tpin'));
+ function estrellas(o,rects,n,maxA,rnd){for(var i=0;i<n;i++){var rc=rects[i%rects.length],x=rc[0]+rnd()*(rc[2]-rc[0]),y=rc[1]+rnd()*(rc[3]-rc[1]),sz=1.6+rnd()*1.8;
+   o.push('<i class="v3est" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%;width:'+sz.toFixed(1)+'px;height:'+sz.toFixed(1)+'px;background:rgba(255,250,235,'+maxA+');animation-duration:'+(2.4+rnd()*3).toFixed(1)+'s;animation-delay:-'+(rnd()*5).toFixed(1)+'s"></i>')}}
+ function brillo(o,x,y,r,rgb,a,cl,dur,del){o.push('<i class="v3luz'+(cl?' '+cl:'')+'" style="left:'+x+'%;top:'+y+'%;width:calc(var(--bw) * '+(r/100).toFixed(4)+');height:calc(var(--bw) * '+(r/100).toFixed(4)+');background:radial-gradient(closest-side,rgba('+rgb+','+a+'),rgba('+rgb+',0))'+(dur?';animation-duration:'+dur+'s;animation-delay:'+(del||0)+'s':'')+'"></i>')}
+ function fogata(o,x,y,i){brillo(o,x,y,2.6,'255,170,70',.85,'v3fuego',(1.1+(i%3)*.25).toFixed(2),(-i*.37).toFixed(2))}
+ function semilla(){var s=7;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646}}
+ var ambK='';
+ function ambiente(){var A=V3.avance?V3.avance():{h:0},k=cur+'|'+(cur===2?A.h:'');if(k===ambK)return;ambK=k;var o=[],rnd=semilla();
+  if(cur===2){estrellas(o,[[0,0,28,22],[44,0,100,20]],16,.8,rnd);brillo(o,9,48.5,16,'255,200,130',.55,'v3resp','6');
+   [[37.5,63.4],[25.2,42.6],[23.2,31.4]].forEach(function(q,i){fogata(o,q[0],q[1],i)});
+   brillo(o,38,52,22,'255,180,110',(.10+.2*(A.h/20)).toFixed(3),'v3fija')} /* luz cálida sobre la Ruta 2: crece con las jornadas terminadas */
+  else if(cur===0){estrellas(o,[[0,0,26,36],[44,0,66,30],[80,0,100,34],[62,26,80,34]],40,1,rnd);brillo(o,72.5,18,9,'255,240,200',.35,'v3resp','7');brillo(o,35,10,9,'255,210,120',.45,'v3resp','5');
+   [[59.5,86],[37.2,63.2],[25.2,42.6],[23.2,31.4]].forEach(function(q,i){fogata(o,q[0],q[1],i)})}
+  else if(cur===1){estrellas(o,[[0,0,26,26],[46,0,100,22]],24,.9,rnd);PVD.sanidad.CAMP.forEach(function(q,i){fogata(o,q[0],q[1]+.8,i)})}
+  amb.innerHTML=o.join('')}
+ (function(){var o=[];estrellas(o,[[0,0,100,10],[0,10,30,22]],20,.85,semilla());ambT.innerHTML=o.join('')})(); /* Expedición: estrellas */
+ new MutationObserver(ambiente).observe(wo,{attributes:true,attributeFilter:['class']});new MutationObserver(ambiente).observe($('pv'),{childList:true});
+ addEventListener('storage',ambiente);addEventListener('pageshow',ambiente);ambiente();
+ /* ---- 3. viaje continuo entre escalas (README mejora 3) ---- */
+ var RANGO={position:1,mountain:1,trio:2,exp:3},EASE='cubic-bezier(.65,0,.35,1)',DUR=950,viaje=[],trasClasica=false;
+ function escena(m){return m==='exp'?$('exp'):m==='trio'?$('tri'):wo}
+ function centro(el){var r=el.getBoundingClientRect(),s=st.getBoundingClientRect();return {x:r.left+r.width/2-s.left,y:r.top+r.height/2-s.top}}
+ function promedio(L){var x=0,y=0;L.forEach(function(p){x+=p.x;y+=p.y});return {x:x/L.length,y:y/L.length}}
+ /* el punto de la escena grande donde está la pequeña: una montaña de Mentalidad en Expedición o en el Mapa, o Mentalidad entera en el Mapa */
+ function punto(grande,peq){if(grande==='trio')return centro(T[cur+1].el);
+  var mg=G.filter(function(g){return g.k==='m'&&(g.e||0)===0});if(peq==='trio')return promedio(mg.map(function(g){return centro(g.el)}));
+  return centro((mg.filter(function(g){return g.m===cur})[0]||mg[0]).el)}
+ function anima(el,kf){var a=el.animate(kf,{duration:DUR,easing:EASE});viaje.push(a);return a}
+ function zoom(el,c,s0,s1,o0,o1){if(el===wo)return anima(el,[{translate:(c.x*(1-s0)).toFixed(1)+'px '+(c.y*(1-s0)).toFixed(1)+'px',scale:String(s0),opacity:o0,visibility:'visible'},{translate:(c.x*(1-s1)).toFixed(1)+'px '+(c.y*(1-s1)).toFixed(1)+'px',scale:String(s1),opacity:o1,visibility:'visible'}]);
+  el.style.transformOrigin=c.x.toFixed(1)+'px '+c.y.toFixed(1)+'px';return anima(el,[{transform:'scale('+s0+')',opacity:o0,visibility:'visible'},{transform:'scale('+s1+')',opacity:o1,visibility:'visible'}])}
+ function cortar(){viaje.forEach(function(a){a.cancel()});viaje=[];$('exp').style.transformOrigin='';$('tri').style.transformOrigin=''}
+ var setMode0=setMode;
+ setMode=function(m){var de=mode,r0=RANGO[de],r1=RANGO[m],hay=!reduce&&!fview&&!(trasClasica&&performance.now()-trasClasica<120)&&r0&&r1&&r0!==r1;cortar();
+  var c=hay&&r1<r0?punto(de,m):null; /* acercarse: el punto se toma en la escena que se va, antes del cambio */
+  setMode0(m);if(!hay)return;
+  if(!c)c=punto(m,de); /* alejarse: el punto se toma en la escena que llega, ya con su cámara */
+  var vieja=escena(de),nueva=escena(m),dentro=r1<r0;
+  zoom(vieja,c,1,dentro?3.2:.32,1,0);zoom(nueva,c,dentro?.32:3.2,1,0,1).onfinish=function(){$('exp').style.transformOrigin='';$('tri').style.transformOrigin=''}};
+ /* al volver de la Clásica a una escala no se viaja: se llega directo, como hoy (la Clásica se desvanece encima) */
+ var setF0=setF;setF=function(on){if(!on&&fview)trasClasica=performance.now();setF0(on)};
 })();
 })();
 </script>
