@@ -452,6 +452,7 @@ html[data-piel=v3]{--v3pw:0px}
 [data-piel=v3] .v3c .fcard.v3on{display:block}
 [data-piel=v3] .v3c .fcard.fbase{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);background:transparent}
 [data-piel=v3] .v3c .fcard>.fb{display:none}
+[data-piel=v3] .v3c-q{display:none}
 [data-piel=v3] .v3c .fm3{display:flex;flex-direction:column;gap:6px}
 [data-piel=v3] .v3c .fmt{gap:0;padding:14px;border-radius:16px;background:#111C28;border:1px solid rgba(255,255,255,.07)}
 [data-piel=v3] .v3c .fmt.on{border-color:rgba(200,168,75,.45);background:rgba(200,168,75,.06)}
@@ -485,6 +486,7 @@ html[data-piel=v3]{--v3pw:0px}
   [data-piel=v3] .v3c .fcard>.fb::after{background:linear-gradient(180deg,rgba(12,21,32,.2),#0C1520)}
   [data-piel=v3] .v3c .fcard>.fb .ft{left:24px;bottom:16px}
   [data-piel=v3] .v3c .fcard>.fb h3{font-size:46px;letter-spacing:0}
+  [data-piel=v3] .v3c .fcard>.fb .v3c-q{display:block;margin:4px 0 0;font:italic 500 18px/1.25 'Crimson Pro',Georgia,serif;color:#DEC06A}
   [data-piel=v3] .v3c .fm3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:8px 20px 22px}
   [data-piel=v3] .v3c .fmt.v3cerr>:not(.v3c-mt){display:revert}
   [data-piel=v3] .v3c .fmt .v3c-mt{margin-bottom:12px;cursor:default}
@@ -1017,6 +1019,8 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
    c.querySelectorAll('.fmt').forEach(function(m,k){var h4=m.querySelector(':scope>h4'),sm=m.querySelector(':scope>small'),t=document.createElement('button');t.type='button';t.className='v3c-mt';
     t.innerHTML='<span></span><em aria-hidden="true"></em>';if(h4)t.firstChild.appendChild(h4);if(sm)t.firstChild.appendChild(sm);m.insertBefore(t,m.firstChild);m.dataset.k=i+'-'+k;
     t.onclick=function(){if(mq.matches)return;var key=m.dataset.k;if(mtA[key])delete mtA[key];else mtA[key]=1;estado()}});
+   /* Juan (14-nov): en la Clásica de escritorio, bajo «MENTALIDAD», la frase del prototipo; ya existe en la app (landing, Expedición Mentalidad) */
+   var h3c=c.querySelector('.fb h3');if(h3c&&/^Mentalidad$/i.test(h3c.textContent.trim())&&!c.querySelector('.v3c-q')){var fq=document.createElement('p');fq.className='v3c-q';fq.textContent='¿Quién soy y cómo proceso la realidad?';h3c.insertAdjacentElement('afterend',fq)}
    w.appendChild(b);w.appendChild(c)});
   R.innerHTML='';R.appendChild(w);estado()}
  new MutationObserver(clasica).observe($('fmlIn'),{childList:true});
