@@ -1051,7 +1051,8 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
   pantalla({t:'Entra para continuar',p:['Para abrir Protocolo Metanoia, primero ingresa con tu cuenta de Google.'],a:[{id:'twi',txt:'Ingresar',pri:true,fn:function(){location.href='../index.html'}}]});
  }
  /* v3 (B3, 14-nov): ¿está activa la piel v3? Misma regla que el interruptor del curso (?piel=… y luego localStorage['tw_piel']) */
- function piel3(){var q=null;try{q=new URLSearchParams(location.search).get('piel')}catch(e){}if(q==='v2'||q==='v3'||q==='actual')return q==='v3';try{return localStorage.getItem('tw_piel')==='v3'}catch(e){return false}}
+ /* v3 encendido para todos (Juan, 15-nov): sin elección guardada, v3; ?piel=actual la apaga */
+ function piel3(){var q=null;try{q=new URLSearchParams(location.search).get('piel')}catch(e){}if(q==='v2'||q==='v3'||q==='actual')return q==='v3';try{var p=localStorage.getItem('tw_piel');return p!=='actual'&&p!=='v2'}catch(e){return true}}
  /* «Aún no vemos tu acceso» con v3: mismos destinos que hoy («Entrar con otra cuenta» = salir; «‹ Volver a Mi Mapa»), más WhatsApp y «Registrarme»,
     que por ahora abre el WhatsApp de THE WAY con el mismo mensaje de «Empezar hoy» de la landing (el formulario aún no existe). La lógica de acceso no cambia. */
  function sinAcceso3(correo){
@@ -1785,7 +1786,7 @@ function preset(p){S.done={};S.step={};S.val={};S.stat={};S.notas=[];S.welcomed=
  if(FINAL&&q.get('ir')==='hoy'&&!q.get('view')){S.welcomed=true;S.sceneDay=null;S.day=cur();S.view=doneCount()>=20?'final':'dia'}
  /* Rediseño v2 (etapa 1): piel nueva solo con ?piel=v2 (o si este dispositivo ya la eligió); ?piel=actual la apaga */
  /* Rediseño v3 (fase curso): ?piel=v3 activa la piel v3 (recordada igual que v2); ?piel=v2 sigue igual; cualquier otro valor no cambia nada */
- try{const pq=q.get('piel');if(pq==='v2'||pq==='v3'||pq==='actual')localStorage.setItem('tw_piel',pq);const lp=localStorage.getItem('tw_piel');S.piel=lp==='v2'||lp==='v3'?lp:null}catch(e){const pq=q.get('piel');S.piel=pq==='v2'||pq==='v3'?pq:null}
+ try{const pq=q.get('piel');if(pq==='v2'||pq==='v3'||pq==='actual')localStorage.setItem('tw_piel',pq);const lp=localStorage.getItem('tw_piel');S.piel=lp==='actual'?null:lp==='v2'?'v2':'v3'}catch(e){const pq=q.get('piel');S.piel=pq==='actual'?null:pq==='v2'?'v2':'v3'}/* v3 encendido para todos (Juan, 15-nov): sin elección guardada, v3 */
  /* Rediseño v3 (ajustes): «Hoy» (hoy3) existe solo con la piel v3; sin ella cae en «hoy». Con v3, «Lección del día» desde MI MAPA (?ir=hoy) llega a Hoy */
  if(S.view==='hoy3'&&S.piel!=='v3')S.view='hoy';if(S.piel==='v3'&&FINAL&&q.get('ir')==='hoy'&&!q.get('view')&&S.view==='dia')S.view='hoy3';
  if(q.get('week'))S.weekDone=+q.get('week');if(q.get('vid'))S.vid=q.get('vid');if(q.get('design'))S.design=q.get('design')==='b'?'b':'a';if(q.get('side'))S.side=q.get('side')==='open'?'open':q.get('side')==='closed'?'closed':'auto';if(q.get('hoy'))S.hoy=fromIso(q.get('hoy'));if(q.get('finde')){while(!isWE(S.hoy))S.hoy=addD(S.hoy,1)}if(q.get('modal'))S.modal={t:q.get('modal')};if(q.get('ex'))S.ex=true;

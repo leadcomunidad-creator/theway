@@ -16,8 +16,9 @@
 /* REDISEÑO V3 · interruptor de piel (igual que en index.html y metanoia/index.html): ?piel=v3 la activa, ?piel=actual la apaga, ?piel=v2 se recuerda para el curso.
    La elección se guarda en localStorage['tw_piel'] (mismo origen: se comparte). Solo con v3 se pone data-piel="v3" en <html>. */
 (function(){var q;try{q=new URLSearchParams(location.search).get('piel')}catch(e){q=null}
-try{if(q==='v2'||q==='v3'||q==='actual')localStorage.setItem('tw_piel',q);if(localStorage.getItem('tw_piel')==='v3')document.documentElement.setAttribute('data-piel','v3')}
-catch(e){if(q==='v3')document.documentElement.setAttribute('data-piel','v3')}})();
+/* v3 encendido para todos (Juan, 15-nov): si nadie eligió nada, la piel es v3; ?piel=actual la apaga y se recuerda */
+try{if(q==='v2'||q==='v3'||q==='actual')localStorage.setItem('tw_piel',q);var p=localStorage.getItem('tw_piel');if(p!=='actual'&&p!=='v2')document.documentElement.setAttribute('data-piel','v3')}
+catch(e){if(q!=='actual'&&q!=='v2')document.documentElement.setAttribute('data-piel','v3')}})();
 </script>
 <style>
 :root{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--green:#3D7A54;--green-l:#52A06E;--green-xl:#6DC48A;--gold:#C8A84B;--gold-l:#DEC06A;--ice:#A8C4D4;--text:#EAE8E0;--muted:#7A8E9A;--faint:#3A4A56;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.1);--glass:rgba(10,17,26,.78)}
