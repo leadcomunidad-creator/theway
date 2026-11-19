@@ -580,7 +580,11 @@ html[data-piel=v3]{--v3pw:0px}
 <style id="movil-liviano">
 /* Celular (Juan, 19-nov): sin desenfoque de lo que hay detrás de barras y tarjetas. Al mover el mapa el celular tenía que recalcularlo
    en cada cuadro y se quedaba sin memoria gráfica (parpadeo). Los fondos quedan casi sólidos, como ya se veían. */
-@media (max-width:899px){*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}:root{--glass:rgba(10,17,26,.93)}}
+@media (max-width:899px),(pointer:coarse){*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}:root{--glass:rgba(10,17,26,.93)}}
+/* Celular y tablet (Juan, 19-nov): la ruta y la bandera titilaban. Estas cuatro animaciones obligan a repintar toda la capa del mapa en cada cuadro
+   (hormigas y brillo del sendero en el SVG #v3way, anillo de los marcadores con box-shadow y fondo de la niebla). En pantallas táctiles quedan quietas.
+   Siguen las que no repintan: caminante, estrellas, fogatas, nubes y luces. En el computador no cambia nada. */
+@media (pointer:coarse){[data-piel=v3] #v3way .ah,[data-piel=v3] #v3way .gl,.mk[data-s=current],.mk.pk,.dr.go,.fdoor.go,[data-piel=v3] .v3fogmask{animation:none!important}[data-piel=v3] #v3way .gl{opacity:.8}}
 </style>
 </head>
 <body>
@@ -1175,7 +1179,7 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  /* Rendimiento en celular (Juan, 14-nov): por debajo de 900 px el navegador elegía la versión de 6400 px (≈ 87 MB en memoria por imagen)
     y el celular se quedaba sin memoria gráfica (cuadros negros y parpadeo). Ahí el tamaño pedido se limita a la mayor versión de hasta
     2560 px de cada juego (≈ 14 MB). En escritorio nada cambia. */
- var TOPE=2560,movil=function(){return W<900};
+ var TOPE=2560,tactil=(function(){try{return matchMedia('(pointer:coarse)').matches}catch(e){return false}})(),movil=function(){return W<900||tactil}; /* 19-nov: tablets (táctiles de 900 px o más) también con tope; antes pedían 4000/6400 px y no alcanzaban a pintarlas */
  function pedido(k,css){if(!movil())return css;var dpr=window.devicePixelRatio||1,m=0;IMG[k].forEach(function(w){if(w<=TOPE&&w>m)m=w});return Math.min(css,Math.floor(m/dpr))}
  function tamanos(){var z=Math.round(BW*(W<700?1.55:2)),b=Math.round(BW); /* el mayor acercamiento de «Mi posición» y el de Expedición/Mapa */
   art.sizes=pedido(artK||MTK[cur]||'identidad',z)+'px';tart.sizes=pedido('mentalidad',b)+'px';gart.sizes=pedido('general',b)+'px';gdx.sizes=gart.sizes}
