@@ -1019,6 +1019,25 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 
 /* Acceso al cuadernillo (18-nov-2026) */
 .cuad3{display:flex;align-items:center;gap:14px;margin:14px 0 4px;padding:14px 16px;border-radius:18px;background:var(--surface);border:1px solid var(--border);text-decoration:none;color:var(--text)}.cuad3 .i{flex:none;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(200,168,75,.14);color:var(--gold-l)}.cuad3 .t{flex:1;min-width:0}.cuad3 .k{display:block;font:700 11px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.cuad3 .h{display:block;font:400 24px/1.05 var(--f-disp);letter-spacing:.03em;margin-top:2px}.cuad3 .d{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}.cuad3 .go{flex:none;background:var(--gold);color:#080C12;font-weight:800;border-radius:12px;padding:10px 14px;font-size:14px}.cuad3:hover{border-color:var(--gold)}
+/* Selector «App | Cuaderno» en la barra del curso (19-nov-2026) */
+.vista3{display:inline-flex;align-items:center;flex:none;padding:3px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);gap:2px;margin-left:auto}.vista3>*{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;font:700 13px/1 var(--f-ui);text-decoration:none;color:var(--muted);white-space:nowrap}.vista3 .on{background:var(--gold);color:#080C12}.vista3 a:hover{color:var(--text)}@media(max-width:599px){header.b3{flex-wrap:wrap;height:auto!important;row-gap:6px}header.b3 .vista3{order:10;flex:1 1 100%;margin:0 0 4px}header.b3 .vista3>*{flex:1;justify-content:center;padding:9px 12px;font-size:14px}}
+@media(min-width:900px) and (max-width:1365px){[data-piel=v3] .bar.b3 .tw3{display:none}.vista3{margin-left:0}.vista3>*{padding:7px 10px;gap:5px}.vista3 svg{display:none}}
+/* Formato del texto de las jornadas (19-nov-2026): un solo estilo para todos los días y pasos; sin recuadro dentro del recuadro; nada se sale */
+[data-piel=v3] .blk .read{background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;overflow-wrap:anywhere}
+[data-piel=v3] .blk .read>*:first-child{margin-top:0}
+[data-piel=v3] .blk .read p,[data-piel=v3] .blk .read li{font-size:calc(1rem*var(--rs));line-height:1.65;margin:0 0 .9em;max-width:62ch}
+[data-piel=v3] .blk .read h4{font:700 calc(.8125rem*var(--rs))/1.35 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--gold-l);margin:1.7em 0 .55em;max-width:62ch}
+[data-piel=v3] .blk .read h4.stars{display:flex;align-items:center;gap:12px;text-transform:none;letter-spacing:.02em;font-size:calc(1rem*var(--rs));color:var(--text);margin:1.7em 0 .6em}
+[data-piel=v3] .blk .read h4.stars b{width:30px;height:30px;border-radius:8px;font-size:19px}
+[data-piel=v3] .blk .read ul{padding-left:1.15em;margin:0 0 1em;max-width:62ch}[data-piel=v3] .blk .read li{margin-bottom:.45em}
+[data-piel=v3] .blk .read .pray{margin:.2em 0 1.2em;padding:.9em 1.1em;border:0;border-left:3px solid var(--dawn);border-radius:0 12px 12px 0;background:rgba(233,169,126,.08);font-style:italic;max-width:62ch}
+[data-piel=v3] .blk .read .q{padding:.2em 0 .2em 1em;border-left:3px solid var(--gold);background:none;border-radius:0;font-style:italic}
+[data-piel=v3] .blk .read hr.sep{border:0;border-top:1px solid var(--border2);margin:1.6em 0;max-width:62ch}
+[data-piel=v3] .blk .read details{max-width:62ch}
+[data-piel=v3] .blk .read hr.sep:last-child{display:none}
+/* Tarjeta del Territorio recogida en celular (19-nov-2026) */
+.tcx{display:none}
+@media(max-width:899px){[data-piel=v3] .tcard .c{position:relative}[data-piel=v3] .tcard .tcx{display:flex;position:absolute;top:12px;right:12px;width:40px;height:40px;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--border2);background:rgba(255,255,255,.05);color:var(--text);cursor:pointer}[data-piel=v3] .tcard .tcx svg{transition:transform .2s}html.tcab[data-piel=v3] .tcard .tcx svg{transform:rotate(180deg)}[data-piel=v3] .tcard .c h2,[data-piel=v3] .tcard .c .eyebrow{padding-right:48px}html:not(.tcab)[data-piel=v3] .tcard .c .eyebrow,html:not(.tcab)[data-piel=v3] .tcard .c p.muted{display:none}html:not(.tcab)[data-piel=v3] .tcard .c{padding-top:14px;padding-bottom:14px}html:not(.tcab)[data-piel=v3] .tcard .c h2{font-size:26px;margin-top:0}}
 </style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
@@ -1051,7 +1070,7 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
  function cargando(){pantalla({t:'Abriendo el curso…',p:['Un momento.']})}
  function reintentar(t,p){pantalla({t:t,p:[p],rol:'alert',a:[{id:'twr',txt:'Reintentar',pri:true,fn:arrancar}]})}
  function pideEntrar(){
-  pantalla({t:'Entra para continuar',p:['Para abrir Protocolo Metanoia, primero ingresa con tu cuenta de Google.'],a:[{id:'twi',txt:'Ingresar',pri:true,fn:function(){location.href='../index.html'}}]});
+  pantalla({t:'Entra para continuar',p:['Para abrir Protocolo Metanoia, primero ingresa con tu cuenta de Google.'],a:[{id:'twi',txt:'Ingresar',pri:true,fn:function(){try{localStorage.removeItem('tw_nick')}catch(e){}location.href='../index.html'}}]});
  }
  /* v3 (B3, 14-nov): ¿está activa la piel v3? Misma regla que el interruptor del curso (?piel=… y luego localStorage['tw_piel']) */
  /* v3 encendido para todos (Juan, 15-nov): sin elección guardada, v3; ?piel=actual la apaga */
@@ -1234,12 +1253,13 @@ function linesHTML(b,d){
   if(lastLn!=null&&AT[lastLn]){fl();AT[lastLn].forEach(c=>out.push(praHTML(d.n,c)));used=true}
   lastLn=ln;
   if(!tx){fl();continue}
+  if(/^[═=─━_—–-]{3,}$/.test(tx)){fl();out.push('<hr class="sep">');continue}/* 19-nov: líneas separadoras del texto → separador que no se sale */
   if(FM[ln]&&!(FM[ln].fk==='inicial'&&d.n!==1)){fl();out.push(fieldHTML(FM[ln]));used=true;
     let k=j+1;while(k<L.length&&L[k][1])skip.add(L[k++][0]);
     let m=k;while(m<L.length&&!L[m][1])m++;if(m<L.length&&/^Escribe aquí tu respuesta/.test(L[m][1]))skip.add(L[m][0]);continue}
   if(/^(— |- )/.test(tx)){ul.push(tx.replace(/^(— |- )/,''));continue}
   fl();
-  const mS=tx.match(/^([STARS]) — ([A-ZÁÉÍÓÚÑ]+)$/);
+  const mS=tx.match(/^([STARS])\s*[—–·-]\s*([A-ZÁÉÍÓÚÑ]+)$/);/* 19-nov: «S — SILENCIO» y «S · SILENCIO» se ven igual */
   if(mS){out.push(`<h4 class="stars"><b>${mS[1]}</b>${sc(mS[2])}</h4>`);continue}
   if(isCaps(tx)){
    if(/^EJEMPLO/.test(tx)){let k=j+1,inner=[];while(k<L.length&&!(L[k][1]&&isCaps(L[k][1])&&!/^EJEMPLO/.test(L[k][1])))inner.push(L[k++]);
@@ -1421,15 +1441,21 @@ function vHoy3(){if(S.piel!=='v3'){S.view='hoy';return vHoy()}
 const BLC3={apertura:'Apertura',palabra:'Palabra',libro:'Libro',video:'Video',leccion:'Lección',bitacora:'Bitácora',cierre:'Cierre'};
 /* Barra única del curso (reemplaza la oficial «THE WAY · Salir» + la del curso). «Salir» pasa a Ajustes. */
 const SLID3='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>';
-function barV3(inC){return `<header class="bar hud b3">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back3" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Mi Mapa</button><span class="tw3" aria-hidden="true">THE <span>WAY</span></span><div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a Mi Mapa · Renovación · Ruta 2</button><small class="rt3">Renovación · Ruta 2</small></div>${inC?topnav():''}${inC?`<button class="dp3" data-act="lecdia" aria-label="${lecLabel()}">${lecInfo().t}</button>`:''}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College">${SLID3}</button></div></header>`}
+/* Selector de vista (19-nov-2026): la misma semana del curso en forma de cuadernillo. Semanas sin cuadernillo todavía → portada del cuadernillo. */
+function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/cuadernillo/${C[w]||''}">${CUADI}Book</a></nav>`}
+const CUADI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>';
+function barV3(inC){return `<header class="bar hud b3">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back3" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Mi Mapa</button><span class="tw3" aria-hidden="true">THE <span>WAY</span></span><div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a Mi Mapa · Renovación · Ruta 2</button><small class="rt3">Renovación · Ruta 2</small></div>${inC?topnav():''}${inC?`<button class="dp3" data-act="lecdia" aria-label="${lecLabel()}">${lecInfo().t}</button>`:''}${vistaSel()}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College">${SLID3}</button></div></header>`}
 /* Cápsula flotante (menos de 900 px): Territorio · Hoy · Camino · Bitácora. En la Jornada y en Mapa personal no se marca ninguna. */
 function tabsV3(){const T=[['hoy','Territorio','home'],['hoy3','Hoy','sun'],['indice','Camino','list'],['bitacora','Bitácora','bitacora']];
  return `<nav class="tabs t3" aria-label="Navegación principal">${T.map(t=>`<button data-act="go" data-v="${t[0]}" ${S.view===t[0]?'aria-current="page"':''}>${ic(t[2])}${t[1]}</button>`).join('')}</nav>`}
+/* 19-nov-2026: tarjeta del Territorio recogida en celular; la flecha muestra la semana y los avisos (abierta/ponerte al día). Se recuerda en el aparato. */
+function TCX(){let a=false;try{a=localStorage.getItem('tw_tcard_abierta')==='1'}catch(e){}document.documentElement.classList.toggle('tcab',a);return `<button type="button" class="tcx" data-tcx aria-expanded="${a}" aria-label="${a?'Ver menos':'Ver más detalles'}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>`}
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-tcx]');if(!t)return;e.stopPropagation();const a=!document.documentElement.classList.contains('tcab');document.documentElement.classList.toggle('tcab',a);try{localStorage.setItem('tw_tcard_abierta',a?'1':'0')}catch(_){}t.setAttribute('aria-expanded',String(a));t.setAttribute('aria-label',a?'Ver menos':'Ver más detalles')},true);
 function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount();
  const espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
  let card;
  if(all)card=`<div class="c"><span class="eyebrow">Curso terminado</span><h2>Llegaste a la cumbre</h2><button class="btn pri" data-act="go" data-v="final">Ver pantalla final</button></div>`;
- else if(op)card=`<div class="c"><span class="eyebrow" style="color:${MOV[w].c}">Semana ${w} de 4 · ${MOV[w].n}</span><h2>${esc(sc(d.titulo))}</h2><div class="muted" style="font-size:13px;margin-bottom:8px">Día ${n} de 20 · ${esc(d.dsem)} · ${esc(d.biblia)}</div>
+ else if(op)card=`<div class="c">${S.piel==='v3'?TCX():''}<span class="eyebrow" style="color:${MOV[w].c}">Semana ${w} de 4 · ${MOV[w].n}</span><h2>${esc(sc(d.titulo))}</h2><div class="muted" style="font-size:13px;margin-bottom:8px">Día ${n} de 20 · ${esc(d.dsem)} · ${esc(d.biblia)}</div>
   ${isWE(S.hoy)?`<p class="muted" style="font-size:12.5px;margin:0 0 8px">${md('Sábados y domingos podrás recuperar actividades pendientes, sin nuevas jornadas obligatorias.')}</p>`:''}
   ${d0(abre(n))<d0(S.hoy)?`<p class="muted" style="font-size:12.5px;margin:0 0 8px">Esta jornada se abrió el ${fmtL(abre(n))}. Puedes hacerla ahora.</p>`:''}
   ${espera.length?`<p class="muted" style="font-size:12.5px;margin:0 0 8px">Para ponerte al día, en orden: ${espera.map(i=>'Día '+i).join(' · ')}.</p>`:''}

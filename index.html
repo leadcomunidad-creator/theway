@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* 19-nov-2026: con la sesión ya iniciada en este aparato, THE WAY abre directo en Mi Mapa (como S.T.A.R.S.). Va antes que todo para que el landing no alcance a dibujarse. «?inicio» deja ver el landing. */try{if(localStorage.getItem('tw_nick')&&!/[?&]inicio(=|&|$)/.test(location.search))location.replace('mi-mapa/index.html'+location.hash)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El College · THE WAY</title>
 <meta name="description" content="Jesús dijo: «Yo soy el camino». THE WAY es caminar con Él hacia una transformación que comienza por dentro y se hace visible por fuera.">
@@ -2273,7 +2274,7 @@ function mmCloseRoutes(id) {
   document.body.insertAdjacentHTML('afterbegin',h.join(''));
 
   function conSesion(){var S=window.TW_SESION;try{return !!(S&&S.usuario&&S.usuario())}catch(e){return false}}
-  function pintar(){var s=conSesion();H.setAttribute('data-v3-estado',s?'sesion':'visitante');
+  function pintar(){var s=conSesion();if(s&&!/[?&]inicio(=|&|$)/.test(location.search)){/* 19-nov-2026: sesión activa sin la marca del aparato (ingresó antes de que existiera): se guarda la marca y se abre Mi Mapa; desde la próxima vez abre directo */try{if(!localStorage.getItem('tw_nick'))localStorage.setItem('tw_nick','caminante')}catch(e){}location.replace('mi-mapa/index.html');return}H.setAttribute('data-v3-estado',s?'sesion':'visitante');
     ['cab','hero','cierre'].forEach(function(k){var el=document.querySelector('[data-v3b="'+k+'"]');if(el)el.outerHTML=boton(k,s)})}
   /* «Ingresar», «Mi Mapa» e «Ir a Mi Mapa» usan el mismo doLogin() de siempre (con sesión va directo a mi-mapa/index.html) */
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-v3-ir]');if(!b)return;e.preventDefault();if(typeof doLogin==='function')doLogin()});
