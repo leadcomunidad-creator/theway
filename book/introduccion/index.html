@@ -206,6 +206,30 @@ header.ui .ham{flex:none;width:40px;height:36px;border-radius:12px;border:1px so
 .dias .hamd,.barra2 .hamd{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border2);background:#111C28;color:#EAE8E0;font:700 14px 'DM Sans',system-ui,sans-serif;padding:8px 13px;border-radius:99px;cursor:pointer}
 .barra2 .hamd{padding:6px 11px}
 
+header.ui{position:relative}
+header.ui .vista{margin-left:auto}
+header.ui .vsw{flex:none;display:flex;align-items:center;gap:2px}
+header.ui .ib{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:0;border-radius:12px;background:none;color:#C9D1D6;cursor:pointer;text-decoration:none}
+header.ui .ib:hover{color:#fff;background:rgba(255,255,255,.06)}
+.cfgpop{position:absolute;right:12px;top:calc(100% + 6px);z-index:40;background:#111C28;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.45);color:#EAE8E0;font:600 13px 'DM Sans',system-ui,sans-serif;display:grid;gap:10px}
+.cfgpop[hidden]{display:none}
+/* escritorio: los días y «☰ Semanas» van en el centro de la barra, como las secciones de la app */
+header.ui .dias{flex:0 1 auto;min-width:0;margin-left:auto;padding:4px;gap:3px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:#0C1520;justify-content:flex-start}
+header.ui .dias button{background:none;border:1px solid transparent;color:#9DB0BB;font-size:12.5px;font-weight:600;padding:8px 10px;border-radius:10px}
+header.ui .dias button:hover{color:#EAE8E0}
+header.ui .dias button[aria-current=true]{background:rgba(200,168,75,.16);border-color:rgba(200,168,75,.5);color:#DEC06A}
+header.ui .dias .hamd{background:transparent;border:1px solid rgba(255,255,255,.18);color:#EAE8E0}
+@media (max-width:1399px){header.ui .dias .dsem{display:none}}
+
+/* ☰ igual al de la app: solo el ícono, en su propio recuadro */
+.dias .hamd,.barra2 .hamd{width:42px;height:42px;padding:0;justify-content:center;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:#111C28;color:#EAE8E0}
+.barra2 .hamd{width:36px;height:36px}
+.dias .dg{display:contents}
+header.ui .dias{border:0;background:none;padding:0;gap:8px;align-items:center}
+header.ui .dias .hamd{background:transparent}
+header.ui .dias .dg{display:flex;gap:3px;padding:4px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#0C1520;min-width:0;overflow-x:auto;scrollbar-width:none}
+@media (min-width:1400px){header.ui .dias{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}}
+
 .pie .vista{background:var(--surface);border-color:var(--border2)}.pie .vista a{color:var(--muted)}
 @media (max-width:599px){header.ui{flex-wrap:wrap;row-gap:6px}header.ui .vista{order:10;flex:1 1 100%;margin:0 0 4px}header.ui .vista>*{flex:1;padding:9px 12px;font-size:14px}}
 .dias{display:flex;gap:6px;overflow-x:auto;padding:8px 12px 4px;scrollbar-width:none}
@@ -256,11 +280,12 @@ header.ui .ham{flex:none;width:40px;height:36px;border-radius:12px;border:1px so
 <header class="ui">
   <a class="back3" href="/mi-mapa/" target="_top">‹ Mi Mapa</a>
   <div class="tt"><b>Protocolo Metanoia</b><small>Introducción · Book</small></div>
-  <div class="letra" role="group" aria-label="Tamaño de la letra"><button class="a1" id="menos" aria-label="Letra más pequeña">A−</button><button class="a2" id="mas" aria-label="Letra más grande">A+</button></div>
   <nav class="vista" aria-label="Forma de ver el curso"><a href="/metanoia/index.html?ir=hoy">App</a><span class="on" aria-current="page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>Book</span></nav>
+  <div class="vsw"><a class="ib" href="../introduccion/" aria-label="Bienvenida: cómo funciona el curso"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg></a><button class="ib" type="button" id="cfg" aria-haspopup="dialog" aria-expanded="false" aria-label="Ajustes: tamaño de letra"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg></button></div>
+  <div class="cfgpop" id="cfgPop" hidden role="dialog" aria-label="Ajustes"><b>Tamaño de la letra</b><div class="letra" role="group" aria-label="Tamaño de la letra"><button class="a1" id="menos" aria-label="Letra más pequeña">A−</button><button class="a2" id="mas" aria-label="Letra más grande">A+</button></div></div>
 </header>
 <div class="menuS ui" id="menuS" hidden><div class="fondo" data-cierra></div><aside class="panel" role="dialog" aria-label="Semanas del curso"><div class="ph"><b>Protocolo Metanoia</b><button type="button" class="x" data-cierra aria-label="Cerrar">×</button></div><ul id="listaS"></ul><p class="nt">Cada semana se abre completa el lunes que le corresponde.</p></aside></div>
-<nav class="dias ui" id="dias" aria-label="Ir a un día"><button type="button" class="hamd" id="ham" aria-label="Ver todas las semanas" aria-expanded="false" aria-controls="menuS"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Semanas</button></nav>
+<nav class="dias ui" id="dias" aria-label="Ir a un día"><button type="button" class="hamd" id="ham" aria-label="Ver todas las semanas" aria-expanded="false" aria-controls="menuS"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="dg"></span></nav>
 <div id="mesa" tabindex="0" aria-label="Páginas del Book"><div id="libro"></div><div id="espera">Acomodando las páginas…</div></div>
 <div class="pie ui">
   <div class="controles">
@@ -268,7 +293,7 @@ header.ui .ham{flex:none;width:40px;height:36px;border-radius:12px;border:1px so
     <span id="num" aria-live="polite"></span>
     <button id="sig" aria-label="Página siguiente">Siguiente ›</button>
   </div>
-  <div class="barra2" style="display:none;align-items:center;gap:6px"><button type="button" class="hamd" id="ham2" aria-label="Ver todas las semanas">☰</button><div class="letra" style="border-color:var(--border2)"><button class="a1" data-z="-1" style="color:var(--text)">A−</button><button class="a2" data-z="1" style="color:var(--text)">A+</button></div><nav class="vista" aria-label="Forma de ver el curso"><a href="/metanoia/index.html?ir=hoy">App</a><span class="on" aria-current="page">Book</span></nav></div>
+  <div class="barra2" style="display:none;align-items:center;gap:6px"><button type="button" class="hamd" id="ham2" aria-label="Ver todas las semanas"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="letra" style="border-color:var(--border2)"><button class="a1" data-z="-1" style="color:var(--text)">A−</button><button class="a2" data-z="1" style="color:var(--text)">A+</button></div><nav class="vista" aria-label="Forma de ver el curso"><a href="/metanoia/index.html?ir=hoy">App</a><span class="on" aria-current="page">Book</span></nav></div>
   <div class="nota"><a href="../">Ver todo el Book</a> · Contenido privado del curso. Por favor, no lo compartas.</div>
 </div>
 <div id="medidor"></div>
@@ -428,7 +453,10 @@ function buscarK(k){if(k<0)return 0;
   return 0}
 function alinear(i){i=Math.max(0,Math.min(pages.length-1,i));return G.dos?i-(i%2):i}
 let ultimo='';
-function rearmar(){
+function lugarDias(){const H=document.querySelector('header.ui'),V=H.querySelector('.vista'),w=innerWidth>=900&&innerHeight>520;
+  if(w&&navD.parentNode!==H){H.insertBefore(navD,V);document.body.classList.add('sinDias')}
+  else if(!w&&navD.parentNode===H){document.body.insertBefore(navD,mesa);document.body.classList.remove('sinDias')}}
+function rearmar(){lugarDias();
   const g=geometria(),clave=[g.pw,g.ph,g.dos,g.z].join();
   if(clave===ultimo)return;ultimo=clave;
   espera.hidden=false;
@@ -514,8 +542,8 @@ $('menos').onclick=()=>letra(-1);$('mas').onclick=()=>letra(1);
 document.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>letra(+b.dataset.z));
 
 /* --- Días --- */
-TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button');b.textContent=dLabels[i];b.dataset.i=i;
-  b.onclick=()=>{if(ocupado)return;pos=alinear(diaPag[i]);pintar()};navD.appendChild(b)});
+TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button');{const q=dLabels[i].split(' · ');b.innerHTML=q[0]+(q[1]?'<span class="dsem"> · '+q[1]+'</span>':'')}b.dataset.i=i;
+  b.onclick=()=>{if(ocupado)return;pos=alinear(diaPag[i]);pintar()};navD.querySelector('.dg').appendChild(b)});
 
 
 /* --- Menú de semanas (19-nov-2026): las semanas se abren completas el lunes que les toca, igual que en la app.
@@ -538,7 +566,7 @@ TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button
   return `<li>${(abierta&&x.hay)||aqui?`<a href="../${x.id}/"${aqui?' aria-current="page"':''}>${tx}</a>`:`<div class="cerr" aria-disabled="true">${tx}${abierta?'':LOCK}</div>`}</li>`}).join('');
  const M=document.getElementById('menuS'),H=document.getElementById('ham');
  const abre=v=>{M.hidden=!v;H.setAttribute('aria-expanded',String(v))};
- H.onclick=()=>abre(true);const H2=document.getElementById('ham2');if(H2)H2.onclick=()=>abre(true);M.addEventListener('click',e=>{if(e.target.closest('[data-cierra]'))abre(false)});
+ H.onclick=()=>abre(true);{const C=document.getElementById('cfg'),P=document.getElementById('cfgPop');C.onclick=e=>{e.stopPropagation();P.hidden=!P.hidden;C.setAttribute('aria-expanded',String(!P.hidden))};document.addEventListener('click',e=>{if(!P.hidden&&!e.target.closest('#cfgPop'))P.hidden=true;C.setAttribute('aria-expanded',String(!P.hidden))})}const H2=document.getElementById('ham2');if(H2)H2.onclick=()=>abre(true);M.addEventListener('click',e=>{if(e.target.closest('[data-cierra]'))abre(false)});
  addEventListener('keydown',e=>{if(e.key==='Escape')abre(false)});
 })();
 
