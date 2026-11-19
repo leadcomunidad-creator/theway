@@ -175,6 +175,21 @@ header.ui .tt small{display:block;margin-top:3px;font-size:11px;color:#9DB0BB;wh
 .vista .on{background:#C8A84B;color:#080C12}
 .vista a:hover{color:#EAE8E0}
 
+header.ui .ham{flex:none;width:40px;height:36px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:#111C28;color:#EAE8E0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.menuS{position:fixed;inset:0;z-index:50}.menuS[hidden]{display:none}
+.menuS .fondo{position:absolute;inset:0;background:rgba(5,8,12,.55)}
+.menuS .panel{position:absolute;left:0;top:0;bottom:0;width:min(86vw,360px);background:#0C1520;color:#EAE8E0;padding:max(14px,env(safe-area-inset-top)) 14px 18px;overflow:auto;box-shadow:8px 0 30px rgba(0,0,0,.4)}
+.menuS .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.menuS .ph b{font:400 22px/1 'Bebas Neue',Impact,sans-serif;letter-spacing:1px}
+.menuS .x{width:40px;height:40px;border:0;border-radius:12px;background:rgba(255,255,255,.06);color:#EAE8E0;font-size:22px;cursor:pointer}
+.menuS ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.menuS li>*{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:#111C28;color:#EAE8E0;text-decoration:none;font:500 14px/1.3 'DM Sans',system-ui,sans-serif}
+.menuS li i{flex:none;width:6px;align-self:stretch;border-radius:3px;background:var(--cc)}
+.menuS li span{flex:1;min-width:0}.menuS li small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9DB0BB}.menuS li b{display:block;font:400 21px/1.05 'Bebas Neue',Impact,sans-serif;letter-spacing:.5px;margin:2px 0}
+.menuS li em{font-style:normal;font-size:12.5px;color:#9DB0BB}
+.menuS li a[aria-current]{border-color:#C8A84B}
+.menuS li .cerr{opacity:.6}.menuS li .cerr svg{flex:none}
+.menuS .nt{font-size:12.5px;color:#9DB0BB;margin:14px 2px 0}
+
 .pie .vista{background:var(--surface);border-color:var(--border2)}.pie .vista a{color:var(--muted)}
 @media (max-width:599px){header.ui{flex-wrap:wrap;row-gap:6px}header.ui .vista{order:10;flex:1 1 100%;margin:0 0 4px}header.ui .vista>*{flex:1;padding:9px 12px;font-size:14px}}
 .dias{display:flex;gap:6px;overflow-x:auto;padding:8px 12px 4px;scrollbar-width:none}
@@ -223,11 +238,13 @@ header.ui .tt small{display:block;margin-top:3px;font-size:11px;color:#9DB0BB;wh
 </head>
 <body>
 <header class="ui">
+  <button class="ham" id="ham" type="button" aria-label="Ver todas las semanas" aria-expanded="false" aria-controls="menuS"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   <a class="back3" href="/mi-mapa/">‹ Mi Mapa</a>
   <div class="tt"><b>Protocolo Metanoia</b><small>Semana 1 · Book</small></div>
   <div class="letra" role="group" aria-label="Tamaño de la letra"><button class="a1" id="menos" aria-label="Letra más pequeña">A−</button><button class="a2" id="mas" aria-label="Letra más grande">A+</button></div>
   <nav class="vista" aria-label="Forma de ver el curso"><a href="/metanoia/index.html?ir=hoy">App</a><span class="on" aria-current="page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>Book</span></nav>
 </header>
+<div class="menuS ui" id="menuS" hidden><div class="fondo" data-cierra></div><aside class="panel" role="dialog" aria-label="Semanas del curso"><div class="ph"><b>Protocolo Metanoia</b><button type="button" class="x" data-cierra aria-label="Cerrar">×</button></div><ul id="listaS"></ul><p class="nt">Cada semana se abre completa el lunes que le corresponde.</p></aside></div>
 <nav class="dias ui" id="dias" aria-label="Ir a un día"></nav>
 <div id="mesa" tabindex="0" aria-label="Páginas del cuadernillo"><div id="libro"></div><div id="espera">Acomodando las páginas…</div></div>
 <div class="pie ui">
@@ -494,6 +511,30 @@ document.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>letra(+b.dataset.
 TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button');b.textContent=dLabels[i];b.dataset.i=i;
   b.onclick=()=>{if(ocupado)return;pos=alinear(diaPag[i]);pintar()};navD.appendChild(b)});
 
+
+/* --- Menú de semanas (19-nov-2026): las semanas se abren completas el lunes que les toca, igual que en la app.
+   Inicio: el del curso en este aparato; si no hay, el del grupo. La página abierta desde un link siempre se ve. --- */
+(function(){
+ const GRUPO_INICIO='2026-11-09',GRUPO_HASTA='2026-11-23';
+ const SEC=[{id:'introduccion',k:'Empieza aquí',t:'Introducción',c:'#C8A84B',w:0,hay:true},
+  {id:'semana-1',k:'Semana 1',t:'Reemplazar',c:'#5A43A8',w:1,hay:true},{id:'semana-2',k:'Semana 2',t:'Reentrenar',c:'#22633B',w:2,hay:true},
+  {id:'semana-3',k:'Semana 3',t:'Replantear',c:'#8A5A06',w:3,hay:false},{id:'semana-4',k:'Semana 4',t:'Recuperar',c:'#255E80',w:4,hay:false}];
+ const d0=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate()),hoy=d0(new Date());
+ const fi=t=>{const p=t.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])};
+ let ini=GRUPO_INICIO;try{const o=JSON.parse(localStorage.getItem('tw_metanoia_prog')||'null');if(o&&o.v===1&&/^\d{4}-\d{2}-\d{2}$/.test(o.inicio||''))ini=o.inicio}catch(e){}
+ if(hoy<fi(GRUPO_HASTA)&&ini>GRUPO_INICIO)ini=GRUPO_INICIO;
+ const abreW=w=>{const x=fi(ini);x.setDate(x.getDate()+7*(w-1));return x};
+ const F=d=>d.toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+ const LOCK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+ const L=document.getElementById('listaS');
+ L.innerHTML=SEC.map(x=>{const abierta=x.w===0||hoy>=abreW(x.w),aqui=x.id===ID;
+  const tx=`<i style="--cc:${x.c}"></i><span><small>${x.k}</small><b>${x.t}</b><em>${aqui?'Estás aquí':abierta?(x.hay?'Abierta':'Muy pronto'):'Se abre el '+F(abreW(x.w))}</em></span>`;
+  return `<li>${(abierta&&x.hay)||aqui?`<a href="../${x.id}/"${aqui?' aria-current="page"':''}>${tx}</a>`:`<div class="cerr" aria-disabled="true">${tx}${abierta?'':LOCK}</div>`}</li>`}).join('');
+ const M=document.getElementById('menuS'),H=document.getElementById('ham');
+ const abre=v=>{M.hidden=!v;H.setAttribute('aria-expanded',String(v))};
+ H.onclick=()=>abre(true);M.addEventListener('click',e=>{if(e.target.closest('[data-cierra]'))abre(false)});
+ addEventListener('keydown',e=>{if(e.key==='Escape')abre(false)});
+})();
 if(navD.children.length<2){navD.remove();document.body.classList.add('sinDias')}
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(rearmar,200)});
 document.fonts&&document.fonts.ready.then(()=>{ultimo='';rearmar()});

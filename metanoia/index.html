@@ -1169,7 +1169,7 @@ if(FINAL){S.hoy=d0(new Date());S.inicio=lunesDe(S.hoy);S.vid='sin';S.view='landi
 /* A59 (7-nov): avance del curso guardado en el dispositivo (solo versión final): la fecha de inicio, las jornadas y pasos hechos. Así la persona vuelve directo a su jornada y MI MAPA puede decir «Día N». Solo localStorage; no se envía a ningún sitio. */
 const PROG_KEY='tw_metanoia_prog',ISOD=/^\d{4}-\d{2}-\d{2}$/;
 function progLoad(){try{const o=JSON.parse(localStorage.getItem(PROG_KEY)||'null');if(!o||o.v!==1||!ISOD.test(o.inicio||''))return null;const done={},step={},closedOn={},badges={};(Array.isArray(o.done)?o.done:[]).forEach(n=>{if(Number.isInteger(n)&&n>=1&&n<=20)done[n]=true});for(const k in (o.step||{}))if(/^\d{1,2}:\d{1,2}$/.test(k)&&o.step[k]===true)step[k]=true;for(const k in (o.closedOn||{}))if(/^\d{1,2}$/.test(k)&&ISOD.test(o.closedOn[k]||''))closedOn[k]=o.closedOn[k];for(const k in (o.badges||{}))if(/^[a-z]{1,20}$/.test(k)&&o.badges[k]===true)badges[k]=true;return{inicio:o.inicio,done,step,closedOn,badges,welcomed:o.welcomed===true}}catch(e){return null}}
-function progSave(){if(!FINAL||S.demo||!(S.welcomed||Object.keys(S.done).some(k=>S.done[k])))return;try{const st={};for(const k in S.step)if(S.step[k])st[k]=true;localStorage.setItem(PROG_KEY,JSON.stringify({v:1,inicio:iso(S.inicio),done:Object.keys(S.done).filter(k=>S.done[k]).map(Number),step:st,closedOn:S.closedOn,badges:S.badges,welcomed:!!S.welcomed}))}catch(e){}}
+function progSave(){if(!FINAL||S.demo)return;/* 19-nov-2026: la fecha de inicio se guarda apenas la persona entra al curso con acceso; no depende de la bienvenida */try{const st={};for(const k in S.step)if(S.step[k])st[k]=true;localStorage.setItem(PROG_KEY,JSON.stringify({v:1,inicio:iso(S.inicio),done:Object.keys(S.done).filter(k=>S.done[k]).map(Number),step:st,closedOn:S.closedOn,badges:S.badges,welcomed:!!S.welcomed}))}catch(e){}}
 /* M1-b (aprobada por Juan el 9-nov): recuerda en este dispositivo qué lectura abrió ESTA cuenta (día, tipo de bloque y referencia;
    nada del texto) para que la tarjeta «Lectura en…» no se pierda si el teléfono cierra la pestaña o la app mientras se lee en
    S.T.A.R.S. o Bookclub. Va ligada al uid de la sesión (TW_SESION.usuario(), sin tocar sesion.js): si no hay uid o es de otra
@@ -1179,13 +1179,19 @@ function retUid(){try{const s=window.TW_SESION,u=s&&typeof s.usuario==='function
 function retSave(){if(!FINAL||!RET_GUARDA)return;try{const u=retUid();(S.ret&&u)?localStorage.setItem(RET_KEY,JSON.stringify({u,dest:S.ret.dest,ref:S.ret.ref,k:S.ret.k,n:S.ret.n,t:Date.now()})):localStorage.removeItem(RET_KEY)}catch(e){}}
 function retLoad(){if(!FINAL||!RET_GUARDA)return null;try{const o=JSON.parse(localStorage.getItem(RET_KEY)||'null');if(!o)return null;const u=retUid();if(!u||o.u!==u||!(Date.now()-o.t<6*36e5)||!Number.isInteger(o.n)||o.n<1||o.n>20||!['palabra','libro'].includes(o.k)){localStorage.removeItem(RET_KEY);return null}return {dest:o.k==='palabra'?'S.T.A.R.S.':'Bookclub',ref:String(o.ref||'').slice(0,120),k:o.k,n:o.n}}catch(e){return null}}
 if(FINAL){const pg=progLoad();if(pg){S.inicio=fromIso(pg.inicio);S.done=pg.done;S.step=pg.step;S.closedOn=pg.closedOn;S.badges=pg.badges;S.welcomed=pg.welcomed}}
+/* 19-nov-2026 (Juan): grupo actual. Quien esté en el curso antes del lunes 23-nov queda con inicio el lunes 9-nov (hoy ve completas las semanas 1 y 2). Desde el 23-nov, cada quien empieza el lunes de la semana en que entra (sábado o domingo: el lunes siguiente). */
+const GRUPO_INICIO='2026-11-09',GRUPO_HASTA='2026-11-23';
+if(FINAL&&d0(S.hoy)<fromIso(GRUPO_HASTA)&&d0(S.inicio)>fromIso(GRUPO_INICIO))S.inicio=fromIso(GRUPO_INICIO);
 /* A55 (7-nov): en la versión final NO existe la pantalla «De la montaña al curso»; el curso abre en su landing y «MI MAPA» vuelve al MI MAPA real (window.MAPA_URL, por defecto ../mi-mapa/index.html). */
 const isWE=d=>[0,6].includes(d0(d).getDay());
 const fmtL=d=>d0(d).toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
 const fmtC=d=>d0(d).toLocaleDateString('es',{weekday:'short',day:'numeric'}).replace('.','');
-const abre=n=>addD(S.inicio,7*Math.floor((n-1)/5)+((n-1)%5));
+/* 19-nov-2026 (Juan): el curso se abre por SEMANA completa. abre(n) = lunes de la semana del Día n; abreDia(n) = el ritmo sugerido de un día hábil por día (solo para «ponerte al día» y las rachas). */
+const abreDia=n=>addD(S.inicio,7*Math.floor((n-1)/5)+((n-1)%5));
+const abre=n=>addD(S.inicio,7*Math.floor((n-1)/5));
 const nextBiz=d=>{let x=addD(d,1);while(isWE(x))x=addD(x,1);return x};
-const openCount=()=>{const h=d0(S.hoy);let c=0;for(let x=d0(S.inicio);x<=h;x=addD(x,1))if(!isWE(x))c++;return Math.min(c,20)};
+const ocDia=()=>{const h=d0(S.hoy);let c=0;for(let x=d0(S.inicio);x<=h;x=addD(x,1))if(!isWE(x))c++;return Math.min(c,20)};
+const openCount=()=>{const h=d0(S.hoy),i0=d0(S.inicio);if(h<i0)return 0;return Math.min(20,5*(Math.floor(Math.round((h-i0)/864e5)/7)+1))};
 const isOpen=n=>n<=openCount();
 const doneCount=()=>Object.keys(S.done).filter(k=>S.done[k]).length;
 const firstUndone=()=>{for(let i=1;i<=20;i++)if(!S.done[i])return i;return 21};
@@ -1316,7 +1322,7 @@ function blockHTML(d,b,idx){
 
 /* ---------- sendero de piedras, rachas amables e insignias (B9 · PROPUESTA) ---------- */
 const stepName=(n,i)=>(BL[dia(n).bloques[i].tipo]||['Contenido'])[0];
-function racha(){const L=lastDone();let run=0,best=0;for(let k=1;k<=L;k++){const c=S.closedOn[k];if(S.done[k]&&c&&fromIso(c)<=nextBiz(abre(k))){run++;best=Math.max(best,run)}else run=0}return{seguidos:run,mejor:best}}
+function racha(){const L=lastDone();let run=0,best=0;for(let k=1;k<=L;k++){const c=S.closedOn[k];if(S.done[k]&&c&&fromIso(c)<=nextBiz(abreDia(k))){run++;best=Math.max(best,run)}else run=0}return{seguidos:run,mejor:best}}
 function piedrasSVG(c){const rows=[6,5,4,3,2];let k=0,o='';rows.forEach((rc,r)=>{const x0=(220-rc*30+4)/2;for(let i=0;i<rc;i++){k++;const col=MOV[Math.ceil(k/5)].c,f=k<=c;o+=`<rect x="${x0+i*30}" y="${132-r*28}" width="26" height="22" rx="9" ${f?`fill="${col}" fill-opacity=".9" stroke="${col}"`:'fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="3 3"'} stroke-width="1.5"/>`}});return `<svg class="piedras" viewBox="0 0 220 160" role="img" aria-label="Sendero de piedras: ${c} de 20 piedras">${o}</svg>`}
 function badgeList(){const L=[1,2,3,4].map(w=>({t:'Semana '+w,s:MOV[w].n,q:'Termina sus 5 jornadas',c:MOV[w].c,on:[1,2,3,4,5].every(x=>S.done[(w-1)*5+x])}));L.push({t:'Volví al camino',s:'Te pusiste al día',q:'Se gana al hacer en fin de semana una jornada que te quedó pendiente',c:'var(--dawn)',on:!!S.badges.volvi});L.push({t:'Ruta recorrida',s:'Protocolo Metanoia',q:'Se gana al terminar las 20 jornadas',c:'var(--gold)',on:lastDone()>=20});return L}
 function badgesHTML(){return `<ul class="badges">${badgeList().map(b=>`<li class="${b.on?'on':''}" style="--c:${b.c}"><i aria-hidden="true">${b.on?ic('check'):''}</i><span><b>${b.t}</b><small>${b.on?b.s:'Por recorrer · '+b.q}</small></span></li>`).join('')}</ul>`}
@@ -1433,7 +1439,7 @@ function railV3(){const v=S.view;let h='';
 function avisoMapaV3(){return `<div class="card av3"><div class="eyebrow">Solo consulta por ahora</div><p class="muted" style="font-size:13.5px;line-height:1.55;margin:6px 0 10px">Tu Mapa Personal se elabora en el Día 20${isOpen(20)?'':' (se abre '+fmtL(abre(20))+')'}. Hasta entonces puedes ver cómo es; lo que vas registrando está en tu Bitácora.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="go" data-v="bitacora">Ver mi Bitácora</button>${isOpen(20)?'<button class="btn sm ghost" data-act="day" data-n="20">Ir al Día 20</button>':''}</div></div>`}
 /* Pantalla Hoy (vista «hoy3», solo v3): portada con anillo, mosaico 3×2 de escenas, «Para ponerte al día» y lo que antes iba al pie del Territorio */
 function vHoy3(){if(S.piel!=='v3'){S.view='hoy';return vHoy()}
- const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount(),espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
+ const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount(),espera=[];for(let i=n+1;i<=Math.min(oc,ocDia());i++)if(!S.done[i])espera.push(i);
  const sinJ=all?`<div class="card cj3"><div><span class="eyebrow">Curso terminado</span></div><h2>Llegaste a la cumbre</h2><button class="btn pri" data-act="go" data-v="final">Ver pantalla final</button></div>`
   :`<div class="card cj3"><div><span class="eyebrow">${n===1?'Tu primera jornada':'Estás al día'}</span></div><h2>La siguiente jornada se abre pronto</h2><div class="muted" style="font-size:13px">Día ${n} de 20 · se abre el ${fmtL(abre(n))} a las 12 de la noche.</div></div>`;
  return `<div class="wrap tfoot hoy3w">${op?hoyV3(n,d,w):sinJ}${espera.length?`<div class="card"><div class="eyebrow">Para ponerte al día</div><p class="muted" style="font-size:13px;margin:6px 0 0">Estas jornadas ya están abiertas. Se hacen en orden: primero la del Día ${n}.</p><ul class="recov">${espera.map(i=>`<li><span>Día ${i} · ${esc(sc(dia(i).titulo))}</span><span class="pill dawn">Después del Día ${i-1}</span></li>`).join('')}</ul></div>`:''}
@@ -1455,7 +1461,7 @@ function tabsV3(){const T=[['hoy','Territorio','home'],['hoy3','Hoy','sun'],['in
 function TCX(){let a=false;try{a=localStorage.getItem('tw_tcard_abierta')==='1'}catch(e){}document.documentElement.classList.toggle('tcab',a);return `<button type="button" class="tcx" data-tcx aria-expanded="${a}" aria-label="${a?'Ver menos':'Ver más detalles'}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>`}
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-tcx]');if(!t)return;e.stopPropagation();const a=!document.documentElement.classList.contains('tcab');document.documentElement.classList.toggle('tcab',a);try{localStorage.setItem('tw_tcard_abierta',a?'1':'0')}catch(_){}t.setAttribute('aria-expanded',String(a));t.setAttribute('aria-label',a?'Ver menos':'Ver más detalles')},true);
 function vHoyB(){const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount();
- const espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
+ const espera=[];for(let i=n+1;i<=Math.min(oc,ocDia());i++)if(!S.done[i])espera.push(i);
  let card;
  if(all)card=`<div class="c"><span class="eyebrow">Curso terminado</span><h2>Llegaste a la cumbre</h2><button class="btn pri" data-act="go" data-v="final">Ver pantalla final</button></div>`;
  else if(op)card=`<div class="c">${S.piel==='v3'?TCX():''}<span class="eyebrow" style="color:${MOV[w].c}">Semana ${w} de 4 · ${MOV[w].n}</span><h2>${esc(sc(d.titulo))}</h2><div class="muted" style="font-size:13px;margin-bottom:8px">Día ${n} de 20 · ${esc(d.dsem)} · ${esc(d.biblia)}</div>
@@ -1589,7 +1595,7 @@ function vFinal(){const B=D.aprobados.final;const ps=B.filter(x=>x[0]==='p');
  <div style="margin-top:22px;text-align:left">${piedrasCard()}</div></div>`}
 
 function vHoy(){if(S.design==='b')return vHoyB();const n=cur(),d=dia(n),w=d.semana,all=lastDone()>=20,op=!all&&isOpen(n),oc=openCount();
- const espera=[];for(let i=n+1;i<=oc;i++)if(!S.done[i])espera.push(i);
+ const espera=[];for(let i=n+1;i<=Math.min(oc,ocDia());i++)if(!S.done[i])espera.push(i);
  let card;
  if(all)card=`<div class="todaycard"><h2>Curso terminado</h2><button class="btn pri" data-act="go" data-v="final">Ver pantalla final</button></div>`;
  else if(op)card=`<div class="todaycard"><span class="mv pill gold" style="--c:${MOV[w].c}">Semana ${w} de 4 · ${MOV[w].n}</span><h2>${esc(sc(d.titulo))}</h2>

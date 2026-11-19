@@ -954,11 +954,13 @@ addEventListener('pointerup',function(){d=null;st.classList.remove('dragging')})
 addEventListener('resize',function(){size();tfit();if(mode==='exp'){gcam=gfit();gput()}var g=goal(mode==='position'?'position':'mountain');cam.tx=g.tx;cam.ty=g.ty;cam.s=g.s;put()});
 
 /* ---- A59: «Lección del día»: lee el avance que el curso guarda en este dispositivo (tw_metanoia_prog) y lleva directo a la jornada ---- */
+/* 19-nov-2026: mismo grupo que el curso: antes del lunes 23-nov, inicio el lunes 9-nov */
+function iniGrupo(t){var h=new Date();h=new Date(h.getFullYear(),h.getMonth(),h.getDate());return (h<new Date(2026,10,23)&&t>'2026-11-09')?'2026-11-09':t}
 function lecEstado(){var o=null;try{o=JSON.parse(localStorage.getItem('tw_metanoia_prog')||'null')}catch(e){}
  if(!o||o.v!==1||!/^\d{4}-\d{2}-\d{2}$/.test(o.inicio||'')||(!o.welcomed&&!(o.done&&o.done.length)))return{k:'nuevo',n:1};
  var dn={};(o.done||[]).forEach(function(n){dn[n]=1});var f=1;while(f<=20&&dn[f])f++;if(f>20)return{k:'fin',n:20};
- var q=o.inicio.split('-'),x=new Date(+q[0],+q[1]-1,+q[2]),h=new Date();h=new Date(h.getFullYear(),h.getMonth(),h.getDate());var oc=0;
- for(;x<=h&&oc<20;x.setDate(x.getDate()+1)){var w=x.getDay();if(w!==0&&w!==6)oc++}
+ var q=iniGrupo(o.inicio).split('-'),x=new Date(+q[0],+q[1]-1,+q[2]),h=new Date();h=new Date(h.getFullYear(),h.getMonth(),h.getDate());
+ /* 19-nov-2026: por semana completa, igual que el curso */var oc=h<x?0:Math.min(20,5*(Math.floor(Math.round((h-x)/864e5)/7)+1));
  return f<=oc?{k:'hoy',n:f}:{k:'espera',n:f}}
 function lecPintar(){var s=lecEstado(),a=$('lec'),n=$('lecN');if(!a||!n)return;
  n.textContent=s.k==='fin'?'Completo':s.k==='espera'&&s.n>1?'Al día':'Día '+s.n;
@@ -1048,14 +1050,14 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  function avance(){var o=null;try{o=JSON.parse(localStorage.getItem('tw_metanoia_prog')||'null')}catch(e){}
   var L=lecEstado(),dn={},h=0,ini=null;
   if(L.k!=='nuevo'&&o&&o.v===1&&/^\d{4}-\d{2}-\d{2}$/.test(o.inicio||'')){(Array.isArray(o.done)?o.done:[]).forEach(function(n){if(Number.isInteger(n)&&n>=1&&n<=20&&!dn[n]){dn[n]=1;h++}});
-   var t=o.inicio.split('-');ini=new Date(+t[0],+t[1]-1,+t[2])}
+   var t=iniGrupo(o.inicio).split('-');ini=new Date(+t[0],+t[1]-1,+t[2])}
   return {k:L.k,n:L.n,dn:dn,h:h,ini:ini,cw:L.k==='fin'?4:Math.floor((L.n-1)/5)}}
  function abreW(A,w){return A.ini?new Date(A.ini.getFullYear(),A.ini.getMonth(),A.ini.getDate()+7*w):null}
  function abreDia(A,n){return A.ini?new Date(A.ini.getFullYear(),A.ini.getMonth(),A.ini.getDate()+7*Math.floor((n-1)/5)+((n-1)%5)):null}
  function hechasW(A,w){var c=0;for(var j=1;j<=5;j++)if(A.dn[5*w+j])c++;return c}
  function estW(A,w){return hechasW(A,w)===5?'hecha':w===A.cw?'hoy':w<A.cw?'pasada':'futura'}
  function enHoy(A){return A.k==='hoy'||A.k==='nuevo'}
- function espera(A){var f=abreDia(A,A.n),t=f?' se abre el '+F(f):' se abre pronto';return A.n>1?'Estás al día · el Día '+A.n+t:'El Día 1'+t}
+ function espera(A){var w=Math.floor((A.n-1)/5),f=abreW(A,w),t=f?' se abre el '+F(f):' se abre pronto';return A.n>1?'Estás al día · la Semana '+(w+1)+t:'La Semana 1'+t}
  /* ---- sendero: tabla WAY del prototipo (Renovación · Ruta 2), de la bandera al campamento de llegada ---- */
  var WAY=[[40.4,60.0],[44.1,57.4],[47.3,56.1],[49.8,54.2],[49.2,52.6],[46.5,51.8],[44.0,51.3],[40.5,49.9],[37.4,48.4],[34.6,46.8],[32.9,45.4],[31.8,43.8],[29.5,42.8],[25.4,41.6]],
   ETAPA=[0,1,6,10,13]; /* puntos de WAY donde están la bandera y las etapas 1 a 4 (las mismas coordenadas de PVD.renovacion) */
