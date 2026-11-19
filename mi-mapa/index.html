@@ -581,10 +581,6 @@ html[data-piel=v3]{--v3pw:0px}
 /* Celular (Juan, 19-nov): sin desenfoque de lo que hay detrás de barras y tarjetas. Al mover el mapa el celular tenía que recalcularlo
    en cada cuadro y se quedaba sin memoria gráfica (parpadeo). Los fondos quedan casi sólidos, como ya se veían. */
 @media (max-width:899px),(pointer:coarse){*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}:root{--glass:rgba(10,17,26,.93)}}
-/* Celular y tablet (Juan, 19-nov): la ruta y la bandera titilaban. Estas cuatro animaciones obligan a repintar toda la capa del mapa en cada cuadro
-   (hormigas y brillo del sendero en el SVG #v3way, anillo de los marcadores con box-shadow y fondo de la niebla). En pantallas táctiles quedan quietas.
-   Siguen las que no repintan: caminante, estrellas, fogatas, nubes y luces. En el computador no cambia nada. */
-@media (pointer:coarse){[data-piel=v3] #v3way .ah,[data-piel=v3] #v3way .gl,.mk[data-s=current],.mk.pk,.dr.go,.fdoor.go,[data-piel=v3] .v3fogmask{animation:none!important}[data-piel=v3] #v3way .gl{opacity:.8}}
 </style>
 </head>
 <body>
@@ -1264,5 +1260,16 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
  t.addEventListener('click',function(ev){ev.stopPropagation();ab=!ab;try{localStorage.setItem('tw_ficha_abierta',ab?'1':'0')}catch(e){}pinta()});
  (mq.addEventListener?mq.addEventListener('change',pinta):mq.addListener(pinta));pinta();
 })();</script>
+<script id="diagnostico">
+/* Modo diagnóstico (Juan, 19-nov): solo con ?diagnostico en la dirección. Botones para apagar una capa del mapa a la vez
+   y ver cuál causa el titileo en celular y tablet. Sin ?diagnostico no hace nada. */
+(function(){if(!/[?&]diagnostico\b/.test(location.search))return;
+var G=[['Niebla','.v3nube,.v3fogmask,#v3fog'],['Estrellas','.v3est'],['Luces y fogatas','.v3luz'],['Sendero','#v3way'],['Caminante','#v3walk'],['Marcadores','.mk,#pv'],['Fondo borroso','#amb,#gamb,#tamb'],['Todo quieto','*']];
+var css='',i;for(i=0;i<G.length;i++){css+=i===7?'html.dg7 #stage *{animation:none!important;transition:none!important}':'html.dg'+i+' :is('+G[i][1]+'){display:none!important}'}
+var st=document.createElement('style');st.textContent=css+'#dgp{position:fixed;z-index:99999;left:6px;top:70px;width:170px;padding:8px;background:#0C1520;border:1px solid #C8A84B;border-radius:12px;font:600 12px system-ui;color:#EAE8E0}#dgp b{display:block;margin:0 0 6px;color:#DEC06A}#dgp button{display:block;width:100%;margin:3px 0;padding:7px;border-radius:8px;border:1px solid #445;background:#111C28;color:#EAE8E0;font:600 12px system-ui;text-align:left}#dgp button.off{background:#5a2020;border-color:#a44}#dgp small{display:block;margin-top:6px;color:#9DB0BB}';document.head.appendChild(st);
+var d=document.createElement('div');d.id='dgp';d.innerHTML='<b>Diagnóstico</b>';G.forEach(function(g,k){var b=document.createElement('button');b.type='button';b.textContent='Apagar: '+g[0];b.onclick=function(){var on=document.documentElement.classList.toggle('dg'+k);b.className=on?'off':'';b.textContent=(on?'Encender: ':'Apagar: ')+g[0]};d.appendChild(b)});
+var f=document.createElement('small');f.textContent='cuadros/s: …';d.appendChild(f);var h=document.createElement('button');h.type='button';h.textContent='Ocultar este panel';h.onclick=function(){d.style.display='none'};d.appendChild(h);
+document.body.appendChild(d);var n=0,t0=performance.now();(function q(){n++;var t=performance.now();if(t-t0>=1000){f.textContent='cuadros/s: '+Math.round(n*1000/(t-t0));n=0;t0=t}requestAnimationFrame(q)})()})();
+</script>
 </body>
 </html>
