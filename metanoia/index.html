@@ -1041,6 +1041,7 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 /* 19-nov-2026: botón del inicio del curso en celular: va debajo del título y al final, ya no flota a media pantalla */
 [data-piel=v3] .cl3-hcta{display:none}
 @container app (max-width:899px){[data-piel=v3] .cl3-hcta{display:block;margin-top:18px}[data-piel=v3] .cl3-bot{position:static;background:none;padding-top:8px}}
+#bookov{position:fixed;inset:0;z-index:2147483000;background:#080C12}#bookov[hidden]{display:none}#bookov iframe{display:block;border:0;width:100%;height:100%}html.bookon body{overflow:hidden}
 </style></head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
@@ -1450,9 +1451,18 @@ function vHoy3(){if(S.piel!=='v3'){S.view='hoy';return vHoy()}
 const BLC3={apertura:'Apertura',palabra:'Palabra',libro:'Libro',video:'Video',leccion:'Lección',bitacora:'Bitácora',cierre:'Cierre'};
 /* Barra única del curso (reemplaza la oficial «THE WAY · Salir» + la del curso). «Salir» pasa a Ajustes. */
 const SLID3='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>';
-/* Selector de vista (19-nov-2026): la misma semana del curso en forma de cuadernillo. Semanas sin cuadernillo todavía → portada del cuadernillo. */
-function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/cuadernillo/${C[w]||''}">${CUADI}Book</a></nav>`}
+/* Selector de vista (19-nov-2026): la misma semana del curso en forma de Book. Semanas sin Book todavía → portada del Book. */
+function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/book/${C[w]||''}">${CUADI}Book</a></nav>`}
 const CUADI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>';
+/* 19-nov-2026: el Book se abre ENCIMA del curso (sin salir de la app), así «App» vuelve al instante; el botón atrás del celular también lo cierra. */
+(function(){let ov=null,fr=null;
+ function abrir(u){if(!ov){ov=document.createElement('div');ov.id='bookov';ov.hidden=true;ov.innerHTML='<iframe title="Book del curso"></iframe>';document.body.appendChild(ov);fr=ov.firstChild}
+  if(fr.dataset.u!==u){fr.src=u;fr.dataset.u=u}ov.hidden=false;document.documentElement.classList.add('bookon');try{history.pushState({twbook:1},'')}catch(e){}}
+ function cerrar(pop){if(!ov||ov.hidden)return;ov.hidden=true;document.documentElement.classList.remove('bookon');if(!pop&&history.state&&history.state.twbook)history.back()}
+ document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('.vista3 a');if(!a)return;e.preventDefault();e.stopPropagation();abrir(a.getAttribute('href'))},true);
+ addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.tw==='app')cerrar(false)});
+ addEventListener('popstate',()=>cerrar(true));
+})();
 function barV3(inC){return `<header class="bar hud b3">${inC&&S.design==='b'?`<button class="ibtn hamb" data-act="side" aria-label="Mostrar u ocultar el recorrido del curso" aria-controls="side" aria-expanded="${sideVisible()}">${HAMB}</button>`:''}<button class="back3" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Mi Mapa</button><span class="tw3" aria-hidden="true">THE <span>WAY</span></span><div class="hudt"><h1>Protocolo Metanoia</h1><button class="back" data-act="go" data-v="entrada" aria-label="Volver a MI MAPA">‹ Volver a Mi Mapa · Renovación · Ruta 2</button><small class="rt3">Renovación · Ruta 2</small></div>${inC?topnav():''}${inC?`<button class="dp3" data-act="lecdia" aria-label="${lecLabel()}">${lecInfo().t}</button>`:''}${vistaSel()}<div class="vsw" role="group" aria-label="Ayuda y lectura"><button class="ibtn" data-act="how" aria-label="Cómo funciona">${ic('info')}</button><button class="ibtn cfg" data-act="aa" aria-haspopup="dialog" aria-label="Ajustes: tamaño de letra, tema y herramientas del College">${SLID3}</button></div></header>`}
 /* Cápsula flotante (menos de 900 px): Territorio · Hoy · Camino · Bitácora. En la Jornada y en Mapa personal no se marca ninguna. */
 function tabsV3(){const T=[['hoy','Territorio','home'],['hoy3','Hoy','sun'],['indice','Camino','list'],['bitacora','Bitácora','bitacora']];
