@@ -1050,7 +1050,47 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
 .centro3{display:contents}
 @container app (min-width:900px){[data-piel=v3] .bar.b3 .centro3{display:flex;align-items:center;gap:8px;order:3;margin-left:auto}[data-piel=v3] .bar.b3 .centro3 .hamb{margin:0}[data-piel=v3] .bar.b3 .vista3{margin-left:auto}}
 @container app (min-width:1400px){[data-piel=v3] .bar.b3{position:relative}[data-piel=v3] .bar.b3 .centro3{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}}
-</style></head>
+</style>
+<style id="barra-comun">
+/* BARRA COMÚN · mismas medidas exactas en App (metanoia/index.html) y Book (lector.tpl.html). Si cambia una, cambie la otra. */
+.bar.b3{box-sizing:border-box!important;height:65px!important;min-height:65px!important;border-bottom:1px solid rgba(255,255,255,.08)!important;padding:0 16px!important;gap:12px!important;align-items:center!important;flex-wrap:nowrap!important}
+.bar.b3 .back3{display:inline-flex!important;box-sizing:border-box!important;width:82px!important;height:36px!important;padding:0!important;margin:0!important;justify-content:center!important;align-items:center!important;flex:none!important;border-radius:12px!important;font:600 12px/1 var(--f-ui)!important;order:1!important}
+.bar.b3 .tw3,.bar.b3 .dp3,.bar.b3 .hudt .back{display:none!important}
+.bar.b3 .hudt{flex:none!important;min-width:0!important;margin:0!important;order:2!important;height:40px!important;display:block!important}
+.bar.b3 .hudt h1{font:400 22px/22px var(--f-disp)!important;letter-spacing:1px!important;margin:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.bar.b3 .rt3{display:block!important;margin:4px 0 0!important;font:400 11px/13px var(--f-ui)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.bar.b3 .vista3{box-sizing:border-box!important;height:38px!important;padding:3px!important;gap:2px!important;margin:0 0 0 auto!important;flex:none!important;border-radius:99px!important;order:6!important}
+.bar.b3 .vista3>*{box-sizing:border-box!important;height:30px!important;padding:0!important;justify-content:center!important;gap:6px!important;font:700 13px/1 var(--f-ui)!important;border-radius:99px!important}
+.bar.b3 .vista3>:first-child{width:52px!important}
+.bar.b3 .vista3>:last-child{width:82px!important}
+.bar.b3 .vista3 svg{display:inline-block!important;width:16px!important;height:16px!important;flex:none!important}
+.bar.b3 .vsw{display:flex!important;gap:4px!important;padding:0!important;margin:0!important;flex:none!important;order:7!important;background:none!important;border:0!important}
+.bar.b3 .vsw .ibtn{box-sizing:border-box!important;width:40px!important;height:40px!important;min-width:0!important;min-height:0!important;padding:0!important;border-radius:12px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+.bar.b3 .vsw svg{width:20px!important;height:20px!important}
+@container app (min-width:900px){
+ .bar.b3 .centro3{display:flex!important;align-items:center!important;gap:8px!important;height:44px!important;margin:0 auto!important;flex:none!important;order:3!important}
+ .bar.b3 .centro3~.vista3{margin-left:0!important}
+ .bar.b3 .centro3 .hamb{box-sizing:border-box!important;width:42px!important;height:42px!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;border-radius:12px!important;flex:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+ .bar.b3 .centro3 .hamb svg{width:20px!important;height:20px!important}
+ .bar.b3 .topnav{box-sizing:border-box!important;height:44px!important;padding:0 3px!important;gap:3px!important;border-radius:14px!important;align-items:center!important;margin:0!important}
+ .bar.b3 .topnav .tn-g{display:flex!important;box-sizing:border-box!important;height:44px!important;padding:0 3px!important;gap:3px!important;margin:0!important;align-items:center!important;border-radius:14px!important;background:#0C1520!important;border:1px solid rgba(255,255,255,.08)!important}
+ .bar.b3 .topnav .ibtn{box-sizing:border-box!important;height:36px!important;min-height:0!important;padding:0 12px!important;border-radius:10px!important;font:600 13px/1 var(--f-ui)!important}
+ .bar.b3 .topnav .ibtn.lecT{padding:0 4px 0 12px!important;font-weight:700!important}
+}
+@container app (min-width:900px) and (max-width:1199px){.bar.b3 .hudt{display:none!important}}
+@container app (min-width:1400px){.bar.b3 .centro3{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important}.bar.b3 .centro3~.vista3{margin-left:auto!important}}
+@container app (min-width:900px) and (max-width:1399px){.bar.b3 .vista3 svg{display:none!important}.bar.b3 .vista3>:last-child{width:60px!important}.bar.b3 .topnav .ibtn{padding:0 9px!important;font-size:12.5px!important}}
+@container app (min-width:900px){.bar.b3 .centro3{box-sizing:border-box!important;width:704px!important}.bar.b3 .topnav{display:flex!important;flex:1 1 auto!important;min-width:0!important}.bar.b3 .topnav .tn-g{flex:1 1 auto!important;min-width:0!important}.bar.b3 .topnav .tn-g .ibtn{flex:1 1 auto!important;justify-content:center!important}.bar.b3 .topnav .ibtn.lecT{flex:none!important}}
+@container app (min-width:900px) and (max-width:1399px){.bar.b3 .centro3{width:610px!important}}
+@container app (min-width:900px) and (max-width:1199px){.bar.b3 .centro3{width:510px!important}.bar.b3 .lecT>span:first-child{display:none!important}.bar.b3 .topnav .ibtn.lecT{padding:0 6px!important}}
+@container app (max-width:599px){
+ .bar.b3{height:auto!important;min-height:0!important;flex-wrap:wrap!important;padding:9px 12px 10px!important;gap:8px 10px!important}
+ .bar.b3 .hudt{flex:1 1 0!important}
+ .bar.b3 .vista3{order:10!important;flex:1 1 100%!important;height:42px!important;margin:0!important}
+ .bar.b3 .vista3>*{flex:1 1 0!important;width:auto!important;height:34px!important;font-size:14px!important}
+}
+</style>
+</head>
 <body class="bare">
 <div class="stagewrap" id="stagewrap" data-dev="auto"><div class="frame" id="frame"><div class="app" id="app"></div></div></div>
 <script>window.FINAL=true;window.GATED=true;window.GEO={"TRAIL": [[[50.1, 86.1], [56.9, 73.1], [43.4, 68.5]], [[44.1, 57.4], [44.0, 51.3], [32.9, 45.4]], [[24.8, 38.3], [28.9, 35.9], [25.2, 33.3]]], "CAMP": [[37.1, 62.7], [25.4, 41.6], [22.8, 30.8]], "DOOR": [[44.8, 92.2], [40.4, 60.0], [21.4, 41.8]]};</script>

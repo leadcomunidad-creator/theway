@@ -275,6 +275,46 @@ header.ui .dias .dg{display:flex;gap:3px;padding:4px;border-radius:14px;border:1
 @media (max-width:359px){header.ui .wmk{display:none}}
 @media (max-height:520px){body{grid-template-rows:minmax(0,1fr) auto}header.ui,.dias{display:none!important}.pie{flex-direction:row}.pie .barra2{display:flex!important}.nota{display:none}.dias{padding:4px 10px 2px}.dias button{font-size:12px;padding:5px 10px}header.ui{padding-top:4px;padding-bottom:4px}header.ui .sub{display:none}.letra button{height:30px}header.ui a.todo{padding:6px 10px;font-size:12px}.pie{padding-top:3px;padding-bottom:calc(4px + env(safe-area-inset-bottom))}.controles button{min-height:36px;font-size:14px}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">
+<style id="barra-comun">
+header.ui .dias{box-sizing:border-box!important;width:704px}
+header.ui .dias .dg{flex:1 1 auto!important;min-width:0!important}
+header.ui .dias .dg button{flex:1 1 auto!important;justify-content:center!important}
+@media (max-width:1399px){header.ui .dias{width:610px}}
+@media (max-width:1199px){header.ui .dias{width:510px}}
+/* BARRA COMÚN · mismas medidas exactas en App (metanoia/index.html) y Book (lector.tpl.html). Si cambia una, cambie la otra. */
+header.ui{box-sizing:border-box!important;height:calc(65px + env(safe-area-inset-top,0px))!important;border-bottom:1px solid rgba(255,255,255,.08)!important;min-height:0!important;padding:env(safe-area-inset-top,0px) 16px 0!important;gap:12px!important;align-items:center!important;flex-wrap:nowrap!important}
+header.ui .back3{display:inline-flex!important;box-sizing:border-box!important;width:82px!important;height:36px!important;padding:0!important;margin:0!important;justify-content:center!important;align-items:center!important;flex:none!important;border-radius:12px!important;font:600 12px/1 'DM Sans',system-ui,sans-serif!important;border:1px solid rgba(255,255,255,.16)!important;background:#111C28!important;color:#EAE8E0!important}
+header.ui .tt{flex:none!important;min-width:0!important;margin:0!important;height:40px!important;display:block!important}
+header.ui .tt b{display:block!important;height:22px!important}
+header.ui .tt small{display:block!important;height:13px!important}
+@media (min-width:900px) and (max-width:1199px){header.ui .tt{display:none!important}}
+header.ui .tt b{font:400 22px/22px 'Bebas Neue',Impact,sans-serif!important;letter-spacing:1px!important;margin:0!important}
+header.ui .tt small{margin:4px 0 0!important;font:400 11px/13px 'DM Sans',system-ui,sans-serif!important}
+header.ui .vista{border:1px solid rgba(255,255,255,.08)!important;background:rgba(255,255,255,.06)!important;box-sizing:border-box!important;height:38px!important;padding:3px!important;gap:2px!important;margin:0 0 0 auto!important;flex:none!important;border-radius:99px!important}
+header.ui .vista>*{box-sizing:border-box!important;height:30px!important;padding:0!important;justify-content:center!important;gap:6px!important;font:700 13px/1 'DM Sans',system-ui,sans-serif!important;border-radius:99px!important}
+header.ui .vista>:first-child{width:52px!important}
+header.ui .vista>:last-child{width:82px!important}
+header.ui .vista svg{display:inline-block!important;width:16px!important;height:16px!important;flex:none!important}
+header.ui .vsw{display:flex!important;gap:4px!important;padding:0!important;margin:0!important;flex:none!important}
+header.ui .vsw .ib{border:1px solid transparent!important;color:#9DB0BB!important;box-sizing:border-box!important;width:40px!important;height:40px!important;padding:0!important;border-radius:12px!important}
+header.ui .vsw svg{width:20px!important;height:20px!important}
+header.ui .dias{display:flex!important;align-items:center!important;gap:8px!important;height:44px!important;margin:0 auto!important;flex:none!important;padding:0!important;border:0!important;background:none!important;overflow:visible!important}
+header.ui .dias~.vista{margin-left:0!important}
+header.ui .dias .hamd{border:1px solid rgba(255,255,255,.16)!important;background:transparent!important;color:#EAE8E0!important;box-sizing:border-box!important;width:42px!important;height:42px!important;padding:0!important;margin:0!important;border-radius:12px!important;flex:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+header.ui .dias .hamd svg{width:20px!important;height:20px!important}
+header.ui .dias .dg{background:#0C1520!important;border:1px solid rgba(255,255,255,.08)!important;display:flex!important;box-sizing:border-box!important;height:44px!important;padding:0 3px!important;gap:3px!important;border-radius:14px!important;align-items:center!important;margin:0!important}
+header.ui .dias .dg button{box-sizing:border-box!important;height:36px!important;padding:0 12px!important;border-radius:10px!important;font:600 13px/1 'DM Sans',system-ui,sans-serif!important}
+@media (min-width:1400px){header.ui .dias{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important}header.ui .dias~.vista{margin-left:auto!important}}
+@media (min-width:900px) and (max-width:1399px){header.ui .vista svg{display:none!important}header.ui .vista>:last-child{width:60px!important}header.ui .dias .dg button{padding:0 9px!important;font-size:12.5px!important}}
+@media (max-width:599px){
+ header.ui{height:auto!important;min-height:0!important;flex-wrap:wrap!important;padding:calc(9px + env(safe-area-inset-top,0px)) 12px 10px!important;gap:8px 10px!important}
+ header.ui .tt{flex:1 1 0!important}
+ header.ui .vista{order:10!important;flex:1 1 100%!important;height:42px!important;margin:0!important}
+ header.ui .vista>*{flex:1 1 0!important;width:auto!important;height:34px!important;font-size:14px!important}
+}
+</style>
 </head>
 <body>
 <header class="ui">
