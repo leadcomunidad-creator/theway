@@ -497,6 +497,8 @@ function lugarDias(){const H=document.querySelector('header.ui'),V=H.querySelect
   if(w&&navD.parentNode!==H){H.insertBefore(navD,V);document.body.classList.add('sinDias')}
   else if(!w&&navD.parentNode===H){document.body.insertBefore(navD,mesa);document.body.classList.remove('sinDias')}}
 function rearmar(){lugarDias();
+  /* 20-nov: si la ventana está minimizada, oculta o abriéndose, no se arman hojas con un tamaño falso; se reintenta cuando haya espacio real */
+  if(mesa.clientWidth<240||mesa.clientHeight<240){ultimo='';return}
   const g=geometria(),clave=[g.pw,g.ph,g.dos,g.z].join();
   if(clave===ultimo)return;ultimo=clave;
   espera.hidden=false;
@@ -613,7 +615,10 @@ TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button
 
 /* 19-nov-2026: si el Book está abierto encima de la app, «App» la cierra al instante (sin recargar el curso) */
 if(window.top!==window){document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="/metanoia/"]');if(!a)return;e.preventDefault();try{parent.postMessage({tw:'app'},location.origin)}catch(_){}},true)}
-let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(rearmar,200)});
+let rt;const reacomodar=()=>{clearTimeout(rt);rt=setTimeout(rearmar,200)};addEventListener('resize',reacomodar);
+/* 20-nov: además de la ventana, se vigila el espacio del libro (cambia al mover los días a la barra, al mostrar el Book encima de la App o al restaurar la ventana) */
+try{new ResizeObserver(reacomodar).observe(mesa)}catch(e){}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)reacomodar()});addEventListener('pageshow',reacomodar);
 document.fonts&&document.fonts.ready.then(()=>{ultimo='';rearmar()});
 rearmar();
 window.__lector={get pos(){return pos},get n(){return pages.length},get G(){return G},pasar,get ocupado(){return ocupado},pages:()=>pages};
