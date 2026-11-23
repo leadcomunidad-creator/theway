@@ -1508,7 +1508,7 @@ const BLC3={apertura:'Apertura',palabra:'Palabra',libro:'Libro',video:'Video',le
 /* Barra única del curso (reemplaza la oficial «THE WAY · Salir» + la del curso). «Salir» pasa a Ajustes. */
 const SLID3='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>';
 /* Selector de vista (19-nov-2026): la misma semana del curso en forma de Book. Semanas sin Book todavía → portada del Book. */
-function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/book/${C[w]||''}">${CUADI}eBook</a></nav>`}
+function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/',3:'semana-3/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/book/${C[w]||''}">${CUADI}eBook</a></nav>`}
 const CUADI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>';
 /* 19-nov-2026: el Book se abre ENCIMA del curso (sin salir de la app), así «App» vuelve al instante; el botón atrás del celular también lo cierra. */
 (function(){let ov=null,fr=null;

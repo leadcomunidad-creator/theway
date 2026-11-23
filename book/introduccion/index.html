@@ -283,7 +283,13 @@ header.ui .dias .dg{display:flex;gap:3px;padding:4px;border-radius:14px;border:1
 #salirFS:hover,#salirFS:focus-visible{opacity:1}
 html.lleno body,html.lleno body.sinDias{grid-template-rows:minmax(0,1fr) auto!important}
 html.lleno header.ui,html.lleno .dias{display:none!important}
-html.lleno #salirFS{display:inline-flex}
+html.lleno #salirFS{display:inline-flex;opacity:0;pointer-events:none;transition:opacity .25s}
+/* 23-nov-2026 (Juan): completa es completa: sin botones; solo la hoja. Tocar la hoja muestra «Salir» unos segundos. */
+html.lleno .pie{display:none!important}
+html.lleno.verSalir #salirFS{opacity:.9;pointer-events:auto}
+#avisoFS{display:none}
+html.lleno #avisoFS{display:block;position:fixed;z-index:59;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);max-width:calc(100vw - 32px);padding:8px 14px;border-radius:99px;background:rgba(8,12,18,.82);color:#EAE8E0;font:600 13px/1.3 'DM Sans',system-ui,sans-serif;text-align:center;pointer-events:none;opacity:0;transition:opacity .4s}
+html.lleno.verAviso #avisoFS{opacity:1}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">
@@ -334,7 +340,7 @@ header.ui .dias .dg button{box-sizing:border-box!important;height:36px!important
   <div class="vsw"><a class="ib" href="../introduccion/" aria-label="Bienvenida: cómo funciona el curso"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg></a><button class="ib" type="button" id="cfg" aria-haspopup="dialog" aria-expanded="false" aria-label="Ajustes: tamaño de letra y pantalla completa"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg></button></div>
   <div class="cfgpop" id="cfgPop" hidden role="dialog" aria-label="Ajustes"><b>Tamaño de la letra</b><div class="letra" role="group" aria-label="Tamaño de la letra"><button class="a1" id="menos" aria-label="Letra más pequeña">A−</button><button class="a2" id="mas" aria-label="Letra más grande">A+</button></div><b>Pantalla</b><button type="button" class="fsb" id="fs" aria-pressed="false">Pantalla completa</button></div>
 </header>
-<button type="button" class="ui" id="salirFS" aria-label="Salir de pantalla completa">✕ Salir de pantalla completa</button>
+<button type="button" class="ui" id="salirFS" aria-label="Salir de pantalla completa">✕ Salir de pantalla completa</button><div id="avisoFS" aria-hidden="true">Desliza para pasar de página · Toca la hoja para salir</div>
 <div class="menuS ui" id="menuS" hidden><div class="fondo" data-cierra></div><aside class="panel" role="dialog" aria-label="Semanas del curso"><div class="ph"><b>Protocolo Metanoia</b><button type="button" class="x" data-cierra aria-label="Cerrar">×</button></div><ul id="listaS"></ul><p class="nt">Cada semana se abre completa el lunes que le corresponde.</p></aside></div>
 <nav class="dias ui" id="dias" aria-label="Ir a un día"><button type="button" class="hamd" id="ham" aria-label="Ver todas las semanas" aria-expanded="false" aria-controls="menuS"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="dg"></span></nav>
 <div id="mesa" tabindex="0" aria-label="Páginas del eBook"><div id="libro"></div><div id="espera">Acomodando las páginas…</div></div>
@@ -605,7 +611,7 @@ TOP.forEach((e,i)=>{if(!dLabels[i])return;const b=document.createElement('button
  const GRUPO_INICIO='2026-11-09',GRUPO_HASTA='2026-11-23';
  const SEC=[{id:'introduccion',k:'Empieza aquí',t:'Introducción',c:'#C8A84B',w:0,hay:true},
   {id:'semana-1',k:'Semana 1',t:'Reemplazar',c:'#5A43A8',w:1,hay:true},{id:'semana-2',k:'Semana 2',t:'Reentrenar',c:'#22633B',w:2,hay:true},
-  {id:'semana-3',k:'Semana 3',t:'Replantear',c:'#8A5A06',w:3,hay:false},{id:'semana-4',k:'Semana 4',t:'Recuperar',c:'#255E80',w:4,hay:false}];
+  {id:'semana-3',k:'Semana 3',t:'Replantear',c:'#8A5A06',w:3,hay:true},{id:'semana-4',k:'Semana 4',t:'Recuperar',c:'#255E80',w:4,hay:false}];
  const d0=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate()),hoy=d0(new Date());
  const fi=t=>{const p=t.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])};
  let ini=GRUPO_INICIO;try{const o=JSON.parse(localStorage.getItem('tw_metanoia_prog')||'null');if(o&&o.v===1&&/^\d{4}-\d{2}-\d{2}$/.test(o.inicio||''))ini=o.inicio}catch(e){}
@@ -646,6 +652,13 @@ window.__lector={get pos(){return pos},get n(){return pages.length},get G(){retu
   if(v){if(!fsOn())llamar(de.requestFullscreen||de.webkitRequestFullscreen,de)}else if(fsOn())llamar(document.exitFullscreen||document.webkitExitFullscreen,document)}
  FS.addEventListener('click',e=>{e.stopPropagation();lleno(!de.classList.contains('lleno'));P.hidden=true;const C=document.getElementById('cfg');if(C)C.setAttribute('aria-expanded','false')});
  SAL.addEventListener('click',()=>lleno(false));
+ /* 23-nov-2026: sin botones a la vista. Un toque en la hoja (sin arrastrar) muestra «Salir» 3,5 s; Esc sale. */
+ let tS=0,tA=0,px=0,py=0;const M=document.getElementById('mesa');
+ const verSalir=()=>{de.classList.add('verSalir');clearTimeout(tS);tS=setTimeout(()=>de.classList.remove('verSalir'),3500)};
+ if(M){M.addEventListener('pointerdown',e=>{px=e.clientX;py=e.clientY},true);
+  M.addEventListener('click',e=>{if(de.classList.contains('lleno')&&Math.abs(e.clientX-px)<10&&Math.abs(e.clientY-py)<10)verSalir()})}
+ addEventListener('keydown',e=>{if(e.key==='Escape'&&de.classList.contains('lleno'))lleno(false)});
+ FS.addEventListener('click',()=>{if(!de.classList.contains('lleno'))return;de.classList.add('verAviso');clearTimeout(tA);tA=setTimeout(()=>de.classList.remove('verAviso'),3000)});
  const cambio=()=>{if(!fsOn()&&de.classList.contains('lleno'))lleno(false)};
  document.addEventListener('fullscreenchange',cambio);document.addEventListener('webkitfullscreenchange',cambio);
 })();
