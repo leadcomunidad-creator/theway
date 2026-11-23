@@ -1332,7 +1332,15 @@ function linesHTML(b,d){
 /* ---------- bloques de jornada ---------- */
 /* Etapa 4 (autorizada por Juan el 9-nov): videos semanales ya publicados en YouTube (no listados), por semana.
    Solo la Semana 1 tiene video; las demás semanas siguen mostrando «Video disponible pronto». */
-const VIDEOS={1:'722P_oOOCCk'};
+/* 23-nov-2026 (Juan): los videos de semana se ocultan todos hasta que estén los cuatro grabados.
+   Ya grabados (para activarlos, pasarlos a VIDEOS): Semana 1 '722P_oOOCCk'. */
+const VIDEOS={};
+/* 23-nov-2026 (Juan): video de bienvenida, en «Antes del Día 1» (pantalla de bienvenida y «Cómo funciona»). */
+const VIDEO_BIENVENIDA='6IF9bsgEIN0';
+/* 22-nov-2026 (Juan): mientras una semana no tenga video, su paso «Video de la semana» no se muestra ni cuenta para avanzar o cerrar.
+   El bloque sigue en los datos (mismos índices; no cambia lo guardado). Cuando la semana tenga su video en VIDEOS, el paso vuelve solo. */
+const vidOff=(n,i)=>{const d=dia(n),b=d&&d.bloques[i];return !!b&&b.tipo==='video'&&!VIDEOS[d.semana]};
+const vis=n=>dia(n).bloques.map((_,i)=>i).filter(i=>!vidOff(n,i));
 function videoHTML(d){
  const yt=VIDEOS[d.semana];
  if(yt)return `<div class="vid vid-yt" role="group" aria-label="Video de apertura"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0" title="Video de apertura de la semana" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
@@ -1461,15 +1469,15 @@ function paisajeHTML(){
  const [wx,wy]=tpos(all?20:n);h+=`<div class="wk-pos" style="left:${wx}%;top:${wy}%">${walkerSVG()}</div></div>`;
  return `<div class="terr" id="terr">${h}</div>`}
 /* Rediseño v2 (etapa 1): «Hoy» = la jornada que toca, con su avance por escenas. Solo lee S.step; los botones usan la acción existente «day». */
-function hoyV2(n,d,w){const B=d.bloques,k=B.filter((_,i)=>S.step[n+':'+i]).length,pc=Math.round(100*k/B.length),nx=nextStep(n);
+function hoyV2(n,d,w){const V=vis(n),B=V.map(i=>d.bloques[i]),k=V.filter(i=>S.step[n+':'+i]).length,pc=Math.round(100*k/B.length),nx=nextStep(n);
  return `<section class="hoyv2" aria-label="Hoy: Día ${n}"><div class="ring" style="--p:${pc}%"><div class="in"><span class="dd">Día ${n} · ${esc(d.dsem)}</span><b>${pc}%</b><span class="ne">${k} de ${B.length} escenas</span></div></div>
  <span class="chipw" style="--c:${MOV[w].c}">${MOV[w].n} · Semana ${w}</span><h2>${esc(sc(d.titulo))}</h2>
  <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button>
- <div class="tiles">${B.map((b,i)=>{const ok=!!S.step[n+':'+i],cu=i===nx;return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc((BL[b.tipo]||['Contenido'])[0])}: ${ok?'Completada':cu?'Te toca':'Paso '+(i+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':i+1}</span><span class="nm">${esc((BL[b.tipo]||['Contenido'])[0])}</span></button>`}).join('')}</div></section>`}
+ <div class="tiles">${B.map((b,p)=>{const i=V[p],ok=!!S.step[n+':'+i],cu=i===nx;return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc((BL[b.tipo]||['Contenido'])[0])}: ${ok?'Completada':cu?'Te toca':'Paso '+(p+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':p+1}</span><span class="nm">${esc((BL[b.tipo]||['Contenido'])[0])}</span></button>`}).join('')}</div></section>`}
 /* Rediseño v3 (fase curso): piezas de presentación que solo se dibujan con ?piel=v3. Solo LEEN el estado (S.step, S.done, fichas, racha);
    sus botones usan acciones que ya existían (day, go, jump). No hay acciones nuevas. */
-function ringV3(n,d){const B=d.bloques,k=B.filter((_,i)=>S.step[n+':'+i]).length,pc=Math.round(100*k/B.length);return `<div class="ring3" style="--p:${pc}%"><div class="in"><span class="dd">Día ${n} · ${esc(d.dsem)}</span><b>${pc}%</b><span class="ne">${k} de ${B.length} escenas</span></div></div>`}
-function tilesV3(n,d,corto){const nx=nextStep(n);return `<div class="tiles3">${d.bloques.map((b,i)=>{const ok=!!S.step[n+':'+i],cu=i===nx,nm=(BL[b.tipo]||['Contenido'])[0].split(corto?' · ':'\n')[0];return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc(nm)}: ${ok?'Completada':cu?'Te toca':'Paso '+(i+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':String(i+1).padStart(2,'0')}</span><span class="nm">${esc(nm)}</span></button>`}).join('')}</div>`}
+function ringV3(n,d){const V=vis(n),B=V.map(i=>d.bloques[i]),k=V.filter(i=>S.step[n+':'+i]).length,pc=Math.round(100*k/B.length);return `<div class="ring3" style="--p:${pc}%"><div class="in"><span class="dd">Día ${n} · ${esc(d.dsem)}</span><b>${pc}%</b><span class="ne">${k} de ${B.length} escenas</span></div></div>`}
+function tilesV3(n,d,corto){const nx=nextStep(n),V=vis(n);return `<div class="tiles3">${V.map((i,p)=>{const b=d.bloques[i],ok=!!S.step[n+':'+i],cu=i===nx,nm=(BL[b.tipo]||['Contenido'])[0].split(corto?' · ':'\n')[0];return `<button class="tile ${ok?'ok':cu?'cur':''}" data-act="day" data-n="${n}" aria-label="${esc(nm)}: ${ok?'Completada':cu?'Te toca':'Paso '+(p+1)}"><span class="tg">${ok?'✓ Completada':cu?'Te toca':String(p+1).padStart(2,'0')}</span><span class="nm">${esc(nm)}</span></button>`}).join('')}</div>`}
 function hoyV3(n,d,w){return `<section class="hoy3" aria-label="Hoy: Día ${n}"><div class="hero3">${ringV3(n,d)}<div class="tx"><span class="chipw" style="--c:${MOV[w].c}">${MOV[w].n} · Semana ${w}</span><h2>${esc(sc(d.titulo))}</h2><div class="meta">Día ${n} de 20 · ${esc(d.dsem)} · <em>${esc(d.biblia)}</em></div>
  <button class="btn pri" data-act="day" data-n="${n}">${S.step[n+':0']||S.val['p'+n+':0']?'Continuar donde quedé':'Comenzar la jornada'}</button></div></div><h3 class="ttl3">Las escenas de hoy</h3>${tilesV3(n,d)}</section>`}
 function cairnV3(c){const R=[5,4,4,3,2,1,1],SH=[0,8,-6,7,-4,5,2],DW=[-3,2,0,4,-1],HR=[.56,.62,.5,.6,.66],RT=[-4,3,-2,5,0],RA=['52% 48% 46% 54% / 60% 55% 45% 40%','45% 55% 50% 50% / 50% 60% 40% 50%','60% 40% 55% 45% / 55% 45% 55% 45%','50% 50% 42% 58% / 62% 48% 52% 38%','48% 52% 58% 42% / 45% 58% 42% 55%'];let k=0;
@@ -1478,7 +1486,7 @@ function piedrasV3(){const c=doneCount(),r=racha();return `<div class="card pied
 function bitaCardV3(){return `<h3 class="ttl3">Mi Bitácora</h3><button class="mp3" data-act="go" data-v="mapa"><span class="k">Tu Mapa Personal se elabora en el Día 20</span><b>Mi Mapa Personal de Renovación</b></button><button class="btn ghost" data-act="go" data-v="bitacora">Abrir mi Bitácora</button>`}
 function fichasV3(){const dd={inicial:1,s1:5,s2:10,s3:15,s4:19};return `<h3 class="ttl3">Lo que se suma a tu Mapa</h3>${['inicial','s1','s2','s3','s4'].map(k=>`<div class="fi3" style="--c:${k==='inicial'?'var(--text)':MOV[FSEM[k]].c}"><i></i><span><b>${FNOM[k]}</b><small>${k==='inicial'?'Ficha inicial · Día 1':'Semana '+FSEM[k]+' · '+MOV[FSEM[k]].n+' · Día '+dd[k]}</small></span><em>${fstatus(k)}</em></div>`).join('')}`}
 function railV3(){const v=S.view;let h='';
- if(v==='dia'){const m=S.day,dd=dia(m),B=dd.bloques;h=`<div class="rh"><h4>Tu ruta de hoy</h4><small>${B.filter((_,i)=>S.step[m+':'+i]).length} de ${B.length}</small></div>${B.map((b,i)=>`<button class="stp ${S.step[m+':'+i]?'ok':''} ${nextStep(m)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[m+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}`}
+ if(v==='dia'){const m=S.day,dd=dia(m),V=vis(m),B=V.map(i=>dd.bloques[i]);h=`<div class="rh"><h4>Tu ruta de hoy</h4><small>${V.filter(i=>S.step[m+':'+i]).length} de ${B.length}</small></div>${B.map((b,p)=>{const i=V[p];return `<button class="stp ${S.step[m+':'+i]?'ok':''} ${nextStep(m)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[m+':'+i]?'✓':p+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`}).join('')}`}
  else if(v==='hoy'){const n=cur(),d=dia(n),w=d.semana;if(lastDone()<20&&isOpen(n))h=`<div class="rh"><h4>Tu ruta de hoy</h4><small style="color:${MOV[w].c}">${MOV[w].n} · Semana ${w}</small></div>${ringV3(n,d)}<div style="height:18px"></div>${tilesV3(n,d,1)}`}
  else if(v==='mapa')h=(mapaEdit()?'':avisoMapaV3())+fichasV3();
  return `<aside class="rail" aria-label="${v==='dia'?'En esta jornada':'Tu avance'}">${h}${v==='mapa'?'':bitaCardV3()}${piedrasV3()}</aside>`}
@@ -1500,11 +1508,11 @@ const BLC3={apertura:'Apertura',palabra:'Palabra',libro:'Libro',video:'Video',le
 /* Barra única del curso (reemplaza la oficial «THE WAY · Salir» + la del curso). «Salir» pasa a Ajustes. */
 const SLID3='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>';
 /* Selector de vista (19-nov-2026): la misma semana del curso en forma de Book. Semanas sin Book todavía → portada del Book. */
-function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/book/${C[w]||''}">${CUADI}Book</a></nav>`}
+function vistaSel(){let w=0;try{w=dia(cur()).semana}catch(e){}const C={1:'semana-1/',2:'semana-2/'};return `<nav class="vista3" aria-label="Forma de ver el curso"><span class="on" aria-current="page">App</span><a href="/book/${C[w]||''}">${CUADI}eBook</a></nav>`}
 const CUADI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>';
 /* 19-nov-2026: el Book se abre ENCIMA del curso (sin salir de la app), así «App» vuelve al instante; el botón atrás del celular también lo cierra. */
 (function(){let ov=null,fr=null;
- function abrir(u){if(!ov){ov=document.createElement('div');ov.id='bookov';ov.hidden=true;ov.innerHTML='<iframe title="Book del curso"></iframe>';document.body.appendChild(ov);fr=ov.firstChild}
+ function abrir(u){if(!ov){ov=document.createElement('div');ov.id='bookov';ov.hidden=true;ov.innerHTML='<iframe title="eBook del curso" allow="fullscreen" allowfullscreen></iframe>';document.body.appendChild(ov);fr=ov.firstChild}
   if(fr.dataset.u!==u){fr.src=u;fr.dataset.u=u}ov.hidden=false;document.documentElement.classList.add('bookon');try{history.pushState({twbook:1},'')}catch(e){}}
  function cerrar(pop){if(!ov||ov.hidden)return;ov.hidden=true;document.documentElement.classList.remove('bookon');if(!pop&&history.state&&history.state.twbook)history.back()}
  document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('.vista3 a');if(!a)return;e.preventDefault();e.stopPropagation();abrir(a.getAttribute('href'))},true);
@@ -1547,19 +1555,19 @@ function vIndiceB(){return `<div class="wrap"><p class="eyebrow">Los cuatro terr
 function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
  const head=`<div class="scenehead t${w}" style="--c:${MOV[w].c}">${S.piel==='v3'?'<button class="hoy3b" data-act="go" data-v="hoy3">‹ Hoy</button>':''}<span class="mv">${MOV[w].n}</span><span class="eyebrow">Semana ${w} de 4 · Día ${n} de 20 · ${d.dsem}</span><h1>${esc(sc(d.titulo))}</h1>${chip(n)}</div>`;
  if(!isOpen(n))return `<div class="wrap">${head}<div class="card lockday"><div class="eyebrow">${ic('lock').replace('<svg','<svg width="14" height="14"')} Todavía cerrada</div><p class="lk">Esta jornada se abre el ${fmtL(abre(n))} a las 12 de la noche.</p><button class="btn pri" data-act="go" data-v="hoy">Volver al territorio</button></div></div>`;
- const steps=d.bloques,fu=firstUndone(),nx=nextStep(n),N=steps.length;
- const si=Math.min(S.sceneDay===n?S.scene:Math.max(0,nx),N-1),b=steps[si],last=si===N-1;
+ const steps=d.bloques,fu=firstUndone(),nx=nextStep(n),V=vis(n),N=V.length;
+ const pide=S.sceneDay===n?S.scene:Math.max(0,nx),si=V.filter(i=>i>=pide).concat(V[N-1])[0],p=V.indexOf(si),b=steps[si],last=p===N-1,ant=p>0?V[p-1]:si,sig=last?si:V[p+1];
  /* fin = el botón de avanzar de la escena (Siguiente escena / Cerrar jornada / Reabrir). Una sola fuente para la .snav y para la barra fija de v3 en móvil */
- const fin=last?(S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`):`<button class="btn ${S.step[n+':'+si]?'pri':''}" data-act="scene" data-i="${si+1}">Siguiente escena →</button>`;
+ const fin=last?(S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`):`<button class="btn ${S.step[n+':'+si]?'pri':''}" data-act="scene" data-i="${sig}">Siguiente escena →</button>`;
  let bh=blockHTML(d,b,si),barra='';const jm=S.piel==='v3'&&movilV3();
- if(jm){const m=!S.step[n+':'+si]&&bh.match(/<div class="ft">(<button[^>]*data-act="step"[^>]*>[^<]*<\/button>)<\/div><\/section>$/);if(m)bh=bh.slice(0,bh.length-m[0].length)+'</section>';barra=jbarV3(si,N,m?m[1]:fin)}
+ if(jm){const m=!S.step[n+':'+si]&&bh.match(/<div class="ft">(<button[^>]*data-act="step"[^>]*>[^<]*<\/button>)<\/div><\/section>$/);if(m)bh=bh.slice(0,bh.length-m[0].length)+'</section>';barra=jbarV3(p,N,m?m[1]:fin,ant)}
  return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}${avisoG()}
- <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${steps.map((x,i)=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i>${S.piel==='v3'?`<span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`:`<span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`}</button>`).join('')}</nav>
- <p class="muted scn">Escena ${si+1} de ${N}</p>
+ <nav class="scenes" style="--c:${MOV[w].c}" aria-label="Escenas de la jornada">${V.map(i=>[steps[i],i]).map(([x,i])=>`<button data-act="scene" data-i="${i}" class="${S.step[n+':'+i]?'ok':''}" ${i===si?'aria-current="step"':''}><i>${S.step[n+':'+i]?ic('check'):ic((BL[x.tipo]||['','leccion'])[1])}</i>${S.piel==='v3'?`<span class="sl3">${BLC3[x.tipo]||'Contenido'}</span><span class="ll3">${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`:`<span>${(BL[x.tipo]||['Contenido'])[0].split(' · ')[0]}</span>`}</button>`).join('')}</nav>
+ <p class="muted scn">Escena ${p+1} de ${N}</p>
  <div class="scene" style="--c:${MOV[w].c}">${bh}</div>${jm?'':`
- <div class="snav"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>← Escena anterior</button>
+ <div class="snav"><button class="btn ghost" data-act="scene" data-i="${ant}" ${p===0?'disabled':''}>← Escena anterior</button>
  ${fin}</div>`}
  <div class="dayend"><button class="btn ghost sm" data-act="day" data-n="${Math.max(1,n-1)}" ${n===1?'disabled':''}>← Día anterior</button><button class="btn ghost sm" data-act="go" data-v="hoy">Volver al territorio</button></div>
  </div>${barra}`}
@@ -1572,7 +1580,7 @@ function vDiaB(){const d=dia(S.day),w=d.semana,n=d.n;
    Desde 900 px no se dibuja nada de esto y la Jornada es la de siempre.
    (Pulido 16:40) Una sola fuente: el marcado de la Jornada vive solo en vDiaB; aquí solo queda la barra. */
 function movilV3(){const f=$('#frame');return !!f&&f.clientWidth<900}
-function jbarV3(si,N,prin){return `<div class="jbar3" role="group" aria-label="Escena ${si+1} de ${N}"><button class="btn ghost" data-act="scene" data-i="${si-1}" ${si===0?'disabled':''}>‹ Anterior</button>${prin}</div>`}
+function jbarV3(p,N,prin,ant){return `<div class="jbar3" role="group" aria-label="Escena ${p+1} de ${N}"><button class="btn ghost" data-act="scene" data-i="${ant}" ${p===0?'disabled':''}>‹ Anterior</button>${prin}</div>`}
 /* si la ventana cruza los 900 px estando en la Jornada, se vuelve a dibujar con la versión que toca (solo presentación) */
 window.addEventListener('resize',()=>{if(S.piel==='v3'&&S.view==='dia'&&S.day&&isOpen(S.day)&&!!document.querySelector('.jbar3')!==movilV3())render(true)});
 
@@ -1642,8 +1650,10 @@ function vLanding(){if(S.piel==='v3')return vLandingV3();
   h+='</section>'});
  h+=`<div class="cta"><button class="btn pri" data-act="enter" style="min-width:240px">Comenzar el curso</button><div></div></div></div>`;return h}
 
-function vBienvenida(){const B=D.aprobados.bienvenida;
- return `<div class="calm"><p class="eyebrow">Antes del Día 1</p>${B.map(x=>x[0]==='h1'?`<h1>${esc(x[1])}</h1>`:'').join('')}<div class="lit">${B.filter(x=>x[0]==='p').map((x,i,a)=>`<p class="${i===a.length-1||/Una sola Bitácora/.test(x[1])?'key':''}">${md(x[1])}</p>`).join('')}</div>
+function vBienvenida(){const B=D.aprobados.bienvenida,yt=VIDEO_BIENVENIDA;
+ const vb=yt?`<div class="vid vid-yt" role="group" aria-label="Video de bienvenida" style="margin:6px 0 4px"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0" title="Video de bienvenida al curso" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+ <p class="vid-alt"><a href="https://youtu.be/${yt}" target="_blank" rel="noopener noreferrer">${ic('ext').replace('<svg','<svg width="14" height="14"')} Ver en YouTube</a></p>`:'';
+ return `<div class="calm"><p class="eyebrow">Antes del Día 1</p>${B.map(x=>x[0]==='h1'?`<h1>${esc(x[1])}</h1>`:'').join('')}${vb}<div class="lit">${B.filter(x=>x[0]==='p').map((x,i,a)=>`<p class="${i===a.length-1||/Una sola Bitácora/.test(x[1])?'key':''}">${md(x[1])}</p>`).join('')}</div>
  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px"><button class="btn pri" data-act="startd1">${S.welcomed?'Volver a mi jornada':'Ir al Día 1'}</button>${S.welcomed?'':''}</div>
  <p class="muted" style="font-size:12.5px;margin-top:14px">Esta pantalla se muestra una sola vez en el primer ingreso y queda disponible en «Cómo funciona».</p></div>`}
 
@@ -1680,7 +1690,7 @@ function vIndice(){if(S.design==='b')return vIndiceB();return `<div class="wrap"
 function vDia(){if(S.design==='b')return vDiaB();const d=dia(S.day),w=d.semana,n=d.n;
  const head=`<div class="dayhead" style="--c:${MOV[w].c}"><span class="mv">${MOV[w].n}</span><span class="eyebrow">Semana ${w} de 4 · Día ${n} de 20 · ${d.dsem}</span><h1>${esc(sc(d.titulo))}</h1>${chip(n)}</div>`;
  if(!isOpen(n))return `<div class="wrap">${head}<div class="card lockday"><div class="eyebrow">${ic('lock').replace('<svg','<svg width="14" height="14"')} Todavía cerrada</div><p class="lk">Esta jornada se abre el ${fmtL(abre(n))} a las 12 de la noche.</p><button class="btn pri" data-act="go" data-v="hoy">Volver a Hoy</button></div></div>`;
- const steps=d.bloques.map((b,i)=>({b,i})),fu=firstUndone(),nx=nextStep(n);
+ const steps=d.bloques.map((b,i)=>({b,i})).filter(({i})=>!vidOff(n,i)),fu=firstUndone(),nx=nextStep(n);
  return `<div class="wrap">
  ${head}
  ${!prevDone(n)?`<div class="orden" role="note"><span>Aún no has hecho el Día ${fu}: termínalo para seguir con este.</span><button class="btn sm" data-act="day" data-n="${fu}">Ir al Día ${fu}</button></div>`:''}${avisoG()}
@@ -1689,7 +1699,7 @@ function vDia(){if(S.design==='b')return vDiaB();const d=dia(S.day),w=d.semana,n
  <div class="dayend"><button class="btn ghost" data-act="day" data-n="${Math.max(1,n-1)}" ${n===1?'disabled':''}>← Día anterior</button>
  ${S.done[n]?`<button class="btn" data-act="reopen">Reabrir esta jornada</button>`:`<button class="btn pri" data-act="close" ${canWork(n)&&nx===-1?'':'aria-disabled="true"'}>${n%5===0?'Cerrar jornada y semana':'Cerrar jornada'}</button>`}</div>
  </div>`}
-const nextStep=n=>{const d=dia(n);for(let i=0;i<d.bloques.length;i++)if(!S.step[n+':'+i])return i;return -1};
+const nextStep=n=>{const d=dia(n);for(let i=0;i<d.bloques.length;i++)if(!vidOff(n,i)&&!S.step[n+':'+i])return i;return -1};
 
 function vSemana(){const w=S.weekDone,d=dia(w*5);const cl=textoDia(d).find(t=>/^Has completado la Semana/.test(t));
  const nxt=w<4?MOV[w+1].n:null,fk=['s1','s2','s3','s4'][w-1];
@@ -1733,7 +1743,7 @@ function vMapa(){
 /* ---------- estructura ---------- */
 function sideHTML(){return `<nav class="side" id="side" aria-label="Recorrido del curso">${[1,2,3,4].map(w=>`<h4 style="color:${MOV[w].c}">${MOV[w].n}</h4>${D.dias.filter(d=>d.semana===w).map(d=>dayRow(d,1)).join('')}`).join('')}</nav>`}
 function railHTML(){if(S.piel==='v3')return railV3();const n=S.day,d=dia(n);
- if(S.view==='dia'){return `<aside class="rail" aria-label="En esta jornada"><h4>Tu ruta de hoy</h4>${d.bloques.map((b,i)=>`<button class="stp ${S.step[n+':'+i]?'ok':''} ${nextStep(n)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[n+':'+i]?'✓':i+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}<hr style="border:0;border-top:1px solid var(--border);margin:14px 0"><h4>Mi Bitácora</h4><button class="btn sm ghost" data-act="go" data-v="bitacora" style="width:100%">Abrir mi Bitácora</button></aside>`}
+ if(S.view==='dia'){return `<aside class="rail" aria-label="En esta jornada"><h4>Tu ruta de hoy</h4>${vis(n).map((i,p)=>[d.bloques[i],i,p]).map(([b,i,p])=>`<button class="stp ${S.step[n+':'+i]?'ok':''} ${nextStep(n)===i?'cur':''}" data-act="jump" data-i="${i}"><i>${S.step[n+':'+i]?'✓':p+1}</i>${(BL[b.tipo]||['Contenido'])[0]}</button>`).join('')}<hr style="border:0;border-top:1px solid var(--border);margin:14px 0"><h4>Mi Bitácora</h4><button class="btn sm ghost" data-act="go" data-v="bitacora" style="width:100%">Abrir mi Bitácora</button></aside>`}
  return `<aside class="rail"><h4>Tu avance</h4>${S.piel==='v2'?`<div class="ring" style="--p:${doneCount()*5}%"><div class="in"><b>${doneCount()}</b><span class="ne">de 20</span></div></div>`:''}<p class="muted" style="font-size:13px;line-height:1.5">${Object.keys(S.done).filter(k=>S.done[k]).length} de 20 jornadas completadas.</p><button class="btn sm ghost" data-act="go" data-v="mapa" style="width:100%">Mi Mapa Personal</button></aside>`}
 const COURSE=['hoy','indice','dia','semana','bitacora','mapa','hoy3'];
 function sideVisible(){const f=$('#frame');return S.side==='open'||(S.side==='auto'&&f&&f.clientWidth>=1100)}
