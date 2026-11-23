@@ -301,11 +301,10 @@ function saludo(p){return rellenar(S.guion.saludo||'Hola, [nombre] 👋',p)}
 function textoWa(m,p,extra){if(!listo(m))return saludo(p);if(m.personal)return rellenar(m.texto,p,extra);return saludo(p)+'\n\n'+rellenar(m.texto,p,extra)}
 function waHtml(t){return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/(^|[\s(¿¡«])_([^_\n]+)_(?=$|[\s.,;:!?)»])/gm,'$1<i>$2</i>')}
 function normalizarWa(t){var d=String(t||'').replace(/\D/g,'');if(d.length===10&&d[0]==='3')d='57'+d;return/^\d{11,15}$/.test(d)?d:''}
-/* 23-nov: la página intermedia de wa.me / api.whatsapp.com daña los emojis (llegan como «�»). Se salta: en el celular se abre
-   directamente la aplicación (whatsapp://) y en el computador, WhatsApp Web. */
-var MOVIL=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Macintosh/.test(navigator.userAgent));
-function enlaceWa(numero,texto){var n=String(numero||'').replace(/\D/g,'');if(!n)return null;var q='phone='+n+(texto?'&text='+encodeURIComponent(texto):'');return(MOVIL?'whatsapp://send?':'https://web.whatsapp.com/send?')+q}
-var DESTINO=MOVIL?'':' target="_blank" rel="noopener"';
+/* 23-nov: la página intermedia de wa.me / api.whatsapp.com daña los emojis (llegan como «�»). Se salta: el botón abre directamente
+   la aplicación de WhatsApp (whatsapp://), en el celular y en el computador (Juan usa WhatsApp para Windows). */
+function enlaceWa(numero,texto){var n=String(numero||'').replace(/\D/g,'');if(!n)return null;var q='phone='+n+(texto?'&text='+encodeURIComponent(texto):'');return'whatsapp://send?'+q}
+var DESTINO='';
 function botonEnviar(p,m,etiqueta,extra,destino){destino=destino||p;var t=textoWa(m,destino,extra),u=enlaceWa(destino.whatsapp,t);
   return u?'<a class="btn wa"'+DESTINO+' href="'+esc(u)+'" data-enviar="'+esc(m.id)+'" data-persona="'+esc(destino.uid)+'">'+esc(etiqueta||'Enviar por WhatsApp')+'</a>':''}
 
