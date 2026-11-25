@@ -8,7 +8,11 @@
      cursos/preparados/comun/base               contenido común (texto JSON en el campo «json»)
      cursos/preparados/jornadas/{1..20}         jornadas (texto JSON en el campo «json»)
      apps/preparados/usuarios/{uid}             { v, sal, iv, datos, actualizado }  (cifrado, solo su dueño)
-     apps/preparados/parejas/{codigo}           { miembros, v, sal, iv, datos, actualizado }  (cifrado, solo los dos) */
+     apps/preparados/parejas/{codigo}           { miembros, v, sal, iv, datos, actualizado }  (cifrado, solo los dos)
+     apps/preparados/hitos/{uid}                { v, inicio, hechos, pareja, actualizado }  (SIN cifrar, solo hitos)
+   HITOS (decisión de Juan, 25-nov-2026): para que el panel de acompañamiento vea en qué día va cada persona, se guarda
+   aparte, sin PIN, SOLO la fecha de inicio, qué días cerró (y cuándo) y el uid de su pareja. Nunca lo que escriben:
+   campos, pasos, inventario, acuerdos y Pacto siguen cifrados. Si este guardado falla, el curso sigue igual. */
 (function () {
   'use strict';
   var ITER = 210000;
@@ -16,6 +20,7 @@
   var claveP = null, salP = null, datosP = null;      // persona
   var claveC = null, salC = null, datosC = null;      // pareja
   var escuchaPareja = null, alCambiarPareja = null;
+  var parejaUid = null, ultimosHitos = '';           // hitos para el panel (sin cifrar)
 
   function S() { return window.TW_SESION; }
   function err(code, extra) { var e = new Error(code); e.code = code; if (extra) Object.assign(e, extra); return e; }
@@ -70,6 +75,32 @@
   async function refC(codigo) { return (await db()).collection('apps').doc('preparados').collection('parejas').doc(codigo); }
   function ts() { return firebase.firestore.FieldValue.serverTimestamp(); }
 
+  /* ---------- Hitos para el panel (sin cifrar; solo días cerrados, inicio y pareja) ---------- */
+  function hitosDe(p) {
+    var h = {}, src = (p && p.hechos) || {};
+    Object.keys(src).forEach(function (k) {
+      var n = +k, x = src[k];
+      if (n >= 1 && n <= 20 && n === Math.floor(n) && x && typeof x.v === 'boolean') h[String(n)] = { v: x.v, t: typeof x.t === 'number' ? x.t : 0 };
+    });
+    var ini = p && typeof p.inicio === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(p.inicio) ? p.inicio : null;
+    return { v: 1, inicio: ini, hechos: h, pareja: parejaUid };
+  }
+  /* No espera ni lanza: si falla (sin red, reglas viejas), el curso sigue igual y se reintenta en el próximo guardado. */
+  function publicarHitos() {
+    try {
+      if (!datosP) return;
+      var x = hitosDe(datosP), firma = JSON.stringify(x);
+      if (firma === ultimosHitos) return;
+      var antes = ultimosHitos; ultimosHitos = firma;
+      (async function () {
+        try {
+          var ref = (await db()).collection('apps').doc('preparados').collection('hitos').doc(await uid());
+          await ref.set(Object.assign({}, x, { actualizado: ts() }));
+        } catch (e) { if (ultimosHitos === firma) ultimosHitos = antes; }
+      })();
+    } catch (e) { /* nunca detiene el curso */ }
+  }
+
   async function tieneDerecho() {
     var u = await S().listo(); if (!u) throw err('sin-sesion');
     var d = await (await db()).collection('derechos').doc(u.uid).get();
@@ -92,6 +123,7 @@
     datosP = { v: 1, inicio: inicio, campos: {}, hechos: {}, inv: {}, pareja: null };
     var c = await cifrar(claveP, datosP);
     await (await refP()).set({ v: 1, sal: b64(salP), iv: c.iv, datos: c.datos, actualizado: ts() });
+    publicarHitos();
     return datosP;
   }
   async function abrirPersona(pin) {
@@ -100,6 +132,7 @@
     var d = s.data(), sal = unb64(d.sal), k = await derivar(pin, sal);
     var x = await descifrar(k, d);
     claveP = k; salP = sal; datosP = fusionarPersona(x, null);
+    if (!datosP.pareja) publicarHitos();   /* con pareja, se publica al abrirla (ya con su uid) */
     return datosP;
   }
   /* Guarda con transacción: lee lo de la nube (otro aparato pudo cambiarlo), fusiona por campo y vuelve a cifrar. */
@@ -116,7 +149,7 @@
       tx.set(ref, { v: 1, sal: b64(salP), iv: c.iv, datos: c.datos, actualizado: ts() });
       return unido;
     });
-    datosP = res; return res;
+    datosP = res; publicarHitos(); return res;
   }
   async function borrarPersona() { await (await refP()).delete(); claveP = null; datosP = null; }
 
@@ -148,6 +181,8 @@
     var d = s.data(), sal = unb64(d.sal), k = await derivar(p.pin, sal);
     var x = await descifrar(k, d);
     claveC = k; salC = sal; datosC = fusionarPareja(x, null);
+    try { var yo = await uid(), otro = (d.miembros || []).filter(function (m) { return m !== yo; })[0]; parejaUid = typeof otro === 'string' ? otro : null; } catch (e) { /* sin cambio */ }
+    publicarHitos();
     return { codigo: p.codigo, miembros: d.miembros.length, datos: datosC };
   }
   async function cambiarPinPareja(pinPareja) {
@@ -179,7 +214,7 @@
     }, function () {});
   }
 
-  function bloquear() { claveP = claveC = null; datosP = datosC = null; if (escuchaPareja) { escuchaPareja(); escuchaPareja = null; } }
+  function bloquear() { claveP = claveC = null; datosP = datosC = null; parejaUid = null; ultimosHitos = ''; if (escuchaPareja) { escuchaPareja(); escuchaPareja = null; } }
 
   window.TW_PREP = {
     sesion: S, tieneDerecho: tieneDerecho,
@@ -189,6 +224,6 @@
     persona: function () { return datosP; }, pareja: function () { return datosC; },
     crearPareja: crearPareja, unirPareja: unirPareja, abrirPareja: abrirPareja, cambiarPinPareja: cambiarPinPareja, guardarPareja: guardarPareja, escucharPareja: escucharPareja,
     bloquear: bloquear, normalizarCodigo: normalizarCodigo,
-    _t: { fusionar: fusionar, fusionarPersona: fusionarPersona, derivar: derivar, cifrar: cifrar, descifrar: descifrar, ITER: ITER }
+    _t: { hitosDe: hitosDe, fusionar: fusionar, fusionarPersona: fusionarPersona, derivar: derivar, cifrar: cifrar, descifrar: descifrar, ITER: ITER }
   };
 })();
