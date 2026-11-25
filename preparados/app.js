@@ -81,12 +81,28 @@
 
   /* ---------- pantallas de entrada ---------- */
   function pantallaCargando(t) { pintar('<div class="centro"><div class="giro" aria-hidden="true"></div><p>' + esc(t || 'Abriendo el curso…') + '</p></div>'); }
-  function pantallaEntrar() {
-    pintar('<div class="portada"><div class="portada-in">' +
+  /* Landing (decisión de Juan, 24-nov-2026): sin montaña. La marca de THE WAY es «el Camino»: dos caminos que se unen en uno (Génesis 2:24). */
+  var CAMINOS = '<svg class="caminos" viewBox="0 0 400 220" role="img" aria-label="Dos caminos que se unen en uno solo y siguen hacia el amanecer">' +
+    '<defs><radialGradient id="luz" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#FCE7C8" stop-opacity=".85"/><stop offset=".55" stop-color="#E9B27E" stop-opacity=".22"/><stop offset="1" stop-color="#E9B27E" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="uno" gradientUnits="userSpaceOnUse" x1="0" y1="134" x2="0" y2="72"><stop offset="0" stop-color="#D98260"/><stop offset="1" stop-color="#F6DDB0"/></linearGradient>' +
+    '<linearGradient id="suelo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>' +
+    '<g class="c-luz"><path d="M60 72 A140 70 0 0 1 340 72 Z" fill="url(#luz)"/><path d="M174 72 A26 26 0 0 1 226 72 Z" fill="#F6DDB0"/></g>' +
+    '<line x1="20" y1="72" x2="380" y2="72" stroke="#F6DDB0" stroke-opacity=".35" stroke-width="1.2"/>' +
+    '<g class="c-suelo">' +
+    '<path d="M4 220 C 70 196, 140 164, 188 136 L 199 131 L 197 143 C 158 170, 104 200, 60 220 Z" fill="#C46A4A"/>' +
+    '<path d="M396 220 C 330 196, 260 164, 212 136 L 201 131 L 203 143 C 242 170, 296 200, 340 220 Z" fill="#C9A15B"/>' +
+    '<path d="M189 136 L 211 136 L 201.4 72 L 198.6 72 Z" fill="url(#uno)"/>' +
+    '</g></svg>';
+  function pantallaLanding() {
+    var u = st.u, nombre = u && u.nombre ? u.nombre.split(' ')[0] : '';
+    var boton = u ? '<button class="btn" data-act="continuar">' + (nombre ? 'Entrar, ' + esc(nombre) : 'Entrar a mi curso') + '</button><p class="nota">Entraste como ' + esc(u.correo || u.nombre) + ' · <button class="btn-txt claro" data-act="salir">usar otra cuenta</button></p>'
+      : '<button class="btn" data-act="entrar">Entrar con Google</button><p class="nota">Cada uno entra con su propia cuenta.</p>';
+    pintar('<div class="portada"><div class="portada-in">' + CAMINOS +
       '<p class="sobre">The Way · Curso prematrimonial</p><h1>Preparados para amar</h1><p class="lema">De la boda al pacto</p>' +
-      '<p>Cuatro semanas para conocerse de verdad, hablar lo que no han hablado y salir con acuerdos claros.</p>' +
-      '<button class="btn" data-act="entrar">Entrar con Google</button>' +
-      '<p class="nota">Cada uno entra con su propia cuenta.</p></div></div>');
+      '<p class="versiculo">«…se unirá a su mujer, y serán una sola carne».<span>Génesis 2:24</span></p>' +
+      '<ul class="claves"><li><b>4</b><span>semanas</span></li><li><b>L–V</b><span>unos 20 minutos al día</span></li><li><b>4</b><span>citas de pareja, los viernes</span></li><li><b>1</b><span>Pacto escrito al final</span></li></ul>' +
+      '<p class="intro">Una boda dura un día; un pacto, toda la vida. Cuatro semanas para conocerse de verdad, hablar lo que no han hablado y salir con acuerdos claros.</p>' +
+      boton + '<p class="privado"><span class="candado" aria-hidden="true"></span> Lo que escriban se guarda cifrado con su PIN. Solo ustedes pueden leerlo.</p></div></div>');
   }
   function pantallaSinAcceso() {
     pintar(marco('<section class="tarjeta"><h2>Tu cuenta todavía no tiene acceso</h2><p>Entraste como <strong>' + esc(st.u.correo || st.u.nombre) + '</strong>. Si ya hicieron la inscripción, escríbele a tu líder para que active el curso para esta cuenta.</p><button class="btn sec" data-act="salir">Entrar con otra cuenta</button></section>', { sinMenu: true }));
@@ -287,7 +303,8 @@
     var act = b.dataset.act; if (!act) return;
     var err = document.getElementById('err');
     try {
-      if (act === 'entrar') { await P.sesion().entrar(); return arrancar(); }
+      if (act === 'entrar') { await P.sesion().entrar(); st.u = await P.sesion().listo(); return seguir(); }
+      if (act === 'continuar') return seguir();
       if (act === 'salir') { P.bloquear(); await P.sesion().salir(); return location.reload(); }
       if (act === 'bloquear') { P.bloquear(); st.persona = st.pareja = null; return pantallaPin(); }
       if (act === 'crear') {
@@ -381,9 +398,13 @@
   }
   async function arrancar() {
     pantallaCargando();
+    try { st.u = await P.sesion().listo(); } catch (x) { console.error(x); st.u = null; }
+    pantallaLanding();
+  }
+  async function seguir() {
+    pantallaCargando();
     try {
-      st.u = await P.sesion().listo();
-      if (!st.u) return pantallaEntrar();
+      if (!st.u) return pantallaLanding();
       if (!(await P.tieneDerecho())) return pantallaSinAcceso();
       var e = await P.estadoPersona();
       return e === 'nuevo' ? pantallaCrear() : pantallaPin();
