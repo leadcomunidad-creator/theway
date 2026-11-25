@@ -99,6 +99,13 @@ table.rec{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
 .pc:hover{border-color:var(--gold)}
 .pc b{font-weight:500;color:var(--gold-l)}
 @media(max-width:640px){.pf{grid-template-columns:minmax(0,1fr)}}
+/* Hoja de vida: corregir datos */
+details.editar{margin:10px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
+details.editar summary{cursor:pointer;color:var(--gold-l)}
+details.editar label{display:block;margin:12px 0 4px;font-size:13px;color:var(--muted)}
+details.editar input,details.editar select{width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
+details.editar small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.rec2 li{padding:4px 0}.rec2 .pc{width:100%}
 /* Hoja de vida */
 .velo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:flex;justify-content:flex-end}
 .ficha{background:var(--deep);width:min(640px,100%);height:100%;overflow-y:auto;overflow-x:hidden;overflow-wrap:anywhere;border-left:1px solid var(--border2);padding:0 16px 40px}
@@ -410,25 +417,25 @@ function pintarCurso(){
     $('listaQuitadas').innerHTML=S.quitadas.map(function(p){return'<li style="display:flex;align-items:center;gap:10px"><span style="flex:1">'+esc(nombreDe(p))+'</span><button class="btn chico" type="button" data-volver="'+esc(p.uid)+'">Volver a mostrar</button></li>'}).join('')}
 }
 
-/* ---------- Nivel 3: hoja de vida ---------- */
+/* ---------- Acompañar: UNA persona en UN curso (mensaje de hoy, recorrido, respuestas y notas). Los datos de la persona están en su hoja de vida. ---------- */
 function abrirFicha(uid,curso){
-  var p=porUid(uid,curso||(S.abierta===uid?S.abiertaC:null)||S.curso);if(!p)return;S.abierta=uid;S.abiertaC=p.curso;GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
+  var p=porUid(uid,curso||(S.abierta===uid?S.abiertaC:null)||S.curso);if(!p)return;S.abierta=uid;S.abiertaC=p.curso;S.modo='acompanar';GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
   var cal=r.cal?(r.cal.tipo==='dia'?'Día '+r.cal.dia:r.cal.tipo==='sabado'?'Sábado':r.cal.tipo==='domingo'?'Domingo':r.cal.tipo==='fin'?'Terminado':'Aún no empieza'):'—';
   var h='<div class="cab"><h2 id="fNombre">'+esc(nombreDe(p))+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div>';
   h+='<p class="ins" style="margin-top:12px">'+esc(nombreCurso(cursoDe(p)))+' · <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</p>';
-  h+='<h3>Dónde está</h3><div class="datos">'+
+  h+='<div class="acc" style="margin-top:0"><button class="btn chico" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div><h3>Dónde está</h3><div class="datos">'+
      '<div class="dato"><span>Va en</span><b>'+(r.entro?(r.terminado?'Terminó':'Día '+r.va+' de 20'):'No ha entrado')+'</b></div><div class="dato"><span>Días cerrados</span><b>'+r.cerrados+' de 20</b></div>'+
      '<div class="dato"><span>Su calendario va en</span><b>'+esc(cal)+'</b></div><div class="dato"><span>Última actividad</span><b>'+(r.actividad?hace(r.sinActividad):'—')+'</b></div>'+
-     '<div class="dato"><span>Grupo</span><b>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</b></div><div class="dato"><span>WhatsApp</span><b>'+(tieneWa(p)?'+'+esc(p.whatsapp):'Falta')+'</b></div></div>';
+     '</div>';
   if(q)h+='<p class="ins">Se inscribió con <button class="btn chico" type="button" data-ir="'+esc(q.uid)+'" data-c="'+esc(q.curso)+'">'+esc(nombreDe(q))+'</button></p>';
   /* Lo que ha cursado: todas sus inscripciones; tocar una abre su recorrido */
   var todas=inscDe(p.uid);
-  h+='<h3>Lo que cursa</h3><div class="acc" style="margin-top:0">'+todas.map(function(x){var sx=situacionTxt(x.r);return'<button type="button" class="btn chico'+(x.curso===p.curso?' oro':'')+'" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'">'+esc(nombreCurso(x.curso))+' · '+esc(x.r.entro?(x.r.terminado?'Terminó':'Día '+x.r.va):'Sin empezar')+' · '+esc(sx[0])+'</button>'}).join('')+'</div>';
+  if(todas.length>1)h+='<p class="ins">También está en: '+todas.filter(function(x){return x.curso!==p.curso}).map(function(x){return'<button type="button" class="btn chico" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'">'+esc(nombreCurso(x.curso))+'</button>'}).join(' ')+'</p>';
   /* Hoy */
   h+='<h3>Hoy</h3>';
   var m=r.tocaHoy||(r.hoyEnviado?r.hoy:null)||(r.accionHoy?r.accion:null);
   if(m){h+='<p class="ins"><b style="color:var(--text)">'+esc(tituloMsg(m))+'</b>'+((r.hoyEnviado||r.accionHoy)?' · <span class="chip ok">Enviado hoy</span>':'')+(r.situacion==='retomar'?' · Se desconectó: hoy no recibe la lección.':'')+'</p><div class="burbuja">'+waHtml(textoWa(m,p))+'</div>';
-    h+=tieneWa(p)?'<div class="acc">'+botonEnviar(p,m)+'</div>':'<p class="ins" style="color:var(--warn)">Falta su WhatsApp para enviarlo. Escríbelo abajo.</p>'}
+    h+=tieneWa(p)?'<div class="acc">'+botonEnviar(p,m)+'</div>':'<p class="ins" style="color:var(--warn)">Falta su WhatsApp para enviarlo. Agrégalo en su <button class="btn chico" type="button" data-hoja="'+esc(p.uid)+'">hoja de vida</button>.</p>'}
   else h+='<p class="ins">Hoy no le toca ningún mensaje.</p>';
   /* Recorrido día por día */
   h+='<h3>Recorrido</h3><ol class="recorrido"><li class="enc"><span>Día</span><span>Cerró</span><span>Mensaje</span></li>';
@@ -446,14 +453,45 @@ function abrirFicha(uid,curso){
      '<label for="nota" class="ins" style="display:block;margin-top:12px">Nota corta (qué te contó: la app, el tiempo…)</label><textarea id="nota" class="nota" maxlength="500" placeholder="Ej.: Problemas con la app; retoma el lunes."></textarea>'+
      '<div class="acc"><button class="btn chico" type="button" data-registrar="nota" data-persona="'+esc(p.uid)+'">Guardar nota</button></div>';
   /* WhatsApp */
-  h+='<h3>WhatsApp</h3><p class="ins">'+(tieneWa(p)?'Para cambiarlo, escribe el nuevo con sus 10 dígitos:':'Escríbelo con sus 10 dígitos:')+'</p><div class="campoWa"><label class="sr" for="wa-'+esc(p.uid)+'">WhatsApp</label><input id="wa-'+esc(p.uid)+'" type="tel" inputmode="tel" autocomplete="off" placeholder="3001234567"><button class="btn chico" type="button" data-guardar-wa="'+esc(p.uid)+'">Guardar</button></div>';
   var pm=msg('pedir-numero-pareja');
   if(!tieneWa(p)&&q&&tieneWa(q)&&listo(pm))h+='<div class="acc">'+botonEnviar(p,pm,'Pedirle el número a '+primerNombre(q),{pareja:primerNombre(p)},q)+'</div>';
-  if(esAdmin())h+='<h3>Quitar del panel</h3><p class="ins">Por ejemplo, una cuenta de prueba. No le quita el acceso al curso ni borra nada; se puede volver a mostrar.</p><div class="acc"><button class="btn peligro chico" type="button" data-quitar="'+esc(p.uid)+'">Quitar del panel</button></div>';
+  $('ficha').innerHTML=h;$('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
+}
+
+/* ---------- Hoja de vida: la PERSONA (datos que se pueden corregir, todos sus cursos y todo lo que se le ha acompañado) ---------- */
+function fechaIso(t){if(!t)return'—';var d=fromIso(t);return d.getDate()+' '+MESES[d.getMonth()]}
+function abrirHoja(uid){
+  var L=inscDe(uid),p=L[0]||S.quitadas.find(function(x){return x.uid===uid});if(!p)return;
+  S.abierta=uid;S.abiertaC=null;S.modo='hoja';
+  var q=p.pareja?porUid(p.pareja):null,admin=esAdmin(),grupoN=(S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo';
+  var h='<div class="cab"><h2 id="fNombre">'+esc(nombreDe(p))+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div>';
+  h+='<p class="ins" style="margin-top:12px">Hoja de vida</p>';
+  h+='<h3>Datos</h3><div class="datos">'+
+     '<div class="dato"><span>Grupo</span><b>'+esc(grupoN)+'</b></div><div class="dato"><span>WhatsApp</span><b>'+(tieneWa(p)?'+'+esc(p.whatsapp):'Falta')+'</b></div>'+
+     (p.correo?'<div class="dato"><span>Correo de contacto</span><b>'+esc(p.correo)+'</b></div>':'')+
+     (q?'<div class="dato"><span>Pareja</span><b><button class="btn chico" type="button" data-hoja="'+esc(q.uid)+'">'+esc(nombreDe(q))+'</button></b></div>':'')+'</div>';
+  /* Corregir datos: el equipo corrige el WhatsApp; Juan (superadministrador) también nombre, correo de contacto y grupo (= cambiar de líder) */
+  h+='<details class="editar" id="editar"><summary>Corregir datos</summary>'+
+     '<label for="wa-'+esc(p.uid)+'">WhatsApp (10 dígitos)</label><input id="wa-'+esc(p.uid)+'" type="tel" inputmode="tel" autocomplete="off" placeholder="'+(tieneWa(p)?'Escribe el nuevo número':'3001234567')+'">'+
+     (admin?'<label for="e-nombre">Nombre</label><input id="e-nombre" type="text" maxlength="80" autocomplete="off" value="'+esc(bonito(p.nombre))+'">'+
+     '<label for="e-correo">Correo de contacto</label><input id="e-correo" type="email" maxlength="120" autocomplete="off" value="'+esc(p.correo||'')+'"><small>Es solo para contactarla: no cambia con qué cuenta de Google entra a la app.</small>'+
+     '<label for="e-grupo">Grupo (quién la acompaña)</label><select id="e-grupo">'+Object.keys(S.grupos).sort().map(function(g){return'<option value="'+esc(g)+'"'+(g===(p.grupo||SIN_GRUPO)?' selected':'')+'>'+esc((S.grupos[g]&&S.grupos[g].nombre)||g)+'</option>'}).join('')+'</select><small>Al cambiarla de grupo, la acompaña el líder de ese grupo y deja de verla el anterior.</small>':'')+
+     '<div class="acc"><button class="btn oro chico" type="button" data-guardar-datos="'+esc(p.uid)+'">Guardar cambios</button></div></details>';
+  /* Su recorrido en THE WAY: una fila por curso; tocarla abre Acompañar de ese curso */
+  h+='<h3>Su recorrido en THE WAY</h3>';
+  h+=L.length?'<ul class="hist rec2">'+L.map(function(x){var r=x.r,sx=situacionTxt(r);
+    return'<li><button type="button" class="pc" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'"><b>'+esc(nombreCurso(x.curso))+'</b> · empezó '+esc(fechaIso(x.avance&&x.avance.inicio))+' · '+esc(r.entro?(r.terminado?'Terminó':'En curso · Día '+r.va+' de 20'):'Sin empezar')+' · '+r.cerrados+'/20 <span class="chip '+sx[1]+'">'+esc(sx[0])+'</span></button></li>'}).join('')+'</ul>':'<p class="ins">No está en ningún curso del panel.</p>';
+  /* Lo que se le ha acompañado (todos los cursos) */
+  var cs=S.contactos.filter(function(c){return c.persona===p.uid}).sort(function(a,b){return b.ms-a.ms});
+  var env=cs.filter(function(c){return c.tipo==='enviado'}).length,res=cs.filter(function(c){return c.tipo==='respondio'}).length;
+  var TIPO={enviado:'Se le mandó',respondio:'Respondió',atendido:'Le respondiste',nota:'Nota'};
+  h+='<h3>Acompañamiento</h3><p class="ins">Últimos 60 días, en todos los cursos: '+env+' mensajes enviados · '+res+' respuestas.</p>';
+  h+=cs.filter(function(c){return c.tipo!=='enviado'}).length?'<ul class="hist">'+cs.filter(function(c){return c.tipo!=='enviado'}).map(function(c){return'<li><b>'+esc(TIPO[c.tipo]||c.tipo)+'</b> · '+esc(nombreCurso(c.curso||CURSO))+(c.nota?'<br>'+esc(c.nota):'')+'<br><span class="q">'+fechaCorta(c.ms)+(c.de===S.yo.uid?' · tú':'')+'</span></li>'}).join('')+'</ul>':'<p class="ins">Sin respuestas ni notas.</p>';
+  if(admin)h+='<h3>Quitar del panel</h3><p class="ins">Por ejemplo, una cuenta de prueba. No le quita el acceso al curso ni borra nada; se puede volver a mostrar.</p><div class="acc"><button class="btn peligro chico" type="button" data-quitar="'+esc(p.uid)+'">Quitar del panel</button></div>';
   $('ficha').innerHTML=h;$('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
 }
 function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null}
-function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta)abrirFicha(S.abierta,S.abiertaC)}
+function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta){if(S.modo==='hoja')abrirHoja(S.abierta);else abrirFicha(S.abierta,S.abiertaC)}}
 
 /* ---------- Vista «Personas»: cada persona una vez, con el curso (o los cursos) en que está ---------- */
 function personasUnicas(){var m={},L=[];S.personas.forEach(function(p){if(!m[p.uid]){m[p.uid]={p:p,ins:[]};L.push(m[p.uid])}m[p.uid].ins.push(p)});return L}
@@ -475,7 +513,7 @@ function pintarPersonas(){
   $('plista').innerHTML=vis.map(function(x){var p=x.p;
     var cs=x.ins.filter(function(i){return!fc||i.curso===fc}).map(function(i){var r=i.r,s=situacionTxt(r);
       return'<button type="button" class="pc" data-uid="'+esc(p.uid)+'" data-c="'+esc(i.curso)+'"><b>'+esc(nombreCurso(i.curso))+'</b> · '+esc(r.entro?(r.terminado?'Cerró los 20':'Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+' <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.tocaHoy?' <span class="chip oro">Le toca mensaje</span>':'')+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</button>'}).join('');
-    return'<li class="pf"><div class="pn"><button type="button" class="nom" data-uid="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</small></div><div class="pcs">'+cs+'</div></li>'}).join('')||'<li class="vacio" style="padding:14px">Nadie con ese nombre o filtro.</li>';
+    return'<li class="pf"><div class="pn"><button type="button" class="nom" data-hoja="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</small></div><div class="pcs">'+cs+'</div></li>'}).join('')||'<li class="vacio" style="padding:14px">Nadie con ese nombre o filtro.</li>';
   $('pmas').hidden=L.length<=vis.length;$('pmas').textContent='Ver más ('+(L.length-vis.length)+' faltan)';
   var qq=$('quitadasP');qq.hidden=!esAdmin()||!S.quitadas.length;
   if(!qq.hidden){qq.querySelector('summary').textContent='Quitadas del panel ('+S.quitadas.length+')';
@@ -493,7 +531,7 @@ function cuandoTxt(m){var c=m.cuando||{};
   if(c.evento==='pareja_sin_whatsapp')return'Al cónyuge, para pedir el número';
   return''}
 function editor(m){var id='ed-'+m.id;
-  return'<div class="editor"><h3>'+esc(tituloMsg(m))+(listo(m)?'':' <span class="chip alerta">Por escribir</span>')+'</h3><p class="cuando">'+esc(cuandoTxt(m))+'</p>'+
+  return'<div class="editor"><h3>'+esc(tituloMsg(m))+(listo(m)?'':(String(m.texto||'').trim()?' <span class="chip alerta">Por revisar: guárdalo para aprobarlo</span>':' <span class="chip alerta">Por escribir</span>'))+'</h3><p class="cuando">'+esc(cuandoTxt(m))+'</p>'+
     '<label class="sr" for="'+id+'">Texto de '+esc(tituloMsg(m))+'</label><textarea id="'+id+'" data-msg="'+esc(m.id)+'">'+esc(m.texto||'')+'</textarea>'+
     '<div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="'+esc(m.id)+'">Guardar</button><button class="btn chico" type="button" data-previa="'+esc(m.id)+'">Ver cómo se ve</button></div><div id="pv-'+esc(m.id)+'"></div></div>'}
 function pintarMensajes(){if(!esAdmin())return;GC=S.msgCurso;var M=(G().mensajes||[]);
@@ -533,12 +571,29 @@ async function registrar(uid,tipo,mensaje){
     toast({enviado:'Listo: quedó como enviado.',respondio:'Quedó anotado que respondió.',atendido:'Quedó anotado.',nota:'Nota guardada.'}[tipo]);
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
 }
-async function guardarWhatsapp(uid){
+/* Hoja de vida · Corregir datos. Quien acompaña corrige el WhatsApp; el superadministrador también nombre, correo de contacto y grupo.
+   Lo cambiado por el superadministrador queda marcado (editadoPanel) para que la carga desde el archivo no lo pise. */
+async function guardarDatos(uid){
   var p=porUid(uid);if(!p)return;
-  var n=normalizarWa(($('wa-'+uid)||{}).value);
-  if(!n){toast('Ese número no parece válido: escribe sus 10 dígitos, p. ej. 3001234567.');return}
-  try{await db.collection('personas').doc(p.uid).update({whatsapp:n,whatsappPanel:true});
-    inscDe(p.uid).forEach(function(x){x.whatsapp=n;x.whatsappPanel=true});repintar();toast('WhatsApp guardado.');
+  var waRaw=String(($('wa-'+uid)||{}).value||'').trim(),n=null;
+  if(waRaw){n=normalizarWa(waRaw);if(!n){toast('Ese WhatsApp no parece válido: escribe sus 10 dígitos, p. ej. 3001234567.');return}}
+  var cambio={};
+  if(esAdmin()&&$('e-nombre')){
+    var nom=String($('e-nombre').value||'').trim().replace(/\s+/g,' ').slice(0,80),cor=String($('e-correo').value||'').trim().toLowerCase(),gr=$('e-grupo').value;
+    if(!nom){toast('El nombre no puede quedar vacío.');return}
+    if(cor&&(cor.length>120||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(cor))){toast('Ese correo no parece válido.');return}
+    var crudo=String(p.nombre||'').trim();
+    if(nom!==crudo&&nom!==bonito(crudo))cambio.nombre=nom;
+    if(cor!==String(p.correo||''))cambio.correo=cor;
+    if(gr&&gr!==(p.grupo||SIN_GRUPO))cambio.grupo=gr;
+  }
+  var hayCambio=Object.keys(cambio).length>0;
+  if(!hayCambio&&!n){toast('No cambiaste nada.');return}
+  try{
+    var todos=S.personas.concat(S.quitadas).filter(function(x){return x.uid===uid});
+    if(hayCambio){cambio.editadoPanel=true;await db.collection('personas').doc(uid).update(cambio);todos.forEach(function(x){Object.assign(x,cambio)})}
+    if(n){await db.collection('personas').doc(uid).update({whatsapp:n,whatsappPanel:true});todos.forEach(function(x){x.whatsapp=n;x.whatsappPanel=true})}
+    ordenar(S.personas);llenarFiltros();repintar();toast('Datos guardados.');
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
 }
 async function ponerFuera(uid,fuera){
@@ -568,13 +623,14 @@ document.addEventListener('click',function(e){
   var el;
   if((el=e.target.closest('[data-enviar]'))){registrar(el.getAttribute('data-persona'),'enviado',el.getAttribute('data-enviar'));return}  /* abre WhatsApp y queda como enviado */
   if((el=e.target.closest('[data-curso]'))){abrirCurso(el.getAttribute('data-curso'));return}
+  if((el=e.target.closest('[data-hoja]'))){abrirHoja(el.getAttribute('data-hoja'));return}
+  if((el=e.target.closest('[data-guardar-datos]'))){guardarDatos(el.getAttribute('data-guardar-datos'));return}
   if((el=e.target.closest('[data-uid]'))){abrirFicha(el.getAttribute('data-uid'),el.getAttribute('data-c')||(S.vista==='curso'?S.curso:null));return}
   if(e.target.closest('#pmas')){S.mas+=PAGINA;pintarPersonas();return}
   if((el=e.target.closest('tr[data-fila]'))){abrirFicha(el.getAttribute('data-fila'),S.curso);return}
   if(e.target.closest('#cerrarFicha')||e.target===$('velo')){cerrarFicha();return}
   if(e.target.closest('#aCursos')){S.curso=null;ver('cursos');return}
   if((el=e.target.closest('[data-registrar]'))){registrar(el.getAttribute('data-persona'),el.getAttribute('data-registrar'),'manual');return}
-  if((el=e.target.closest('[data-guardar-wa]'))){guardarWhatsapp(el.getAttribute('data-guardar-wa'));return}
   if((el=e.target.closest('[data-ir]'))){abrirFicha(el.getAttribute('data-ir'),el.getAttribute('data-c'));return}
   if((el=e.target.closest('[data-quitar]'))){var p=porUid(el.getAttribute('data-quitar'));if(p&&confirm('¿Quitar a '+nombreDe(p)+' del panel? No le quita el acceso al curso.'))ponerFuera(p.uid,true);return}
   if((el=e.target.closest('[data-volver]'))){ponerFuera(el.getAttribute('data-volver'),false);return}
@@ -583,7 +639,7 @@ document.addEventListener('click',function(e){
     $('pv-'+id).innerHTML='<p class="ins">Así le llega, por ejemplo, a '+esc(primerNombre(ej))+':</p><div class="burbuja">'+waHtml(textoWa(m,ej,{pareja:'Andrés'}))+'</div>';return}
   if((el=e.target.closest('[role=tab]'))){var v=el.getAttribute('data-v');ver(v==='cursos'&&S.curso?'curso':v);return}
 });
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('velo').hidden)cerrarFicha();if(e.key==='Enter'&&e.target&&/^wa-/.test(e.target.id))guardarWhatsapp(e.target.id.slice(3))});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('velo').hidden)cerrarFicha();if(e.key==='Enter'&&e.target&&/^(wa-|e-)/.test(e.target.id)&&S.abierta)guardarDatos(S.abierta)});
 $('buscar').addEventListener('input',pintarCurso);
 $('filtro').addEventListener('change',pintarCurso);
 ['pbuscar','pcurso','pfiltro','pgrupo'].forEach(function(id){$(id).addEventListener(id==='pbuscar'?'input':'change',function(){S.mas=PAGINA;pintarPersonas()})});
