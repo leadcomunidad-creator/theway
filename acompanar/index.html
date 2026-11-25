@@ -87,6 +87,18 @@ table.rec{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
 .rec .hoy{text-align:left;padding-right:12px}
 .rec .movil{display:none}
 @media(max-width:640px){.rec .sit{display:none}.rec .movil{display:inline}.rec .quien{min-width:130px;max-width:150px}}
+/* Personas */
+.plista{list-style:none;margin:0 0 14px;padding:0;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.pf{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);gap:8px 14px;padding:10px 14px;border-top:1px solid var(--border);align-items:start}
+.pf:first-child{border-top:0}
+.pf .nom{background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:500;font-size:16px;overflow-wrap:anywhere}
+.pf .nom:hover{color:var(--gold-l)}
+.pf small{display:block;font-size:12px;color:var(--muted)}
+.pcs{display:flex;flex-direction:column;gap:6px;min-width:0}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px 10px;text-align:left;cursor:pointer;font-size:14px;overflow-wrap:anywhere}
+.pc:hover{border-color:var(--gold)}
+.pc b{font-weight:500;color:var(--gold-l)}
+@media(max-width:640px){.pf{grid-template-columns:minmax(0,1fr)}}
 /* Hoja de vida */
 .velo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:flex;justify-content:flex-end}
 .ficha{background:var(--deep);width:min(640px,100%);height:100%;overflow-y:auto;overflow-x:hidden;overflow-wrap:anywhere;border-left:1px solid var(--border2);padding:0 16px 40px}
@@ -146,7 +158,8 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
 
 <main id="app" hidden>
   <div class="tabs" role="tablist" aria-label="Vistas">
-    <button role="tab" id="t-cursos" aria-selected="true" data-v="cursos">Cursos</button>
+    <button role="tab" id="t-cursos" aria-selected="true" data-v="cursos">Por cursos</button>
+    <button role="tab" id="t-personas" aria-selected="false" data-v="personas">Por personas</button>
     <button role="tab" id="t-mensajes" aria-selected="false" data-v="mensajes" hidden>Mensajes</button>
   </div>
   <section id="v-cursos">
@@ -177,6 +190,33 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
     <div class="marco"><table class="rec" id="tabla"></table></div>
     <details class="quitadas" id="quitadas" hidden><summary></summary><ul class="hist" id="listaQuitadas"></ul></details>
   </section>
+  <section id="v-personas" hidden>
+    <h1>Personas</h1>
+    <p class="sub">Cada persona una sola vez, con el curso en que está.</p>
+    <div class="filtros">
+      <label class="sr" for="pbuscar">Buscar por nombre</label>
+      <input id="pbuscar" type="search" placeholder="Buscar por nombre" autocomplete="off">
+      <label class="sr" for="pcurso">Curso</label>
+      <select id="pcurso"><option value="">Todos los cursos</option></select>
+      <label class="sr" for="pfiltro">Situación</label>
+      <select id="pfiltro">
+        <option value="">Todas las situaciones</option>
+        <option value="al_dia">Al día</option>
+        <option value="atrasado">Atrasados</option>
+        <option value="retomar">Se desconectaron</option>
+        <option value="sin_entrar">No han entrado</option>
+        <option value="termino">Terminaron</option>
+        <option value="hoy">Les toca mensaje hoy</option>
+        <option value="respondio">Te respondieron</option>
+      </select>
+      <label class="sr" for="pgrupo">Grupo</label>
+      <select id="pgrupo"><option value="">Todos los grupos</option></select>
+    </div>
+    <p class="cuenta" id="pcuenta"></p>
+    <ul class="plista" id="plista"></ul>
+    <button class="btn" type="button" id="pmas" hidden></button>
+    <details class="quitadas" id="quitadasP" hidden><summary></summary><ul class="hist" id="listaQuitadasP"></ul></details>
+  </section>
   <section id="v-mensajes" hidden></section>
   <p class="aviso">Aquí no está la Bitácora de nadie: solo los días que cada persona cerró, cuándo tuvo actividad y los mensajes que se le mandaron. Anota solo lo necesario para acompañar; lo que te contaron en confianza no se escribe aquí.</p>
 </main>
@@ -187,10 +227,15 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
 <script src="../compartido/sesion.js"></script>
 <script>
 (function(){'use strict';
-var CURSO='metanoia', SIN_GRUPO='sin_grupo', NDIAS=20;
+/* Lista de cursos del panel. Para sumar un curso nuevo se agrega una línea aquí (y sus mensajes en guiones/{id}).
+   avance = dónde está lo que se lee de cada persona. Metanoia: su avance. Uniendo Caminos: solo los hitos (nunca lo escrito, que va cifrado). */
+var CURSOS={metanoia:{nombre:'Protocolo Metanoia',avance:['apps','metanoia','usuarios']},preparados:{nombre:'Uniendo Caminos',avance:['apps','preparados','hitos']}};
+var CURSO='metanoia', SIN_GRUPO='sin_grupo', NDIAS=20, GC='metanoia', PAGINA=50;
 var $=function(id){return document.getElementById(id)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var S={yo:null,equipo:null,guion:null,grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null};
+var S={yo:null,equipo:null,guiones:{},grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null,abiertaC:null,msgCurso:CURSO,mas:PAGINA};
+/* S.personas = una entrada por persona Y por curso (su inscripción). GC = el curso cuyos mensajes se usan en ese momento. */
+function G(){return S.guiones[GC]||{saludo:'Hola, [nombre] 👋',mensajes:[]}}
 var esAdmin=function(){return S.equipo&&S.equipo.rol==='admin'};
 
 /* ---------- Fechas (misma regla que el curso: inicio en lunes, un día por día hábil) ---------- */
@@ -213,7 +258,7 @@ function fechaCorta(ms){var d=new Date(ms);return d.getDate()+' '+MESES[d.getMon
 function dias(n){return n===1?'1 día':n+' días'}
 
 /* ---------- Mensajes ---------- */
-function msg(id){return S.guion&&(S.guion.mensajes||[]).find(function(m){return m.id===id})||null}
+function msg(id){return(G().mensajes||[]).find(function(m){return m.id===id})||null}
 function idDia(d){return'dia-'+String(d).padStart(2,'0')}
 function clase(m){return m.clase||(/^(dia|sabado)-/.test(m.id)||m.id==='primer-ingreso'?'leccion':'acompanamiento')}
 function tituloMsg(m){return String(m&&m.titulo||'').replace(/\s*\(nuevo\)\s*$/,'')}
@@ -221,6 +266,7 @@ function listo(m){return!!(m&&m.estado==='aprobado'&&String(m.texto||'').trim())
 
 /* ---------- Estado de cada persona (solo hitos, nunca Bitácora) ---------- */
 function analizar(p){
+  GC=p.curso||CURSO;
   var a=p.avance,r={entro:!!a,cerrados:0,ultimo:0,va:1,terminado:false,actividad:null,cal:null,cierre:{}};
   if(a){
     var h=a.hechos||{},mx=0;
@@ -230,7 +276,7 @@ function analizar(p){
     r.terminado=!!(h[20]&&h[20].v===true);r.va=r.terminado?20:Math.min(20,r.ultimo+1);
     r.cal=calendario(a.inicio,Date.now());
   }
-  var cs=S.contactos.filter(function(c){return c.persona===p.uid}).sort(function(x,y){return y.ms-x.ms});
+  var cs=S.contactos.filter(function(c){return c.persona===p.uid&&(c.curso||CURSO)===p.curso}).sort(function(x,y){return y.ms-x.ms});
   r.contactos=cs;
   /* mensaje de cada día: cuándo se le mandó (el más reciente) */
   r.enviado={};cs.forEach(function(c){if(c.tipo==='enviado'&&/^dia-\d\d$/.test(c.mensaje)){var d=+c.mensaje.slice(4);if(!r.enviado[d])r.enviado[d]=c.ms}});
@@ -281,23 +327,29 @@ async function cargarTodo(){
   S.contactos=cs.map(function(c){c.ms=tsMs(c.t)||Date.now();return c}).filter(function(c){return c.ms>=desde});
   S.quitadas=personas.filter(function(p){return p.fuera===true});
   personas=personas.filter(function(p){return p.fuera!==true});
-  await Promise.all(personas.map(function(p){return db.collection('apps').doc(CURSO).collection('usuarios').doc(p.uid).get().then(function(s){p.avance=s.exists?s.data():null},function(){p.avance=null})}));
-  personas.forEach(function(p){p.r=analizar(p)});
-  ordenar(personas);S.personas=personas;
+  var insc=[];for(var k=0;k<personas.length;k++)insc=insc.concat(await inscripcionesDe(personas[k]));
+  ordenar(insc);S.personas=insc;
 }
-function ordenar(L){L.sort(function(a,b){var x=bonito(a.nombre),y=bonito(b.nombre);if(!x!==!y)return x?-1:1;return x.localeCompare(y,'es')})}
+/* Los cursos de una persona: el campo «cursos» de su ficha; si no lo tiene, es de Metanoia (como hasta ahora). Solo los que el panel conoce. */
+function cursosDe(p){var L=Array.isArray(p.cursos)&&p.cursos.length?p.cursos:[p.curso||CURSO];L=L.filter(function(c,i){return CURSOS[c]&&L.indexOf(c)===i});return L.length?L:[CURSO]}
+function leerAvance(c,uid){var R=CURSOS[c].avance;return db.collection(R[0]).doc(R[1]).collection(R[2]).doc(uid).get().then(function(s){return s.exists?s.data():null},function(){return null})}
+async function inscripcionesDe(p){
+  return Promise.all(cursosDe(p).map(async function(c){var q=Object.assign({},p,{curso:c});q.avance=await leerAvance(c,p.uid);q.r=analizar(q);return q}));
+}
+function ordenar(L){L.sort(function(a,b){var x=bonito(a.nombre),y=bonito(b.nombre);if(!x!==!y)return x?-1:1;return x.localeCompare(y,'es')||(a.curso<b.curso?-1:a.curso>b.curso?1:0)})}
 
 /* ---------- Nombres y textos ---------- */
 function bonito(n){n=String(n||'').trim().replace(/\s+/g,' ');if(!n)return'';if(n===n.toUpperCase()||n===n.toLowerCase())n=n.toLowerCase().replace(/(^|[\s'-])(\p{L})/gu,function(_,a,b){return a+b.toUpperCase()});return n}
 function primerNombre(p){return bonito(p&&p.nombre).split(' ')[0]||''}
 function nombreDe(p){return bonito(p.nombre)||'Sin nombre'}
-function porUid(uid){return S.personas.find(function(x){return x.uid===uid})||null}
-function pareja(p){return p.pareja?porUid(p.pareja):null}
+function porUid(uid,curso){return S.personas.find(function(x){return x.uid===uid&&(!curso||x.curso===curso)})||(curso?porUid(uid):null)}
+function inscDe(uid){return S.personas.filter(function(x){return x.uid===uid})}
+function pareja(p){return p.pareja?porUid(p.pareja,p.curso):null}
 function tieneWa(p){return!!String(p&&p.whatsapp||'').replace(/\D/g,'')}
 function rellenar(t,p,extra){var r=p.r||{cerrados:0,va:1};
   t=String(t||'').split('[nombre]').join(primerNombre(p)).split('[N_DIAS]').join(dias(r.cerrados)).split('[N]').join(String(r.cerrados)).split('[D]').join(String(r.va));
   if(extra)Object.keys(extra).forEach(function(k){t=t.split('['+k+']').join(extra[k])});return t}
-function saludo(p){return rellenar(S.guion.saludo||'Hola, [nombre] 👋',p)}
+function saludo(p){return rellenar(G().saludo||'Hola, [nombre] 👋',p)}
 function textoWa(m,p,extra){if(!listo(m))return saludo(p);if(m.personal)return rellenar(m.texto,p,extra);return saludo(p)+'\n\n'+rellenar(m.texto,p,extra)}
 function waHtml(t){return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/(^|[\s(¿¡«])_([^_\n]+)_(?=$|[\s.,;:!?)»])/gm,'$1<i>$2</i>')}
 function normalizarWa(t){var d=String(t||'').replace(/\D/g,'');if(d.length===10&&d[0]==='3')d='57'+d;return/^\d{11,15}$/.test(d)?d:''}
@@ -310,10 +362,10 @@ function botonEnviar(p,m,etiqueta,extra,destino){destino=destino||p;var t=textoW
 
 /* ---------- Nivel 1: Cursos ---------- */
 function cursoDe(p){return p.curso||CURSO}
-function nombreCurso(id){return id===CURSO?(S.guion.nombre||'Protocolo Metanoia'):id}
+function nombreCurso(id){return CURSOS[id]?((S.guiones[id]&&S.guiones[id].nombre)||CURSOS[id].nombre):id}
 function pintarCursos(){
-  var C={};S.personas.forEach(function(p){(C[cursoDe(p)]=C[cursoDe(p)]||[]).push(p)});
-  if(!Object.keys(C).length)C[CURSO]=[];
+  var C={};Object.keys(CURSOS).forEach(function(id){C[id]=[]});S.personas.forEach(function(p){(C[cursoDe(p)]=C[cursoDe(p)]||[]).push(p)});
+  if(!esAdmin())Object.keys(C).forEach(function(id){if(!C[id].length)delete C[id]});
   $('listaCursos').innerHTML=Object.keys(C).map(function(id){var L=C[id],n=function(f){return L.filter(f).length};
     var cif=[['Al día',n(function(p){return p.r.situacion==='al_dia'&&!p.r.atraso}),'ok'],['Atrasados',n(function(p){return p.r.situacion==='al_dia'&&p.r.atraso>0}),'alerta'],['Desconectados',n(function(p){return p.r.situacion==='retomar'}),'alerta'],
       ['No han entrado',n(function(p){return p.r.situacion==='sin_entrar'}),'mal'],['Terminaron',n(function(p){return p.r.situacion==='termino'}),'ok'],['Mensaje hoy',n(function(p){return!!p.r.tocaHoy}),'']];
@@ -359,8 +411,8 @@ function pintarCurso(){
 }
 
 /* ---------- Nivel 3: hoja de vida ---------- */
-function abrirFicha(uid){
-  var p=porUid(uid);if(!p)return;S.abierta=uid;var r=p.r,q=pareja(p),s=situacionTxt(r);
+function abrirFicha(uid,curso){
+  var p=porUid(uid,curso||(S.abierta===uid?S.abiertaC:null)||S.curso);if(!p)return;S.abierta=uid;S.abiertaC=p.curso;GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
   var cal=r.cal?(r.cal.tipo==='dia'?'Día '+r.cal.dia:r.cal.tipo==='sabado'?'Sábado':r.cal.tipo==='domingo'?'Domingo':r.cal.tipo==='fin'?'Terminado':'Aún no empieza'):'—';
   var h='<div class="cab"><h2 id="fNombre">'+esc(nombreDe(p))+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div>';
   h+='<p class="ins" style="margin-top:12px">'+esc(nombreCurso(cursoDe(p)))+' · <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</p>';
@@ -368,7 +420,10 @@ function abrirFicha(uid){
      '<div class="dato"><span>Va en</span><b>'+(r.entro?(r.terminado?'Terminó':'Día '+r.va+' de 20'):'No ha entrado')+'</b></div><div class="dato"><span>Días cerrados</span><b>'+r.cerrados+' de 20</b></div>'+
      '<div class="dato"><span>Su calendario va en</span><b>'+esc(cal)+'</b></div><div class="dato"><span>Última actividad</span><b>'+(r.actividad?hace(r.sinActividad):'—')+'</b></div>'+
      '<div class="dato"><span>Grupo</span><b>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</b></div><div class="dato"><span>WhatsApp</span><b>'+(tieneWa(p)?'+'+esc(p.whatsapp):'Falta')+'</b></div></div>';
-  if(q)h+='<p class="ins">Se inscribió con <button class="btn chico" type="button" data-ir="'+esc(q.uid)+'">'+esc(nombreDe(q))+'</button></p>';
+  if(q)h+='<p class="ins">Se inscribió con <button class="btn chico" type="button" data-ir="'+esc(q.uid)+'" data-c="'+esc(q.curso)+'">'+esc(nombreDe(q))+'</button></p>';
+  /* Lo que ha cursado: todas sus inscripciones; tocar una abre su recorrido */
+  var todas=inscDe(p.uid);
+  h+='<h3>Lo que cursa</h3><div class="acc" style="margin-top:0">'+todas.map(function(x){var sx=situacionTxt(x.r);return'<button type="button" class="btn chico'+(x.curso===p.curso?' oro':'')+'" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'">'+esc(nombreCurso(x.curso))+' · '+esc(x.r.entro?(x.r.terminado?'Terminó':'Día '+x.r.va):'Sin empezar')+' · '+esc(sx[0])+'</button>'}).join('')+'</div>';
   /* Hoy */
   h+='<h3>Hoy</h3>';
   var m=r.tocaHoy||(r.hoyEnviado?r.hoy:null)||(r.accionHoy?r.accion:null);
@@ -397,8 +452,35 @@ function abrirFicha(uid){
   if(esAdmin())h+='<h3>Quitar del panel</h3><p class="ins">Por ejemplo, una cuenta de prueba. No le quita el acceso al curso ni borra nada; se puede volver a mostrar.</p><div class="acc"><button class="btn peligro chico" type="button" data-quitar="'+esc(p.uid)+'">Quitar del panel</button></div>';
   $('ficha').innerHTML=h;$('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
 }
-function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null}
-function repintar(){pintarCursos();if(S.curso)pintarCurso();if(S.abierta)abrirFicha(S.abierta)}
+function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null}
+function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta)abrirFicha(S.abierta,S.abiertaC)}
+
+/* ---------- Vista «Personas»: cada persona una vez, con el curso (o los cursos) en que está ---------- */
+function personasUnicas(){var m={},L=[];S.personas.forEach(function(p){if(!m[p.uid]){m[p.uid]={p:p,ins:[]};L.push(m[p.uid])}m[p.uid].ins.push(p)});return L}
+function coincide(p,f){var r=p.r;
+  if(f==='al_dia')return r.situacion==='al_dia'&&!r.atraso;
+  if(f==='atrasado')return r.situacion==='al_dia'&&r.atraso>0;
+  if(f==='hoy')return!!r.tocaHoy;
+  if(f==='respondio')return r.esperaRespuesta;
+  if(f)return r.situacion===f;return true}
+function pintarPersonas(){
+  var q=($('pbuscar').value||'').trim().toLowerCase(),fc=$('pcurso').value,fs=$('pfiltro').value,fg=$('pgrupo').value;
+  var L=personasUnicas().filter(function(x){
+    if(q&&nombreDe(x.p).toLowerCase().indexOf(q)<0)return false;
+    if(fg&&(x.p.grupo||SIN_GRUPO)!==fg)return false;
+    return x.ins.some(function(i){return(!fc||i.curso===fc)&&coincide(i,fs)})});
+  var total=personasUnicas().length;
+  $('pcuenta').textContent=L.length===total?total+' personas':'Mostrando '+L.length+' de '+total;
+  var vis=L.slice(0,S.mas);
+  $('plista').innerHTML=vis.map(function(x){var p=x.p;
+    var cs=x.ins.filter(function(i){return!fc||i.curso===fc}).map(function(i){var r=i.r,s=situacionTxt(r);
+      return'<button type="button" class="pc" data-uid="'+esc(p.uid)+'" data-c="'+esc(i.curso)+'"><b>'+esc(nombreCurso(i.curso))+'</b> · '+esc(r.entro?(r.terminado?'Cerró los 20':'Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+' <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.tocaHoy?' <span class="chip oro">Le toca mensaje</span>':'')+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</button>'}).join('');
+    return'<li class="pf"><div class="pn"><button type="button" class="nom" data-uid="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</small></div><div class="pcs">'+cs+'</div></li>'}).join('')||'<li class="vacio" style="padding:14px">Nadie con ese nombre o filtro.</li>';
+  $('pmas').hidden=L.length<=vis.length;$('pmas').textContent='Ver más ('+(L.length-vis.length)+' faltan)';
+  var qq=$('quitadasP');qq.hidden=!esAdmin()||!S.quitadas.length;
+  if(!qq.hidden){qq.querySelector('summary').textContent='Quitadas del panel ('+S.quitadas.length+')';
+    $('listaQuitadasP').innerHTML=S.quitadas.map(function(p){return'<li style="display:flex;align-items:center;gap:10px"><span style="flex:1">'+esc(nombreDe(p))+'</span><button class="btn chico" type="button" data-volver="'+esc(p.uid)+'">Volver a mostrar</button></li>'}).join('')}
+}
 
 /* ---------- Mensajes (solo Juan) ---------- */
 function cuandoTxt(m){var c=m.cuando||{};
@@ -414,23 +496,26 @@ function editor(m){var id='ed-'+m.id;
   return'<div class="editor"><h3>'+esc(tituloMsg(m))+(listo(m)?'':' <span class="chip alerta">Por escribir</span>')+'</h3><p class="cuando">'+esc(cuandoTxt(m))+'</p>'+
     '<label class="sr" for="'+id+'">Texto de '+esc(tituloMsg(m))+'</label><textarea id="'+id+'" data-msg="'+esc(m.id)+'">'+esc(m.texto||'')+'</textarea>'+
     '<div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="'+esc(m.id)+'">Guardar</button><button class="btn chico" type="button" data-previa="'+esc(m.id)+'">Ver cómo se ve</button></div><div id="pv-'+esc(m.id)+'"></div></div>'}
-function pintarMensajes(){if(!esAdmin())return;var M=(S.guion.mensajes||[]);
+function pintarMensajes(){if(!esAdmin())return;GC=S.msgCurso;var M=(G().mensajes||[]);
+  var sel='<div class="filtros"><label class="sr" for="mcurso">Curso</label><select id="mcurso">'+Object.keys(CURSOS).map(function(id){return'<option value="'+esc(id)+'"'+(id===S.msgCurso?' selected':'')+'>'+esc(nombreCurso(id))+'</option>'}).join('')+'</select></div>';
+  if(!S.guiones[S.msgCurso]){$('v-mensajes').innerHTML=sel+'<p class="vacio">Este curso todavía no tiene mensajes de acompañamiento. Cuando Juan los escriba y se carguen, aparecen aquí para editarlos.</p>';return}
   var ayuda='<p class="ayuda">En WhatsApp: <code>*negrita*</code> y <code>_cursiva_</code>. Se reemplazan solos: <code>[nombre]</code> (su primer nombre), <code>[D]</code> (el día en que va), <code>[N_DIAS]</code> (días cerrados, p. ej. «1 día» o «6 días») y <code>[pareja]</code>. Lo que guardes aquí se usa de inmediato.</p>';
-  var h='<section class="seccion"><h2>Mensajes de cada lección</h2><p class="por">Los recibe quien va al día, según el día en que va.</p>'+ayuda+
-    '<div class="editor"><h3>Saludo</h3><p class="cuando">Va antes de cada mensaje de lección</p><label class="sr" for="ed-saludo">Saludo</label><textarea id="ed-saludo" style="min-height:52px">'+esc(S.guion.saludo||'')+'</textarea><div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="__saludo">Guardar</button></div></div>'+
+  var h=sel+'<section class="seccion"><h2>Mensajes de cada lección</h2><p class="por">Los recibe quien va al día, según el día en que va.</p>'+ayuda+
+    '<div class="editor"><h3>Saludo</h3><p class="cuando">Va antes de cada mensaje de lección</p><label class="sr" for="ed-saludo">Saludo</label><textarea id="ed-saludo" style="min-height:52px">'+esc(G().saludo||'')+'</textarea><div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="__saludo">Guardar</button></div></div>'+
     M.filter(function(m){return clase(m)==='leccion'}).map(editor).join('')+'</section>';
   h+='<section class="seccion"><h2>Mensajes de acompañamiento</h2><p class="por">Para quien se desconectó, no ha entrado, terminó, o para pedir un número. Van completos, con su propio saludo.</p>'+ayuda+
     M.filter(function(m){return clase(m)==='acompanamiento'}).map(editor).join('')+'</section>';
   $('v-mensajes').innerHTML=h;
 }
 async function guardarMensaje(id){
-  var nuevo=S.guion.mensajes.map(function(m){return Object.assign({},m)}),saludoN=S.guion.saludo||'';
+  GC=S.msgCurso;var CM=S.msgCurso;
+  var nuevo=G().mensajes.map(function(m){return Object.assign({},m)}),saludoN=G().saludo||'';
   if(id==='__saludo'){saludoN=String($('ed-saludo').value||'').trim();if(!saludoN){toast('El saludo no puede quedar vacío.');return}}
   else{var m=nuevo.find(function(x){return x.id===id}),t=String((document.querySelector('textarea[data-msg="'+CSS.escape(id)+'"]')||{}).value||'').replace(/\r/g,'').trim();
     if(!m)return;m.texto=t;m.estado=t?'aprobado':'por_escribir';if(t)m.aprobado='Juan, editado en el panel el '+fechaCorta(Date.now())}
   try{var cambio={mensajes:nuevo,saludo:saludoN,editadoEnPanel:new Date().toISOString()};
-    await db.collection('guiones').doc(CURSO).update(cambio);
-    Object.assign(S.guion,cambio);S.personas.forEach(function(p){p.r=analizar(p)});repintar();
+    await db.collection('guiones').doc(CM).update(cambio);
+    Object.assign(S.guiones[CM],cambio);S.personas.forEach(function(p){p.r=analizar(p)});GC=CM;repintar();
     if(id!=='__saludo'){var ta=document.querySelector('textarea[data-msg="'+CSS.escape(id)+'"]'),ch=ta&&ta.closest('.editor').querySelector('h3 .chip');if(ch&&listo(msg(id)))ch.remove()}
     toast('Mensaje guardado.');
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
@@ -439,10 +524,10 @@ async function guardarMensaje(id){
 /* ---------- Escrituras ---------- */
 var tt;function toast(t){var e=$('toast');e.textContent=t;e.hidden=false;clearTimeout(tt);tt=setTimeout(function(){e.hidden=true},3200)}
 async function registrar(uid,tipo,mensaje){
-  var p=porUid(uid);if(!p)return;
+  var p=porUid(uid,S.abierta===uid?S.abiertaC:null);if(!p)return;
   var nota=(tipo==='nota'||tipo==='respondio')&&S.abierta===uid?String(($('nota')||{}).value||'').trim().slice(0,500):'';
   if(tipo==='nota'&&!nota){toast('Escribe la nota primero.');return}
-  var c={de:S.yo.uid,persona:p.uid,grupo:p.grupo||SIN_GRUPO,curso:CURSO,tipo:tipo,mensaje:String(mensaje||'manual').slice(0,60),nota:nota,t:firebase.firestore.FieldValue.serverTimestamp()};
+  var c={de:S.yo.uid,persona:p.uid,grupo:p.grupo||SIN_GRUPO,curso:p.curso,tipo:tipo,mensaje:String(mensaje||'manual').slice(0,60),nota:nota,t:firebase.firestore.FieldValue.serverTimestamp()};
   try{var ref=await db.collection('contactos').add(c);
     S.contactos.push(Object.assign({},c,{id:ref.id,ms:Date.now()}));p.r=analizar(p);repintar();
     toast({enviado:'Listo: quedó como enviado.',respondio:'Quedó anotado que respondió.',atendido:'Quedó anotado.',nota:'Nota guardada.'}[tipo]);
@@ -453,44 +538,56 @@ async function guardarWhatsapp(uid){
   var n=normalizarWa(($('wa-'+uid)||{}).value);
   if(!n){toast('Ese número no parece válido: escribe sus 10 dígitos, p. ej. 3001234567.');return}
   try{await db.collection('personas').doc(p.uid).update({whatsapp:n,whatsappPanel:true});
-    p.whatsapp=n;p.whatsappPanel=true;repintar();toast('WhatsApp guardado.');
+    inscDe(p.uid).forEach(function(x){x.whatsapp=n;x.whatsappPanel=true});repintar();toast('WhatsApp guardado.');
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
 }
 async function ponerFuera(uid,fuera){
   try{await db.collection('personas').doc(uid).update({fuera:fuera});
     if(fuera){var p=porUid(uid);S.personas=S.personas.filter(function(x){return x.uid!==uid});p.fuera=true;S.quitadas.push(p);cerrarFicha();toast('Quitada del panel.')}
     else{var q=S.quitadas.find(function(x){return x.uid===uid});S.quitadas=S.quitadas.filter(function(x){return x.uid!==uid});q.fuera=false;
-      try{var s=await db.collection('apps').doc(CURSO).collection('usuarios').doc(uid).get();q.avance=s.exists?s.data():null}catch(e){q.avance=null}
-      q.r=analizar(q);S.personas.push(q);ordenar(S.personas);toast('Vuelve a aparecer en el panel.')}
+      var base=Object.assign({},q);delete base.curso;delete base.avance;delete base.r;
+      (await inscripcionesDe(base)).forEach(function(x){S.personas.push(x)});ordenar(S.personas);toast('Vuelve a aparecer en el panel.')}
     repintar();
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
 }
 
 /* ---------- Navegación y eventos ---------- */
-function ver(v){S.vista=v;['cursos','curso','mensajes'].forEach(function(x){$('v-'+x).hidden=x!==v});
-  $('t-cursos').setAttribute('aria-selected',String(v!=='mensajes'));$('t-mensajes').setAttribute('aria-selected',String(v==='mensajes'));window.scrollTo(0,0)}
+var PREF='tw_panel_vista';
+function ver(v){S.vista=v;['cursos','curso','personas','mensajes'].forEach(function(x){$('v-'+x).hidden=x!==v});
+  $('t-cursos').setAttribute('aria-selected',String(v==='cursos'||v==='curso'));$('t-personas').setAttribute('aria-selected',String(v==='personas'));$('t-mensajes').setAttribute('aria-selected',String(v==='mensajes'));
+  if(v==='cursos'||v==='curso'||v==='personas'){try{localStorage.setItem(PREF,v==='personas'?'personas':'cursos')}catch(e){}}
+  window.scrollTo(0,0)}
+function vistaInicial(){var g=null;try{g=localStorage.getItem(PREF)}catch(e){}return g==='personas'||g==='cursos'?g:(esAdmin()?'cursos':'personas')}
+function llenarFiltros(){
+  $('pcurso').innerHTML='<option value="">Todos los cursos</option>'+Object.keys(CURSOS).filter(function(id){return esAdmin()||S.personas.some(function(p){return p.curso===id})}).map(function(id){return'<option value="'+esc(id)+'">'+esc(nombreCurso(id))+'</option>'}).join('');
+  var gs={};S.personas.forEach(function(p){gs[p.grupo||SIN_GRUPO]=1});
+  $('pgrupo').innerHTML='<option value="">Todos los grupos</option>'+Object.keys(gs).sort().map(function(g){return'<option value="'+esc(g)+'">'+esc((S.grupos[g]&&S.grupos[g].nombre)||'Sin grupo')+'</option>'}).join('');
+  $('pgrupo').hidden=Object.keys(gs).length<2;$('pcurso').hidden=$('pcurso').options.length<3}
 function abrirCurso(id){S.curso=id;$('buscar').value='';$('filtro').value='';pintarCurso();ver('curso')}
 document.addEventListener('click',function(e){
   var el;
   if((el=e.target.closest('[data-enviar]'))){registrar(el.getAttribute('data-persona'),'enviado',el.getAttribute('data-enviar'));return}  /* abre WhatsApp y queda como enviado */
   if((el=e.target.closest('[data-curso]'))){abrirCurso(el.getAttribute('data-curso'));return}
-  if((el=e.target.closest('[data-uid]'))){abrirFicha(el.getAttribute('data-uid'));return}
-  if((el=e.target.closest('tr[data-fila]'))){abrirFicha(el.getAttribute('data-fila'));return}
+  if((el=e.target.closest('[data-uid]'))){abrirFicha(el.getAttribute('data-uid'),el.getAttribute('data-c')||(S.vista==='curso'?S.curso:null));return}
+  if(e.target.closest('#pmas')){S.mas+=PAGINA;pintarPersonas();return}
+  if((el=e.target.closest('tr[data-fila]'))){abrirFicha(el.getAttribute('data-fila'),S.curso);return}
   if(e.target.closest('#cerrarFicha')||e.target===$('velo')){cerrarFicha();return}
   if(e.target.closest('#aCursos')){S.curso=null;ver('cursos');return}
   if((el=e.target.closest('[data-registrar]'))){registrar(el.getAttribute('data-persona'),el.getAttribute('data-registrar'),'manual');return}
   if((el=e.target.closest('[data-guardar-wa]'))){guardarWhatsapp(el.getAttribute('data-guardar-wa'));return}
-  if((el=e.target.closest('[data-ir]'))){abrirFicha(el.getAttribute('data-ir'));return}
+  if((el=e.target.closest('[data-ir]'))){abrirFicha(el.getAttribute('data-ir'),el.getAttribute('data-c'));return}
   if((el=e.target.closest('[data-quitar]'))){var p=porUid(el.getAttribute('data-quitar'));if(p&&confirm('¿Quitar a '+nombreDe(p)+' del panel? No le quita el acceso al curso.'))ponerFuera(p.uid,true);return}
   if((el=e.target.closest('[data-volver]'))){ponerFuera(el.getAttribute('data-volver'),false);return}
   if((el=e.target.closest('[data-guardar-msg]'))){guardarMensaje(el.getAttribute('data-guardar-msg'));return}
-  if((el=e.target.closest('[data-previa]'))){var id=el.getAttribute('data-previa'),m=Object.assign({},msg(id),{estado:'aprobado',texto:document.querySelector('textarea[data-msg="'+CSS.escape(id)+'"]').value}),ej=S.personas.find(function(x){return x.r.entro})||{nombre:'María',r:{cerrados:6,va:7}};
+  if((el=e.target.closest('[data-previa]'))){var id=el.getAttribute('data-previa'),m=Object.assign({},msg(id),{estado:'aprobado',texto:document.querySelector('textarea[data-msg="'+CSS.escape(id)+'"]').value}),ej=S.personas.find(function(x){return x.curso===S.msgCurso&&x.r.entro})||{nombre:'María',r:{cerrados:6,va:7}};GC=S.msgCurso;
     $('pv-'+id).innerHTML='<p class="ins">Así le llega, por ejemplo, a '+esc(primerNombre(ej))+':</p><div class="burbuja">'+waHtml(textoWa(m,ej,{pareja:'Andrés'}))+'</div>';return}
   if((el=e.target.closest('[role=tab]'))){var v=el.getAttribute('data-v');ver(v==='cursos'&&S.curso?'curso':v);return}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('velo').hidden)cerrarFicha();if(e.key==='Enter'&&e.target&&/^wa-/.test(e.target.id))guardarWhatsapp(e.target.id.slice(3))});
 $('buscar').addEventListener('input',pintarCurso);
 $('filtro').addEventListener('change',pintarCurso);
+['pbuscar','pcurso','pfiltro','pgrupo'].forEach(function(id){$(id).addEventListener(id==='pbuscar'?'input':'change',function(){S.mas=PAGINA;pintarPersonas()})});
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='mcurso'){S.msgCurso=e.target.value;pintarMensajes()}});
 $('salir').addEventListener('click',function(){TW_SESION.salir().then(function(){location.reload()})});
 
 function estado(html){$('estado').innerHTML=html;$('estado').hidden=false;$('app').hidden=true}
@@ -504,12 +601,14 @@ async function iniciar(){
     var eq=await db.collection('equipo').doc(u.uid).get();
     if(!eq.exists){estado('<h1>No tienes acceso</h1><p>Esta página es para el equipo que acompaña los cursos de THE WAY. Si crees que es un error, escríbele a Juan.</p><button class="btn" type="button" id="otra">Entrar con otra cuenta</button>');$('otra').addEventListener('click',function(){TW_SESION.salir().then(pedirEntrada)});return}
     S.equipo=eq.data();
-    var g=await db.collection('guiones').doc(CURSO).get();S.guion=g.exists?g.data():{saludo:'Hola, [nombre] 👋',mensajes:[]};
+    for(var ci=0;ci<Object.keys(CURSOS).length;ci++){var cid=Object.keys(CURSOS)[ci];
+      try{var g=await db.collection('guiones').doc(cid).get();S.guiones[cid]=g.exists?g.data():null}catch(e){S.guiones[cid]=null}}
+    if(!S.guiones[CURSO])S.guiones[CURSO]={saludo:'Hola, [nombre] 👋',mensajes:[]};
     await cargarTodo();
     $('cabecera').hidden=false;$('yoNombre').textContent=u.nombre||'';$('yoRol').textContent=esAdmin()?'Todos':((S.equipo.grupos||[]).map(function(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}).join(', '));
     $('t-mensajes').hidden=!esAdmin();
-    var hoy=new Date();$('fechaHoy').textContent='Hoy es '+DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+S.personas.length+' personas';
-    pintarCursos();pintarMensajes();$('estado').hidden=true;$('app').hidden=false;
+    var hoy=new Date();$('fechaHoy').textContent='Hoy es '+DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+personasUnicas().length+' personas';
+    llenarFiltros();pintarCursos();pintarPersonas();pintarMensajes();ver(vistaInicial());$('estado').hidden=true;$('app').hidden=false;
   }catch(e){console.error(e);estado('<h1>Algo no salió bien</h1><p>No pudimos cargar el panel. Revisa tu conexión.</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
 }
 iniciar();
