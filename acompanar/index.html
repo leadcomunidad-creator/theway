@@ -240,7 +240,7 @@ function analizar(p){
   r.sinActividadH=r.actividad?habilesEntre(r.actividad,Date.now()):null;
   r.calDia=(a&&a.inicio)?Math.min(20,habiles(fromIso(a.inicio),Date.now())):0;
   r.atraso=(r.entro&&!r.terminado)?Math.max(0,r.calDia-r.va):0;
-  r.situacion=!r.entro?'sin_entrar':r.terminado?'termino':((r.sinActividadH!=null&&r.sinActividadH>=5)||r.atraso>=3)?'retomar':'al_dia';
+  r.situacion=!r.entro?'sin_entrar':r.terminado?'termino':(r.sinActividadH!=null?r.sinActividadH>=5:r.atraso>=3)?'retomar':'al_dia'; /* «Se desconectó» = 5+ días hábiles sin entrar; quien entra pero va atrasado queda «Atrasado» */
   r.hoy=r.situacion==='al_dia'?mensajeDeHoy(r):null;
   if(r.hoy&&!listo(r.hoy))r.hoy=null;
   r.hoyEnviado=!!(r.hoy&&cs.some(function(c){return c.tipo==='enviado'&&c.mensaje===r.hoy.id&&haceDias(c.ms)===0}));
