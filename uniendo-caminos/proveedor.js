@@ -1,4 +1,4 @@
-/* Preparados para amar · proveedor de datos (THE WAY, Habilidad [2.3.2.3.1]).
+/* Uniendo Caminos · proveedor de datos (THE WAY, Habilidad [2.3.2.3.1]).
    Usa la sesión común (compartido/sesion.js) sin modificarla. No pinta pantallas.
    PRIVACIDAD (decisión de Juan, 24-nov-2026): todo lo que escribe la persona o la pareja se cifra EN EL APARATO
    con AES-GCM y una clave derivada del PIN (PBKDF2-SHA-256). En la nube solo queda texto ilegible: ni el mentor,

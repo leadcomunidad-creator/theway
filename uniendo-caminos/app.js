@@ -1,4 +1,4 @@
-/* Preparados para amar · pantallas. Datos y cifrado: proveedor.js (TW_PREP). Sesión: compartido/sesion.js (TW_SESION).
+/* Uniendo Caminos · pantallas. Datos y cifrado: proveedor.js (TW_PREP). Sesión: compartido/sesion.js (TW_SESION).
    Nada de lo que escribe la persona se guarda sin cifrar, ni en la nube ni en este aparato. */
 (function () {
   'use strict';
@@ -72,7 +72,7 @@
   function pintar(html) { $app.innerHTML = html; window.scrollTo(0, 0); }
   function marco(contenido, opciones) {
     opciones = opciones || {};
-    return '<header class="barra"><button class="marca" data-ir="inicio" aria-label="Ir al inicio"><span class="marca-t">Preparados para amar</span><span class="marca-s">The Way · Habilidades relacionales</span></button>' +
+    return '<header class="barra"><button class="marca" data-ir="inicio" aria-label="Ir al inicio"><span class="marca-t">Uniendo Caminos</span><span class="marca-s">The Way · Habilidades relacionales</span></button>' +
       (opciones.sinMenu ? '' : '<button class="btn-txt" data-act="bloquear" title="Cerrar con PIN">Bloquear</button>') + '</header>' +
       '<main class="hoja">' + contenido + '</main>' +
       '<footer class="pie"><span class="candado" aria-hidden="true"></span> Lo que escriben se guarda cifrado con su PIN. Nadie más puede leerlo.</footer>';
@@ -81,28 +81,43 @@
 
   /* ---------- pantallas de entrada ---------- */
   function pantallaCargando(t) { pintar('<div class="centro"><div class="giro" aria-hidden="true"></div><p>' + esc(t || 'Abriendo el curso…') + '</p></div>'); }
-  /* Landing (decisión de Juan, 24-nov-2026): sin montaña. La marca de THE WAY es «el Camino»: dos caminos que se unen en uno (Génesis 2:24). */
-  var CAMINOS = '<svg class="caminos" viewBox="0 0 400 220" role="img" aria-label="Dos caminos que se unen en uno solo y siguen hacia el amanecer">' +
-    '<defs><radialGradient id="luz" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#FCE7C8" stop-opacity=".85"/><stop offset=".55" stop-color="#E9B27E" stop-opacity=".22"/><stop offset="1" stop-color="#E9B27E" stop-opacity="0"/></radialGradient>' +
-    '<linearGradient id="uno" gradientUnits="userSpaceOnUse" x1="0" y1="134" x2="0" y2="72"><stop offset="0" stop-color="#D98260"/><stop offset="1" stop-color="#F6DDB0"/></linearGradient>' +
-    '<linearGradient id="suelo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>' +
-    '<g class="c-luz"><path d="M60 72 A140 70 0 0 1 340 72 Z" fill="url(#luz)"/><path d="M174 72 A26 26 0 0 1 226 72 Z" fill="#F6DDB0"/></g>' +
-    '<line x1="20" y1="72" x2="380" y2="72" stroke="#F6DDB0" stroke-opacity=".35" stroke-width="1.2"/>' +
-    '<g class="c-suelo">' +
-    '<path d="M4 220 C 70 196, 140 164, 188 136 L 199 131 L 197 143 C 158 170, 104 200, 60 220 Z" fill="#C46A4A"/>' +
-    '<path d="M396 220 C 330 196, 260 164, 212 136 L 201 131 L 203 143 C 242 170, 296 200, 340 220 Z" fill="#C9A15B"/>' +
-    '<path d="M189 136 L 211 136 L 201.4 72 L 198.6 72 Z" fill="url(#uno)"/>' +
-    '</g></svg>';
+  /* Landing (decisiones de Juan, 24-nov-2026): sin montaña; nombre «Uniendo Caminos»; colores de la portada del libro.
+     Dibujo: dos personas, cada una por su camino, se encuentran y siguen juntas, de la mano, por un solo camino hacia el amanecer. */
+  function persona(color) {
+    return '<circle cx="0" cy="-27" r="5.6" fill="' + color + '"/><path d="M-6.5 -19.5 Q0 -22.5 6.5 -19.5 L7.5 -1.5 Q0 1.5 -7.5 -1.5 Z" fill="' + color + '"/>';
+  }
+  function caminante(id, color, ruta) {
+    return '<g><animateMotion dur="4.6s" fill="freeze" calcMode="linear" keyTimes="0;0.3;1" keyPoints="0;0;1" path="' + ruta + '"/>' +
+      '<g>' + persona(color) + '<animateTransform attributeName="transform" type="scale" values="1.25;1.25;0.78" keyTimes="0;0.3;1" dur="4.6s" fill="freeze"/></g></g>';
+  }
+  var CAMINOS = '<svg class="caminos" viewBox="0 0 400 236" role="img" aria-label="Dos personas, cada una por su camino, se encuentran y siguen juntas por un solo camino hacia el amanecer">' +
+    '<defs><radialGradient id="luz" cx="50%" cy="100%" r="62%"><stop offset="0" stop-color="#FFE3A6" stop-opacity=".95"/><stop offset=".55" stop-color="#F6C46A" stop-opacity=".3"/><stop offset="1" stop-color="#F6C46A" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="uno" gradientUnits="userSpaceOnUse" x1="0" y1="146" x2="0" y2="80"><stop offset="0" stop-color="#2AB3B1"/><stop offset="1" stop-color="#F3C877"/></linearGradient>' +
+    '<clipPath id="revela"><rect x="0" y="236" width="400" height="0"><animate attributeName="y" values="236;236;78" keyTimes="0;0.08;1" dur="2.6s" fill="freeze"/><animate attributeName="height" values="0;0;158" keyTimes="0;0.08;1" dur="2.6s" fill="freeze"/></rect></clipPath></defs>' +
+    '<g opacity="0"><animate attributeName="opacity" values="0;0;1" keyTimes="0;0.6;1" dur="5.6s" fill="freeze"/><path d="M56 80 A144 74 0 0 1 344 80 Z" fill="url(#luz)"/><path d="M170 80 A30 30 0 0 1 230 80 Z" fill="#F6C46A"/></g>' +
+    '<path d="M0 80 Q 60 64 120 74 T 230 70 T 400 76 L 400 80 L 0 80 Z" fill="#CFEAE9" opacity=".8"/>' +
+    '<line x1="0" y1="80" x2="400" y2="80" stroke="#B9CACA" stroke-width="1"/>' +
+    '<g clip-path="url(#revela)">' +
+    '<path d="M8 236 C 74 210, 142 176, 190 148 L 199 143 L 197 155 C 158 182, 106 214, 64 236 Z" fill="#2AB3B1"/>' +
+    '<path d="M392 236 C 326 210, 258 176, 210 148 L 201 143 L 203 155 C 242 182, 294 214, 336 236 Z" fill="#E2A23B"/>' +
+    '<path d="M189 148 L 211 148 L 201.4 80 L 198.6 80 Z" fill="url(#uno)"/>' +
+    '</g>' +
+    caminante('a', '#0B4F51', 'M44 228 C 96 206, 152 176, 192 146') +
+    caminante('b', '#9A5B12', 'M356 228 C 304 206, 248 176, 208 146') +
+    '<line x1="196" y1="135" x2="204" y2="135" stroke="#4A5057" stroke-width="2.4" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;0;1" keyTimes="0;0.85;1" dur="5s" fill="freeze"/></line>' +
+    '</svg>';
   function pantallaLanding() {
     var u = st.u, nombre = u && u.nombre ? u.nombre.split(' ')[0] : '';
     var boton = u ? '<button class="btn" data-act="continuar">' + (nombre ? 'Entrar, ' + esc(nombre) : 'Entrar a mi curso') + '</button><p class="nota">Entraste como ' + esc(u.correo || u.nombre) + ' · <button class="btn-txt claro" data-act="salir">usar otra cuenta</button></p>'
       : '<button class="btn" data-act="entrar">Entrar con Google</button><p class="nota">Cada uno entra con su propia cuenta.</p>';
     pintar('<div class="portada"><div class="portada-in">' + CAMINOS +
-      '<p class="sobre">The Way · Curso prematrimonial</p><h1>Preparados para amar</h1><p class="lema">De la boda al pacto</p>' +
+      '<p class="sobre">The Way · Curso prematrimonial</p><h1><span class="t1">Uniendo</span><span class="t2">Caminos</span></h1><p class="lema">De la boda al pacto</p>' +
       '<p class="versiculo">«…se unirá a su mujer, y serán una sola carne».<span>Génesis 2:24</span></p>' +
       '<ul class="claves"><li><b>4</b><span>semanas</span></li><li><b>L–V</b><span>unos 20 minutos al día</span></li><li><b>4</b><span>citas de pareja, los viernes</span></li><li><b>1</b><span>Pacto escrito al final</span></li></ul>' +
       '<p class="intro">Una boda dura un día; un pacto, toda la vida. Cuatro semanas para conocerse de verdad, hablar lo que no han hablado y salir con acuerdos claros.</p>' +
       boton + '<p class="privado"><span class="candado" aria-hidden="true"></span> Lo que escriban se guarda cifrado con su PIN. Solo ustedes pueden leerlo.</p></div></div>');
+    var svg = document.querySelector('.caminos');
+    if (svg && window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && svg.setCurrentTime) { svg.pauseAnimations(); svg.setCurrentTime(10); }
   }
   function pantallaSinAcceso() {
     pintar(marco('<section class="tarjeta"><h2>Tu cuenta todavía no tiene acceso</h2><p>Entraste como <strong>' + esc(st.u.correo || st.u.nombre) + '</strong>. Si ya hicieron la inscripción, escríbele a tu líder para que active el curso para esta cuenta.</p><button class="btn sec" data-act="salir">Entrar con otra cuenta</button></section>', { sinMenu: true }));
@@ -161,7 +176,7 @@
       (abierta(20) ? '<button class="btn ' + (invF ? 'sec' : '') + '" data-act="inv" data-cual="final">' + (invF ? 'Ver mi inventario final' : 'Llenar el inventario final') + '</button>' : '<span class="nota">El final se abre el día 20.</span>') + '</div></section>';
     var hechas = 0; for (var n = 1; n <= 20; n++) if (hecha(n)) hechas++;
     pintar(marco(
-      '<section class="hero"><p class="sobre">Curso prematrimonial · ' + hechas + ' de 20 días</p><h1>Preparados para amar</h1><p class="lema">De la boda al pacto</p>' +
+      '<section class="hero"><p class="sobre">Curso prematrimonial · ' + hechas + ' de 20 días</p><h1>Uniendo Caminos</h1><p class="lema">De la boda al pacto</p>' +
       '<div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="20" aria-valuenow="' + hechas + '"><span style="width:' + (hechas * 5) + '%"></span></div></section>' +
       (st.aviso ? '<p class="aviso">' + esc(st.aviso) + '</p>' : '') +
       (abierta(1) ? '<section class="tarjeta hoy"><p class="sobre">' + (hecha(sig) ? 'Lo último abierto' : 'Para hoy') + '</p><h2>' + esc(j ? j.titulo : '') + '</h2><p>' + esc(j ? 'Semana ' + j.semana + ' · ' + j.dia + ' · ' + MODO[j.modo] : '') + '</p><button class="btn" data-jornada="' + sig + '">Abrir</button></section>'
@@ -233,7 +248,7 @@
       }).join(''));
     } else if (que === 'mis') {
       await todasLasJornadas(); titulo = 'Mis respuestas';
-      partes.push('<h1>Mis respuestas</h1><p class="sobre">Preparados para amar · ' + esc(st.u.nombre || '') + '</p><p class="nota">Por tu privacidad, aquí no se imprime la pregunta solo para ti del inventario.</p>');
+      partes.push('<h1>Mis respuestas</h1><p class="sobre">Uniendo Caminos · ' + esc(st.u.nombre || '') + '</p><p class="nota">Por tu privacidad, aquí no se imprime la pregunta solo para ti del inventario.</p>');
       for (var k = 1; k <= 20; k++) {
         var jj = st.jor[k], campos = jj.bloques.filter(function (b) { return b.t === 'campo'; });
         if (!campos.length) continue;
@@ -241,19 +256,19 @@
       }
     } else if (que === 'acuerdos') {
       await todasLasJornadas(); titulo = 'Nuestros acuerdos y Pacto';
-      partes.push('<h1>Nuestros acuerdos y Pacto</h1><p class="sobre">Preparados para amar</p>');
+      partes.push('<h1>Nuestros acuerdos y Pacto</h1><p class="sobre">Uniendo Caminos</p>');
       for (var m = 1; m <= 20; m++) st.jor[m].bloques.filter(function (b) { return b.t === 'formulario'; }).forEach(function (f) {
         partes.push('<section class="' + (f.id === 'pacto' ? 'pacto' : '') + '"><h2>' + inline(f.titulo) + '</h2>' + f.campos.map(function (c) { return '<p class="ej-l">' + inline(c.etiqueta) + '</p><div class="resp">' + esc(valorC(c.id) || ' ') + '</div>'; }).join('') +
           (f.id === 'pacto' ? '<p class="firmas">Firmas: ______________________ · ______________________ · Fecha: ____________</p><p class="firmas">Testigos: ______________________</p>' : '') + '</section>');
       });
     } else if (que === 'inv-blanco') {
       titulo = 'Inventario'; var inv = st.base.inventario, ult = null;
-      partes.push('<h1>Inventario</h1><p class="sobre">Preparados para amar · Inicial ☐ · Final ☐</p>' + md(inv.intro));
+      partes.push('<h1>Inventario</h1><p class="sobre">Uniendo Caminos · Inicial ☐ · Final ☐</p>' + md(inv.intro));
       inv.escala.forEach(function (it) { if (it.grupo !== ult) { partes.push('<h3>' + esc(it.grupo) + '</h3>'); ult = it.grupo; } partes.push('<p class="linea-esc">' + esc(it.id.replace('inv-', '')) + '. ' + inline(it.etiqueta) + ' <span class="cajas">1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 ☐</span></p>'); });
       partes.push('<h3>Tres preguntas abiertas</h3>' + inv.abiertas.map(function (a) { return '<p class="ej-l">' + inline(a.etiqueta) + '</p><div class="resp vacia"></div>'; }).join(''));
       partes.push('<h3>Una pregunta solo para ti (no la compartas)</h3><p>' + inline(inv.privada.etiqueta) + '</p><p>No ☐ · Sí ☐</p>');
     }
-    document.title = titulo + ' · Preparados para amar';
+    document.title = titulo + ' · Uniendo Caminos';
     pintar('<div class="imprimible">' + partes.join('') + '</div><div class="no-imp centro-t"><button class="btn" data-act="imprimir-ya">Imprimir o guardar PDF</button> <button class="btn sec" data-ir="' + (que === 'jornada' ? 'jornada' : 'inicio') + '" data-n="' + (n || '') + '">Volver</button></div>');
     setTimeout(function () { window.print(); }, 400);
   }
@@ -292,7 +307,7 @@
   /* ---------- acciones ---------- */
   async function ir(vista, n) {
     try {
-      if (vista === 'inicio') { st.vista = 'inicio'; document.title = 'Preparados para amar · The Way'; history.replaceState(null, '', location.pathname); pantallaInicio(); return; }
+      if (vista === 'inicio') { st.vista = 'inicio'; document.title = 'Uniendo Caminos · The Way'; history.replaceState(null, '', location.pathname); pantallaInicio(); return; }
       if (vista === 'jornada') { n = Number(n); if (!abierta(n)) return; if (!st.jor[n]) { pantallaCargando(); st.jor[n] = await P.jornada(n); } st.vista = 'jornada'; st.n = n; pantallaJornada(n); history.replaceState(null, '', '#dia-' + n); }
     } catch (e) { console.error(e); st.aviso = 'No pudimos abrir ese día. Revisa tu conexión.'; pantallaInicio(); }
   }
