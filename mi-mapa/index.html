@@ -822,14 +822,14 @@ function placePop(el){var q=$('pop');q.hidden=false;
   q.style.left=Math.max(12,Math.min(W-292,x+34>W-292?x-300:x+34))+'px';q.style.top=Math.max(64,Math.min(H-q.offsetHeight-90,y-q.offsetHeight/2))+'px'}
 }
 /* ---- Mapa general (vista Expediciones) ---- */
-var GE=[{n:'Mentalidad',a:1,x:14,y:14.5},{n:'Capacidad',a:0,x:51.5,y:10.5},{n:'Habilidad',a:0,x:88,y:15}];
+var GE=[{n:'Mentalidad',a:1,x:14,y:14.5},{n:'Capacidad',a:0,x:51.5,y:10.5},{n:'Habilidad',a:0,carta:1,x:88,y:15}];
 var GP=[[[33.4,59.5],[22.1,42.2],[13.9,23.5]],[[45.8,54.0],[54.6,36.2],[51.1,19.9]],[[68.8,61.2],[80.5,42.9],[88.0,25.1]]]; /* marcador de cada montaña (% de la imagen) */
-var GN=[['Identidad','Sanidad','Renovación'],['Montaña 1','Montaña 2','Montaña 3'],['Montaña 1','Montaña 2','Montaña 3']];
+var GN=[['Identidad','Sanidad','Renovación'],['Montaña 1','Montaña 2','Montaña 3'],['Personales','Relacionales','Vocacionales']]; /* 24-nov-2026: Habilidad es a la carta (decisión de Juan) */
 function addG(x,y,label,o){var b=document.createElement('button');b.type='button';b.className='mk';b.style.left=x+'%';b.style.top=y+'%';b.setAttribute('aria-label',label);
  var l=document.createElement('span');l.className='gl'+(o.g?' g':'')+(o.left?' left':'');l.style.left=x+'%';l.style.top=y+'%';l.textContent=label;
  gw.appendChild(b);gw.appendChild(l);var g={el:b,x:x,y:y,k:o.k,e:o.e,m:o.m,name:label};b.onclick=function(ev){ev.stopPropagation();gpop(g)};G.push(g)}
 function buildG(){
- GE.forEach(function(e,i){var d=document.createElement('div');d.className='gx '+(e.a?'a':'g');d.style.left=e.x+'%';d.style.top=e.y+'%';d.innerHTML='<b>'+e.n.toUpperCase()+'</b><small>Expedición '+(i+1)+' · '+(e.a?'activa':'por construir')+'</small>';gw.appendChild(d)});
+ GE.forEach(function(e,i){var d=document.createElement('div');d.className='gx '+(e.a||e.carta?'a':'g');d.style.left=e.x+'%';d.style.top=e.y+'%';d.innerHTML='<b>'+e.n.toUpperCase()+'</b><small>Expedición '+(i+1)+' · '+(e.a?'activa':e.carta?'a la carta':'por construir')+'</small>';gw.appendChild(d)});
  addG(46.5,79.2,'Campamento Base',{k:'hub',left:1});
  for(var e=0;e<3;e++)for(var m=0;m<3;m++)addG(GP[e][m][0],GP[e][m][1],GN[e][m],{k:'m',e:e,m:m,g:e>0});
 }
@@ -841,6 +841,7 @@ function addT(x,y,label,o){var b=document.createElement('button');b.type='button
 function buildT(){addT(TN[0],TN[1],'Campamento Base',{k:'hub'});for(var m=0;m<3;m++)addT(TP[m][0],TP[m][1],GN[0][m],{k:'m',m:m})}
 function stG(g){var k,ic;
   if(g.k==='hub'){k=enId()?(p<4?'current':'reached'):'active';ic=k==='reached'?CHK:TENT}
+  else if(g.e===2&&g.m===1){k='active';ic='<span>2</span>'} /* Relacionales: Uniendo Caminos */
   else if((g.e||0)>0){k='locked';ic=LOCK}
   else{k=g.m===AQUI.mt&&AQUI.exp===0?'current':g.m===0?(p>=Motor.SEMANAS?'reached':p>=4&&enId()?'current':'active'):'active';ic=k==='reached'?CHK:'<span>'+(g.m+1)+'</span>'}
   g.el.dataset.s=k;g.el.innerHTML=ic}
@@ -858,8 +859,10 @@ function gpop(g){
  var o,t,d,n;
  if(g.k==='hub'){o='Campamento Base';t='Jesús Es';d='Aquí empieza toda expedición: el punto de partida de tu travesía.';n=''}
  else if(g.e===0){o='Expedición 1 · Mentalidad · Montaña '+(g.m+1);t=g.name;d=g.m===1?'La siguiente montaña de Mentalidad: te espera después de Identidad.':'La montaña que cierra la expedición Mentalidad.';n=''}
+ else if(g.e===2){o='Expedición 3 · Habilidad · a la carta';t=g.m===1?'Relacionales · Uniendo Caminos':g.name;d=g.m===1?'Curso prematrimonial de 4 semanas para parejas. Entran las parejas inscritas; si tu cuenta aún no tiene acceso, el curso te lo dirá.':'Cursos que llegarán pronto. En Habilidad no hace falta seguir un orden: cada curso se toma cuando se necesita.';n=''}
  else{o='Expedición '+(g.e+1)+' · '+GE[g.e].n+' · Montaña '+(g.m+1);t='Montaña '+(g.m+1);d='Una montaña que aún no se revela. Llegará a su tiempo.';n=''}
- $('pJ').hidden=true;$('pO').textContent=o;$('pT').textContent=t;$('pD').textContent=d;$('pN').textContent=n;$('pN').hidden=!n;$('pL').hidden=true;placePop(g.el);
+ $('pJ').hidden=true;$('pO').textContent=o;$('pT').textContent=t;$('pD').textContent=d;$('pN').textContent=n;$('pN').hidden=!n;$('pL').hidden=true;if(g.e===2&&g.m===1){var lk=$('pL');lk.hidden=false;lk.textContent='Entrar al curso';lk.href='../uniendo-caminos/';lk.removeAttribute('aria-disabled');lk.removeAttribute('tabindex')}
+ placePop(g.el);
 }
 function gfit(){var s=1;if(W/H>16/9+.02)s=Math.max(H/BH,.88);var c=aquiG(G),w=BW*s,tx=w<=W+1?(W-w)/2:Math.min(0,Math.max(W-w,W/2-c.x/100*w));
  return {s:s,tx:tx,ty:BH*s<=H?(H-BH*s)/2:-(BH*s-H)*.3}}
@@ -908,9 +911,19 @@ function renderF(){
   var gv=el('button','fgo','Ver su camino');gv.type='button';gv.onclick=function(){setF(false);setMtn(M[2]);setMode('mountain')};
   x.appendChild(frow('Cumbre · se activa al conquistar','Cumbre de '+v.nom,gv,[lockChip(0,true)],false));g.appendChild(x)});
  m1.appendChild(g);b.appendChild(m1);
- [['CAPACIDAD','Expedición 2',1],['HABILIDAD','Expedición 3',2]].forEach(function(E){
+ [['CAPACIDAD','Expedición 2',1]].forEach(function(E){
   var d=el('div','fcard g');d.appendChild(banner(E[2],E[0],E[1]+' · por descubrir',true));var g3=el('div','fm3');
   for(var m=1;m<=3;m++)g3.appendChild(offMt(m,'MONTAÑA '+m,['Por revelar','Por revelar','Por revelar']));d.appendChild(g3);b.appendChild(d)});
+ /* Habilidad: a la carta (24-nov-2026). Relacionales › Parejas › Uniendo Caminos se abre a las parejas inscritas (el curso verifica el acceso). */
+ var hb=el('div','fcard');hb.appendChild(banner(2,'HABILIDAD','Expedición 3 · a la carta',false));var h3=el('div','fm3');
+ h3.appendChild(offMt(1,'PERSONALES',['Por revelar','Por revelar','Por revelar']));
+ var rel=el('div','fmt on');rel.appendChild(el('h4',null,'RELACIONALES'));rel.appendChild(el('small',null,'Montaña 2 · a la carta'));
+ var uc=el('button','fdoor');uc.type='button';uc.dataset.s='ready';uc.innerHTML=FLAG+'Entrar al curso';uc.onclick=function(ev){ev.stopPropagation();location.href='../uniendo-caminos/'};
+ rel.appendChild(frow('Parejas · Antes de casarse','Uniendo Caminos',uc,[],true));
+ [['Parejas · Durante','Fortalecer el matrimonio'],['Parejas · Después','Matrimonios en crisis']].forEach(function(z){var lb=el('button','fdoor',LOCK+'Próximamente');lb.type='button';lb.dataset.s='lock';lb.disabled=true;rel.appendChild(frow(z[0],z[1],lb,[],false))});
+ h3.appendChild(rel);
+ h3.appendChild(offMt(3,'VOCACIONALES',['Por revelar','Por revelar','Por revelar']));
+ hb.appendChild(h3);b.appendChild(hb);
  R.appendChild(b);
 }
 function setF(on){fview=on;shut();document.body.classList.toggle('fm',on);$('fml').classList.toggle('on',on);
