@@ -106,18 +106,84 @@
     caminante('b', '#9A5B12', 'M356 228 C 304 206, 248 176, 208 146') +
     '<line x1="196" y1="135" x2="204" y2="135" stroke="#4A5057" stroke-width="2.4" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;0;1" keyTimes="0;0.85;1" dur="5s" fill="freeze"/></line>' +
     '</svg>';
-  function pantallaLanding() {
+  /* ===== LANDING DEL CURSO (24-nov-2026) =====
+     Misma arquitectura y nivel que el landing de Metanoia (vLandingV3): portada con «‹ Mi Mapa», cifras, introducción,
+     las cuatro semanas, cómo lo vivirán, una semana típica, lo que se llevarán, acompañamiento, privacidad, para quién
+     y botón según la cuenta (tarjeta fija en escritorio, botón fijo abajo en celular). Identidad propia aprobada por Juan:
+     colores del libro y el dibujo de dos caminos que se unen. Nada de esto copia elementos de Metanoia. */
+  var WA_INSCRIBIR = 'https://wa.me/573173708570?text=' + encodeURIComponent('Hola, queremos inscribirnos en el curso prematrimonial Uniendo Caminos de THE WAY.');
+  var SEMS = [
+    { n: 1, c: '#2AB3B1', t: 'El diseño', s: 'De la boda al pacto', p: 'Qué es el matrimonio según Dios, los mitos que traemos y las reglas que nunca hemos dicho. Dejar padre y madre sin dejar de honrarlos.', a: 'Acuerdo 1 · Expectativas y familias' },
+    { n: 2, c: '#E0896A', t: 'Amar de verdad', s: 'Más allá del enamoramiento', p: 'El amor que se decide y se cultiva. Cómo da y recibe amor cada uno, amor y honra, respeto y admiración, y la sexualidad según el diseño de Dios.', a: 'Acuerdo 2 · El afecto y la intimidad' },
+    { n: 3, c: '#3E8FB0', t: 'Hablar y pelear bien', s: 'La verdad dicha en amor', p: 'Escuchar de verdad, reconocer cómo nos defendemos, discutir sin herir y saber pedir perdón. Y las señales que piden ayuda.', a: 'Acuerdo 3 · Nuestro protocolo para el conflicto' },
+    { n: 4, c: '#D9962E', t: 'Un hogar con propósito', s: 'Si el Señor no edifica la casa', p: 'Liderar sin imponer, el dinero sin secretos, hijos, casa y trabajo, y una vida espiritual compartida.', a: 'El Pacto de pareja' }
+  ];
+  var IC = {
+    palabra: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/><path d="M7 8h2M15 8h2"/></svg>',
+    libro: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></svg>',
+    uno: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>',
+    dos: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8.5" r="2.8"/><circle cx="15.5" cy="8.5" r="2.8"/><path d="M3 19.5a5.5 5.5 0 0 1 11 0M10 19.5a5.5 5.5 0 0 1 11 0"/></svg>',
+    candado: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+    mentor: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg>',
+    check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>'
+  };
+  function botonCurso() {
     var u = st.u, nombre = u && u.nombre ? u.nombre.split(' ')[0] : '';
-    var boton = u ? '<button class="btn" data-act="continuar">' + (nombre ? 'Entrar, ' + esc(nombre) : 'Entrar a mi curso') + '</button><p class="nota">Entraste como ' + esc(u.correo || u.nombre) + ' · <button class="btn-txt claro" data-act="salir">usar otra cuenta</button></p>'
-      : '<button class="btn" data-act="entrar">Entrar con Google</button><p class="nota">Cada uno entra con su propia cuenta.</p>';
-    pintar('<div class="portada"><div class="portada-in">' + CAMINOS +
-      '<p class="sobre">The Way · Curso prematrimonial</p><h1><span class="t1">Uniendo</span><span class="t2">Caminos</span></h1><p class="lema">De la boda al pacto</p>' +
-      '<p class="versiculo">«…se unirá a su mujer, y serán una sola carne».<span>Génesis 2:24</span></p>' +
-      '<ul class="claves"><li><b>4</b><span>semanas</span></li><li><b>L–V</b><span>unos 20 minutos al día</span></li><li><b>4</b><span>citas de pareja, los viernes</span></li><li><b>1</b><span>Pacto escrito al final</span></li></ul>' +
-      '<p class="intro">Una boda dura un día; un pacto, toda la vida. Cuatro semanas para conocerse de verdad, hablar lo que no han hablado y salir con acuerdos claros.</p>' +
-      boton + '<p class="privado"><span class="candado" aria-hidden="true"></span> Lo que escriban se guarda cifrado con su PIN. Solo ustedes pueden leerlo.</p></div></div>');
+    if (!u) return { html: '<button class="btn lc-cta" data-act="entrar">Entrar con Google</button>', nota: 'Cada uno entra con su propia cuenta de Google.' };
+    if (st.acceso === false) return { html: '<a class="btn lc-cta" href="' + WA_INSCRIBIR + '" target="_blank" rel="noopener">Inscribirnos por WhatsApp</a>', nota: 'Tu cuenta (' + esc(u.correo || u.nombre) + ') aún no tiene este curso. <button class="btn-txt" data-act="salir">Usar otra cuenta</button>' };
+    return { html: '<button class="btn lc-cta" data-act="continuar">' + (nombre ? 'Entrar al curso, ' + esc(nombre) : 'Entrar al curso') + '</button>', nota: 'Ya están inscritos. <button class="btn-txt" data-act="salir">Usar otra cuenta</button>' };
+  }
+  function bloqueRequisitos() {
+    return '<h2 class="lc-h">Para quién es</h2>' +
+      '<div class="lc-r ok"><span>' + IC.check + '</span><div><b>Parejas que se preparan para casarse</b><small>Comprometidos o pensando casarse en los próximos meses.</small></div></div>' +
+      '<div class="lc-r ok"><span>' + IC.check + '</span><div><b>Se inscriben los dos</b><small>Cada uno entra con su cuenta; el precio es por pareja.</small></div></div>' +
+      '<div class="lc-r ok"><span>' + IC.check + '</span><div><b>Sin requisitos previos</b><small>Habilidad es a la carta: no hace falta haber hecho otra ruta.</small></div></div>';
+  }
+  function pantallaLanding() {
+    var B = botonCurso();
+    var semanas = SEMS.map(function (s) {
+      return '<article class="lc-wk" style="--c:' + s.c + '"><small>Semana ' + s.n + '</small><b>' + s.t + '</b><em>' + s.s + '</em><p>' + s.p + '</p><span class="lc-ac">' + IC.check + s.a + '</span></article>';
+    }).join('');
+    var puntos = SEMS.map(function (s) {
+      return '<div style="--c:' + s.c + '"><span><i></i><i></i><i></i><i></i><i class="cita"></i></span><small>' + s.t + '</small></div>';
+    }).join('');
+    var dias = [['Lun', 'Enseñanza', 'La Palabra y la idea de la semana. 10 minutos.', 'palabra'], ['Mar', 'Cada uno', 'Lectura breve y un ejercicio personal.', 'uno'], ['Mié', 'Cada uno', 'Otra pregunta para pensar a solas.', 'uno'], ['Jue', 'Cada uno', 'Lo que traigo a la conversación.', 'uno'], ['Vie', 'Cita de pareja', 'Una conversación guiada y un acuerdo escrito.', 'dos']];
+    var semanaTipo = dias.map(function (d, k) {
+      return '<li class="' + (k === 4 ? 'cita' : k === 0 ? 'ens' : '') + '"><span class="lc-ti">' + IC[d[3]] + '</span><div><small>' + d[0] + '</small><b>' + d[1] + '</b><p>' + d[2] + '</p></div></li>';
+    }).join('');
+    var lateral = '<aside class="lc-side" aria-label="Entrar al curso"><small class="w">Habilidad · Relacionales · Parejas</small><b class="t">Uniendo Caminos</b><span class="lc-sub">Curso prematrimonial · 4 semanas</span><hr>' + bloqueRequisitos() + B.html + '<p class="lc-nota">' + B.nota + '</p><a class="btn sec lc-back" href="../mi-mapa/">Seguir explorando el mapa</a></aside>';
+    pintar('<div class="lc">' +
+      '<header class="lc-hero"><a class="lc-mm" href="../mi-mapa/" aria-label="Volver a Mi Mapa">‹ Mi Mapa</a>' +
+      '<div class="lc-hero-in"><div class="lc-art">' + CAMINOS + '</div>' +
+      '<div class="lc-tit"><p class="lc-eye">The Way · Habilidad · Relacionales</p><h1><span class="t1">Uniendo</span><span class="t2">Caminos</span></h1>' +
+      '<p class="lc-tag">De la boda al pacto</p><p class="lc-vers">«…se unirá a su mujer, y serán una sola carne».<span>Génesis 2:24</span></p>' +
+      '<div class="lc-hcta">' + B.html + '<p class="lc-nota">' + B.nota + '</p></div></div></div></header>' +
+      '<div class="lc-g"><main class="lc-m">' +
+      '<div class="lc-f"><div><b>4</b><span>semanas</span></div><div><b>20</b><span>días, de lunes a viernes</span></div><div><b>4</b><span>citas de pareja</span></div><div><b>1</b><span>Pacto firmado</span></div></div>' +
+      '<div class="lc-intro"><p>Una boda se prepara durante meses. El matrimonio, casi nunca. Muchas parejas llegan al altar con todo listo para la fiesta y casi nada conversado sobre lo que empieza al día siguiente.</p>' +
+      '<p><b>Uniendo Caminos</b> es un curso prematrimonial de cuatro semanas para conocerse de verdad, hablar lo que no han hablado y salir con acuerdos claros. Cada uno llega completo en Cristo; juntos aprenden a caminar como uno solo.</p></div>' +
+      '<section class="lc-sec"><h2 class="lc-h">Cuatro semanas</h2><p class="lc-s">Cada semana termina con una cita y un acuerdo escrito. Al final, los acuerdos se vuelven su Pacto.</p><div class="lc-wks">' + semanas + '</div></section>' +
+      '<section class="lc-sec"><h2 class="lc-h">Cómo lo vivirán</h2><div class="lc-how">' +
+      '<div><span class="lc-i">' + IC.palabra + '</span><b>La Palabra</b><p>Cada lunes, una enseñanza bíblica breve abre la semana: el diseño de Dios para el matrimonio.</p></div>' +
+      '<div><span class="lc-i">' + IC.libro + '</span><b>El libro</b><p><i>Asegure el éxito en su matrimonio antes de casarse</i>, de Les y Leslie Parrott. Lo leen en su resumen del BookClub, o completo si lo prefieren.</p></div>' +
+      '<div><span class="lc-i">' + IC.dos + '</span><b>La cita</b><p>Los viernes se sientan juntos, guiados paso a paso, y escriben un acuerdo. Es el corazón del curso.</p></div></div></section>' +
+      '<section class="lc-sec"><h2 class="lc-h">Una semana típica</h2><p class="lc-s">Unos 20 minutos al día, de lunes a jueves; la cita del viernes, entre 45 y 60.</p><ol class="lc-semana">' + semanaTipo + '</ol>' +
+      '<div class="lc-dots" aria-hidden="true">' + puntos + '</div><p class="lc-s lc-c">Cada punto es un día. El último de cada semana es la cita de los dos.</p></section>' +
+      '<section class="lc-sec"><h2 class="lc-h">Lo que se llevarán</h2><div class="lc-pacto"><div class="doc" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><em></em><em></em></div>' +
+      '<div><b>Su Pacto de pareja</b><p>Una página escrita entre los dos: por qué se casan, sus familias, el afecto, el conflicto, el dinero, los hijos, la casa, el trabajo y su fe. Lo firman, lo imprimen y lo revisan durante el primer año.</p></div></div></section>' +
+      '<section class="lc-sec lc-duo"><div class="lc-card"><span class="lc-i">' + IC.mentor + '</span><b>Acompañados</b><p>Un matrimonio mentor, su líder de grupo si está casado, los acompaña en tres encuentros: al inicio, a mitad del camino y al cierre.</p></div>' +
+      '<div class="lc-card"><span class="lc-i">' + IC.candado + '</span><b>Solo para ustedes</b><p>Lo que escriben se cifra en su celular con su PIN. Ni su mentor ni LHS pueden leerlo: solo cada uno y, en los acuerdos, los dos.</p></div></section>' +
+      '<section class="lc-sec lc-rq">' + bloqueRequisitos() + '</section>' +
+      '</main>' + lateral + '</div>' +
+      '<div class="lc-bot">' + B.html + '<p class="lc-nota">' + B.nota + '</p></div></div>');
     var svg = document.querySelector('.caminos');
     if (svg && window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && svg.setCurrentTime) { svg.pauseAnimations(); svg.setCurrentTime(10); }
+    /* aparición suave de las secciones al bajar */
+    if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.lc-sec,.lc-f,.lc-intro').forEach(function (el) { el.classList.add('rev'); io.observe(el); });
+    }
   }
   function pantallaSinAcceso() {
     pintar(marco('<section class="tarjeta"><h2>Tu cuenta todavía no tiene acceso</h2><p>Entraste como <strong>' + esc(st.u.correo || st.u.nombre) + '</strong>. Si ya hicieron la inscripción, escríbele a tu líder para que active el curso para esta cuenta.</p><button class="btn sec" data-act="salir">Entrar con otra cuenta</button></section>', { sinMenu: true }));
@@ -414,6 +480,8 @@
   async function arrancar() {
     pantallaCargando();
     try { st.u = await P.sesion().listo(); } catch (x) { console.error(x); st.u = null; }
+    st.acceso = null;
+    if (st.u) { try { st.acceso = await P.tieneDerecho(); } catch (x) { st.acceso = null; } }
     pantallaLanding();
   }
   async function seguir() {
