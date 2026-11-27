@@ -295,7 +295,7 @@ details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);mi
       <h2 class="sec">Tus expediciones</h2><div class="exps" id="listaCursos"></div></div>
   </section>
   <section id="v-curso" class="pant" hidden>
-    <div class="arte"><img id="cursoArte" src="../assets/acompanar/metanoia-alto.jpg" alt=""><div class="frase"><div class="eye">Expedición</div><h1 id="cursoNombre"></h1><p class="sub" id="cursoSub"></p></div></div>
+    <div class="arte"><img id="cursoArte" src="../assets/ligero/camino-916.webp" alt=""><div class="frase"><div class="eye">Expedición</div><h1 id="cursoNombre"></h1><p class="sub" id="cursoSub"></p></div></div>
     <div class="panel">
       <h2 class="sec">Dónde va tu gente</h2><div class="cuatro" id="campamentos"></div><div class="cifras" id="resumen"></div>
       <h2 class="sec">Quién camina</h2>
@@ -347,11 +347,11 @@ details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);mi
     </div>
   </section>
   <section id="v-mensajes" class="pant" hidden>
-    <div class="arte"><img src="../assets/acompanar/linterna.jpg" alt="" style="object-position:80% 60%"><div class="frase"><div class="eye">Mensajes</div><h1>Las palabras<br>del <span class="oro">camino.</span></h1><p class="sub">Lo que guardes aquí es lo que reciben.</p></div></div>
+    <div class="arte"><img src="../assets/ligero/linterna.webp" alt="" style="object-position:80% 60%"><div class="frase"><div class="eye">Mensajes</div><h1>Las palabras<br>del <span class="oro">camino.</span></h1><p class="sub">Lo que guardes aquí es lo que reciben.</p></div></div>
     <div class="panel" id="p-mensajes"></div>
   </section>
   <section id="v-inscritos" class="pant" hidden>
-    <div class="arte"><img src="../assets/inscripcion/montana.png" alt="" style="object-position:52% 40%"><div class="frase"><div class="eye">Inscripciones</div><h1 id="insFrase">A la<br><span class="oro">puerta.</span></h1><p class="sub">Revisa el comprobante: al aprobar, el acceso se activa en ese momento.</p></div></div>
+    <div class="arte"><img src="../assets/ligero/montana-inscripcion.webp" alt="" style="object-position:52% 40%"><div class="frase"><div class="eye">Inscripciones</div><h1 id="insFrase">A la<br><span class="oro">puerta.</span></h1><p class="sub">Revisa el comprobante: al aprobar, el acceso se activa en ese momento.</p></div></div>
     <div class="panel" id="p-inscritos"></div>
   </section>
   <section id="v-precios" class="pant" hidden>
@@ -470,7 +470,8 @@ async function cargarTodo(){
   S.contactos=cs.map(function(c){c.ms=tsMs(c.t)||Date.now();return c}).filter(function(c){return c.ms>=desde});
   S.quitadas=personas.filter(function(p){return p.fuera===true});
   personas=personas.filter(function(p){return p.fuera!==true});
-  var insc=[];for(var k=0;k<personas.length;k++)insc=insc.concat(await inscripcionesDe(personas[k]));
+  /* todas al tiempo (en tandas de 40), no una por una */
+  var insc=[];for(var k=0;k<personas.length;k+=40){(await Promise.all(personas.slice(k,k+40).map(inscripcionesDe))).forEach(function(x){insc=insc.concat(x)})}
   ordenar(insc);S.personas=insc;
 }
 /* Los cursos de una persona: el campo «cursos» de su ficha; si no lo tiene, es de Metanoia (como hasta ahora). Solo los que el panel conoce. */
@@ -505,7 +506,7 @@ function botonEnviar(p,m,etiqueta,extra,destino,clase){destino=destino||p;var t=
 
 /* ---------- Piezas del camino ---------- */
 var SEMC=['#B9A4F5','#6DC48A','#E8A96B','#8CC3E0'];
-var ARTE={metanoia:{ancho:'metanoia.jpg',alto:'metanoia-alto.jpg',pos:'55% 60%',semanas:['Reemplazar','Reentrenar','Replantear','Recuperar']},preparados:{ancho:'uniendo-noche.webp',alto:'uniendo-noche.webp',pos:'50% 62%'}};
+var ARTE={metanoia:{ancho:'../ligero/camino-169.webp',alto:'../ligero/camino-916.webp',pos:'55% 60%',semanas:['Reemplazar','Reentrenar','Replantear','Recuperar']},preparados:{ancho:'uniendo-noche.webp',alto:'uniendo-noche.webp',pos:'50% 62%'}};
 function arteDe(c){return ARTE[c]||ARTE.metanoia}
 function semanas(c){return arteDe(c).semanas||['Semana 1','Semana 2','Semana 3','Semana 4']}
 function colorDe(uid){var n=0;String(uid).split('').forEach(function(x){n+=x.charCodeAt(0)});return SEMC[n%4]}
@@ -593,7 +594,7 @@ function abrirFicha(uid,curso){
   S.abierta=uid;S.abiertaC=p.curso;S.modo='acompanar';GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
   var m=r.tocaHoy||(r.hoyEnviado?r.hoy:null)||(r.accionHoy?r.accion:null),enviado=!r.tocaHoy&&!!(r.hoyEnviado||r.accionHoy);
   var pend=cola().filter(function(x){return!(x.uid===p.uid&&x.curso===p.curso)}),sig=pend[0];
-  var h='<div class="pant">'+paisajeFicha('acompanar/linterna.jpg','80% 60%',pend.length?(pend.length===1?'1 más te espera hoy':pend.length+' más te esperan hoy'):'Acompañar',esc(nombreDe(p)),esc(nombreCurso(cursoDe(p)))+(r.entro?(r.terminado?' · Terminó':' · Día '+r.va+' de 20'):''))+'<div class="panel">';
+  var h='<div class="pant">'+paisajeFicha('ligero/linterna.webp','80% 60%',pend.length?(pend.length===1?'1 más te espera hoy':pend.length+' más te esperan hoy'):'Acompañar',esc(nombreDe(p)),esc(nombreCurso(cursoDe(p)))+(r.entro?(r.terminado?' · Terminó':' · Día '+r.va+' de 20'):''))+'<div class="panel">';
   h+='<p><span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' · <span class="chip oro">Te respondió</span>':'')+(r.actividad?' <span class="ins">· última actividad '+hace(r.sinActividad)+'</span>':'')+'</p>';
   if(enviado)h+='<div class="hecho"><div class="eye">Enviado hoy</div><h2>Una luz más en el <span class="oro">camino.</span></h2>'+(sig?'<div class="acc"><button type="button" class="cta" data-acompanar="'+esc(sig.uid)+'" data-c="'+esc(sig.curso)+'">Seguir con '+esc(primeroDe(sig))+' →</button></div>':'<p class="porque cri">Ya no queda nadie más por hoy.</p>')+'</div>';
   var env=m&&tieneWa(p);
@@ -632,7 +633,7 @@ function dibujarMonte(p){
   svg.setAttribute('viewBox',x0+' '+y0+' '+vw+' '+vh);
   var h='<defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a1d"/><stop offset="1" stop-color="#030a1d" stop-opacity="0"/></linearGradient><linearGradient id="suelo" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#07120e"/><stop offset="1" stop-color="#07120e" stop-opacity="0"/></linearGradient></defs>'+
     '<rect x="'+x0+'" y="'+y0+'" width="'+vw+'" height="'+Math.max(0,2-y0)+'" fill="#030a1d"/><rect x="'+x0+'" y="1403" width="'+vw+'" height="'+Math.max(0,y0+vh-1403)+'" fill="#07120e"/>'+
-    '<image href="../assets/acompanar/montana.png" width="2576" height="1405" preserveAspectRatio="none"/>'+
+    '<image href="../assets/ligero/montana.webp" width="2576" height="1405" preserveAspectRatio="none"/>'+
     (y0<-4?'<rect y="-2" width="2576" height="170" fill="url(#cielo)"/>':'')+(y0+vh>1410?'<rect y="1250" width="2576" height="157" fill="url(#suelo)"/>':'');
   var tope=r.terminado?1:r.entro?tDia(va):0;
   if(tope>0)h+='<path d="'+trazo(0,tope)+'" fill="none" stroke="#FFD56B" stroke-width="22" opacity=".35"/><path d="'+trazo(0,tope)+'" fill="none" stroke="#FFE29A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>';
@@ -1127,8 +1128,8 @@ async function iniciar(){
     var eq=await db.collection('equipo').doc(u.uid).get();
     if(!eq.exists){estado('<h1>No tienes acceso</h1><p>Esta página es para el equipo que acompaña los cursos de THE WAY. Si crees que es un error, escríbele a Juan.</p><button class="btn" type="button" id="otra">Entrar con otra cuenta</button>');$('otra').addEventListener('click',function(){TW_SESION.salir().then(pedirEntrada)});return}
     S.equipo=eq.data();
-    for(var ci=0;ci<Object.keys(CURSOS).length;ci++){var cid=Object.keys(CURSOS)[ci];
-      try{var g=await db.collection('guiones').doc(cid).get();S.guiones[cid]=g.exists?g.data():null}catch(e){S.guiones[cid]=null}}
+    await Promise.all(Object.keys(CURSOS).map(async function(cid){
+      try{var g=await db.collection('guiones').doc(cid).get();S.guiones[cid]=g.exists?g.data():null}catch(e){S.guiones[cid]=null}}));
     if(!S.guiones[CURSO])S.guiones[CURSO]={saludo:'Hola, [nombre] 👋',mensajes:[]};
     await cargarTodo();
     $('cabecera').hidden=false;$('yoNombre').textContent=u.nombre||'';$('yoRol').textContent=esAdmin()?'Todos':((S.equipo.grupos||[]).map(function(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}).join(', '));
