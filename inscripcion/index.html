@@ -8,48 +8,107 @@
 <title>Inscripción · THE WAY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital@1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
-/* Inscripción a THE WAY (27-nov-2026). Entrar es gratis; cada curso se paga. Sirve para cualquier curso del catálogo: ?curso=ID */
-:root{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
---gold:#C8A84B;--gold-l:#DEC06A;--text:#EAE8E0;--muted:rgba(234,232,224,.68);--green-xl:#6DC48A;--ink:#1A1405;--warn:#E2B35C;--danger:#E58E8E}
-*{box-sizing:border-box}[hidden]{display:none!important}
+/* Inscripción a THE WAY · diseño «Registro Adaptable» (Design, 12-nov-2026): la montaña a un lado y los tres pasos al otro.
+   Menos de 900 px: una columna con la imagen arriba. Sirve para cualquier curso del catálogo (?curso=ID). */
+:root{--night:#080C12;--text:#EAE8E0;--soft:#B9C3C9;--muted:#8FA1AC;--gold:#C8A84B;--gold-l:#DEC06A;--green:#6DC48A;--ice:#A8C4D4;--ink:#100A00;--danger:#E58E8E;--line:rgba(255,255,255,.14);--field:#0E1620}
+*{box-sizing:border-box;scrollbar-width:none}*::-webkit-scrollbar{width:0;height:0}[hidden]{display:none!important}
 body{margin:0;background:var(--night);color:var(--text);font:16px/1.5 'DM Sans',system-ui,sans-serif;min-height:100vh}
 a{color:var(--gold-l)}button,input,select{font:inherit}
-:focus-visible{outline:2px solid #F2D27A;outline-offset:2px}
-header{max-width:560px;margin:0 auto;padding:14px 16px 0;display:flex;align-items:center;gap:12px}
-.marca{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;color:var(--gold);text-decoration:none}
-.yo{margin-left:auto;text-align:right;font-size:13px;color:var(--muted);min-width:0;overflow-wrap:anywhere}
-.yo button{background:none;border:0;color:var(--gold-l);cursor:pointer;padding:0;text-decoration:underline}
-main{max-width:560px;margin:0 auto;padding:8px 16px 60px}
-h1{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.04em;font-size:36px;line-height:1.05;margin:14px 0 4px}
-h2{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.05em;font-size:22px;color:var(--gold-l);margin:26px 0 8px}
-p{margin:8px 0}.sub{color:var(--muted)}
-.precio{font-size:26px;font-weight:700;color:var(--gold-l);margin:4px 0}
-.caja{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin:12px 0}
-label{display:block;margin:14px 0 4px;font-size:14px;color:var(--muted)}
-input[type=text],input[type=tel],input[type=email],select{width:100%;min-height:48px;padding:10px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text)}
-input[type=file]{width:100%;padding:12px;border-radius:12px;border:1px dashed var(--border2);background:var(--deep);color:var(--text)}
-.casilla{display:flex;gap:10px;align-items:flex-start;margin:16px 0;color:var(--text);font-size:14px}
-.casilla input{width:22px;height:22px;flex:0 0 auto}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 20px;border-radius:999px;border:1px solid var(--border2);background:var(--card);color:var(--text);cursor:pointer;text-decoration:none;font-weight:500}
-.btn.oro{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700;width:100%}
-.btn.chico{min-height:36px;padding:6px 14px;font-size:14px}
-.btn[disabled]{opacity:.55;cursor:default}
-.cuenta{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border)}
-.cuenta:first-child{border-top:0}.cuenta div{min-width:0}.cuenta span{display:block;font-size:13px;color:var(--muted)}.cuenta b{overflow-wrap:anywhere}
-.lista a{display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin:10px 0;text-decoration:none;color:var(--text)}
-.lista a b{display:block;font-size:18px}.lista a span{color:var(--gold-l)}
-.error{color:var(--danger);font-size:14px;min-height:1em}
-.aviso{border-color:var(--warn)}.bien{border-color:var(--green-xl)}
-.ayuda{margin-top:28px;font-size:14px;color:var(--muted);text-align:center}
-.cargando{display:inline-block;width:22px;height:22px;border:3px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:g 1s linear infinite}
+:focus-visible{outline:2px solid var(--gold-l);outline-offset:2px}
+.marco{display:flex;flex-direction:column;min-height:100vh}
+.col{display:contents}.barra{order:0}.lado{order:1;flex:none}.perks.angosto{order:2}main{order:3;width:100%}
+.lado{position:relative;overflow:hidden;height:300px}
+.lado>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.velo{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.5) 0%,rgba(8,12,18,.12) 32%,rgba(8,12,18,.55) 64%,var(--night) 100%)}
+.logo{position:absolute;left:20px;top:18px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font:28px/1 'Bebas Neue',sans-serif;letter-spacing:.05em}
+.logo span span{color:var(--gold)}
+.escena{position:absolute;left:20px;right:20px;bottom:14px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.titular{margin:6px 0 0;font:400 46px/.92 'Bebas Neue',sans-serif}.titular em{font-style:normal;color:var(--gold)}
+.perks{list-style:none;margin:16px 20px 0;padding:0;display:grid;gap:9px}
+.perks li{display:flex;gap:10px;align-items:center;font-size:14px;color:#C9D1D6}
+.perks li::before{content:'✓';flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(109,196,138,.2);color:var(--green);font-weight:700;font-size:12px}
+.barra{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.volver{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-weight:700;font-size:13px;white-space:nowrap}
+.yo{margin-left:auto;text-align:right;font-size:12.5px;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.yo button{background:none;border:0;color:var(--gold-l);cursor:pointer;padding:2px 0;text-decoration:underline;font-size:12.5px}
+main{max-width:480px;margin:0 auto;padding:24px 20px 48px}
+h1{margin:0;font:400 48px/.92 'Bebas Neue',sans-serif;letter-spacing:.01em}h1 em{font-style:normal;color:var(--gold)}
+.lema{margin:10px 0 0;font-size:15px;line-height:1.55;color:var(--soft)}
+.paso{display:flex;align-items:center;gap:10px;margin:30px 0 14px;font:400 21px 'Bebas Neue',sans-serif;letter-spacing:.08em}
+.paso i{font-style:normal;font-size:18px;color:var(--gold)}
+.paso.luego{opacity:.45;margin:14px 0}
+.ficha{margin-top:22px;border-radius:18px;border:1.5px solid var(--gold);background:linear-gradient(135deg,rgba(200,168,75,.14),rgba(200,168,75,.04));padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.ficha b{display:block;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase}.ficha small{display:block;font-size:12.5px;color:var(--soft);margin-top:3px}
+.precio{margin:0;margin-left:auto;text-align:right;font-weight:700;font-size:19px;color:var(--gold-l);white-space:nowrap}.precio small{font-weight:400}
+.campos{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+label{display:block;font-weight:500;font-size:13px;color:var(--soft);margin-bottom:6px}
+input[type=text],input[type=tel],input[type=email],select{width:100%;min-height:50px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);color:var(--text)}
+input:-webkit-autofill{-webkit-text-fill-color:var(--text);box-shadow:0 0 0 100px var(--field) inset}
+.nota{margin:6px 0 0;font-size:12px;color:var(--muted)}
+.caja{border:1px solid rgba(168,196,212,.22);background:rgba(168,196,212,.07);border-radius:14px;padding:13px 15px;margin:16px 0 0;font-size:14px;line-height:1.5;color:var(--soft)}
+.caja b{color:var(--text)}.aviso{border-color:rgba(226,179,92,.55);background:rgba(226,179,92,.09)}
+.valor{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.valor span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.valor b{font-size:19px}
+.opcion{margin-top:14px;border:1px solid var(--line);background:var(--field);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.opcion:first-child{border-color:rgba(200,168,75,.55)}
+.opcion div{flex:1;min-width:0}.opcion span{display:block;font-size:13px;color:var(--soft)}.opcion b{display:block;font-size:18px;overflow-wrap:anywhere;margin-top:2px}
+.rec{display:inline-block!important;font-size:10.5px!important;font-weight:700;letter-spacing:.06em;background:rgba(200,168,75,.18);color:var(--gold-l)!important;border-radius:99px;padding:2px 9px;margin-bottom:5px}
+.soltar{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border:1.5px dashed rgba(168,196,212,.4);border-radius:18px;padding:26px 16px;cursor:pointer;background:rgba(168,196,212,.05);margin:0;color:var(--text)}
+.soltar:hover,.soltar:focus-within{border-color:var(--gold)}.soltar.lleno{border-style:solid;border-color:var(--green);background:rgba(109,196,138,.08)}
+.soltar svg{width:34px;height:34px;fill:none;stroke:var(--gold-l);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.soltar strong{font-size:15px;overflow-wrap:anywhere;max-width:100%}.soltar small{font-size:12.5px;color:var(--muted)}
+.soltar input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.casilla{display:flex;gap:11px;align-items:flex-start;margin:20px 0 0;color:var(--soft);font-size:13.5px;line-height:1.5}
+.casilla input{width:22px;height:22px;flex:0 0 auto;accent-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:12px 20px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;text-decoration:none;font-weight:700}
+.btn.oro{width:100%;margin-top:16px;background:var(--gold);border-color:var(--gold);color:var(--ink);font:400 21px 'Bebas Neue',sans-serif;letter-spacing:.08em;border-radius:14px;min-height:54px}
+.btn.oro.falta{opacity:.55}.btn.chico{min-height:38px;padding:6px 14px;font-size:13px}.btn[disabled]{opacity:.5;cursor:default}
+.camino{list-style:none;margin:26px 0 0;padding:0}
+.camino li{position:relative;display:flex;gap:14px;padding-bottom:22px}
+.camino li:not(:last-child)::after{content:'';position:absolute;left:14px;top:34px;bottom:4px;border-left:2px dashed rgba(200,168,75,.35)}
+.camino i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px;border:1.5px dashed rgba(255,255,255,.28);color:var(--muted)}
+.camino .hecho i{background:#3D7A54;border:0;color:#fff}.camino .ahora i{border:1.5px solid var(--gold);background:rgba(200,168,75,.18);color:var(--gold-l)}
+.camino b{display:block;font-size:15px}.camino span{font-size:13px;color:var(--muted)}
+.rutas{display:grid;gap:14px;margin-top:22px}
+.rutas a{position:relative;display:block;height:170px;border-radius:18px;overflow:hidden;border:1px solid var(--line);text-decoration:none;color:var(--text)}
+.rutas a:hover{border-color:var(--gold)}.rutas img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 45%}
+.rutas div{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.1),rgba(8,12,18,.94));display:flex;flex-direction:column;justify-content:flex-end;padding:14px 16px}
+.rutas b{font:400 30px/1 'Bebas Neue',sans-serif;letter-spacing:.03em}.rutas span{color:var(--gold-l);font-weight:700;font-size:14px}
+.error{color:var(--danger);font-size:14px;min-height:1em;margin:12px 0 0}
+.ayuda{margin:26px 0 0;font-size:13px;color:var(--muted);text-align:center}
+.cargando{display:inline-block;width:22px;height:22px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:g 1s linear infinite}
 @keyframes g{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.cargando{animation:none}}
+@media(min-width:600px) and (max-width:899px){.lado{height:380px}.titular{font-size:58px}main{max-width:560px}.campos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){
+  .marco{display:grid;grid-template-columns:minmax(0,1fr) 520px;align-items:start}
+  .lado{position:sticky;top:0;height:100vh;order:0}.logo{left:48px;top:34px;font-size:31px}
+  .escena{left:48px;right:48px;bottom:48px}.titular{font-size:clamp(52px,5vw,76px)}
+  .perks{position:static;margin:20px 0 0}.perks li{font-size:15px}
+  .col{order:1;display:block;min-height:100vh;border-left:1px solid rgba(255,255,255,.06)}
+  .barra{padding:10px 40px}main{padding:34px 40px 56px}.campos{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:1200px){.marco{grid-template-columns:minmax(0,1fr) 560px}}
+.ancha{grid-column:1/-1}
 </style>
 </head>
 <body>
-<header><a class="marca" href="../">THE WAY</a><div class="yo" id="yo" hidden><span id="yoCorreo"></span><br><button type="button" id="salir">Usar otra cuenta</button></div></header>
-<main id="main" aria-live="polite"><p style="text-align:center;margin-top:20vh"><span class="cargando" aria-hidden="true"></span></p></main>
+<div class="marco">
+  <aside class="lado" aria-label="THE WAY">
+    <img src="../assets/inscripcion/montana.png" alt="" id="foto">
+    <div class="velo"></div>
+    <a class="logo" href="../"><svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><polygon points="2,56 15,29 28,56" fill="#A8C4D4"/><polygon points="36,56 50,25 62,56" fill="#2B4A70"/><polygon points="12,56 32,8 52,56" fill="#C8A84B"/></svg><span>THE <span>WAY</span></span></a>
+    <div class="escena"><div class="eyebrow" id="eyebrow">Empieza desde adentro</div><p class="titular" id="titular">Tu mochila <em>está lista.</em></p><ul class="perks ancho" id="perksA"></ul></div>
+  </aside>
+  <div class="col">
+    <header class="barra"><a class="volver" href="../">‹ THE WAY</a><div class="yo" id="yo" hidden><span id="yoCorreo"></span><br><button type="button" id="salir">Usar otra cuenta</button></div></header>
+    <ul class="perks angosto" id="perksM"></ul>
+    <main id="main" aria-live="polite"><p style="text-align:center;margin-top:12vh"><span class="cargando" aria-hidden="true"></span></p></main>
+  </div>
+</div>
+<style>.perks.ancho{display:none}@media(min-width:900px){.perks.ancho{display:grid}.perks.angosto{display:none}}</style>
 <script src="../compartido/sesion.js"></script>
 <script>
 (function(){'use strict';
@@ -58,29 +117,47 @@ var WA='573173708570';
 var RUTAS={metanoia:'../metanoia/',preparados:'../uniendo-caminos/'};
 var MAX=880000; /* tope del comprobante guardado (texto), con margen bajo el de las reglas */
 var $=function(id){return document.getElementById(id)};
+/* Lo propio de cada curso. Un curso nuevo sin entrada usa los textos generales. */
+var CURSOS_TXT={
+  metanoia:{sub:'Acceso a THE WAY · 4 semanas, 20 jornadas',perks:['Protocolo Metanoia · 20 jornadas','Mi Mapa con las 3 expediciones','Bitácora privada y Mapa Personal']},
+  preparados:{sub:'Para los dos · 4 semanas, 20 jornadas',perks:['Uniendo Caminos · 20 jornadas','4 citas de pareja y su Pacto','Lo que escriben va cifrado: solo ustedes lo leen']},
+  general:{sub:'Acceso a THE WAY',perks:['Tu ruta dentro de THE WAY','Mi Mapa con las 3 expediciones','Acompañamiento durante el camino']}};
+var ESCENAS={inicio:['Empieza desde adentro','Tu mochila','está lista.'],rutas:['Un camino · tres expediciones','Elige','tu ruta.'],espera:['Bienvenido a THE WAY','Nos vemos en','el camino.'],abierto:['Tu acceso está activo','Tu camino','está abierto.']};
+function escena(k){var e=ESCENAS[k],x=CURSOS_TXT[CURSO]||CURSOS_TXT.general,li=x.perks.map(function(p){return'<li>'+esc(p)+'</li>'}).join('');
+  $('eyebrow').textContent=e[0];$('titular').innerHTML=esc(e[1])+' <em>'+esc(e[2])+'</em>';$('perksA').innerHTML=li;$('perksM').innerHTML=li}
+function paso(n,t,luego){return'<h2 class="paso'+(luego?' luego':'')+'"><i>0'+n+'</i>'+t+'</h2>'}
+function camino(L){return'<ol class="camino">'+L.map(function(x,i){return'<li class="'+x[0]+'"><i>'+(x[0]==='hecho'?'✓':i+1)+'</i><div><b>'+x[1]+'</b><span>'+x[2]+'</span></div></li>'}).join('')+'</ol>'}
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 var pesos=function(n){return n>0?'$'+Number(n).toLocaleString('es-CO')+' COP':'Gratis'};
 var CURSO=(new URLSearchParams(location.search).get('curso')||'').toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,40);
 var db=null,yo=null,catalogo=null,perfil=null,ocupado=false;
 function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
 function hoy(){return new Date().toLocaleDateString('en-CA',{timeZone:'America/Bogota'})}
-function pintar(h){$('main').innerHTML=h+'<p class="ayuda">¿Necesitas ayuda? <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, necesito ayuda con mi inscripción en THE WAY'+(catalogo?' ('+catalogo.nombre+')':''))+'" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>';window.scrollTo(0,0)}
+function pintar(h){$('main').innerHTML=h+'<p class="ayuda">¿Tienes preguntas? <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, necesito ayuda con mi inscripción en THE WAY'+(catalogo?' ('+catalogo.nombre+')':''))+'" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>';window.scrollTo(0,0)}
 function leer(ref){return ref.get().then(function(s){return s.exists?s.data():null})}
-function cabecera(){return'<h1>'+esc(catalogo.nombre)+'</h1><p class="precio">'+esc(pesos(catalogo.precio))+(catalogo.pareja&&catalogo.precio>0?' <small style="font-size:14px;color:var(--muted)">por los dos</small>':'')+'</p>'}
-function fallo(t){pintar('<h1>Algo no salió bien</h1><p class="sub">'+esc(t||'Revisa tu conexión e inténtalo de nuevo.')+'</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
+function ficha(sinPrecio){var x=CURSOS_TXT[CURSO]||CURSOS_TXT.general;
+  return'<div class="ficha"><div><b>'+esc(catalogo.nombre)+'</b><small>'+esc(x.sub)+'</small></div>'+(sinPrecio?'':'<p class="precio">'+esc(pesos(catalogo.precio))+(catalogo.pareja&&catalogo.precio>0?'<br><small>por los dos</small>':'')+'</p>')+'</div>'}
+function cabecera(a,b,lema){return'<h1>'+a+' <em>'+b+'</em></h1>'+(lema?'<p class="lema">'+lema+'</p>':'')}
+function fallo(t){pintar('<h1>Algo no <em>salió bien.</em></h1><p class="lema">'+esc(t||'Revisa tu conexión e inténtalo de nuevo.')+'</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
 
 function listaDeCursos(){
-  return db.collection('catalogo').get().then(function(s){var L=[];s.forEach(function(d){var c=d.data();if(c.abierto)L.push({id:d.id,c:c})});
-    pintar('<h1>Cursos de THE WAY</h1><p class="sub">Escoge el curso al que quieres inscribirte.</p>'+(L.length?'<div class="lista">'+L.map(function(x){return'<a href="?curso='+esc(x.id)+'"><b>'+esc(x.c.nombre)+'</b><span>'+esc(pesos(x.c.precio))+(x.c.pareja&&x.c.precio>0?' por pareja':'')+'</span></a>'}).join('')+'</div>':'<div class="caja">Por ahora no hay inscripciones abiertas.</div>'))})
+  escena('rutas');
+  return db.collection('catalogo').get().then(function(s){var L=[],IMG={metanoia:'mentalidad',preparados:'habilidad'};s.forEach(function(d){var c=d.data();if(c.abierto)L.push({id:d.id,c:c})});
+    pintar(cabecera('Inscripciones','abiertas.','Entrar a THE WAY es gratis. Cada ruta se inscribe aparte.')+(L.length?'<div class="rutas">'+L.map(function(x){return'<a href="?curso='+esc(x.id)+'"><img alt="" src="../assets/v3/exp-'+(IMG[x.id]||'capacidad')+'.webp"><div><b>'+esc(x.c.nombre)+'</b><span>'+esc(pesos(x.c.precio))+(x.c.pareja&&x.c.precio>0?' por pareja':'')+'</span></div></a>'}).join('')+'</div>':'<div class="caja">Por ahora no hay inscripciones abiertas. Escríbenos y te avisamos cuando abra la próxima ruta.</div>'))})
 }
 function pantallaEntrar(){
-  pintar(cabecera()+(catalogo.abierto?'<p class="sub">Entrar a THE WAY es gratis. Primero entra con tu cuenta de Google; con esa misma cuenta usarás el curso.</p>':'<div class="caja aviso">Las inscripciones de este curso están cerradas. Si ya tienes acceso o te invitaron, entra con tu cuenta.</div>')+
-    '<button class="btn oro" type="button" id="entrar">Entrar con Google</button><p class="error" id="err" role="alert"></p>');
+  escena('inicio');
+  pintar(cabecera('Tu','registro.','Tres pasos: tus datos, la transferencia y el comprobante.')+ficha()+
+    (catalogo.abierto?'':'<div class="caja aviso">Las inscripciones de este curso están cerradas. Si ya tienes acceso o te invitaron, entra con tu cuenta.</div>')+
+    paso(1,'Tus datos')+'<p class="nota" style="margin:0">Entra con tu cuenta de Google: con esa misma cuenta usarás el curso.</p><button class="btn oro" type="button" id="entrar">Entrar con Google</button><p class="error" id="err" role="alert"></p>'+
+    (catalogo.precio>0?paso(2,'Transferencia',true)+paso(3,'Comprobante',true):''));
   $('entrar').addEventListener('click',function(){TW_SESION.entrar().then(iniciar,function(e){if(e&&e.code!=='cancelado')$('err').textContent='No pudimos completar el ingreso. Inténtalo de nuevo.'})})
 }
-function yaTiene(){pintar(cabecera()+'<div class="caja bien"><b>Ya tienes acceso a este curso.</b><p class="sub">Entra con esta misma cuenta de Google.</p></div><a class="btn oro" href="'+esc(RUTAS[CURSO]||'../')+'">Empezar</a>')}
-function enRevision(s){pintar(cabecera()+'<div class="caja"><b>Recibimos tu inscripción.</b><p class="sub">Estamos confirmando tu pago. Cuando quede aprobado, tu acceso se abre en esta misma cuenta y te escribimos por WhatsApp.</p></div><button class="btn" type="button" onclick="location.reload()">Ver si ya está aprobado</button>')}
-function aprobadaSinAcceso(){pintar(cabecera()+'<div class="caja aviso">Tu pago aparece aprobado, pero no vemos el acceso. Escríbenos por WhatsApp y lo revisamos.</div>')}
+function yaTiene(){escena('abierto');pintar(cabecera('Ya tienes','acceso.','Entra con esta misma cuenta de Google.')+ficha(true)+'<a class="btn oro" href="'+esc(RUTAS[CURSO]||'../')+'">Empezar</a>')}
+function enRevision(s){escena('espera');pintar(cabecera('Recibimos tu','inscripción.','Ya diste el primer paso. Esto es lo que sigue.')+
+  camino([['hecho','Recibimos tu registro y tu comprobante','Quedó guardado con tu cuenta de Google.'],['ahora','Confirmamos tu pago','Lo revisamos y lo dejamos registrado.'],['','Activamos tu acceso','Se abre en esta misma cuenta.'],['','Te escribimos por WhatsApp','Con la bienvenida y cómo entrar.']])+
+  '<button class="btn oro" type="button" onclick="location.reload()">Ver si ya está aprobado</button>')}
+function aprobadaSinAcceso(){escena('espera');pintar(cabecera('Casi','listo.')+ficha(true)+'<div class="caja aviso">Tu pago aparece aprobado, pero no vemos el acceso. Escríbenos por WhatsApp y lo revisamos.</div>')}
 function reclamar(origen){
   if(ocupado)return;ocupado=true;$('activar').disabled=true;
   var a={};a[CURSO]={activo:true,desde:hoy(),origen:origen};
@@ -91,29 +168,37 @@ function reclamar(origen){
   }).then(yaTiene,function(e){console.error(e);ocupado=false;$('activar').disabled=false;$('err').textContent='No pudimos activar tu acceso. Inténtalo de nuevo o escríbenos.'})
 }
 function pantallaReclamar(texto,origen){
-  pintar(cabecera().replace(/<p class="precio">.*<\/p>/,'')+'<div class="caja bien">'+esc(texto)+'</div><button class="btn oro" type="button" id="activar">Activar mi acceso</button><p class="error" id="err" role="alert"></p>');
+  escena('inicio');pintar(cabecera('Un paso','más.')+ficha(true)+'<div class="caja">'+esc(texto)+'</div><button class="btn oro" type="button" id="activar">Activar mi acceso</button><p class="error" id="err" role="alert"></p>');
   $('activar').addEventListener('click',function(){reclamar(origen)})
 }
 
 function formulario(solicitudAnterior){
   var p=perfil||{},conPago=catalogo.precio>0,rechazo=solicitudAnterior&&solicitudAnterior.estado==='rechazada';
-  var h=cabecera()+(rechazo?'<div class="caja aviso"><b>No pudimos aprobar tu comprobante.</b><p class="sub">'+esc(solicitudAnterior.motivo||'Revísalo y vuelve a enviarlo.')+'</p></div>':'');
+  escena('inicio');
+  var h=cabecera('Tu','registro.',conPago?'Tres pasos: tus datos, la transferencia y el comprobante. Tu acceso queda activo cuando validemos el pago.':'Déjanos tus datos y activa tu acceso.')+ficha(!conPago)+
+    (rechazo?'<div class="caja aviso"><b>No pudimos aprobar tu comprobante.</b><br>'+esc(solicitudAnterior.motivo||'Revísalo y vuelve a enviarlo.')+'</div>':'');
   var wa=String(p.whatsapp||'');if(wa.length===12&&wa.slice(0,2)==='57')wa=wa.slice(2);
-  h+='<form id="f" novalidate><h2>1 · Tus datos</h2><label for="nombre">Nombre y apellido</label><input id="nombre" type="text" autocomplete="name" maxlength="80" value="'+esc(p.nombre||yo.nombre||'')+'">'+
-    '<label for="wa">WhatsApp (10 dígitos)</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" value="'+esc(wa)+'">'+
-    '<label for="ciudad">Ciudad</label><input id="ciudad" type="text" autocomplete="address-level2" maxlength="60" value="'+esc(p.ciudad||'')+'">'+
-    '<label for="como">¿Cómo te enteraste de THE WAY?</label><select id="como">'+['','La HS (iglesia)','Página web','Instagram','WhatsApp','Recomendación de alguien','Otro'].map(function(o){return'<option value="'+esc(o)+'"'+(o===(p.comoSeEntero||'')?' selected':'')+'>'+esc(o||'Elige una opción (opcional)')+'</option>'}).join('')+'</select>';
-  if(catalogo.pareja)h+='<h2>Tu pareja</h2><label for="pareja">Correo de Google de tu pareja</label><input id="pareja" type="email" inputmode="email" autocomplete="off" maxlength="120" value="'+esc(solicitudAnterior&&solicitudAnterior.parejaCorreo||'')+'"><p class="sub" style="font-size:14px">Una sola inscripción paga por los dos. A tu pareja se le abre su acceso cuando entre con ese correo.</p>';
-  if(conPago)h+='<h2>2 · Transfiere '+esc(pesos(catalogo.precio))+'</h2><div class="caja" id="cuentas">Cargando las cuentas…</div><h2>3 · Sube tu comprobante</h2><label for="archivo">Foto o captura (o PDF liviano)</label><input id="archivo" type="file" accept="image/*,application/pdf">';
+  h+='<form id="f" novalidate>'+paso(1,'Tus datos')+'<div class="campos"><div><label for="nombre">Nombre y apellido</label><input id="nombre" type="text" autocomplete="name" maxlength="80" value="'+esc(p.nombre||yo.nombre||'')+'"></div>'+
+    '<div><label for="wa">WhatsApp (10 dígitos)</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" value="'+esc(wa)+'"></div>'+
+    '<div><label for="ciudad">Ciudad</label><input id="ciudad" type="text" autocomplete="address-level2" maxlength="60" value="'+esc(p.ciudad||'')+'"></div>'+
+    '<div><label for="como">¿Cómo te enteraste?</label><select id="como">'+['','La HS (iglesia)','Página web','Instagram','WhatsApp','Recomendación de alguien','Otro'].map(function(o){return'<option value="'+esc(o)+'"'+(o===(p.comoSeEntero||'')?' selected':'')+'>'+esc(o||'Opcional')+'</option>'}).join('')+'</select></div>'+
+    (catalogo.pareja?'<div class="ancha"><label for="pareja">Correo de Google de tu pareja</label><input id="pareja" type="email" inputmode="email" autocomplete="off" maxlength="120" value="'+esc(solicitudAnterior&&solicitudAnterior.parejaCorreo||'')+'"><p class="nota">Una sola inscripción paga por los dos. A tu pareja se le abre su acceso cuando entre con ese correo.</p></div>':'')+'</div>';
+  if(conPago)h+=paso(2,'Transferencia')+'<div class="valor"><div><span>Valor a transferir</span><b>'+esc(pesos(catalogo.precio))+'</b></div><button type="button" class="btn chico" id="copiarValor">Copiar</button></div><div id="cuentas"><p class="nota">Cargando las cuentas…</p></div>'+
+    paso(3,'Comprobante')+'<label class="soltar" id="soltar" for="archivo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><strong id="nombreArchivo">Toca para subir tu comprobante</strong><small>Captura de pantalla, foto o PDF</small><input id="archivo" type="file" accept="image/*,application/pdf"></label>';
   h+='<label class="casilla"><input type="checkbox" id="autoriza"'+(p.autoriza?' checked':'')+'><span>Autorizo a THE WAY a guardar mis datos para mi inscripción y acompañamiento, y que quien me acompaña vea mi avance. Nunca verá lo que escribo en mi Bitácora.</span></label>'+
     '<p class="error" id="err" role="alert"></p><button class="btn oro" type="submit" id="enviar">'+(conPago?'Enviar inscripción':'Guardar y continuar')+'</button></form>';
   pintar(h);
+  /* el botón se enciende cuando todo está completo (si falta algo, al tocarlo dice qué) */
+  function listo(){var ok=$('nombre').value.trim().length>2&&$('wa').value.replace(/\D/g,'').length>=10&&$('autoriza').checked&&(!conPago||$('archivo').files.length>0)&&(!catalogo.pareja||/@/.test($('pareja').value));$('enviar').classList.toggle('falta',!ok)}
+  $('f').addEventListener('input',listo);$('f').addEventListener('change',function(){var a=$('archivo');if(a){var f=a.files[0];$('nombreArchivo').textContent=f?f.name:'Toca para subir tu comprobante';$('soltar').classList.toggle('lleno',!!f)}listo()});listo();
+  if(conPago)$('copiarValor').addEventListener('click',function(){copiar(String(catalogo.precio),this)});
   if(conPago)leer(db.collection('ajustes').doc('pago')).then(function(a){var L=(a&&a.cuentas)||[];
-    $('cuentas').innerHTML=L.length?L.map(function(c,i){return'<div class="cuenta"><div><span>'+esc(c.titulo)+'</span><b>'+esc(c.numero)+'</b></div><button type="button" class="btn chico" data-copiar="'+i+'">Copiar</button></div>'}).join('')+(a.nota?'<p class="sub" style="font-size:14px">'+esc(a.nota)+'</p>':''):'Escríbenos por WhatsApp y te damos los datos para transferir.';
-    $('cuentas').addEventListener('click',function(e){var b=e.target.closest('[data-copiar]');if(!b)return;var n=L[+b.getAttribute('data-copiar')].numero;(navigator.clipboard?navigator.clipboard.writeText(n):Promise.reject()).then(function(){b.textContent='Copiado'},function(){b.textContent='Cópialo a mano'})})
+    $('cuentas').innerHTML=L.length?L.map(function(c,i){return'<div class="opcion"><div>'+(i===0&&L.length>1?'<span class="rec">Recomendado</span>':'')+'<span>'+esc(c.titulo)+'</span><b>'+esc(c.numero)+'</b></div><button type="button" class="btn chico" data-copiar="'+i+'">Copiar</button></div>'}).join('')+(a.nota?'<p class="nota">'+esc(a.nota)+'</p>':''):'<div class="caja">Escríbenos por WhatsApp y te damos los datos para transferir.</div>';
+    $('cuentas').addEventListener('click',function(e){var b=e.target.closest('[data-copiar]');if(b)copiar(L[+b.getAttribute('data-copiar')].numero,b)})
   },function(){$('cuentas').textContent='No pudimos cargar las cuentas. Escríbenos por WhatsApp.'});
   $('f').addEventListener('submit',function(e){e.preventDefault();enviar(solicitudAnterior)})
 }
+function copiar(t,b){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copiado'},function(){b.textContent='Cópialo a mano'})}
 function leerArchivo(f){return new Promise(function(ok,ko){var r=new FileReader();r.onload=function(){ok(String(r.result))};r.onerror=ko;r.readAsDataURL(f)})}
 /* La foto se reduce en el propio celular (máx. 1600 px, calidad bajando) hasta caber. */
 function preparar(f){
@@ -153,7 +238,7 @@ function iniciar(){
     $('yo').hidden=!yo;if(yo)$('yoCorreo').textContent=yo.correo;
     if(!CURSO)return listaDeCursos();
     return leer(db.collection('catalogo').doc(CURSO)).then(function(c){
-      if(!c){catalogo=null;pintar('<h1>Inscripción aún no disponible</h1><p class="sub">Todavía no abrimos la inscripción en línea de este curso. Escríbenos por WhatsApp y te ayudamos.</p><a class="btn oro" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero inscribirme en un curso de THE WAY')+'" target="_blank" rel="noopener">Escribir por WhatsApp</a><p><a href="./">Ver los cursos con inscripción abierta</a></p>');return}
+      if(!c){catalogo=null;pintar('<h1>Inscripción aún <em>no disponible.</em></h1><p class="lema">Todavía no abrimos la inscripción en línea de este curso. Escríbenos por WhatsApp y te ayudamos.</p><a class="btn oro" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero inscribirme en un curso de THE WAY')+'" target="_blank" rel="noopener">Escribir por WhatsApp</a><p><a href="./">Ver los cursos con inscripción abierta</a></p>');return}
       catalogo=c;if(!yo)return pantallaEntrar();
       yo.correo=String(yo.correo||'').toLowerCase();
       return leer(db.collection('derechos').doc(yo.uid)).then(function(der){
@@ -167,7 +252,7 @@ function iniciar(){
           if(inv){if(!perfil){catalogo=Object.assign({},catalogo,{precio:0,pareja:false});return formularioInvitado()}return pantallaReclamar('Tu pareja ya hizo la inscripción de los dos. Activa tu acceso.','pareja')}
           if(sol&&sol.estado==='revision')return enRevision(sol);
           if(sol&&sol.estado==='aprobada')return aprobadaSinAcceso();
-          if(!c.abierto)return pintar(cabecera()+'<div class="caja aviso">Las inscripciones de este curso están cerradas.</div>');
+          if(!c.abierto)return escena('inicio'),pintar(cabecera('Inscripciones','cerradas.')+ficha()+'<div class="caja aviso">Las inscripciones de este curso están cerradas.</div>');
           if(c.precio===0&&perfil)return pantallaReclamar('Este curso es gratis.','gratis');
           formulario(sol)
         })
@@ -177,8 +262,8 @@ function iniciar(){
 }
 function formularioInvitado(){
   formulario(null);var f=$('f');
-  var copia=f.cloneNode(true);f.parentNode.replaceChild(copia,f);
-  var aviso=document.createElement('div');aviso.className='caja bien';aviso.textContent='Tu pareja ya hizo la inscripción de los dos. Deja tus datos y activa tu acceso.';copia.parentNode.insertBefore(aviso,copia);
+  var copia=f.cloneNode(true);f.parentNode.replaceChild(copia,f);var bi=copia.querySelector('#enviar');if(bi)bi.classList.remove('falta');
+  var aviso=document.createElement('div');aviso.className='caja';aviso.textContent='Tu pareja ya hizo la inscripción de los dos. Deja tus datos y activa tu acceso.';copia.parentNode.insertBefore(aviso,copia);
   copia.addEventListener('submit',function(e){e.preventDefault();enviarInvitado()})
 }
 function enviarInvitado(){
