@@ -123,7 +123,7 @@
   function botonCurso() {
     var u = st.u, nombre = u && u.nombre ? u.nombre.split(' ')[0] : '';
     if (!u) return { html: '<button class="btn lc-cta" data-act="entrar">Entrar con Google</button>', nota: 'Cada uno entra con su propia cuenta de Google.' };
-    if (st.acceso === false) return { html: '<a class="btn lc-cta" href="' + WA_INSCRIBIR + '" target="_blank" rel="noopener">Inscribirnos por WhatsApp</a>', nota: 'Tu cuenta (' + esc(u.correo || u.nombre) + ') aún no tiene este curso. <button class="btn-txt" data-act="salir">Usar otra cuenta</button>' };
+    if (st.acceso === false) return { html: '<a class="btn lc-cta" href="../inscripcion/?curso=preparados">Inscribirnos</a>',nota: 'Tu cuenta (' + esc(u.correo || u.nombre) + ') aún no tiene este curso. <button class="btn-txt" data-act="salir">Usar otra cuenta</button>' };
     return { html: '<button class="btn lc-cta" data-act="continuar">' + (nombre ? 'Entrar al curso, ' + esc(nombre) : 'Entrar al curso') + '</button>', nota: 'Ya están inscritos. <button class="btn-txt" data-act="salir">Usar otra cuenta</button>' };
   }
   function bloqueRequisitos() {
@@ -599,7 +599,7 @@
   }
 
   function pantallaSinAcceso() {
-    pintar(marco('<section class="tarjeta estrecha"><div class="pin-art">' + CAMINOS + '</div><h2>Tu cuenta todavía no tiene acceso</h2><p>Entraste como <strong>' + esc(st.u.correo || st.u.nombre) + '</strong>. Si ya hicieron la inscripción, escríbele a tu líder para que active el curso para esta cuenta.</p><div class="fila"><a class="btn" href="' + WA_INSCRIBIR + '" target="_blank" rel="noopener">Inscribirnos por WhatsApp</a><button class="btn sec" data-act="salir">Entrar con otra cuenta</button></div></section>', { sinMenu: true }));
+    pintar(marco('<section class="tarjeta estrecha"><div class="pin-art">' + CAMINOS + '</div><h2>Tu cuenta todavía no tiene acceso</h2><p>Entraste como <strong>' + esc(st.u.correo || st.u.nombre) + '</strong>. Si ya hicieron la inscripción, escríbele a tu líder para que active el curso para esta cuenta.</p><div class="fila"><a class="btn" href="../inscripcion/?curso=preparados">Inscribirnos</a><button class="btn sec" data-act="salir">Entrar con otra cuenta</button></div></section>', { sinMenu: true }));
     congelarDibujo();
   }
   function pantallaCrear() {

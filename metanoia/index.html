@@ -1142,7 +1142,7 @@ body.bare .bar.hud .topnav .ibtn.on{background:color-mix(in srgb,var(--gold) 14%
    +'<p class="gate-p">Si acabas de registrarte, puede tardar un poco en activarse: te escribimos por WhatsApp cuando esté listo. Si te registraste con otro correo, entra con esa cuenta.</p>'
    +'<div class="g3-a"><button class="btn pri" id="two" type="button">Entrar con otra cuenta</button>'
    +'<a class="btn ghost" id="twwa" href="https://wa.me/'+WA+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>'
-   +'<a class="g3-reg" id="twreg" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero inscribirme en el taller Protocolo Metanoia')+'" target="_blank" rel="noopener noreferrer">¿Todavía no te registras? <span>Registrarme</span></a>'
+   +'<a class="g3-reg" id="twreg" href="../inscripcion/?curso=metanoia">¿Todavía no te registras? <span>Registrarme</span></a>'
    +'<button class="g3-back" id="twm" type="button">‹ Volver a Mi Mapa</button></div></section></div></main>';
   document.getElementById('two').onclick=function(){salir('../index.html')};
   document.getElementById('twm').onclick=function(){location.href=window.MAPA_URL||'../mi-mapa/index.html'};

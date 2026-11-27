@@ -588,6 +588,7 @@ html[data-piel=v3]{--v3pw:0px}
 <body>
 <nav>
   <div class="pb-brand"><svg class="tw-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><polygon points="2,56 15,29 28,56" fill="#A8C4D4" stroke="#A8C4D4" stroke-width="2.4" stroke-linejoin="round"/><polygon points="36,56 50,25 62,56" fill="#2B4A70" stroke="#2B4A70" stroke-width="2.4" stroke-linejoin="round"/><polygon points="12,56 32,8 52,56" fill="#C8A84B" stroke="#C8A84B" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 56 C 38 52, 24 44.5, 35 38.5 C 41 35, 29 29.5, 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg><span class="pb-wm">THE <span>WAY</span></span></div>
+  <a class="pb-cta" id="twAcomp" href="../acompanar/" hidden>Acompañar</a>
   <a class="pb-cta" id="salir" href="../index.html">Salir</a>
 </nav>
 
@@ -1251,6 +1252,10 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
 <script src="../compartido/sesion.js"></script>
 <script>/* A81: sin sesión no se muestra MI MAPA; se vuelve a la landing. Si la sesión no está disponible (archivo abierto sin servidor) no se cambia nada. */
 (function(){var S=window.TW_SESION;if(!S||typeof S.listo!=='function')return;S.listo().then(function(u){if(!u){try{localStorage.removeItem('tw_nick')}catch(e){}location.replace('../index.html')}}).catch(function(){})})();</script>
+<script>/* 27-nov-2026 · Acceso «Acompañar» solo para cuentas con rol (líder o superadministrador). Solo lee su propio equipo/{uid}; si falla, no se muestra. */
+(function(){var S=window.TW_SESION,a=document.getElementById('twAcomp');if(!a||!S||typeof S.listo!=='function'||typeof S.firestore!=='function')return;
+  S.listo().then(function(){var u=S.usuario();if(!u)return;return S.firestore().then(function(db){return db.collection('equipo').doc(u.uid).get()}).then(function(d){if(d.exists)a.hidden=false})}).catch(function(){})})();</script>
+<style>#twAcomp[hidden]{display:none!important}#twAcomp{flex:none;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0 14px}@media(max-width:379px){#twAcomp{padding:0 10px;font-size:13px}}</style>
 <style>/* Ficha de abajo recogida en celular (19-nov-2026): ocupa menos; la flecha la abre para ver semanas, jornadas, piedras y «Ver el curso». */
 @media(max-width:899px){
 [data-piel=v3] #pop .v3tog{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer}

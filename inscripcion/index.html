@@ -153,7 +153,7 @@ function iniciar(){
     $('yo').hidden=!yo;if(yo)$('yoCorreo').textContent=yo.correo;
     if(!CURSO)return listaDeCursos();
     return leer(db.collection('catalogo').doc(CURSO)).then(function(c){
-      if(!c){catalogo=null;pintar('<h1>No encontramos ese curso</h1><p><a href="./">Ver los cursos con inscripción abierta</a></p>');return}
+      if(!c){catalogo=null;pintar('<h1>Inscripción aún no disponible</h1><p class="sub">Todavía no abrimos la inscripción en línea de este curso. Escríbenos por WhatsApp y te ayudamos.</p><a class="btn oro" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero inscribirme en un curso de THE WAY')+'" target="_blank" rel="noopener">Escribir por WhatsApp</a><p><a href="./">Ver los cursos con inscripción abierta</a></p>');return}
       catalogo=c;if(!yo)return pantallaEntrar();
       yo.correo=String(yo.correo||'').toLowerCase();
       return leer(db.collection('derechos').doc(yo.uid)).then(function(der){
