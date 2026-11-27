@@ -99,6 +99,12 @@ table.rec{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
 .pc:hover{border-color:var(--gold)}
 .pc b{font-weight:500;color:var(--gold-l)}
 @media(max-width:640px){.pf{grid-template-columns:minmax(0,1fr)}}
+/* Cursos y pagos */
+.editor .cl{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
+.editor .ci{width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
+.editor .cm{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:14px}
+.editor .cm input{width:20px;height:20px}
+#v-inscritos h2{margin:18px 0 8px}
 /* Hoja de vida: corregir datos */
 details.editar{margin:10px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
 details.editar summary{cursor:pointer;color:var(--gold-l)}
@@ -168,6 +174,8 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
     <button role="tab" id="t-cursos" aria-selected="true" data-v="cursos">Por cursos</button>
     <button role="tab" id="t-personas" aria-selected="false" data-v="personas">Por personas</button>
     <button role="tab" id="t-mensajes" aria-selected="false" data-v="mensajes" hidden>Mensajes</button>
+    <button role="tab" id="t-inscritos" aria-selected="false" data-v="inscritos" hidden>Inscripciones</button>
+    <button role="tab" id="t-precios" aria-selected="false" data-v="precios" hidden>Cursos y pagos</button>
   </div>
   <section id="v-cursos">
     <h1>Cursos</h1>
@@ -225,6 +233,8 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
     <details class="quitadas" id="quitadasP" hidden><summary></summary><ul class="hist" id="listaQuitadasP"></ul></details>
   </section>
   <section id="v-mensajes" hidden></section>
+  <section id="v-inscritos" hidden></section>
+  <section id="v-precios" hidden></section>
   <p class="aviso">Aquí no está la Bitácora de nadie: solo los días que cada persona cerró, cuándo tuvo actividad y los mensajes que se le mandaron. Anota solo lo necesario para acompañar; lo que te contaron en confianza no se escribe aquí.</p>
 </main>
 
@@ -606,9 +616,146 @@ async function ponerFuera(uid,fuera){
   }catch(e){console.error(e);toast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.')}
 }
 
+/* ---------- Inscripciones y «Cursos y pagos» (solo superadministrador, 27-nov) ----------
+   Aprobar = activar el curso, dejar la ficha de la persona al día e invitar a su pareja, todo en una sola escritura. */
+var I={sol:[],perfiles:{},catalogo:{},pago:{cuentas:[],nota:''},listo:false,error:false,ocupado:false};
+var SITIO_INS='https://thewaylhscol.netlify.app/inscripcion/?curso=';
+function hoyIso(){return new Date().toLocaleDateString('en-CA',{timeZone:'America/Bogota'})}
+function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
+function pesos(n){return n>0?'$'+Number(n).toLocaleString('es-CO'):'Gratis'}
+function cursoNom(c){return(I.catalogo[c]&&I.catalogo[c].nombre)||nombreCurso(c)}
+async function cargarInscripciones(){
+  try{
+    var r=await Promise.all([db.collection('solicitudes').get(),db.collection('perfiles').get(),db.collection('catalogo').get(),db.collection('ajustes').doc('pago').get(),db.collection('invitaciones').get()]);
+    I.sol=[];r[0].forEach(function(d){I.sol.push(Object.assign({id:d.id},d.data()))});
+    I.perfiles={};r[1].forEach(function(d){I.perfiles[d.id]=d.data()});
+    I.catalogo={};r[2].forEach(function(d){I.catalogo[d.id]=d.data()});
+    I.pago=r[3].exists?r[3].data():{cuentas:[],nota:''};
+    var inv=[];r[4].forEach(function(d){inv.push(d.data())});
+    I.error=false;I.listo=true;
+    if(await fichasDeParejas(inv))await refrescarPersonas();
+  }catch(e){console.error(e);I.error=true;I.listo=true}
+  pintarInscritos();pintarPrecios();
+}
+async function refrescarPersonas(){await cargarTodo();llenarFiltros();repintar()}
+/* La ficha de una persona nueva o la actualización de sus cursos (quien no tenía «cursos» era de Metanoia). */
+async function fichaDe(uid,curso,perfil,parejaUid){
+  var ref=db.collection('personas').doc(uid),s=await ref.get();
+  if(!s.exists){var n={nombre:perfil.nombre,whatsapp:perfil.whatsapp,grupo:SIN_GRUPO,correo:perfil.correo,ciudad:perfil.ciudad||'',comoSeEntero:perfil.comoSeEntero||'',cursos:[curso],ingreso:hoyIso()};if(parejaUid)n.pareja=parejaUid;return{ref:ref,crear:n}}
+  var d=s.data(),antes=Array.isArray(d.cursos)&&d.cursos.length?d.cursos.slice():[CURSO];if(antes.indexOf(curso)<0)antes.push(curso);
+  var c={cursos:antes};if(!d.correo)c.correo=perfil.correo;if(!d.ciudad&&perfil.ciudad)c.ciudad=perfil.ciudad;if(!d.comoSeEntero&&perfil.comoSeEntero)c.comoSeEntero=perfil.comoSeEntero;if(parejaUid&&!d.pareja)c.pareja=parejaUid;
+  return{ref:ref,cambiar:c}
+}
+function uidPorCorreo(c){return Object.keys(I.perfiles).find(function(u){return I.perfiles[u].correo===c})||null}
+/* Parejas invitadas que ya dejaron sus datos: se les crea la ficha y se enlazan. */
+async function fichasDeParejas(inv){
+  var hubo=false;
+  for(var i=0;i<inv.length;i++){var x=inv[i],u=uidPorCorreo(x.correo);if(!u)continue;
+    var tiene=S.personas.concat(S.quitadas).some(function(p){return p.uid===u&&cursosDe(p).indexOf(x.curso)>=0});if(tiene)continue;
+    try{var f=await fichaDe(u,x.curso,I.perfiles[u],x.de);
+      if(f.crear)await f.ref.set(f.crear);else await f.ref.update(f.cambiar);
+      var o=await db.collection('personas').doc(x.de).get();if(o.exists&&!o.data().pareja)await o.ref.update({pareja:u});hubo=true}catch(e){console.error(e)}}
+  return hubo;
+}
+async function aprobar(id){
+  var s=I.sol.find(function(x){return x.id===id});if(!s||I.ocupado)return;
+  var p=I.perfiles[s.uid];if(!p){toast('Esa persona no tiene sus datos completos.');return}
+  if(!confirm('¿Aprobar la inscripción de '+p.nombre+' a '+cursoNom(s.curso)+'? Se activa su acceso de inmediato.'))return;
+  I.ocupado=true;
+  try{
+    var otra=s.parejaCorreo?uidPorCorreo(s.parejaCorreo):null,f=await fichaDe(s.uid,s.curso,p,otra),lote=db.batch(),acc={};
+    acc[s.curso]={activo:true,desde:hoyIso(),origen:'compra'};
+    lote.update(db.collection('solicitudes').doc(id),{estado:'aprobada',motivo:'',revisadaPor:S.yo.uid,actualizada:ts()});
+    lote.set(db.collection('derechos').doc(s.uid),{apps:acc},{merge:true});
+    if(f.crear)lote.set(f.ref,f.crear);else lote.update(f.ref,f.cambiar);
+    if(s.parejaCorreo)lote.set(db.collection('invitaciones').doc(s.parejaCorreo+'|'+s.curso),{correo:s.parejaCorreo,curso:s.curso,de:s.uid,creada:ts()});
+    await lote.commit();
+    s.estado='aprobada';s.actualizada={toMillis:function(){return Date.now()}};
+    await refrescarPersonas();await cargarInscripciones();toast('Aprobada. Ya tiene acceso.');
+  }catch(e){console.error(e);toast('No se pudo aprobar. Inténtalo de nuevo.')}
+  I.ocupado=false;
+}
+async function rechazar(id){
+  var s=I.sol.find(function(x){return x.id===id});if(!s||I.ocupado)return;
+  var m=prompt('¿Por qué se rechaza? La persona verá este texto y podrá corregir.','No pudimos ver el pago en el comprobante.');if(m===null)return;
+  I.ocupado=true;
+  try{await db.collection('solicitudes').doc(id).update({estado:'rechazada',motivo:String(m).trim().slice(0,300),revisadaPor:S.yo.uid,actualizada:ts()});await cargarInscripciones();toast('Rechazada.')}
+  catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
+  I.ocupado=false;
+}
+async function verComprobante(id){
+  var s=I.sol.find(function(x){return x.id===id}),p=s&&I.perfiles[s.uid];
+  try{var d=await db.collection('comprobantes').doc(id).get();if(!d.exists){toast('No hay comprobante.');return}var c=d.data(),src='data:'+(c.tipo==='application/pdf'?'application/pdf':'image/jpeg')+';base64,'+String(c.dato).replace(/[^A-Za-z0-9+\/=]/g,'');
+    S.abierta=null;
+    $('ficha').innerHTML='<div class="cab"><h2 id="fNombre">'+esc(p?p.nombre:'Comprobante')+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div><p class="ins">'+esc(s?cursoNom(s.curso)+' · '+pesos(s.precio):'')+'</p>'+
+      (c.tipo==='application/pdf'?'<div class="acc"><a class="btn" download="comprobante.pdf" href="'+src+'">Descargar el PDF</a></div>':'<img alt="Comprobante de pago" style="width:100%;border-radius:12px" src="'+src+'">')+
+      (s&&s.estado==='revision'?'<div class="acc"><button class="btn oro" type="button" data-aprobar="'+esc(id)+'">Aprobar</button><button class="btn peligro" type="button" data-rechazar="'+esc(id)+'">Rechazar</button></div>':'');
+    $('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
+  }catch(e){console.error(e);toast('No se pudo abrir el comprobante.')}
+}
+function pintarInscritos(){
+  var v=$('v-inscritos');
+  if(!I.listo){v.innerHTML='<p class="vacio">Cargando…</p>';return}
+  if(I.error){v.innerHTML='<p class="vacio">No pudimos cargar las inscripciones. Revisa tu conexión y recarga la página.</p>';return}
+  var ms=function(s){return tsMs(s.actualizada)};
+  var pend=I.sol.filter(function(s){return s.estado==='revision'}).sort(function(a,b){return ms(a)-ms(b)});
+  var rec=I.sol.filter(function(s){return s.estado!=='revision'&&Date.now()-ms(s)<14*864e5}).sort(function(a,b){return ms(b)-ms(a)});
+  $('t-inscritos').textContent='Inscripciones'+(pend.length?' ('+pend.length+')':'');
+  var fila=function(s){var p=I.perfiles[s.uid]||{},n=esc(p.nombre||'Sin datos');
+    var h='<li class="pf"><div class="pn"><b>'+n+'</b><small>'+esc(p.correo||'')+(p.ciudad?' · '+esc(p.ciudad):'')+'</small></div><div class="pcs"><div>'+esc(cursoNom(s.curso))+' · '+esc(pesos(s.precio))+(s.parejaCorreo?'<br><small>Pareja: '+esc(s.parejaCorreo)+'</small>':'')+' <span class="chip '+(s.estado==='aprobada'?'ok':s.estado==='rechazada'?'mal':'oro')+'">'+(s.estado==='aprobada'?'Aprobada':s.estado==='rechazada'?'Rechazada':'Por revisar')+'</span>'+(ms(s)?' <small>'+fechaCorta(ms(s))+'</small>':'')+'</div>';
+    if(s.estado==='revision')h+='<div class="acc" style="margin:0"><button class="btn chico" type="button" data-comp="'+esc(s.id)+'">Ver comprobante</button><button class="btn oro chico" type="button" data-aprobar="'+esc(s.id)+'">Aprobar</button><button class="btn peligro chico" type="button" data-rechazar="'+esc(s.id)+'">Rechazar</button></div>';
+    if(s.estado==='aprobada'&&p.whatsapp){var t='Hola, '+primerNombre(p)+' 👋\n\nTu inscripción a *'+cursoNom(s.curso)+'* quedó aprobada ✅\n\nEntra aquí con tu cuenta de Google ('+p.correo+'):\n'+SITIO_INS+s.curso+(s.parejaCorreo?'\n\nTu pareja entra en el mismo enlace con '+s.parejaCorreo+'.':'');
+      h+='<div class="acc" style="margin:0"><a class="btn wa chico"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,t))+'">Enviar bienvenida por WhatsApp</a></div>'}
+    return h+'</div></li>'};
+  v.innerHTML='<h1>Inscripciones</h1><p class="sub">Revisa el comprobante y aprueba: el acceso se activa en ese momento.</p><h2>Por revisar ('+pend.length+')</h2>'+(pend.length?'<ul class="plista">'+pend.map(fila).join('')+'</ul>':'<p class="vacio">No hay inscripciones pendientes.</p>')+
+    '<h2>Revisadas en los últimos 14 días</h2>'+(rec.length?'<ul class="plista">'+rec.map(fila).join('')+'</ul>':'<p class="vacio">Ninguna todavía.</p>')+'<div class="acc"><button class="btn chico" type="button" id="recargarIns">Actualizar</button></div>';
+}
+function pintarPrecios(){
+  var v=$('v-precios');if(!I.listo||I.error){v.innerHTML='<p class="vacio">'+(I.error?'No pudimos cargar. Recarga la página.':'Cargando…')+'</p>';return}
+  var ids=Object.keys(CURSOS).concat(Object.keys(I.catalogo).filter(function(k){return!CURSOS[k]}));
+  var h='<h1>Cursos y pagos</h1><p class="sub">Cada curso tiene su precio y su enlace de inscripción. Un curso abierto con precio 0 se activa solo, sin pago.</p>';
+  h+=ids.map(function(id){var c=I.catalogo[id]||{nombre:nombreCurso(id),precio:0,pareja:id==='preparados',abierto:false},k=esc(id);
+    return'<div class="editor"><h3>'+esc(c.nombre)+' <span class="chip '+(c.abierto?'ok':'')+'">'+(c.abierto?'Abierto':'Cerrado')+'</span></h3>'+
+      '<label class="cl" for="cn-'+k+'">Nombre</label><input class="ci" id="cn-'+k+'" type="text" maxlength="80" value="'+esc(c.nombre)+'">'+
+      '<label class="cl" for="cp-'+k+'">Precio en pesos (0 = gratis)</label><input class="ci" id="cp-'+k+'" type="text" inputmode="numeric" value="'+esc(c.precio)+'">'+
+      '<label class="cm"><input type="checkbox" id="cj-'+k+'"'+(c.pareja?' checked':'')+'> Curso de pareja (una inscripción paga por los dos)</label>'+
+      '<label class="cm"><input type="checkbox" id="ca-'+k+'"'+(c.abierto?' checked':'')+'> Inscripciones abiertas</label>'+
+      '<div class="acc"><button class="btn oro chico" type="button" data-guardar-curso="'+k+'">Guardar</button>'+(I.catalogo[id]?'<button class="btn chico" type="button" data-copiar-enlace="'+k+'">Copiar enlace de inscripción</button>':'')+'</div></div>'}).join('');
+  var L=(I.pago.cuentas||[]).map(function(c){return c.titulo+': '+c.numero}).join('\n');
+  h+='<div class="editor"><h3>Cuentas para transferir</h3><p class="cuando">Una por línea, así: <code>Nombre de la cuenta: número</code>. Solo las ve quien entra con Google.</p><label class="sr" for="cuentasTxt">Cuentas</label><textarea id="cuentasTxt" style="min-height:90px">'+esc(L)+'</textarea><label class="cl" for="cuentasNota">Nota (opcional)</label><input class="ci" id="cuentasNota" type="text" maxlength="500" value="'+esc(I.pago.nota||'')+'"><div class="acc"><button class="btn oro chico" type="button" id="guardarCuentas">Guardar cuentas</button></div></div>';
+  v.innerHTML=h;
+}
+async function guardarCurso(id){
+  var nom=$('cn-'+id).value.trim(),pr=$('cp-'+id).value.replace(/[.$\s]/g,''),pareja=$('cj-'+id).checked,abierto=$('ca-'+id).checked;
+  if(!nom){toast('Escribe el nombre del curso.');return}
+  if(!/^\d{1,9}$/.test(pr)){toast('Escribe el precio solo con números, por ejemplo 100000.');return}
+  if(abierto&&+pr===0&&!confirm('Con precio 0 y abierto, cualquiera que entre podrá activar este curso gratis. ¿Guardar así?'))return;
+  try{await db.collection('catalogo').doc(id).set({nombre:nom,precio:+pr,pareja:pareja,abierto:abierto,actualizado:ts()});
+    I.catalogo[id]={nombre:nom,precio:+pr,pareja:pareja,abierto:abierto};pintarPrecios();toast('Curso guardado.')}
+  catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
+}
+async function guardarCuentas(){
+  var L=$('cuentasTxt').value.split('\n').map(function(l){return l.trim()}).filter(Boolean),C=[];
+  for(var i=0;i<L.length;i++){var k=L[i].lastIndexOf(':');if(k<1||!L[i].slice(k+1).trim()){toast('Cada línea debe ser así: Nombre de la cuenta: número');return}C.push({titulo:L[i].slice(0,k).trim().slice(0,80),numero:L[i].slice(k+1).trim().slice(0,80)})}
+  if(C.length>6){toast('Máximo 6 cuentas.');return}
+  var nota=$('cuentasNota').value.trim().slice(0,500);
+  try{await db.collection('ajustes').doc('pago').set({cuentas:C,nota:nota,actualizado:ts()});I.pago={cuentas:C,nota:nota};toast('Cuentas guardadas.')}
+  catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
+}
+document.addEventListener('click',function(e){var el;
+  if((el=e.target.closest('[data-aprobar]'))){var a=el.getAttribute('data-aprobar');if(el.closest('#ficha'))cerrarFicha();aprobar(a);return}
+  if((el=e.target.closest('[data-rechazar]'))){var b=el.getAttribute('data-rechazar');if(el.closest('#ficha'))cerrarFicha();rechazar(b);return}
+  if((el=e.target.closest('[data-comp]'))){verComprobante(el.getAttribute('data-comp'));return}
+  if(e.target.closest('#recargarIns')){cargarInscripciones();return}
+  if((el=e.target.closest('[data-guardar-curso]'))){guardarCurso(el.getAttribute('data-guardar-curso'));return}
+  if((el=e.target.closest('[data-copiar-enlace]'))){var u=SITIO_INS+el.getAttribute('data-copiar-enlace');(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){toast('Enlace copiado.')},function(){prompt('Copia el enlace:',u)});return}
+  if(e.target.closest('#guardarCuentas'))guardarCuentas();
+});
+
 /* ---------- Navegación y eventos ---------- */
 var PREF='tw_panel_vista';
-function ver(v){S.vista=v;['cursos','curso','personas','mensajes'].forEach(function(x){$('v-'+x).hidden=x!==v});
+function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios'].forEach(function(x){$('v-'+x).hidden=x!==v});
+  ['inscritos','precios'].forEach(function(x){$('t-'+x).setAttribute('aria-selected',String(v===x))});
   $('t-cursos').setAttribute('aria-selected',String(v==='cursos'||v==='curso'));$('t-personas').setAttribute('aria-selected',String(v==='personas'));$('t-mensajes').setAttribute('aria-selected',String(v==='mensajes'));
   if(v==='cursos'||v==='curso'||v==='personas'){try{localStorage.setItem(PREF,v==='personas'?'personas':'cursos')}catch(e){}}
   window.scrollTo(0,0)}
@@ -662,7 +809,8 @@ async function iniciar(){
     if(!S.guiones[CURSO])S.guiones[CURSO]={saludo:'Hola, [nombre] 👋',mensajes:[]};
     await cargarTodo();
     $('cabecera').hidden=false;$('yoNombre').textContent=u.nombre||'';$('yoRol').textContent=esAdmin()?'Todos':((S.equipo.grupos||[]).map(function(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}).join(', '));
-    $('t-mensajes').hidden=!esAdmin();
+    $('t-mensajes').hidden=!esAdmin();$('t-inscritos').hidden=$('t-precios').hidden=!esAdmin();
+    if(esAdmin())cargarInscripciones();
     var hoy=new Date();$('fechaHoy').textContent='Hoy es '+DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+personasUnicas().length+' personas';
     llenarFiltros();pintarCursos();pintarPersonas();pintarMensajes();ver(vistaInicial());$('estado').hidden=true;$('app').hidden=false;
   }catch(e){console.error(e);estado('<h1>Algo no salió bien</h1><p>No pudimos cargar el panel. Revisa tu conexión.</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
