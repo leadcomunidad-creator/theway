@@ -5,249 +5,340 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080C12">
-<title>Acompañamiento · THE WAY</title>
+<title>Acompañar · THE WAY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 /* Panel de acompañamiento · THE WAY.
-   v3 (23-nov-2026, como lo pidió Juan): Cursos → tabla de recorrido por persona (Día 1 a 20: cerró / se le mandó) con buscador
-   y filtro → hoja de vida de cada persona. Mensajes editables (solo Juan). Solo lee el avance; aquí no hay nada de la Bitácora. */
-:root{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
---gold:#C8A84B;--gold-l:#DEC06A;--ice:#A8C4D4;--text:#EAE8E0;--muted:rgba(234,232,224,.66);--green:#2F6B47;--green-l:#52A06E;--green-xl:#6DC48A;
---ink-on-gold:#1A1405;--focus:#F2D27A;--danger:#E58E8E;--warn:#E2B35C;--wa:#25D366;--burbuja:#1F3A2E;--r:16px}
-*{box-sizing:border-box}
+   v4 (27-nov-2026, diseño aprobado por Juan): el campamento (quién te espera), las expediciones, el camino de cada persona
+   en la montaña, acompañar de a una persona, hoja de vida, y la administración con el mismo lenguaje.
+   Mismas funciones y datos que la v3. Solo lee el avance; aquí no hay nada de la Bitácora. */
+:root{--night:#080C12;--deep:#0C1520;--surface:#111C28;--card:#162030;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.18);
+--gold:#C8A84B;--gold-l:#DEC06A;--ice:#A8C4D4;--text:#EAE8E0;--muted:#98A8B2;--green-l:#52A06E;--green-xl:#6DC48A;
+--ink-on-gold:#1A1405;--focus:#F2D27A;--danger:#E99A9A;--warn:#E8B96B;--burbuja:#1D382D}
+*{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--night);color:var(--text);font:16px/1.5 'DM Sans',system-ui,sans-serif;min-height:100vh}
-a{color:var(--gold-l)}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+body{background:var(--night);color:var(--text);font:15px/1.5 'DM Sans',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{display:none}*{scrollbar-width:none}
+a{color:var(--gold-l);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:8px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-header.top{position:sticky;top:0;z-index:5;background:rgba(8,12,18,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-.top .in{max-width:1280px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
-.marca{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;color:var(--gold);line-height:1}
-.marca small{display:block;font-family:'DM Sans';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.top .yo{margin-left:auto;text-align:right;font-size:13px;color:var(--muted);min-width:0}
-.top .yo b{display:block;color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:999px;border:1px solid var(--border2);background:var(--card);cursor:pointer;text-decoration:none;color:var(--text);font-weight:500}
+.cri,.sub{font-family:'Crimson Pro',Georgia,serif;font-style:italic}
+.eye{font:700 11px 'DM Sans';letter-spacing:.18em;text-transform:uppercase;color:var(--green-xl)}
+.oro{color:var(--gold)}
+h1,h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.03em}
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 18px;border-radius:99px;border:1px solid var(--line2);font-weight:700;font-size:13px;color:var(--text);text-align:center}
 .btn:hover{border-color:var(--gold)}
-.btn.oro{background:var(--gold);border-color:var(--gold);color:var(--ink-on-gold)}
-.btn.wa{background:var(--wa);border-color:var(--wa);color:#04210f;font-weight:700}
-.btn.chico{min-height:36px;padding:6px 12px;font-size:14px}
-.btn.peligro{border-color:var(--danger);color:var(--danger);background:transparent}
-main{max-width:1280px;margin:0 auto;padding:12px 16px 80px}
-h1{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.04em;font-size:34px;line-height:1.05;margin:8px 0 2px}
-h2{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.05em;font-size:24px;margin:0}
-.sub{color:var(--muted);margin:0 0 12px}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
-.tabs button{flex:0 0 auto;min-height:40px;padding:8px 16px;border-radius:999px;border:1px solid var(--border2);background:transparent;cursor:pointer;color:var(--muted)}
-.tabs button[aria-selected=true]{background:var(--gold);border-color:var(--gold);color:var(--ink-on-gold);font-weight:700}
-.chip{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--border2);color:var(--ice);white-space:nowrap}
-.chip.oro{border-color:var(--gold);color:var(--gold-l)}
-.chip.ok{border-color:var(--green-l);color:var(--green-xl)}
-.chip.alerta{border-color:var(--warn);color:var(--warn)}
-.chip.mal{border-color:var(--danger);color:var(--danger)}
-.vacio{color:var(--muted);font-size:15px;margin:8px 0}
-/* Cursos */
-.cursos{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
-.curso{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer}
-.curso:hover{border-color:var(--gold)}
-.curso h2{font-size:28px;color:var(--gold-l)}
-.curso .total{color:var(--muted);margin:0 0 10px}
-.cifras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.cifra{background:var(--card);border-radius:10px;padding:6px 8px}
-.cifra b{display:block;font-size:20px;line-height:1.1}
-.cifra span{font-size:12px;color:var(--muted)}
-.cifra.alerta b{color:var(--warn)}.cifra.mal b{color:var(--danger)}.cifra.ok b{color:var(--green-xl)}
-/* Curso: filtros + tabla de recorrido */
-.volver{background:none;border:0;color:var(--gold-l);cursor:pointer;padding:4px 0;font-size:15px}
-.filtros{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 8px}
-.filtros input,.filtros select{min-height:44px;padding:8px 14px;border-radius:999px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
-.filtros input{flex:1 1 220px;min-width:0}
-.filtros select{flex:0 1 auto;max-width:100%}
-.cuenta{font-size:14px;color:var(--muted);margin:4px 0 8px}
-.leyenda{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:0 0 8px;align-items:center}
-.leyenda i{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-3px;margin-right:4px;border:1px solid var(--border2);position:relative}
-.marco{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r);background:var(--surface)}
-table.rec{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
-.rec th,.rec td{padding:6px 4px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
-.rec thead th{font-weight:500;color:var(--muted);font-size:12px;position:sticky;top:0;background:var(--surface)}
-.rec .quien{position:sticky;left:0;z-index:1;background:var(--surface);text-align:left;padding-left:12px;min-width:150px;max-width:210px;white-space:normal}
-.rec thead .quien{z-index:2}
-.rec .quien button{background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:500;font-size:15px;overflow-wrap:anywhere}
-.rec .quien button:hover{color:var(--gold-l)}
-.rec .quien small{display:block;font-size:12px;color:var(--muted);font-weight:400}
-.rec tbody tr:hover td,.rec tbody tr:hover .quien{background:var(--card)}
-.c{display:inline-block;width:22px;height:22px;border-radius:5px;border:1px solid var(--border2);position:relative;vertical-align:middle;font-size:12px;line-height:20px;color:#fff}
-.c.cerro{background:var(--green);border-color:var(--green-l)}
-.c.va{box-shadow:0 0 0 2px var(--gold)}
-.c.futuro{opacity:.25}
-.c.env::after{content:'';position:absolute;right:-3px;top:-3px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:1px solid var(--night)}
-.rec .hoy{text-align:left;padding-right:12px}
-.rec .movil{display:none}
-@media(max-width:640px){.rec .sit{display:none}.rec .movil{display:inline}.rec .quien{min-width:130px;max-width:150px}}
-/* Personas */
-.plista{list-style:none;margin:0 0 14px;padding:0;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);overflow:hidden}
-.pf{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);gap:8px 14px;padding:10px 14px;border-top:1px solid var(--border);align-items:start}
-.pf:first-child{border-top:0}
-.pf .nom{background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:500;font-size:16px;overflow-wrap:anywhere}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;padding:12px 24px;border:0;border-radius:14px;background:var(--gold);color:var(--ink-on-gold);font:400 20px 'Bebas Neue';letter-spacing:.1em;text-align:center;box-shadow:0 10px 34px rgba(200,168,75,.28)}
+.cta:hover{background:var(--gold-l)}
+.enlace{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;color:var(--gold-l);font-weight:500;font-size:15px}
+.enlace.peligro{color:var(--danger)}
+.acc{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.fila-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+/* barra y menú */
+header.top{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;gap:10px;padding:14px 16px;pointer-events:none}
+.top>*{pointer-events:auto}
+.logo{display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo b{font:400 26px/1 'Bebas Neue';letter-spacing:.05em;color:var(--text);white-space:nowrap}
+.pill{min-height:44px;padding:0 16px;border-radius:99px;border:1px solid var(--line2);background:rgba(8,12,18,.72);backdrop-filter:blur(10px);display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;white-space:nowrap}
+.punto{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.menu{position:fixed;right:16px;top:66px;z-index:31;width:280px;max-height:calc(100vh - 84px);overflow:auto;background:#101A27;border:1px solid var(--line2);border-radius:20px;padding:8px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.menu .yo{padding:8px 14px 10px;border-bottom:1px solid var(--line);margin-bottom:6px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.menu .yo b{display:block;color:var(--text);font-size:14px}
+.menu button,.menu a{display:flex;align-items:center;width:100%;min-height:46px;padding:0 14px;border-radius:12px;font-weight:500;color:var(--text)}
+.menu button:hover,.menu a:hover,.menu [aria-current]{background:var(--card)}
+.menu hr{border:0;border-top:1px solid var(--line);margin:6px 8px}
+/* pantalla: paisaje + contenido */
+.arte{position:relative;height:330px;overflow:hidden;background:#071126}
+.arte>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.arte::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.6),rgba(8,12,18,.05) 38%,rgba(8,12,18,.55) 70%,var(--night) 100%)}
+.frase{position:absolute;z-index:2;left:20px;right:20px;bottom:14px;text-shadow:0 3px 22px rgba(0,0,0,.85)}
+.frase h1{font-size:clamp(40px,11.6vw,50px);line-height:.95;margin-top:8px;overflow-wrap:anywhere}
+.frase .sub{font-size:19px;line-height:1.3;color:#D7E2EA;margin-top:6px}
+.panel{padding:12px 20px 48px;min-width:0}
+.inicio .arte{height:max(600px,150vw);max-height:740px}
+.inicio .arte>img{object-position:50% 100%}
+.inicio .arte::after{background:linear-gradient(transparent 80%,var(--night))}
+.inicio .frase{top:84px;bottom:auto}
+.inicio .frase h1{font-size:clamp(50px,15vw,66px);line-height:.93;margin-bottom:10px}
+.inicio .frase .sub{max-width:340px;margin-bottom:18px}
+.inicio .frase .cta{width:auto;display:inline-flex}
+@media(min-width:900px){
+  header.top{padding:22px 36px}.menu{right:36px;top:76px}
+  .pant{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);height:100vh}
+  .pant .arte{height:100vh;max-height:none}
+  .frase{left:36px;right:30px;bottom:48px}
+  .frase h1{font-size:clamp(50px,5vw,76px)}
+  .frase .sub{font-size:22px;max-width:420px}
+  .panel{height:100vh;overflow:auto;padding:98px clamp(28px,4vw,64px) 60px;border-left:1px solid var(--line)}
+  .panel>*{max-width:720px}
+  .pant.inicio{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+  .inicio .arte::after{display:none}
+  .inicio .frase{top:104px}
+  .inicio .frase h1{font-size:clamp(54px,min(6vw,10vh),102px)}
+}
+.sec{font-size:28px;letter-spacing:.04em;margin:28px 0 4px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sec:first-child{margin-top:4px}
+.sec small{font:500 12px 'DM Sans';letter-spacing:0;color:var(--muted)}
+.gris,.cuenta,.ins{color:var(--muted);font-size:13px}
+.cuenta{margin:6px 0}
+.vacio{color:#C3D0D8;font:italic 19px/1.35 'Crimson Pro',serif;padding:14px 0}
+.aviso{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+/* campos */
+input[type=text],input[type=search],input[type=email],input[type=tel],select,textarea{width:100%;min-height:48px;border-radius:14px;border:1px solid var(--line2);background:var(--deep);color:var(--text);font:inherit;padding:10px 16px}
+textarea{min-height:150px;resize:vertical;line-height:1.55}
+textarea.nota{min-height:90px}
+label.eti,.cl{display:block;font-size:13px;color:var(--muted);margin:14px 0 5px}
+.cm{display:flex;gap:12px;align-items:center;min-height:48px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.cm input{width:20px;height:20px;flex:none;accent-color:var(--gold)}
+.cm small{color:var(--muted)}
+summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+.plegable{border-bottom:1px solid var(--line)}
+.plegable>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:52px;color:var(--gold-l);font-weight:500}
+.plegable>summary::after{content:'＋';color:var(--gold)}
+.plegable[open]>summary::after{content:'－'}
+.plegable>div{padding-bottom:18px}
+.filtros{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
+.filtros>input{flex:1 1 200px;min-width:0;border-radius:99px;width:auto}
+.filtros>select{flex:0 1 230px;width:auto;max-width:100%;border-radius:99px}
+/* personas */
+.av{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font:400 21px/1 'Bebas Neue';padding-top:2px;border:2px solid var(--c,#DEC06A);background:radial-gradient(circle at 50% 30%,#2a3d52,#101A27 75%);color:#fff}
+.ren{display:flex;gap:14px;align-items:center;width:100%;padding:13px 0;border-bottom:1px solid var(--line);color:var(--text);text-align:left}
+.ren .t{flex:1;min-width:0;display:block;overflow-wrap:anywhere}
+.ren b{display:block;font-size:16px}
+.ren .cri{display:block;font-size:17px;line-height:1.25;color:#C3D0D8}
+.ren:hover b{color:var(--gold-l)}
+.go{color:var(--gold);font-size:24px;line-height:1}
+.chip{display:inline-block;font:700 11px 'DM Sans';letter-spacing:0;white-space:nowrap;color:var(--ice)}
+.chip.ok{color:var(--green-xl)}.chip.alerta{color:var(--warn)}.chip.mal{color:var(--danger)}.chip.oro{color:var(--gold-l)}
+.pf{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.pf>.t{flex:1;min-width:0;overflow-wrap:anywhere}
+.pf .nom{font-weight:700;font-size:16px;overflow-wrap:anywhere}
 .pf .nom:hover{color:var(--gold-l)}
 .pf small{display:block;font-size:12px;color:var(--muted)}
-.pcs{display:flex;flex-direction:column;gap:6px;min-width:0}
-.pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px 10px;text-align:left;cursor:pointer;font-size:14px;overflow-wrap:anywhere}
-.pc:hover{border-color:var(--gold)}
-.pc b{font-weight:500;color:var(--gold-l)}
-@media(max-width:640px){.pf{grid-template-columns:minmax(0,1fr)}}
-/* Equipo y grupos */
-.gr{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--border)}
-.gr:first-child{border-top:0}.gr small{color:var(--muted)}.lid{margin-top:4px;display:flex;flex-wrap:wrap;gap:6px}
-.lid .chip{white-space:normal}.x{background:none;border:0;color:inherit;cursor:pointer;min-width:28px;min-height:28px}
-.dep{font-size:13px;color:var(--muted)}.dep select{display:block;min-height:40px;max-width:220px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit;padding:6px 10px}
-.mlista{max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:0 12px;margin-top:8px}
-#v-equipo h2{margin:18px 0 8px}
-/* Cursos y pagos */
-.editor .cl{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
-.editor .ci{width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
-.editor .cm{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:14px}
-.editor .cm input{width:20px;height:20px}
-#v-inscritos h2{margin:18px 0 8px}
-/* Hoja de vida: corregir datos */
-details.editar{margin:10px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
-details.editar summary{cursor:pointer;color:var(--gold-l)}
-details.editar label{display:block;margin:12px 0 4px;font-size:13px;color:var(--muted)}
-details.editar input,details.editar select{width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
-details.editar small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
-.rec2 li{padding:4px 0}.rec2 .pc{width:100%}
-/* Hoja de vida */
-.velo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:flex;justify-content:flex-end}
-.ficha{background:var(--deep);width:min(640px,100%);height:100%;overflow-y:auto;overflow-x:hidden;overflow-wrap:anywhere;border-left:1px solid var(--border2);padding:0 16px 40px}
-.ficha *{min-width:0}
-.ficha .cab{position:sticky;top:0;background:var(--deep);padding:14px 0 10px;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid var(--border);z-index:1}
-.ficha .cab h2{font-size:30px;line-height:1.1;flex:1}
-.ficha h3{margin:22px 0 8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l)}
-.datos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:14px 0}
-.dato{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 10px}
-.dato span{display:block;font-size:12px;color:var(--muted)}
-.dato b{font-weight:500}
-.ins{font-size:14px;color:var(--muted);margin:6px 0}
-.burbuja{background:var(--burbuja);border-radius:4px 14px 14px 14px;padding:10px 12px;margin:8px 0 0;font-size:15px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
-.acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
-.acc .btn.wa{flex:1 1 220px}
-.campoWa{display:flex;gap:8px;margin-top:8px}
-.campoWa input{flex:1;min-width:0;min-height:44px;padding:10px 14px;border-radius:999px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
-ol.recorrido{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.recorrido li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding:8px 10px;border-top:1px solid var(--border);font-size:14px;align-items:center}
-.recorrido li:first-child{border-top:0}
-.recorrido li.enc{background:var(--surface);color:var(--muted);font-size:12px}
-.recorrido li.va{background:rgba(200,168,75,.10)}
-.recorrido li.futuro{opacity:.45}
+.pc{display:block;width:100%;padding:8px 0 0;font-size:13px;color:#C3D0D8;overflow-wrap:anywhere}
+.pc b{color:var(--gold-l);font-weight:500}
+.cab-f{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.mini{display:block;width:100%;max-width:420px;height:18px;margin-top:5px}
+.leyenda{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);margin:6px 0}
+.leyenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+/* inicio: expediciones */
+.exps{display:grid;gap:14px;margin-top:12px}
+@media(min-width:1200px){.exps{grid-template-columns:1fr 1fr}}
+.exp,.paisaje{position:relative;display:block;width:100%;overflow:hidden;border-radius:20px;border:1px solid var(--line2);color:var(--text)}
+.exp{height:196px}.paisaje{min-height:132px;display:flex;align-items:flex-end}
+.exp img,.paisaje img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.exp::after,.paisaje::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.1) 15%,rgba(8,12,18,.93))}
+.exp .txt,.paisaje .txt{position:relative;z-index:1;display:block;width:100%;padding:14px 18px}
+.exp .txt{position:absolute;left:0;bottom:0}
+.exp h2,.paisaje h3{display:block;font-size:30px;line-height:1}
+.exp .total,.paisaje small{display:inline;font-size:13px;color:#D3DDE3}
+.exp em{font-style:normal;color:var(--gold-l);font-weight:700;font-size:13px}
+.sello{position:absolute;z-index:1;right:14px;top:12px;padding:3px 11px;border-radius:99px;background:rgba(8,12,18,.75);border:1px solid var(--line2);text-transform:uppercase;letter-spacing:.14em}
+/* expedición: dónde va la gente */
+.cuatro{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin:12px 0 8px;text-align:center}
+.cuatro::before{content:'';position:absolute;left:12%;right:12%;top:21px;border-top:2px dashed var(--line2)}
+.cuatro>div{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
+.cuatro b{font:400 clamp(14px,4vw,19px) 'Bebas Neue';letter-spacing:.05em;color:var(--c)}
+.cuatro small{font-size:12px;color:var(--muted)}
+.tienda{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;border:1px solid var(--c);background:var(--deep)}
+.cifras{display:flex;flex-wrap:wrap;gap:6px 20px}
+.cifra{font-size:12px;color:var(--muted)}.cifra b{font:400 24px 'Bebas Neue';color:var(--gold-l);margin-right:5px}
+/* ficha: pantalla completa */
+.velo{position:fixed;inset:0;z-index:20;background:var(--night);overflow-y:auto}
+.ficha{min-height:100%;outline:0}
+@media(min-width:900px){.velo{overflow:hidden}}
+.ficha .simple{max-width:640px;margin:0 auto;padding:90px 20px 60px}
+.ficha .simple h2{font-size:34px}.ficha .simple img{width:100%;border-radius:14px;margin-top:14px}
+.persona{display:flex;gap:14px;align-items:center}
+.persona .av{width:56px;height:56px;font-size:26px}
+.persona b{display:block;font:400 30px/1.05 'Bebas Neue';letter-spacing:.03em}
+.porque{font-size:21px;line-height:1.3;color:#D7E2EA;margin:14px 0}
+.burbuja{background:linear-gradient(160deg,#1D382D,#142A24);border:1px solid rgba(109,196,138,.28);border-radius:6px 22px 22px 22px;padding:16px 20px;font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}
+.hecho{border-block:1px solid var(--line2);padding:16px 0;margin:14px 0}
+.hecho h2{font-size:38px;line-height:1}
+.cifra-g{display:flex;flex-wrap:wrap;gap:14px 28px;margin:4px 0 18px}
+.cifra-g b{display:block;font:400 34px/1 'Bebas Neue';color:var(--gold-l)}.cifra-g span{font-size:12px;color:var(--muted)}
+.dia{border-block:1px solid var(--line2);padding:14px 0;margin-bottom:20px}
+.dia h3{font-size:26px}.dia p{color:#D3DDE3}
+.campo{position:relative;display:flex;gap:14px;padding-bottom:16px;width:100%}
+.campo::before{content:'';position:absolute;left:21px;top:44px;bottom:2px;border-left:2px dashed var(--line2)}
+.campo.ultimo::before{display:none}
+.campo .t{flex:1;min-width:0}
+.campo b{display:flex;justify-content:space-between;font:400 21px/1.1 'Bebas Neue';letter-spacing:.05em;color:var(--c)}
+.campo b small{font:500 12px 'DM Sans';letter-spacing:0;color:var(--muted)}
+.campo.on .tienda{box-shadow:0 0 22px var(--c)}
+.piedras{display:flex;gap:9px;margin-top:8px}
+.piedra{width:22px;height:17px;clip-path:polygon(22% 0,76% 4%,100% 46%,82% 100%,20% 94%,0 52%);background:#263646}
+.mapa{position:relative;height:200vw;max-height:760px;overflow:hidden;background:#030a1d}
+.mapa svg{position:absolute;inset:0;width:100%;height:100%}
+.mapa .frase{top:76px;bottom:auto;pointer-events:none}
+@media(min-width:900px){.mapa{height:100vh;max-height:none}.pant.camino{grid-template-columns:minmax(0,1fr) minmax(380px,460px)}.pant.camino .panel{padding-left:32px;padding-right:32px}}
+.stone{cursor:pointer}
+.sendero{stroke-dasharray:3 17;animation:anda 3s linear infinite}
+@keyframes anda{to{stroke-dashoffset:-80}}
+ol.recorrido li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+ol.recorrido li.enc{color:var(--muted);font-size:12px}
+ol.recorrido li.va{background:rgba(200,168,75,.1)}
+ol.recorrido li.futuro{opacity:.5}
 .recorrido .si{color:var(--green-xl)}.recorrido .no{color:var(--muted)}.recorrido .falta{color:var(--warn)}
-.hist{list-style:none;margin:0;padding:0;font-size:14px}
-.hist li{padding:8px 0;border-top:1px solid var(--border)}
-.hist .q{color:var(--muted);font-size:12px}
-textarea{width:100%;min-height:150px;border-radius:12px;border:1px solid var(--border2);background:var(--card);color:var(--text);font:inherit;font-size:15px;padding:10px;resize:vertical}
-textarea.nota{min-height:80px}
-/* Mensajes */
-.seccion{margin:0 0 24px;max-width:760px}
-.seccion>p.por{color:var(--muted);font-size:14px;margin:4px 0 10px}
-.editor{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin:0 0 12px}
-.editor h3{margin:0;font-size:17px}
-.editor .cuando{font-size:13px;color:var(--muted);margin:2px 0 8px}
-.ayuda{font-size:13px;color:var(--muted);margin:0 0 14px}
-.ayuda code{color:var(--gold-l)}
-details.quitadas{margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px}
-details.quitadas summary{cursor:pointer;color:var(--muted)}
-.estado{max-width:560px;margin:12vh auto;text-align:center;padding:0 16px}
-.estado p{color:var(--muted)}
-.aviso{font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:28px;padding-top:12px}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--card);border:1px solid var(--gold);color:var(--text);padding:10px 16px;border-radius:999px;z-index:40;font-size:14px;max-width:calc(100% - 32px)}
-.cargando{display:inline-block;width:22px;height:22px;border:3px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:g 1s linear infinite}
+/* hoja de vida */
+.dato{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.dato span{color:var(--muted);font-size:13px}.dato b{font-weight:500;text-align:right;overflow-wrap:anywhere;min-width:0}
+.rec2 li{margin-top:12px}
+.rec2 .mini{margin-top:6px}
+.historia{margin-top:10px}
+.historia li{position:relative;padding:0 0 16px 30px;overflow-wrap:anywhere}
+.historia li::before{content:'';position:absolute;left:7px;top:18px;bottom:0;border-left:2px dashed var(--line2)}
+.historia li:last-child::before{display:none}
+.historia li::after{content:'';position:absolute;left:0;top:5px;width:16px;height:13px;background:var(--c,var(--gold));clip-path:polygon(22% 0,76% 4%,100% 46%,82% 100%,20% 94%,0 52%)}
+.historia p{font:italic 18px/1.3 'Crimson Pro',serif;color:#D7E2EA}
+.historia .q{display:block;color:var(--muted);font-size:12px}
+/* administración */
+.editor>summary{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.editor>summary h3{flex:1;min-width:0;font:700 16px 'DM Sans';letter-spacing:0}
+.editor>summary h3 .chip{margin-left:8px;white-space:normal}
+.editor>summary .cuando{display:block;font:italic 16px 'Crimson Pro',serif;color:#C3D0D8;font-weight:400}
+.editor>.cuerpo{padding:14px 0 18px;border-bottom:1px solid var(--line)}
+.num{width:42px;height:36px;flex:none;display:grid;place-items:center;font:400 19px 'Bebas Neue';padding-top:2px;color:#08101A;background:var(--c,#DEC06A);clip-path:polygon(22% 0,76% 4%,100% 46%,82% 100%,20% 94%,0 52%)}
+.semana{font:700 11px 'DM Sans';letter-spacing:.18em;text-transform:uppercase;color:var(--c);margin:18px 0 0}
+.ayuda{color:var(--muted);font-size:13px;margin:6px 0 10px}.ayuda code{color:var(--gold-l)}
+.editor.curso-e{margin-top:14px}
+.editor.curso-e>summary{padding:0;border:0;display:block}
+.editor.curso-e .paisaje h3{font-family:'Bebas Neue';font-weight:400;font-size:28px;letter-spacing:.03em}
+.cuenta-t{border:1px solid var(--line2);background:var(--deep);border-radius:16px;padding:12px 16px;margin-top:10px;overflow-wrap:anywhere}
+.cuenta-t span{display:block;font-size:13px;color:var(--muted)}.cuenta-t b{font-size:18px}
+.solicitud{display:block;padding:18px 0 22px;border-bottom:1px solid var(--line)}
+.valor{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;padding:14px 18px;border:1px solid var(--gold);border-radius:18px;background:linear-gradient(135deg,rgba(200,168,75,.13),rgba(200,168,75,.03));margin-top:14px;overflow-wrap:anywhere}
+.valor b{display:block;letter-spacing:.07em;font-size:13px;text-transform:uppercase}.valor span{font-size:13px;color:var(--muted)}
+.valor strong{font-size:20px;color:var(--gold-l);white-space:nowrap}
+.compro{display:block;width:100%;margin:12px 0 0;border-radius:16px;border:1px dashed var(--line2);background:var(--deep);padding:16px;text-align:center;font-weight:700}
+.arbol .gr>summary{display:flex;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.arbol .gr>summary .t{flex:1;min-width:0;overflow-wrap:anywhere}
+.arbol .gr>summary b{display:block;font-size:16px}
+.arbol .gr>summary small{display:block;font:italic 16px 'Crimson Pro',serif;color:#C3D0D8}
+.arbol .gr>div{padding:4px 0 16px}
+.arbol .rama .rama{margin-left:18px;padding-left:14px;border-left:2px dashed var(--line2)}
+.lid{display:flex;flex-direction:column;align-items:flex-start}
+.x{min-width:44px;min-height:44px;color:var(--danger);text-align:center}
+.mlista{max-height:280px;overflow:auto}
+.quita{display:flex;align-items:center;gap:10px;min-height:48px;border-bottom:1px solid var(--line)}.quita span{flex:1;min-width:0;overflow-wrap:anywhere}
+details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);min-height:44px;display:flex;align-items:center}
+/* entrada, avisos */
+.estado{position:fixed;inset:0;z-index:25;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;overflow:auto;text-align:center;padding:12vh 24px 40px;background:#08173a url(../assets/acompanar/campamento.webp) center bottom/cover}
+.estado h1{font-size:56px;line-height:.95;text-shadow:0 4px 24px rgba(0,0,0,.6)}
+.estado p{font:italic 21px/1.35 'Crimson Pro',serif;color:#E3ECF2;max-width:420px;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.estado .cta{max-width:360px}.estado .btn{background:rgba(8,12,18,.8)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#1C2A3C;border:1px solid var(--gold);padding:10px 18px;border-radius:99px;z-index:40;font-size:14px;width:max-content;max-width:calc(100% - 32px);text-align:center}
+.cargando{display:inline-block;width:26px;height:26px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:g 1s linear infinite}
 @keyframes g{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.cargando{animation:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
-<header class="top" hidden id="cabecera"><div class="in">
-  <a class="marca" href="../mi-mapa/" style="text-decoration:none" aria-label="Volver a THE WAY">‹ THE WAY<small>Acompañamiento</small></a>
+<header class="top" hidden id="cabecera">
+  <a class="logo" href="../mi-mapa/" aria-label="Volver a THE WAY"><svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><polygon points="2,56 15,29 28,56" fill="#A8C4D4"/><polygon points="36,56 50,25 62,56" fill="#2B4A70"/><polygon points="12,56 32,8 52,56" fill="#C8A84B"/><path d="M25 56C38 52 24 44.5 35 38.5C41 35 29 29.5 32 21" fill="none" stroke="#0C1520" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 4.2"/></svg><b>THE <span class="oro">WAY</span></b></a>
+  <button class="pill" id="aCursos" type="button" hidden>‹ Campamento</button>
+  <button class="pill" id="abrirMenu" type="button" aria-expanded="false" aria-controls="menu"><span class="punto" id="pendiente" hidden></span>Menú</button>
+</header>
+<nav class="menu" id="menu" hidden aria-label="Menú de Acompañar">
   <div class="yo"><b id="yoNombre"></b><span id="yoRol"></span></div>
-  <button class="btn chico" id="salir" type="button">Salir</button>
-</div></header>
+  <button type="button" id="t-cursos" data-v="cursos">El campamento</button>
+  <button type="button" id="t-personas" data-v="personas">Buscar una persona</button>
+  <button type="button" id="t-inscritos" data-v="inscritos" hidden>Inscripciones</button>
+  <button type="button" id="t-mensajes" data-v="mensajes" hidden>Mensajes</button>
+  <button type="button" id="t-precios" data-v="precios" hidden>Cursos y pagos</button>
+  <button type="button" id="t-equipo" data-v="equipo" hidden>Equipo</button>
+  <hr>
+  <a href="../mi-mapa/">‹ Volver a THE WAY</a>
+  <button type="button" id="salir">Salir</button>
+</nav>
 
 <div id="estado" class="estado" role="status" aria-live="polite"><span class="cargando" aria-hidden="true"></span><p>Cargando…</p></div>
 
 <main id="app" hidden>
-  <div class="tabs" role="tablist" aria-label="Vistas">
-    <button role="tab" id="t-cursos" aria-selected="true" data-v="cursos">Por cursos</button>
-    <button role="tab" id="t-personas" aria-selected="false" data-v="personas">Por personas</button>
-    <button role="tab" id="t-mensajes" aria-selected="false" data-v="mensajes" hidden>Mensajes</button>
-    <button role="tab" id="t-inscritos" aria-selected="false" data-v="inscritos" hidden>Inscripciones</button>
-    <button role="tab" id="t-precios" aria-selected="false" data-v="precios" hidden>Cursos y pagos</button>
-    <button role="tab" id="t-equipo" aria-selected="false" data-v="equipo" hidden>Equipo</button>
-  </div>
-  <section id="v-cursos">
-    <h1>Cursos</h1>
-    <p class="sub" id="fechaHoy"></p>
-    <div class="cursos" id="listaCursos"></div>
+  <section id="v-cursos" class="pant inicio">
+    <div class="arte"><img src="../assets/acompanar/campamento.webp" alt="Un caminante llega a un campamento donde varias personas se reúnen alrededor del fuego">
+      <div class="frase"><div class="eye" id="fechaHoy"></div><h1 id="fraseHoy"></h1><p class="sub" id="porEmpezar"></p><button class="cta" type="button" id="acompanarYa" hidden>Acompañar ahora →</button></div></div>
+    <div class="panel"><h2 class="sec">Junto al fuego <small id="enOrden"></small></h2><div id="cola"></div><button class="enlace" type="button" id="colaMas" hidden></button>
+      <h2 class="sec">Tus expediciones</h2><div class="exps" id="listaCursos"></div></div>
   </section>
-  <section id="v-curso" hidden>
-    <button class="volver" type="button" id="aCursos">← Cursos</button>
-    <h1 id="cursoNombre"></h1>
-    <div class="filtros">
-      <label class="sr" for="buscar">Buscar por nombre</label>
-      <input id="buscar" type="search" placeholder="Buscar por nombre" autocomplete="off">
-      <label class="sr" for="filtro">Situación</label>
-      <select id="filtro">
-        <option value="">Todas las situaciones</option>
-        <option value="al_dia">Al día</option>
-        <option value="atrasado">Atrasados</option>
-        <option value="retomar">Se desconectaron</option>
-        <option value="sin_entrar">No han entrado</option>
-        <option value="termino">Terminaron</option>
-        <option value="hoy">Les toca mensaje hoy</option>
-        <option value="respondio">Te respondieron</option>
-      </select>
+  <section id="v-curso" class="pant" hidden>
+    <div class="arte"><img id="cursoArte" src="../assets/acompanar/metanoia-alto.jpg" alt=""><div class="frase"><div class="eye">Expedición</div><h1 id="cursoNombre"></h1><p class="sub" id="cursoSub"></p></div></div>
+    <div class="panel">
+      <h2 class="sec">Dónde va tu gente</h2><div class="cuatro" id="campamentos"></div><div class="cifras" id="resumen"></div>
+      <h2 class="sec">Quién camina</h2>
+      <div class="filtros">
+        <label class="sr" for="buscar">Buscar por nombre</label>
+        <input id="buscar" type="search" placeholder="Buscar por nombre" autocomplete="off">
+        <label class="sr" for="filtro">Situación</label>
+        <select id="filtro">
+          <option value="">Todas las situaciones</option>
+          <option value="al_dia">Al día</option>
+          <option value="atrasado">Atrasados</option>
+          <option value="retomar">Se desconectaron</option>
+          <option value="sin_entrar">No han entrado</option>
+          <option value="termino">Terminaron</option>
+          <option value="hoy">Les toca mensaje hoy</option>
+          <option value="respondio">Te respondieron</option>
+        </select>
+      </div>
+      <p class="cuenta" id="cuenta"></p>
+      <div class="leyenda"><span><i style="background:#6DC48A"></i>Piedra de color: cerró el día</span><span><i style="background:#FFD56B"></i>Punto dorado: se le mandó el mensaje</span></div>
+      <ul id="tabla"></ul>
+      <details class="quitadas" id="quitadas" hidden><summary></summary><ul id="listaQuitadas"></ul></details>
     </div>
-    <p class="cuenta" id="cuenta"></p>
-    <div class="leyenda"><span><i class="c cerro"></i>Cerró ese día</span><span><i class="c env"></i>Se le mandó el mensaje</span><span><i class="c va"></i>Día en que va</span><span><i class="c futuro"></i>Aún no llega</span></div>
-    <div class="marco"><table class="rec" id="tabla"></table></div>
-    <details class="quitadas" id="quitadas" hidden><summary></summary><ul class="hist" id="listaQuitadas"></ul></details>
   </section>
-  <section id="v-personas" hidden>
-    <h1>Personas</h1>
-    <p class="sub">Cada persona una sola vez, con el curso en que está.</p>
-    <div class="filtros">
-      <label class="sr" for="pbuscar">Buscar por nombre</label>
-      <input id="pbuscar" type="search" placeholder="Buscar por nombre" autocomplete="off">
-      <label class="sr" for="pcurso">Curso</label>
-      <select id="pcurso"><option value="">Todos los cursos</option></select>
-      <label class="sr" for="pfiltro">Situación</label>
-      <select id="pfiltro">
-        <option value="">Todas las situaciones</option>
-        <option value="al_dia">Al día</option>
-        <option value="atrasado">Atrasados</option>
-        <option value="retomar">Se desconectaron</option>
-        <option value="sin_entrar">No han entrado</option>
-        <option value="termino">Terminaron</option>
-        <option value="hoy">Les toca mensaje hoy</option>
-        <option value="respondio">Te respondieron</option>
-      </select>
-      <label class="sr" for="pgrupo">Grupo</label>
-      <select id="pgrupo"><option value="">Todos los grupos</option></select>
+  <section id="v-personas" class="pant" hidden>
+    <div class="arte"><img src="../assets/v3/mimapa/general-1600.webp" alt="" style="object-position:50% 55%"><div class="frase"><div class="eye">Todas las expediciones</div><h1>¿A quién<br><span class="oro">buscas?</span></h1><p class="sub">Cada persona una sola vez, con el camino en que está.</p></div></div>
+    <div class="panel">
+      <div class="filtros"><label class="sr" for="pbuscar">Buscar por nombre</label><input id="pbuscar" type="search" placeholder="Escribe un nombre" autocomplete="off"></div>
+      <details class="plegable" id="pfiltros"><summary>Filtrar</summary><div>
+        <label class="eti" for="pcurso">Expedición</label><select id="pcurso"><option value="">Todos los cursos</option></select>
+        <label class="eti" for="pfiltro">Situación</label>
+        <select id="pfiltro">
+          <option value="">Todas las situaciones</option>
+          <option value="al_dia">Al día</option>
+          <option value="atrasado">Atrasados</option>
+          <option value="retomar">Se desconectaron</option>
+          <option value="sin_entrar">No han entrado</option>
+          <option value="termino">Terminaron</option>
+          <option value="hoy">Les toca mensaje hoy</option>
+          <option value="respondio">Te respondieron</option>
+        </select>
+        <label class="eti" for="pgrupo">Grupo</label><select id="pgrupo"><option value="">Todos los grupos</option></select>
+      </div></details>
+      <p class="cuenta" id="pcuenta"></p>
+      <ul id="plista"></ul>
+      <button class="enlace" type="button" id="pmas" hidden></button>
+      <details class="quitadas" id="quitadasP" hidden><summary></summary><ul id="listaQuitadasP"></ul></details>
+      <p class="aviso">Aquí no está la Bitácora de nadie: solo los días que cada persona cerró, cuándo tuvo actividad y los mensajes que se le mandaron. Anota solo lo necesario para acompañar; lo que te contaron en confianza no se escribe aquí.</p>
     </div>
-    <p class="cuenta" id="pcuenta"></p>
-    <ul class="plista" id="plista"></ul>
-    <button class="btn" type="button" id="pmas" hidden></button>
-    <details class="quitadas" id="quitadasP" hidden><summary></summary><ul class="hist" id="listaQuitadasP"></ul></details>
   </section>
-  <section id="v-mensajes" hidden></section>
-  <section id="v-inscritos" hidden></section>
-  <section id="v-precios" hidden></section>
-  <section id="v-equipo" hidden></section>
-  <p class="aviso">Aquí no está la Bitácora de nadie: solo los días que cada persona cerró, cuándo tuvo actividad y los mensajes que se le mandaron. Anota solo lo necesario para acompañar; lo que te contaron en confianza no se escribe aquí.</p>
+  <section id="v-mensajes" class="pant" hidden>
+    <div class="arte"><img src="../assets/acompanar/linterna.jpg" alt="" style="object-position:80% 60%"><div class="frase"><div class="eye">Mensajes</div><h1>Las palabras<br>del <span class="oro">camino.</span></h1><p class="sub">Lo que guardes aquí es lo que reciben.</p></div></div>
+    <div class="panel" id="p-mensajes"></div>
+  </section>
+  <section id="v-inscritos" class="pant" hidden>
+    <div class="arte"><img src="../assets/inscripcion/montana.png" alt="" style="object-position:52% 40%"><div class="frase"><div class="eye">Inscripciones</div><h1 id="insFrase">A la<br><span class="oro">puerta.</span></h1><p class="sub">Revisa el comprobante: al aprobar, el acceso se activa en ese momento.</p></div></div>
+    <div class="panel" id="p-inscritos"></div>
+  </section>
+  <section id="v-precios" class="pant" hidden>
+    <div class="arte"><img src="../assets/v3/mimapa/clasica-0.webp" alt="" style="object-position:68% 55%"><div class="frase"><div class="eye">Cursos y pagos</div><h1>Abre el<br><span class="oro">camino.</span></h1><p class="sub">Cada expedición tiene su precio y su enlace de inscripción.</p></div></div>
+    <div class="panel" id="p-precios"></div>
+  </section>
+  <section id="v-equipo" class="pant" hidden>
+    <div class="arte"><img src="../assets/v3/mimapa/mentalidad-1600.webp" alt="" style="object-position:45% 50%"><div class="frase"><div class="eye">Equipo y grupos</div><h1>Quién camina<br>con <span class="oro">quién.</span></h1><p class="sub">Cada líder ve su grupo y los que dependen de él. Nunca a su mismo rango ni hacia arriba.</p></div></div>
+    <div class="panel" id="p-equipo"></div>
+  </section>
 </main>
 
-<div class="velo" id="velo" hidden><aside class="ficha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="fNombre" tabindex="-1"></aside></div>
+<div class="velo" id="velo" hidden><div class="ficha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="fNombre" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="../compartido/sesion.js"></script>
@@ -259,7 +350,7 @@ var CURSOS={metanoia:{nombre:'Protocolo Metanoia',avance:['apps','metanoia','usu
 var CURSO='metanoia', SIN_GRUPO='sin_grupo', NDIAS=20, GC='metanoia', PAGINA=50;
 var $=function(id){return document.getElementById(id)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var S={yo:null,equipo:null,guiones:{},grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null,abiertaC:null,msgCurso:CURSO,mas:PAGINA};
+var S={yo:null,equipo:null,guiones:{},grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null,abiertaC:null,msgCurso:CURSO,mas:PAGINA,colaMas:6,modo:null,dia:1};
 /* S.personas = una entrada por persona Y por curso (su inscripción). GC = el curso cuyos mensajes se usan en ese momento. */
 function G(){return S.guiones[GC]||{saludo:'Hola, [nombre] 👋',mensajes:[]}}
 var esAdmin=function(){return S.equipo&&S.equipo.rol==='admin'};
@@ -383,134 +474,202 @@ function normalizarWa(t){var d=String(t||'').replace(/\D/g,'');if(d.length===10&
    la aplicación de WhatsApp (whatsapp://), en el celular y en el computador (Juan usa WhatsApp para Windows). */
 function enlaceWa(numero,texto){var n=String(numero||'').replace(/\D/g,'');if(!n)return null;var q='phone='+n+(texto?'&text='+encodeURIComponent(texto):'');return'whatsapp://send?'+q}
 var DESTINO='';
-function botonEnviar(p,m,etiqueta,extra,destino){destino=destino||p;var t=textoWa(m,destino,extra),u=enlaceWa(destino.whatsapp,t);
-  return u?'<a class="btn wa"'+DESTINO+' href="'+esc(u)+'" data-enviar="'+esc(m.id)+'" data-persona="'+esc(destino.uid)+'">'+esc(etiqueta||'Enviar por WhatsApp')+'</a>':''}
+function botonEnviar(p,m,etiqueta,extra,destino,clase){destino=destino||p;var t=textoWa(m,destino,extra),u=enlaceWa(destino.whatsapp,t);
+  return u?'<a class="'+(clase||'cta')+'"'+DESTINO+' href="'+esc(u)+'" data-enviar="'+esc(m.id)+'" data-persona="'+esc(destino.uid)+'">'+esc(etiqueta||'Enviar por WhatsApp')+'</a>':''}
 
-/* ---------- Nivel 1: Cursos ---------- */
+/* ---------- Piezas del camino ---------- */
+var SEMC=['#B9A4F5','#6DC48A','#E8A96B','#8CC3E0'];
+var ARTE={metanoia:{ancho:'metanoia.jpg',alto:'metanoia-alto.jpg',pos:'55% 60%',semanas:['Reemplazar','Reentrenar','Replantear','Recuperar']},preparados:{ancho:'uniendo.webp',alto:'uniendo.webp',pos:'50% 62%'}};
+function arteDe(c){return ARTE[c]||ARTE.metanoia}
+function semanas(c){return arteDe(c).semanas||['Semana 1','Semana 2','Semana 3','Semana 4']}
+function colorDe(uid){var n=0;String(uid).split('').forEach(function(x){n+=x.charCodeAt(0)});return SEMC[n%4]}
+function avatar(p){return'<span class="av" aria-hidden="true" style="--c:'+colorDe(p.uid)+'">'+esc(nombreDe(p).charAt(0))+'</span>'}
+/* El sendero de 20 días en una línea: piedra de color = cerró; punto dorado = se le mandó el mensaje. */
+function mini(r){
+  var X=function(d){return 6+(d-1)*15+Math.floor((d-1)/5)*8},Y=function(d){return 11+Math.sin(d*.9)*3},pts=function(n){var o=[];for(var i=1;i<=n;i++)o.push(X(i)+' '+Y(i).toFixed(1));return'M'+o.join('L')};
+  var va=r.entro?r.va:0,h='<svg class="mini" viewBox="0 0 316 20" preserveAspectRatio="xMinYMid meet" role="img" aria-label="'+r.cerrados+' de 20 días cerrados"><path d="'+pts(NDIAS)+'" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.5"/>';
+  if(va>1)h+='<path d="'+pts(va)+'" fill="none" stroke="#DEC06A" stroke-width="2"/>';
+  for(var d=1;d<=NDIAS;d++){var ok=!!r.cierre[d],aqui=r.entro&&!r.terminado&&d===r.va;
+    h+='<circle cx="'+X(d)+'" cy="'+Y(d).toFixed(1)+'" r="'+(aqui?5.6:4.4)+'" fill="'+(ok?SEMC[Math.ceil(d/5)-1]:aqui?'#DEC06A':'#24384B')+'"'+(aqui?' stroke="#fff" stroke-width="1.5"':'')+'/>';
+    if(r.enviado[d])h+='<circle cx="'+(X(d)+4)+'" cy="'+(Y(d)-6).toFixed(1)+'" r="2.4" fill="#FFD56B"/>'}
+  return h+'</svg>';
+}
+var TIENDA=function(c){return'<svg width="24" height="22" viewBox="0 0 24 22" aria-hidden="true"><polygon points="1,21 12,2 23,21" fill="'+c+'"/><polygon points="12,2 23,21 14,21" fill="#000" opacity=".35"/><polygon points="8,21 12,12 16,21" fill="#0C1520"/></svg>'};
+
+/* ---------- El campamento (inicio): quién te espera hoy ---------- */
 function cursoDe(p){return p.curso||CURSO}
 function nombreCurso(id){return CURSOS[id]?((S.guiones[id]&&S.guiones[id].nombre)||CURSOS[id].nombre):id}
+function espera(p){return!!(p.r.tocaHoy||p.r.esperaRespuesta)}
+function orden(p){var r=p.r;if(r.esperaRespuesta)return 0;if(r.situacion==='retomar')return 1;if(r.situacion==='sin_entrar')return 2;if(r.situacion==='termino')return 3;return 4}
+function motivo(p){var r=p.r;if(r.esperaRespuesta)return'Te respondió';if(r.situacion==='retomar')return r.sinActividad!=null?'Hace '+dias(r.sinActividad)+' no camina':'Se desconectó';if(r.situacion==='sin_entrar')return'Aún no ha entrado';if(r.situacion==='termino')return'¡Llegó a la cima!';return'Su mensaje de hoy'}
+function cola(){return S.personas.filter(espera).sort(function(a,b){return orden(a)-orden(b)})}
+function cuantasPersonas(L){var u={};L.forEach(function(p){u[p.uid]=1});return Object.keys(u).length}
 function pintarCursos(){
+  var L=cola(),n=cuantasPersonas(L),hoy=new Date();
+  $('fechaHoy').textContent=DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+personasUnicas().length+' personas';
+  $('fraseHoy').innerHTML=n?'Hoy hay<br><span class="oro">'+n+(n===1?' persona':' personas')+'</span><br>esperándote.':'El campamento<br>está <span class="oro">en calma.</span>';
+  $('porEmpezar').textContent=n?'Empieza por '+primeroDe(L[0])+': '+motivo(L[0]).charAt(0).toLowerCase()+motivo(L[0]).slice(1)+'.':'Hoy no hay mensajes pendientes.';
+  $('acompanarYa').hidden=!n;$('enOrden').textContent=n?'en este orden':'';
+  var vis=L.slice(0,S.colaMas);
+  $('cola').innerHTML=vis.length?vis.map(function(p){return'<button type="button" class="ren" data-acompanar="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">'+avatar(p)+'<span class="t"><b>'+esc(nombreDe(p))+'</b><span class="cri">'+esc(motivo(p))+' · '+esc(nombreCurso(p.curso))+'</span></span><span class="go" aria-hidden="true">›</span></button>'}).join(''):'<p class="vacio">Nadie te espera por ahora.</p>';
+  $('colaMas').hidden=L.length<=vis.length;$('colaMas').textContent='Ver más ('+(L.length-vis.length)+' faltan)';
   var C={};Object.keys(CURSOS).forEach(function(id){C[id]=[]});S.personas.forEach(function(p){(C[cursoDe(p)]=C[cursoDe(p)]||[]).push(p)});
   if(!esAdmin())Object.keys(C).forEach(function(id){if(!C[id].length)delete C[id]});
-  $('listaCursos').innerHTML=Object.keys(C).map(function(id){var L=C[id],n=function(f){return L.filter(f).length};
-    var cif=[['Al día',n(function(p){return p.r.situacion==='al_dia'&&!p.r.atraso}),'ok'],['Atrasados',n(function(p){return p.r.situacion==='al_dia'&&p.r.atraso>0}),'alerta'],['Desconectados',n(function(p){return p.r.situacion==='retomar'}),'alerta'],
-      ['No han entrado',n(function(p){return p.r.situacion==='sin_entrar'}),'mal'],['Terminaron',n(function(p){return p.r.situacion==='termino'}),'ok'],['Mensaje hoy',n(function(p){return!!p.r.tocaHoy}),'']];
-    return'<button class="curso" type="button" data-curso="'+esc(id)+'"><h2>'+esc(nombreCurso(id))+'</h2><p class="total">'+L.length+' personas</p><div class="cifras">'+
-      cif.map(function(c){return'<div class="cifra '+c[2]+'"><b>'+c[1]+'</b><span>'+c[0]+'</span></div>'}).join('')+'</div></button>'}).join('');
+  $('listaCursos').innerHTML=Object.keys(C).map(function(id){var G_=C[id],e=G_.filter(espera).length,a=arteDe(id);
+    return'<button class="exp" type="button" data-curso="'+esc(id)+'"><img src="../assets/acompanar/'+a.ancho+'" alt="" style="object-position:'+a.pos+'"><span class="txt"><h2>'+esc(nombreCurso(id))+'</h2><span class="total">'+G_.length+' personas</span>'+(e?' · <em>'+e+(e===1?' te espera':' te esperan')+'</em>':'')+'</span></button>'}).join('');
 }
+function primeroDe(p){return primerNombre(p)||'la primera persona'}
 
-/* ---------- Nivel 2: tabla de recorrido del curso ---------- */
+/* ---------- La expedición: dónde va cada persona del curso ---------- */
 function filtrar(){var q=($('buscar').value||'').trim().toLowerCase(),f=$('filtro').value;
-  return S.personas.filter(function(p){var r=p.r;if(cursoDe(p)!==S.curso)return false;
+  return S.personas.filter(function(p){if(cursoDe(p)!==S.curso)return false;
     if(q&&nombreDe(p).toLowerCase().indexOf(q)<0)return false;
-    if(f==='al_dia')return r.situacion==='al_dia'&&!r.atraso;
-    if(f==='atrasado')return r.situacion==='al_dia'&&r.atraso>0;
-    if(f==='hoy')return!!r.tocaHoy;
-    if(f==='respondio')return r.esperaRespuesta;
-    if(f)return r.situacion===f;
-    return true})}
-function celda(p,d){var r=p.r,cl=['c'],t=['Día '+d];
-  if(r.cierre[d]){cl.push('cerro');t.push(typeof r.cierre[d]==='number'?'cerró el '+fechaCorta(r.cierre[d]):'cerró')}
-  if(r.enviado[d]){cl.push('env');t.push('mensaje enviado el '+fechaCorta(r.enviado[d]))}
-  if(r.entro&&!r.terminado&&d===r.va)cl.push('va');
-  if(!r.cierre[d]&&d>Math.max(r.calDia,r.va))cl.push('futuro');
-  return'<td><span class="'+cl.join(' ')+'" title="'+esc(t.join(' · '))+'">'+(r.cierre[d]?'✓':'')+'</span></td>'}
+    return coincide(p,f)})}
 function hoyTxt(r){
   if(r.hoyEnviado||r.accionHoy)return'<span class="chip ok">Enviado hoy</span>';
   if(r.tocaHoy)return'<span class="chip oro">Le toca: '+esc(tituloMsg(r.tocaHoy).replace(/ \(.*\)$/,''))+'</span>';
-  return'<span class="chip">—</span>'}
-function pintarCurso(){
-  $('cursoNombre').textContent=nombreCurso(S.curso);
-  var L=filtrar(),total=S.personas.filter(function(p){return cursoDe(p)===S.curso}).length;
-  $('cuenta').textContent=L.length===total?total+' personas':'Mostrando '+L.length+' de '+total;
-  var h='<thead><tr><th class="quien" scope="col">Persona</th><th scope="col" class="sit">Situación</th>';
-  for(var d=1;d<=NDIAS;d++)h+='<th scope="col">'+d+'</th>';
-  h+='<th scope="col" class="hoy">Hoy</th></tr></thead><tbody>';
-  h+=L.map(function(p){var r=p.r,s=situacionTxt(r),c='';for(var d=1;d<=NDIAS;d++)c+=celda(p,d);
-    return'<tr data-fila="'+esc(p.uid)+'"><th class="quien" scope="row"><button type="button" data-uid="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+(r.entro?(r.terminado?'Cerró los 20':'Va en el Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+'<span class="movil"> · '+esc(s[0])+'</span></small></th>'+
-      '<td class="sit"><span class="chip '+s[1]+'">'+esc(s[0])+'</span></td>'+c+'<td class="hoy">'+hoyTxt(r)+'</td></tr>'}).join('');
-  if(!L.length)h+='<tr><td colspan="'+(NDIAS+3)+'" class="vacio" style="text-align:left;padding:14px">Nadie con ese nombre o situación.</td></tr>';
-  $('tabla').innerHTML=h+'</tbody>';
-  var q=$('quitadas');q.hidden=!esAdmin()||!S.quitadas.length;
+  return''}
+function listaQuitadas(det,ul){var q=$(det);q.hidden=!esAdmin()||!S.quitadas.length;
   if(!q.hidden){q.querySelector('summary').textContent='Quitadas del panel ('+S.quitadas.length+')';
-    $('listaQuitadas').innerHTML=S.quitadas.map(function(p){return'<li style="display:flex;align-items:center;gap:10px"><span style="flex:1">'+esc(nombreDe(p))+'</span><button class="btn chico" type="button" data-volver="'+esc(p.uid)+'">Volver a mostrar</button></li>'}).join('')}
+    $(ul).innerHTML=S.quitadas.map(function(p){return'<li class="quita"><span>'+esc(nombreDe(p))+'</span><button class="btn" type="button" data-volver="'+esc(p.uid)+'">Volver a mostrar</button></li>'}).join('')}}
+function pintarCurso(){
+  var todos=S.personas.filter(function(p){return cursoDe(p)===S.curso}),L=filtrar(),a=arteDe(S.curso);
+  $('cursoNombre').textContent=nombreCurso(S.curso);$('cursoSub').textContent=todos.length+(todos.length===1?' persona caminando.':' personas caminando.');
+  $('cursoArte').src='../assets/acompanar/'+a.alto;$('cursoArte').style.objectPosition=a.pos;
+  $('campamentos').innerHTML=semanas(S.curso).map(function(n,i){var c=todos.filter(function(p){return p.r.entro&&!p.r.terminado&&Math.ceil(p.r.va/5)===i+1}).length;
+    return'<div style="--c:'+SEMC[i]+'"><span class="tienda">'+TIENDA(SEMC[i])+'</span><b>'+esc(n)+'</b><small>'+c+' aquí</small></div>'}).join('');
+  var n=function(f){return todos.filter(function(p){return coincide(p,f)}).length};
+  $('resumen').innerHTML=[['Al día','al_dia'],['Atrasados','atrasado'],['Desconectados','retomar'],['No han entrado','sin_entrar'],['Terminaron','termino'],['Mensaje hoy','hoy']].map(function(c){return'<span class="cifra"><b>'+n(c[1])+'</b>'+c[0]+'</span>'}).join('');
+  $('cuenta').textContent=L.length===todos.length?todos.length+' personas':'Mostrando '+L.length+' de '+todos.length;
+  $('tabla').innerHTML=L.map(function(p){var r=p.r,s=situacionTxt(r);
+    return'<li data-fila="'+esc(p.uid)+'"><button type="button" class="ren" data-uid="'+esc(p.uid)+'">'+avatar(p)+'<span class="t"><span class="cab-f"><b>'+esc(nombreDe(p))+'</b><span class="chip '+s[1]+'">'+esc(s[0])+'</span></span><span class="cri">'+(r.entro?(r.terminado?'Cerró los 20':'Va en el Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+'</span>'+mini(r)+hoyTxt(r)+'</span></button></li>'}).join('')||'<li class="vacio">Nadie con ese nombre o situación.</li>';
+  listaQuitadas('quitadas','listaQuitadas');
 }
 
-/* ---------- Acompañar: UNA persona en UN curso (mensaje de hoy, recorrido, respuestas y notas). Los datos de la persona están en su hoja de vida. ---------- */
+/* ---------- La ficha: pantalla completa (acompañar, su camino u hoja de vida) ---------- */
+function mostrarFicha(h,nueva){
+  var v=$('velo'),panel=$('ficha').querySelector('.panel'),y=v.scrollTop,py=panel?panel.scrollTop:0,abiertos=[].map.call($('ficha').querySelectorAll('details[open]'),function(d){return d.id}).filter(function(i){return i!=='editar'});
+  $('ficha').innerHTML=h;v.hidden=false;document.body.style.overflow='hidden';$('menu').hidden=true;$('aCursos').hidden=false;$('aCursos').textContent='‹ Volver';
+  if(nueva){v.scrollTop=0;$('ficha').focus({preventScroll:true})}
+  else{abiertos.forEach(function(i){var d=i&&$(i);if(d)d.open=true});v.scrollTop=y;var p2=$('ficha').querySelector('.panel');if(p2)p2.scrollTop=py}
+}
+function paisajeFicha(img,pos,ojo,titulo,sub){return'<div class="arte"><img src="../assets/'+img+'" alt="" style="object-position:'+pos+'"><div class="frase"><div class="eye">'+ojo+'</div><h1 id="fNombre">'+titulo+'</h1>'+(sub?'<p class="sub">'+sub+'</p>':'')+'</div></div>'}
+function otrosCursos(p){var todas=inscDe(p.uid).filter(function(x){return x.curso!==p.curso});
+  return todas.length?'<div class="fila-b"><span class="ins">También está en:</span>'+todas.map(function(x){return'<button type="button" class="btn" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'">'+esc(nombreCurso(x.curso))+'</button>'}).join('')+'</div>':''}
+var TIPO={enviado:'Se le mandó',respondio:'Respondió',atendido:'Le respondiste',nota:'Nota'};
+var TONO={respondio:'#6DC48A',atendido:'#6DC48A',nota:'#A8C4D4'};
+function historia(cs,conCurso){return'<ul class="historia">'+cs.map(function(c){var mm=msg(c.mensaje);return'<li style="--c:'+(TONO[c.tipo]||'#C8A84B')+'"><b>'+esc(TIPO[c.tipo]||c.tipo)+'</b>'+(conCurso?' · '+esc(nombreCurso(c.curso||CURSO)):mm?' · '+esc(tituloMsg(mm)):'')+(c.nota?'<p>'+esc(c.nota)+'</p>':'')+'<span class="q">'+fechaCorta(c.ms)+(c.de===S.yo.uid?' · tú':'')+'</span></li>'}).join('')+'</ul>'}
+
+/* Acompañar: UNA persona en UN curso. Al frente, solo el mensaje de hoy; lo demás en «Algo más». */
 function abrirFicha(uid,curso){
-  var p=porUid(uid,curso||(S.abierta===uid?S.abiertaC:null)||S.curso);if(!p)return;S.abierta=uid;S.abiertaC=p.curso;S.modo='acompanar';GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
+  var p=porUid(uid,curso||(S.abierta===uid?S.abiertaC:null)||S.curso);if(!p)return;
+  var nueva=!(S.abierta===uid&&S.abiertaC===p.curso&&S.modo==='acompanar');
+  S.abierta=uid;S.abiertaC=p.curso;S.modo='acompanar';GC=p.curso;var r=p.r,q=pareja(p),s=situacionTxt(r);
+  var m=r.tocaHoy||(r.hoyEnviado?r.hoy:null)||(r.accionHoy?r.accion:null),enviado=!r.tocaHoy&&!!(r.hoyEnviado||r.accionHoy);
+  var pend=cola().filter(function(x){return!(x.uid===p.uid&&x.curso===p.curso)}),sig=pend[0];
+  var h='<div class="pant">'+paisajeFicha('acompanar/linterna.jpg','80% 60%',pend.length?(pend.length===1?'1 más te espera hoy':pend.length+' más te esperan hoy'):'Acompañar',esc(nombreDe(p)),esc(nombreCurso(cursoDe(p)))+(r.entro?(r.terminado?' · Terminó':' · Día '+r.va+' de 20'):''))+'<div class="panel">';
+  h+='<p><span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' · <span class="chip oro">Te respondió</span>':'')+(r.actividad?' <span class="ins">· última actividad '+hace(r.sinActividad)+'</span>':'')+'</p>';
+  if(enviado)h+='<div class="hecho"><div class="eye">Enviado hoy</div><h2>Una luz más en el <span class="oro">camino.</span></h2>'+(sig?'<div class="acc"><button type="button" class="cta" data-acompanar="'+esc(sig.uid)+'" data-c="'+esc(sig.curso)+'">Seguir con '+esc(primeroDe(sig))+' →</button></div>':'<p class="porque cri">Ya no queda nadie más por hoy.</p>')+'</div>';
+  if(m){h+='<p class="porque cri">'+esc(tituloMsg(m))+(r.situacion==='retomar'?' · Se desconectó: hoy no recibe la lección.':'')+'</p><div class="burbuja">'+waHtml(textoWa(m,p))+'</div>';
+    if(tieneWa(p))h+='<div class="acc">'+botonEnviar(p,m,enviado?'Enviar de nuevo':'Enviar por WhatsApp',null,null,enviado?'enlace':'cta')+'</div>';
+    else h+='<div class="acc"><p class="chip alerta">Falta su WhatsApp para enviarlo.</p><button class="cta" type="button" data-hoja="'+esc(p.uid)+'" data-editar="1">Agregar su número</button></div>'}
+  else h+='<p class="porque cri">Hoy no le toca ningún mensaje.</p>';
+  var pm=msg('pedir-numero-pareja');
+  if(!tieneWa(p)&&q&&tieneWa(q)&&listo(pm))h+='<div class="acc">'+botonEnviar(p,pm,'Pedirle el número a '+primerNombre(q),{pareja:primerNombre(p)},q,'enlace')+'</div>';
+  h+='<div class="fila-b" style="justify-content:space-between"><button class="enlace" type="button" data-camino="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Ver su camino</button><button class="enlace" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div>';
+  var otros=r.contactos.filter(function(c){return!(c.tipo==='enviado'&&/^dia-\d\d$/.test(c.mensaje))});
+  h+='<details class="plegable" id="mas"'+(r.esperaRespuesta?' open':'')+'><summary>Algo más</summary><div><div class="fila-b">'+(tieneWa(p)?'<a class="btn"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,saludo(p)))+'">Escribirle con tus palabras</a>':'')+
+     '<button class="btn" type="button" data-registrar="respondio" data-persona="'+esc(p.uid)+'">Me respondió</button><button class="btn" type="button" data-registrar="atendido" data-persona="'+esc(p.uid)+'">Ya le respondí</button></div>'+
+     '<label for="nota" class="eti">Nota corta (qué te contó: la app, el tiempo…)</label><textarea id="nota" class="nota" maxlength="500" placeholder="Ej.: Problemas con la app; retoma el lunes."></textarea>'+
+     '<div class="acc"><button class="btn" type="button" data-registrar="nota" data-persona="'+esc(p.uid)+'">Guardar nota</button></div>'+
+     '<h3 class="sec">Lo caminado juntos</h3>'+(otros.length?historia(otros):'<p class="ins">Sin mensajes de acompañamiento, respuestas ni notas.</p>')+'</div></details>';
+  if(q)h+='<div class="fila-b"><span class="ins">Se inscribió con</span><button class="btn" type="button" data-ir="'+esc(q.uid)+'" data-c="'+esc(q.curso)+'">'+esc(nombreDe(q))+'</button></div>';
+  h+=otrosCursos(p)+'</div></div>';
+  mostrarFicha(h,nueva);
+}
+
+/* Su camino: la montaña, una piedra por día y un campamento por semana. */
+var RUTA=[[1060,1195],[1180,1160],[1285,1115],[1290,1095],[1225,1045],[1275,1008],[1400,986],[1355,945],[1440,915],[1455,895],[1575,855],[1670,815],[1740,795],[1790,750],[1630,730],[1590,698],[1450,705],[1332,678],[1470,635],[1565,625],[1590,592],[1650,578],[1590,562],[1390,553],[1200,508],[1330,462],[1425,455],[1510,418],[1400,405],[1290,385],[1212,362],[1262,345]];
+var SITIO_C=[[1095,930],[1735,610],[1100,578],[1070,330]];
+function enRuta(t){var largo=[],total=0,i;for(i=1;i<RUTA.length;i++){var l=Math.hypot(RUTA[i][0]-RUTA[i-1][0],RUTA[i][1]-RUTA[i-1][1]);largo.push(l);total+=l}
+  var d=t*total;i=0;while(i<largo.length-1&&d>largo[i]){d-=largo[i];i++}var f=Math.min(1,d/largo[i]),a=RUTA[i],b=RUTA[i+1];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f]}
+function tDia(d){return(d-1)/(NDIAS-1)*.985}
+function trazo(a,b){var o=[];for(var i=0;i<=100;i++)o.push(enRuta(a+(b-a)*i/100).map(function(v){return v.toFixed(1)}));return'M'+o.join('L')}
+function carpa(x,y,s,c,viva){return'<g transform="translate('+x+' '+y+') scale('+s+')"><ellipse cy="22" rx="52" ry="13" fill="'+c+'" opacity="'+(viva?.3:.1)+'"/><polygon points="-38,22 0,-28 38,22" fill="'+(viva?c:'#31465a')+'"/><polygon points="0,-28 38,22 8,22" fill="#000" opacity=".34"/><polygon points="-11,22 0,-4 11,22" fill="'+(viva?'#FFE3A0':'#0d1722')+'"/><path d="M0-28v-20" stroke="'+c+'" stroke-width="3"/><polygon points="0,-48 22,-42 0,-35" fill="'+c+'"/></g>'}
+function dibujarMonte(p){
+  var svg=$('monte');if(!svg)return;var r=p.r,g=svg.clientWidth>svg.clientHeight*.75,k=g?1:1.4,N=semanas(p.curso),va=r.entro?r.va:1;
+  svg.setAttribute('viewBox',g?'640 60 1350 1310':'955 -520 920 1840');
+  var h='<rect x="0" y="-900" width="2576" height="905" fill="#030a1d"/><image href="../assets/acompanar/montana.png" width="2576" height="1405" preserveAspectRatio="none"/>';
+  if(!g)h+='<defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a1d"/><stop offset="1" stop-color="#030a1d" stop-opacity="0"/></linearGradient></defs><rect x="0" y="-2" width="2576" height="150" fill="url(#cielo)"/>';
+  var tope=r.terminado?1:r.entro?tDia(va):0;
+  if(tope>0)h+='<path d="'+trazo(0,tope)+'" fill="none" stroke="#FFD56B" stroke-width="22" opacity=".35"/><path d="'+trazo(0,tope)+'" fill="none" stroke="#FFE29A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>';
+  if(tope<1)h+='<path class="sendero" d="'+trazo(tope,1)+'" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>';
+  N.forEach(function(n,i){var d=(i+1)*5,a=enRuta(tDia(d)),c=SITIO_C[i],viva=r.entro&&va>d-5;
+    h+='<path d="M'+a[0]+' '+a[1]+'L'+c[0]+' '+(c[1]+16)+'" stroke="'+SEMC[i]+'" stroke-width="4" stroke-dasharray="3 10" stroke-linecap="round" opacity=".65"/>'+carpa(c[0],c[1],k,SEMC[i],viva)+'<text x="'+c[0]+'" y="'+(c[1]+36+30*k)+'" text-anchor="middle" font-family="\'Bebas Neue\'" font-size="'+(g?30:38)+'" letter-spacing="2" fill="'+(viva?SEMC[i]:'#B4C2CC')+'" stroke="#050A14" stroke-width="7" stroke-linejoin="round" style="paint-order:stroke">'+esc(n.toUpperCase())+'</text>'});
+  for(var d=1;d<=NDIAS;d++){var a=enRuta(tDia(d)),x=a[0],y=a[1],c=SEMC[Math.ceil(d/5)-1],ok=!!r.cierre[d],falto=r.entro&&!ok&&d<va;
+    h+='<g class="stone" data-piedra="'+d+'" tabindex="0" role="button" aria-label="Día '+d+'"><circle cx="'+x+'" cy="'+y+'" r="'+(32*k)+'" fill="transparent"/>'+(d===S.dia?'<circle cx="'+x+'" cy="'+y+'" r="'+(23*k)+'" fill="none" stroke="#fff" stroke-width="4"/>':'')+
+      '<polygon points="'+[[-14,-4],[-6,-12],[8,-11],[15,-1],[9,10],[-9,11]].map(function(q){return(x+q[0]*k)+','+(y+q[1]*k)}).join(' ')+'" fill="'+(ok?c:falto?'#0B1524':'#4C6173')+'" stroke="'+(ok?'#fff':c)+'" stroke-width="3" stroke-linejoin="round"'+(falto?' stroke-dasharray="6 5"':'')+'/>'+(r.enviado[d]?'<circle cx="'+(x+14*k)+'" cy="'+(y-14*k)+'" r="'+(6*k)+'" fill="#FFD56B" stroke="#050A14" stroke-width="2"/>':'')+'</g>'}
+  var w=enRuta(r.terminado?.985:r.entro?tDia(va):0);
+  h+='<g transform="translate('+w[0]+' '+w[1]+') scale('+(2.5*k)+')" pointer-events="none"><g transform="translate(-12 -37)" stroke="#080C12" stroke-width="1.2"><circle cx="12" cy="6" r="4.8" fill="#f3ead7"/><path d="M12 11c-5 0-7 4-7 9v8h4v7h2.6v-7h.8v7H15v-7h4v-8c0-5-2-9-7-9Z" fill="#e8b94a"/><rect x="14.5" y="12.5" width="7" height="12" rx="2.4" fill="#7a5a1c"/></g></g>';
+  svg.innerHTML=h;
+}
+function pintarDia(p){
+  var r=p.r,d=S.dia,fut=!r.cierre[d]&&d>Math.max(r.calDia,r.va),md=msg(idDia(d));
+  $('diaSel').innerHTML='<div class="eye" style="color:'+SEMC[Math.ceil(d/5)-1]+'">Semana '+Math.ceil(d/5)+(arteDe(p.curso).semanas?' · '+esc(semanas(p.curso)[Math.ceil(d/5)-1]):'')+'</div><h3>Día '+d+(r.entro&&!r.terminado&&d===r.va?' · aquí va':'')+'</h3>'+
+    (fut?'<p>Todavía no llega a este tramo.</p>':'<p>'+(r.cierre[d]?'✓ Lo cerró'+(typeof r.cierre[d]==='number'?' el '+fechaCorta(r.cierre[d]):''):'No lo ha cerrado')+'</p><p>'+(r.enviado[d]?'✉ Se le mandó el mensaje el '+fechaCorta(r.enviado[d]):listo(md)?'No se le mandó el mensaje':'Sin mensaje para este día')+'</p>');
+}
+function abrirCamino(uid,curso){
+  var p=porUid(uid,curso||S.curso);if(!p)return;
+  var nueva=!(S.abierta===uid&&S.abiertaC===p.curso&&S.modo==='camino');
+  S.abierta=uid;S.abiertaC=p.curso;S.modo='camino';GC=p.curso;var r=p.r,s=situacionTxt(r);if(nueva)S.dia=r.entro?r.va:1;
   var cal=r.cal?(r.cal.tipo==='dia'?'Día '+r.cal.dia:r.cal.tipo==='sabado'?'Sábado':r.cal.tipo==='domingo'?'Domingo':r.cal.tipo==='fin'?'Terminado':'Aún no empieza'):'—';
-  var h='<div class="cab"><h2 id="fNombre">'+esc(nombreDe(p))+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div>';
-  h+='<p class="ins" style="margin-top:12px">'+esc(nombreCurso(cursoDe(p)))+' · <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</p>';
-  h+='<div class="acc" style="margin-top:0"><button class="btn chico" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div><h3>Dónde está</h3><div class="datos">'+
-     '<div class="dato"><span>Va en</span><b>'+(r.entro?(r.terminado?'Terminó':'Día '+r.va+' de 20'):'No ha entrado')+'</b></div><div class="dato"><span>Días cerrados</span><b>'+r.cerrados+' de 20</b></div>'+
-     '<div class="dato"><span>Su calendario va en</span><b>'+esc(cal)+'</b></div><div class="dato"><span>Última actividad</span><b>'+(r.actividad?hace(r.sinActividad):'—')+'</b></div>'+
-     '</div>';
-  if(q)h+='<p class="ins">Se inscribió con <button class="btn chico" type="button" data-ir="'+esc(q.uid)+'" data-c="'+esc(q.curso)+'">'+esc(nombreDe(q))+'</button></p>';
-  /* Lo que ha cursado: todas sus inscripciones; tocar una abre su recorrido */
-  var todas=inscDe(p.uid);
-  if(todas.length>1)h+='<p class="ins">También está en: '+todas.filter(function(x){return x.curso!==p.curso}).map(function(x){return'<button type="button" class="btn chico" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'">'+esc(nombreCurso(x.curso))+'</button>'}).join(' ')+'</p>';
-  /* Hoy */
-  h+='<h3>Hoy</h3>';
-  var m=r.tocaHoy||(r.hoyEnviado?r.hoy:null)||(r.accionHoy?r.accion:null);
-  if(m){h+='<p class="ins"><b style="color:var(--text)">'+esc(tituloMsg(m))+'</b>'+((r.hoyEnviado||r.accionHoy)?' · <span class="chip ok">Enviado hoy</span>':'')+(r.situacion==='retomar'?' · Se desconectó: hoy no recibe la lección.':'')+'</p><div class="burbuja">'+waHtml(textoWa(m,p))+'</div>';
-    h+=tieneWa(p)?'<div class="acc">'+botonEnviar(p,m)+'</div>':'<p class="ins" style="color:var(--warn)">Falta su WhatsApp para enviarlo. Agrégalo en su <button class="btn chico" type="button" data-hoja="'+esc(p.uid)+'">hoja de vida</button>.</p>'}
-  else h+='<p class="ins">Hoy no le toca ningún mensaje.</p>';
-  /* Recorrido día por día */
-  h+='<h3>Recorrido</h3><ol class="recorrido"><li class="enc"><span>Día</span><span>Cerró</span><span>Mensaje</span></li>';
+  var h='<div class="pant camino"><div class="mapa"><svg id="monte" preserveAspectRatio="xMidYMid slice" aria-label="Camino de '+esc(nombreDe(p))+'"></svg><div class="frase"><div class="eye">'+esc(nombreCurso(p.curso))+'</div><h1 id="fNombre">'+esc(nombreDe(p))+'</h1></div></div><div class="panel">';
+  h+='<p style="margin-bottom:10px"><span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' · <span class="chip oro">Te respondió</span>':'')+'</p>';
+  h+='<div class="cifra-g"><div><b>'+(r.entro?(r.terminado?'Terminó':'Día '+r.va+' de 20'):'No ha entrado')+'</b><span>va en</span></div><div><b>'+r.cerrados+' de 20</b><span>días cerrados</span></div><div><b>'+esc(cal)+'</b><span>su calendario va en</span></div><div><b>'+(r.actividad?hace(r.sinActividad):'—')+'</b><span>última actividad</span></div></div>';
+  h+='<div class="dia" id="diaSel" aria-live="polite"></div>';
+  h+=semanas(p.curso).map(function(n,i){var a=i*5+1,hay=0,pied='';for(var j=0;j<5;j++){var d=a+j,ok=!!r.cierre[d];if(ok)hay++;pied+='<span class="piedra" style="background:'+(ok?SEMC[i]:r.entro&&!r.terminado&&d===r.va?'#FFD56B':'#263646')+'"></span>'}
+    var on=r.entro&&!r.terminado&&Math.ceil(r.va/5)===i+1;
+    return'<button type="button" class="campo'+(on?' on':'')+(i===3?' ultimo':'')+'" style="--c:'+SEMC[i]+'" data-piedra="'+(on?r.va:a)+'"><span class="tienda">'+TIENDA(r.entro&&r.va>=a?SEMC[i]:'#41566a')+'</span><span class="t"><b>'+esc(n)+'<small>'+hay+' de 5</small></b><span class="piedras">'+pied+'</span></span></button>'}).join('');
+  h+='<div class="acc"><button class="cta" type="button" data-acompanar="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Acompañar a '+esc(primeroDe(p))+' →</button><button class="enlace" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div>';
+  h+='<details class="plegable" id="porDias"><summary>Día por día</summary><div><ol class="recorrido"><li class="enc"><span>Día</span><span>Cerró</span><span>Mensaje</span></li>';
   for(var d=1;d<=NDIAS;d++){var md=msg(idDia(d)),fut=!r.cierre[d]&&d>Math.max(r.calDia,r.va);
     var ce=r.cierre[d]?'<span class="si">✓ '+(typeof r.cierre[d]==='number'?fechaCorta(r.cierre[d]):'')+'</span>':(fut?'<span class="no">—</span>':'<span class="falta">No</span>');
     var en=r.enviado[d]?'<span class="si">✉ '+fechaCorta(r.enviado[d])+'</span>':(fut?'<span class="no">—</span>':(listo(md)?'<span class="falta">No se mandó</span>':'<span class="no">Sin mensaje</span>'));
     h+='<li class="'+(r.entro&&!r.terminado&&d===r.va?'va':'')+(fut?' futuro':'')+'"><span>'+esc(md?tituloMsg(md):'Día '+d)+'</span>'+ce+en+'</li>'}
-  h+='</ol>';
-  /* Otros mensajes, respuestas y notas */
-  var TIPO={enviado:'Se le mandó',respondio:'Respondió',atendido:'Le respondiste',nota:'Nota'};
-  var otros=r.contactos.filter(function(c){return!(c.tipo==='enviado'&&/^dia-\d\d$/.test(c.mensaje))});
-  h+='<h3>Acompañamiento</h3>'+(otros.length?'<ul class="hist">'+otros.map(function(c){var mm=msg(c.mensaje);return'<li><b>'+esc(TIPO[c.tipo]||c.tipo)+'</b>'+(mm?' · '+esc(tituloMsg(mm)):'')+(c.nota?'<br>'+esc(c.nota):'')+'<br><span class="q">'+fechaCorta(c.ms)+(c.de===S.yo.uid?' · tú':'')+'</span></li>'}).join('')+'</ul>':'<p class="ins">Sin mensajes de acompañamiento, respuestas ni notas.</p>');
-  h+='<div class="acc">'+(tieneWa(p)?'<a class="btn"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,saludo(p)))+'">Escribirle con tus palabras</a>':'')+
-     '<button class="btn chico" type="button" data-registrar="respondio" data-persona="'+esc(p.uid)+'">Me respondió</button><button class="btn chico" type="button" data-registrar="atendido" data-persona="'+esc(p.uid)+'">Ya le respondí</button></div>'+
-     '<label for="nota" class="ins" style="display:block;margin-top:12px">Nota corta (qué te contó: la app, el tiempo…)</label><textarea id="nota" class="nota" maxlength="500" placeholder="Ej.: Problemas con la app; retoma el lunes."></textarea>'+
-     '<div class="acc"><button class="btn chico" type="button" data-registrar="nota" data-persona="'+esc(p.uid)+'">Guardar nota</button></div>';
-  /* WhatsApp */
-  var pm=msg('pedir-numero-pareja');
-  if(!tieneWa(p)&&q&&tieneWa(q)&&listo(pm))h+='<div class="acc">'+botonEnviar(p,pm,'Pedirle el número a '+primerNombre(q),{pareja:primerNombre(p)},q)+'</div>';
-  $('ficha').innerHTML=h;$('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
+  h+='</ol></div></details>'+otrosCursos(p)+'</div></div>';
+  mostrarFicha(h,nueva);dibujarMonte(p);pintarDia(p);
 }
 
 /* ---------- Hoja de vida: la PERSONA (datos que se pueden corregir, todos sus cursos y todo lo que se le ha acompañado) ---------- */
 function fechaIso(t){if(!t)return'—';var d=fromIso(t);return d.getDate()+' '+MESES[d.getMonth()]}
-function abrirHoja(uid){
+function abrirHoja(uid,editando){
   var L=inscDe(uid),p=L[0]||S.quitadas.find(function(x){return x.uid===uid});if(!p)return;
+  var nueva=!(S.abierta===uid&&S.modo==='hoja');
   S.abierta=uid;S.abiertaC=null;S.modo='hoja';
   var q=p.pareja?porUid(p.pareja):null,admin=esAdmin(),grupoN=(S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo';
-  var h='<div class="cab"><h2 id="fNombre">'+esc(nombreDe(p))+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div>';
-  h+='<p class="ins" style="margin-top:12px">Hoja de vida</p>';
-  h+='<h3>Datos</h3><div class="datos">'+
-     '<div class="dato"><span>Grupo</span><b>'+esc(grupoN)+'</b></div><div class="dato"><span>WhatsApp</span><b>'+(tieneWa(p)?'+'+esc(p.whatsapp):'Falta')+'</b></div>'+
+  var h='<div class="pant">'+paisajeFicha('v3/mimapa/renovacion-1600.webp','38% 50%','Hoja de vida',esc(nombreDe(p)),esc(grupoN))+'<div class="panel">';
+  h+='<h2 class="sec">Su recorrido en THE WAY</h2>';
+  h+=L.length?'<ul class="rec2">'+L.map(function(x){var r=x.r,sx=situacionTxt(r),a=arteDe(x.curso);
+    return'<li><button type="button" class="paisaje" data-camino="'+esc(x.uid)+'" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'"><img src="../assets/acompanar/'+a.ancho+'" alt="" style="object-position:'+a.pos+'"><span class="txt"><h3>'+esc(nombreCurso(x.curso))+'</h3><small>empezó '+esc(fechaIso(x.avance&&x.avance.inicio))+' · '+esc(r.entro?(r.terminado?'Terminó':'En curso · Día '+r.va+' de 20'):'Sin empezar')+' · '+r.cerrados+'/20</small> <span class="chip '+sx[1]+'">'+esc(sx[0])+'</span>'+mini(r)+'</span></button></li>'}).join('')+'</ul>':'<p class="ins">No está en ningún curso del panel.</p>';
+  h+='<h2 class="sec">Sus datos</h2><div class="dato"><span>Grupo</span><b>'+esc(grupoN)+'</b></div><div class="dato"><span>WhatsApp</span><b>'+(tieneWa(p)?'+'+esc(p.whatsapp):'Falta')+'</b></div>'+
      (p.correo?'<div class="dato"><span>Correo de contacto</span><b>'+esc(p.correo)+'</b></div>':'')+
-     (q?'<div class="dato"><span>Pareja</span><b><button class="btn chico" type="button" data-hoja="'+esc(q.uid)+'">'+esc(nombreDe(q))+'</button></b></div>':'')+'</div>';
+     (q?'<div class="dato"><span>Pareja</span><b><button class="enlace" type="button" data-hoja="'+esc(q.uid)+'">'+esc(nombreDe(q))+' ›</button></b></div>':'');
   /* Corregir datos: el equipo corrige el WhatsApp; Juan (superadministrador) también nombre, correo de contacto y grupo (= cambiar de líder) */
-  h+='<details class="editar" id="editar"><summary>Corregir datos</summary>'+
-     '<label for="wa-'+esc(p.uid)+'">WhatsApp (10 dígitos)</label><input id="wa-'+esc(p.uid)+'" type="tel" inputmode="tel" autocomplete="off" placeholder="'+(tieneWa(p)?'Escribe el nuevo número':'3001234567')+'">'+
-     (admin?'<label for="e-nombre">Nombre</label><input id="e-nombre" type="text" maxlength="80" autocomplete="off" value="'+esc(bonito(p.nombre))+'">'+
-     '<label for="e-correo">Correo de contacto</label><input id="e-correo" type="email" maxlength="120" autocomplete="off" value="'+esc(p.correo||'')+'"><small>Es solo para contactarla: no cambia con qué cuenta de Google entra a la app.</small>'+
-     '<label for="e-grupo">Grupo (quién la acompaña)</label><select id="e-grupo">'+Object.keys(S.grupos).sort().map(function(g){return'<option value="'+esc(g)+'"'+(g===(p.grupo||SIN_GRUPO)?' selected':'')+'>'+esc((S.grupos[g]&&S.grupos[g].nombre)||g)+'</option>'}).join('')+'</select><small>Al cambiarla de grupo, la acompaña el líder de ese grupo y deja de verla el anterior.</small>':'')+
-     '<div class="acc"><button class="btn oro chico" type="button" data-guardar-datos="'+esc(p.uid)+'">Guardar cambios</button></div></details>';
-  /* Su recorrido en THE WAY: una fila por curso; tocarla abre Acompañar de ese curso */
-  h+='<h3>Su recorrido en THE WAY</h3>';
-  h+=L.length?'<ul class="hist rec2">'+L.map(function(x){var r=x.r,sx=situacionTxt(r);
-    return'<li><button type="button" class="pc" data-ir="'+esc(x.uid)+'" data-c="'+esc(x.curso)+'"><b>'+esc(nombreCurso(x.curso))+'</b> · empezó '+esc(fechaIso(x.avance&&x.avance.inicio))+' · '+esc(r.entro?(r.terminado?'Terminó':'En curso · Día '+r.va+' de 20'):'Sin empezar')+' · '+r.cerrados+'/20 <span class="chip '+sx[1]+'">'+esc(sx[0])+'</span></button></li>'}).join('')+'</ul>':'<p class="ins">No está en ningún curso del panel.</p>';
-  /* Lo que se le ha acompañado (todos los cursos) */
+  h+='<details class="plegable" id="editar"'+(editando?' open':'')+'><summary>Corregir datos</summary><div>'+
+     '<label class="eti" for="wa-'+esc(p.uid)+'">WhatsApp (10 dígitos)</label><input id="wa-'+esc(p.uid)+'" type="tel" inputmode="tel" autocomplete="off" placeholder="'+(tieneWa(p)?'Escribe el nuevo número':'3001234567')+'">'+
+     (admin?'<label class="eti" for="e-nombre">Nombre</label><input id="e-nombre" type="text" maxlength="80" autocomplete="off" value="'+esc(bonito(p.nombre))+'">'+
+     '<label class="eti" for="e-correo">Correo de contacto</label><input id="e-correo" type="email" maxlength="120" autocomplete="off" value="'+esc(p.correo||'')+'"><p class="ins">Es solo para contactarla: no cambia con qué cuenta de Google entra a la app.</p>'+
+     '<label class="eti" for="e-grupo">Grupo (quién la acompaña)</label><select id="e-grupo">'+Object.keys(S.grupos).sort().map(function(g){return'<option value="'+esc(g)+'"'+(g===(p.grupo||SIN_GRUPO)?' selected':'')+'>'+esc((S.grupos[g]&&S.grupos[g].nombre)||g)+'</option>'}).join('')+'</select><p class="ins">Al cambiarla de grupo, la acompaña el líder de ese grupo y deja de verla el anterior.</p>':'')+
+     '<div class="acc"><button class="cta" type="button" data-guardar-datos="'+esc(p.uid)+'">Guardar cambios</button></div></div></details>';
   var cs=S.contactos.filter(function(c){return c.persona===p.uid}).sort(function(a,b){return b.ms-a.ms});
-  var env=cs.filter(function(c){return c.tipo==='enviado'}).length,res=cs.filter(function(c){return c.tipo==='respondio'}).length;
-  var TIPO={enviado:'Se le mandó',respondio:'Respondió',atendido:'Le respondiste',nota:'Nota'};
-  h+='<h3>Acompañamiento</h3><p class="ins">Últimos 60 días, en todos los cursos: '+env+' mensajes enviados · '+res+' respuestas.</p>';
-  h+=cs.filter(function(c){return c.tipo!=='enviado'}).length?'<ul class="hist">'+cs.filter(function(c){return c.tipo!=='enviado'}).map(function(c){return'<li><b>'+esc(TIPO[c.tipo]||c.tipo)+'</b> · '+esc(nombreCurso(c.curso||CURSO))+(c.nota?'<br>'+esc(c.nota):'')+'<br><span class="q">'+fechaCorta(c.ms)+(c.de===S.yo.uid?' · tú':'')+'</span></li>'}).join('')+'</ul>':'<p class="ins">Sin respuestas ni notas.</p>';
-  if(admin)h+='<h3>Quitar del panel</h3><p class="ins">Por ejemplo, una cuenta de prueba. No le quita el acceso al curso ni borra nada; se puede volver a mostrar.</p><div class="acc"><button class="btn peligro chico" type="button" data-quitar="'+esc(p.uid)+'">Quitar del panel</button></div>';
-  $('ficha').innerHTML=h;$('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
+  var env=cs.filter(function(c){return c.tipo==='enviado'}).length,res=cs.filter(function(c){return c.tipo==='respondio'}).length,otros=cs.filter(function(c){return c.tipo!=='enviado'});
+  h+='<h2 class="sec">Lo caminado juntos</h2><p class="ins">Últimos 60 días, en todos los cursos: '+env+' mensajes enviados · '+res+' respuestas.</p>'+(otros.length?historia(otros,true):'<p class="ins">Sin respuestas ni notas.</p>');
+  if(admin)h+='<details class="plegable" id="quitarBox"><summary>Quitar del panel</summary><div><p class="ins">Por ejemplo, una cuenta de prueba. No le quita el acceso al curso ni borra nada; se puede volver a mostrar.</p><div class="acc"><button class="enlace peligro" type="button" data-quitar="'+esc(p.uid)+'">Quitar del panel</button></div></div></details>';
+  h+='<p class="aviso">Aquí no está la Bitácora de nadie. Anota solo lo necesario para acompañar.</p></div></div>';
+  mostrarFicha(h,nueva);
 }
-function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null}
-function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta){if(S.modo==='hoja')abrirHoja(S.abierta);else abrirFicha(S.abierta,S.abiertaC)}}
+function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null;S.modo=null;$('aCursos').textContent='‹ Campamento';$('aCursos').hidden=S.vista==='cursos'}
+function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta){if(S.modo==='hoja')abrirHoja(S.abierta);else if(S.modo==='camino')abrirCamino(S.abierta,S.abiertaC);else abrirFicha(S.abierta,S.abiertaC)}}
 
 /* ---------- Vista «Personas»: cada persona una vez, con el curso (o los cursos) en que está ---------- */
 function personasUnicas(){var m={},L=[];S.personas.forEach(function(p){if(!m[p.uid]){m[p.uid]={p:p,ins:[]};L.push(m[p.uid])}m[p.uid].ins.push(p)});return L}
@@ -531,12 +690,10 @@ function pintarPersonas(){
   var vis=L.slice(0,S.mas);
   $('plista').innerHTML=vis.map(function(x){var p=x.p;
     var cs=x.ins.filter(function(i){return!fc||i.curso===fc}).map(function(i){var r=i.r,s=situacionTxt(r);
-      return'<button type="button" class="pc" data-uid="'+esc(p.uid)+'" data-c="'+esc(i.curso)+'"><b>'+esc(nombreCurso(i.curso))+'</b> · '+esc(r.entro?(r.terminado?'Cerró los 20':'Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+' <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.tocaHoy?' <span class="chip oro">Le toca mensaje</span>':'')+(r.esperaRespuesta?' <span class="chip oro">Te respondió</span>':'')+'</button>'}).join('');
-    return'<li class="pf"><div class="pn"><button type="button" class="nom" data-hoja="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</small></div><div class="pcs">'+cs+'</div></li>'}).join('')||'<li class="vacio" style="padding:14px">Nadie con ese nombre o filtro.</li>';
+      return'<button type="button" class="pc" data-uid="'+esc(p.uid)+'" data-c="'+esc(i.curso)+'"><b>'+esc(nombreCurso(i.curso))+'</b> · '+esc(r.entro?(r.terminado?'Cerró los 20':'Día '+r.va+' · '+r.cerrados+'/20'):'Sin empezar')+' <span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.tocaHoy?' · <span class="chip oro">Le toca mensaje</span>':'')+(r.esperaRespuesta?' · <span class="chip oro">Te respondió</span>':'')+'</button>'}).join('');
+    return'<li class="pf">'+avatar(p)+'<div class="t"><button type="button" class="nom" data-hoja="'+esc(p.uid)+'">'+esc(nombreDe(p))+'</button><small>'+esc((S.grupos[p.grupo]&&S.grupos[p.grupo].nombre)||'Sin grupo')+'</small><div class="pcs">'+cs+'</div></div></li>'}).join('')||'<li class="vacio">Nadie con ese nombre o filtro.</li>';
   $('pmas').hidden=L.length<=vis.length;$('pmas').textContent='Ver más ('+(L.length-vis.length)+' faltan)';
-  var qq=$('quitadasP');qq.hidden=!esAdmin()||!S.quitadas.length;
-  if(!qq.hidden){qq.querySelector('summary').textContent='Quitadas del panel ('+S.quitadas.length+')';
-    $('listaQuitadasP').innerHTML=S.quitadas.map(function(p){return'<li style="display:flex;align-items:center;gap:10px"><span style="flex:1">'+esc(nombreDe(p))+'</span><button class="btn chico" type="button" data-volver="'+esc(p.uid)+'">Volver a mostrar</button></li>'}).join('')}
+  listaQuitadas('quitadasP','listaQuitadasP');
 }
 
 /* ---------- Mensajes (solo Juan) ---------- */
@@ -549,20 +706,19 @@ function cuandoTxt(m){var c=m.cuando||{};
   if(c.evento==='curso_cerrado')return'Al terminar los 20 días';
   if(c.evento==='pareja_sin_whatsapp')return'Al cónyuge, para pedir el número';
   return''}
-function editor(m){var id='ed-'+m.id;
-  return'<div class="editor"><h3>'+esc(tituloMsg(m))+(listo(m)?'':(String(m.texto||'').trim()?' <span class="chip alerta">Por revisar: guárdalo para aprobarlo</span>':' <span class="chip alerta">Por escribir</span>'))+'</h3><p class="cuando">'+esc(cuandoTxt(m))+'</p>'+
+function marca(m){var c=m.cuando||{},s=c.semana||(c.dia?Math.ceil(c.dia/5):0);return{t:c.tipo==='dia'?c.dia:c.tipo==='sabado'?'S':'✉',s:s}}
+function editor(m){var id='ed-'+m.id,k=marca(m);
+  return'<details class="editor" id="m-'+esc(m.id)+'"><summary><span class="num" style="--c:'+(k.s?SEMC[k.s-1]:'#DEC06A')+'">'+esc(k.t)+'</span><h3>'+esc(tituloMsg(m))+(listo(m)?'':(String(m.texto||'').trim()?' <span class="chip alerta">Por revisar: guárdalo para aprobarlo</span>':' <span class="chip alerta">Por escribir</span>'))+'<span class="cuando">'+esc(cuandoTxt(m))+'</span></h3><span class="go" aria-hidden="true">›</span></summary><div class="cuerpo">'+
     '<label class="sr" for="'+id+'">Texto de '+esc(tituloMsg(m))+'</label><textarea id="'+id+'" data-msg="'+esc(m.id)+'">'+esc(m.texto||'')+'</textarea>'+
-    '<div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="'+esc(m.id)+'">Guardar</button><button class="btn chico" type="button" data-previa="'+esc(m.id)+'">Ver cómo se ve</button></div><div id="pv-'+esc(m.id)+'"></div></div>'}
-function pintarMensajes(){if(!esAdmin())return;GC=S.msgCurso;var M=(G().mensajes||[]);
-  var sel='<div class="filtros"><label class="sr" for="mcurso">Curso</label><select id="mcurso">'+Object.keys(CURSOS).map(function(id){return'<option value="'+esc(id)+'"'+(id===S.msgCurso?' selected':'')+'>'+esc(nombreCurso(id))+'</option>'}).join('')+'</select></div>';
-  if(!S.guiones[S.msgCurso]){$('v-mensajes').innerHTML=sel+'<p class="vacio">Este curso todavía no tiene mensajes de acompañamiento. Cuando Juan los escriba y se carguen, aparecen aquí para editarlos.</p>';return}
+    '<div class="acc"><button class="cta" type="button" data-guardar-msg="'+esc(m.id)+'">Guardar</button><button class="enlace" type="button" data-previa="'+esc(m.id)+'">Ver cómo se ve</button></div><div id="pv-'+esc(m.id)+'"></div></div></details>'}
+function pintarMensajes(){if(!esAdmin())return;GC=S.msgCurso;var M=(G().mensajes||[]),v=$('p-mensajes');
+  var sel='<label class="sr" for="mcurso">Curso</label><select id="mcurso">'+Object.keys(CURSOS).map(function(id){return'<option value="'+esc(id)+'"'+(id===S.msgCurso?' selected':'')+'>'+esc(nombreCurso(id))+'</option>'}).join('')+'</select>';
+  if(!S.guiones[S.msgCurso]){v.innerHTML=sel+'<p class="vacio">Este curso todavía no tiene mensajes de acompañamiento. Cuando Juan los escriba y se carguen, aparecen aquí para editarlos.</p>';return}
   var ayuda='<p class="ayuda">En WhatsApp: <code>*negrita*</code> y <code>_cursiva_</code>. Se reemplazan solos: <code>[nombre]</code> (su primer nombre), <code>[D]</code> (el día en que va), <code>[N_DIAS]</code> (días cerrados, p. ej. «1 día» o «6 días») y <code>[pareja]</code>. Lo que guardes aquí se usa de inmediato.</p>';
-  var h=sel+'<section class="seccion"><h2>Mensajes de cada lección</h2><p class="por">Los recibe quien va al día, según el día en que va.</p>'+ayuda+
-    '<div class="editor"><h3>Saludo</h3><p class="cuando">Va antes de cada mensaje de lección</p><label class="sr" for="ed-saludo">Saludo</label><textarea id="ed-saludo" style="min-height:52px">'+esc(G().saludo||'')+'</textarea><div class="acc"><button class="btn oro chico" type="button" data-guardar-msg="__saludo">Guardar</button></div></div>'+
-    M.filter(function(m){return clase(m)==='leccion'}).map(editor).join('')+'</section>';
-  h+='<section class="seccion"><h2>Mensajes de acompañamiento</h2><p class="por">Para quien se desconectó, no ha entrado, terminó, o para pedir un número. Van completos, con su propio saludo.</p>'+ayuda+
-    M.filter(function(m){return clase(m)==='acompanamiento'}).map(editor).join('')+'</section>';
-  $('v-mensajes').innerHTML=h;
+  var antes=0,lec=M.filter(function(m){return clase(m)==='leccion'}).map(function(m){var s=marca(m).s,t='';if(s&&s!==antes){antes=s;t='<p class="semana" style="--c:'+SEMC[s-1]+'">Semana '+s+' · '+esc(semanas(S.msgCurso)[s-1])+'</p>'}return t+editor(m)}).join('');
+  v.innerHTML=sel+'<h2 class="sec">En cada lección <small>los recibe quien va al día</small></h2>'+ayuda+
+    '<details class="editor" id="m-saludo"><summary><span class="num">S</span><h3>Saludo<span class="cuando">Va antes de cada mensaje de lección</span></h3><span class="go" aria-hidden="true">›</span></summary><div class="cuerpo"><label class="sr" for="ed-saludo">Saludo</label><textarea id="ed-saludo" style="min-height:70px">'+esc(G().saludo||'')+'</textarea><div class="acc"><button class="cta" type="button" data-guardar-msg="__saludo">Guardar</button></div></div></details>'+lec+
+    '<h2 class="sec">Para acompañar <small>van completos, con su saludo</small></h2><p class="ayuda">Para quien se desconectó, no ha entrado, terminó, o para pedir un número.</p>'+M.filter(function(m){return clase(m)==='acompanamiento'}).map(editor).join('');
 }
 async function guardarMensaje(id){
   GC=S.msgCurso;var CM=S.msgCurso;
@@ -696,43 +852,46 @@ async function verComprobante(id){
   var s=I.sol.find(function(x){return x.id===id}),p=s&&I.perfiles[s.uid];
   try{var d=await db.collection('comprobantes').doc(id).get();if(!d.exists){toast('No hay comprobante.');return}var c=d.data(),src='data:'+(c.tipo==='application/pdf'?'application/pdf':'image/jpeg')+';base64,'+String(c.dato).replace(/[^A-Za-z0-9+\/=]/g,'');
     S.abierta=null;
-    $('ficha').innerHTML='<div class="cab"><h2 id="fNombre">'+esc(p?p.nombre:'Comprobante')+'</h2><button class="btn chico" type="button" id="cerrarFicha">Cerrar</button></div><p class="ins">'+esc(s?cursoNom(s.curso)+' · '+pesos(s.precio):'')+'</p>'+
-      (c.tipo==='application/pdf'?'<div class="acc"><a class="btn" download="comprobante.pdf" href="'+src+'">Descargar el PDF</a></div>':'<img alt="Comprobante de pago" style="width:100%;border-radius:12px" src="'+src+'">')+
-      (s&&s.estado==='revision'?'<div class="acc"><button class="btn oro" type="button" data-aprobar="'+esc(id)+'">Aprobar</button><button class="btn peligro" type="button" data-rechazar="'+esc(id)+'">Rechazar</button></div>':'');
-    $('velo').hidden=false;$('ficha').focus();document.body.style.overflow='hidden';
+    S.modo=null;$('ficha').innerHTML='<div class="simple"><h2 id="fNombre">'+esc(p?p.nombre:'Comprobante')+'</h2><p class="ins">'+esc(s?cursoNom(s.curso)+' · '+pesos(s.precio):'')+'</p>'+
+      (c.tipo==='application/pdf'?'<div class="acc"><a class="btn" download="comprobante.pdf" href="'+src+'">Descargar el PDF</a></div>':'<img alt="Comprobante de pago" src="'+src+'">')+
+      (s&&s.estado==='revision'?'<div class="acc"><button class="cta" type="button" data-aprobar="'+esc(id)+'">Aprobar</button><button class="enlace peligro" type="button" data-rechazar="'+esc(id)+'">Rechazar</button></div>':'')+'</div>';
+    $('velo').hidden=false;$('velo').scrollTop=0;$('ficha').focus();document.body.style.overflow='hidden';$('aCursos').hidden=false;$('aCursos').textContent='‹ Volver';
   }catch(e){console.error(e);toast('No se pudo abrir el comprobante.')}
 }
 function pintarInscritos(){
-  var v=$('v-inscritos');
+  var v=$('p-inscritos');
   if(!I.listo){v.innerHTML='<p class="vacio">Cargando…</p>';return}
   if(I.error){v.innerHTML='<p class="vacio">No pudimos cargar las inscripciones. Revisa tu conexión y recarga la página.</p>';return}
   var ms=function(s){return tsMs(s.actualizada)};
   var pend=I.sol.filter(function(s){return s.estado==='revision'}).sort(function(a,b){return ms(a)-ms(b)});
   var rec=I.sol.filter(function(s){return s.estado!=='revision'&&Date.now()-ms(s)<14*864e5}).sort(function(a,b){return ms(b)-ms(a)});
-  $('t-inscritos').textContent='Inscripciones'+(pend.length?' ('+pend.length+')':'');
-  var fila=function(s){var p=I.perfiles[s.uid]||{},n=esc(p.nombre||'Sin datos');
-    var h='<li class="pf"><div class="pn"><b>'+n+'</b><small>'+esc(p.correo||'')+(p.ciudad?' · '+esc(p.ciudad):'')+'</small></div><div class="pcs"><div>'+esc(cursoNom(s.curso))+' · '+esc(pesos(s.precio))+(s.parejaCorreo?'<br><small>Pareja: '+esc(s.parejaCorreo)+'</small>':'')+' <span class="chip '+(s.estado==='aprobada'?'ok':s.estado==='rechazada'?'mal':'oro')+'">'+(s.estado==='aprobada'?'Aprobada':s.estado==='rechazada'?'Rechazada':'Por revisar')+'</span>'+(ms(s)?' <small>'+fechaCorta(ms(s))+'</small>':'')+'</div>';
-    if(s.estado==='revision')h+='<div class="acc" style="margin:0"><button class="btn chico" type="button" data-comp="'+esc(s.id)+'">Ver comprobante</button><button class="btn oro chico" type="button" data-aprobar="'+esc(s.id)+'">Aprobar</button><button class="btn peligro chico" type="button" data-rechazar="'+esc(s.id)+'">Rechazar</button></div>';
+  $('t-inscritos').textContent='Inscripciones'+(pend.length?' ('+pend.length+')':'');$('pendiente').hidden=!pend.length;
+  $('insFrase').innerHTML=pend.length?pend.length+(pend.length===1?' persona':' personas')+'<br><span class="oro">a la puerta.</span>':'Nadie en<br><span class="oro">la puerta.</span>';
+  var fila=function(s){var p=I.perfiles[s.uid]||{},n=esc(p.nombre||'Sin datos'),pendiente=s.estado==='revision';
+    var h='<li class="solicitud"><div class="persona"><span class="av" aria-hidden="true">'+n.charAt(0)+'</span><div><b>'+n+'</b><span class="ins">'+esc(p.correo||'')+(p.ciudad?' · '+esc(p.ciudad):'')+'</span></div></div>'+
+      '<div class="valor"><div><b>'+esc(cursoNom(s.curso))+'</b>'+(s.parejaCorreo?'<span>Pareja: '+esc(s.parejaCorreo)+'</span> ':'')+'<span class="chip '+(s.estado==='aprobada'?'ok':s.estado==='rechazada'?'mal':'oro')+'">'+(s.estado==='aprobada'?'Aprobada':s.estado==='rechazada'?'Rechazada':'Por revisar')+'</span>'+(ms(s)?' <span>'+fechaCorta(ms(s))+'</span>':'')+'</div><strong>'+esc(pesos(s.precio))+'</strong></div>';
+    if(pendiente)h+='<button class="compro" type="button" data-comp="'+esc(s.id)+'">Ver comprobante</button><div class="acc"><button class="cta" type="button" data-aprobar="'+esc(s.id)+'">Aprobar inscripción</button><button class="enlace peligro" type="button" data-rechazar="'+esc(s.id)+'">Rechazar</button></div>';
     if(s.estado==='aprobada'&&p.whatsapp){var t='Hola, '+primerNombre(p)+' 👋\n\nTu inscripción a *'+cursoNom(s.curso)+'* quedó aprobada ✅\n\nEntra aquí con tu cuenta de Google ('+p.correo+'):\n'+SITIO_INS+s.curso+(s.parejaCorreo?'\n\nTu pareja entra en el mismo enlace con '+s.parejaCorreo+'.':'');
-      h+='<div class="acc" style="margin:0"><a class="btn wa chico"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,t))+'">Enviar bienvenida por WhatsApp</a></div>'}
-    return h+'</div></li>'};
-  v.innerHTML='<h1>Inscripciones</h1><p class="sub">Revisa el comprobante y aprueba: el acceso se activa en ese momento.</p><h2>Por revisar ('+pend.length+')</h2>'+(pend.length?'<ul class="plista">'+pend.map(fila).join('')+'</ul>':'<p class="vacio">No hay inscripciones pendientes.</p>')+
-    '<h2>Revisadas en los últimos 14 días</h2>'+(rec.length?'<ul class="plista">'+rec.map(fila).join('')+'</ul>':'<p class="vacio">Ninguna todavía.</p>')+'<div class="acc"><button class="btn chico" type="button" id="recargarIns">Actualizar</button></div>';
+      h+='<div class="acc"><a class="enlace"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,t))+'">Enviar bienvenida por WhatsApp</a></div>'}
+    return h+'</li>'};
+  v.innerHTML='<h2 class="sec">Por revisar ('+pend.length+') <small>la más antigua primero</small></h2>'+(pend.length?'<ul>'+pend.map(fila).join('')+'</ul>':'<p class="vacio">No hay inscripciones pendientes.</p>')+
+    '<h2 class="sec">Ya revisadas <small>últimos 14 días</small></h2>'+(rec.length?'<ul>'+rec.map(fila).join('')+'</ul>':'<p class="vacio">Ninguna todavía.</p>')+'<button class="enlace" type="button" id="recargarIns">↻ Actualizar</button>';
 }
 function pintarPrecios(){
-  var v=$('v-precios');if(!I.listo||I.error){v.innerHTML='<p class="vacio">'+(I.error?'No pudimos cargar. Recarga la página.':'Cargando…')+'</p>';return}
-  var ids=Object.keys(CURSOS).concat(Object.keys(I.catalogo).filter(function(k){return!CURSOS[k]}));
-  var h='<h1>Cursos y pagos</h1><p class="sub">Cada curso tiene su precio y su enlace de inscripción. Un curso abierto con precio 0 se activa solo, sin pago.</p>';
-  h+=ids.map(function(id){var c=I.catalogo[id]||{nombre:nombreCurso(id),precio:0,pareja:id==='preparados',abierto:false},k=esc(id);
-    return'<div class="editor"><h3>'+esc(c.nombre)+' <span class="chip '+(c.abierto?'ok':'')+'">'+(c.abierto?'Abierto':'Cerrado')+'</span></h3>'+
-      '<label class="cl" for="cn-'+k+'">Nombre</label><input class="ci" id="cn-'+k+'" type="text" maxlength="80" value="'+esc(c.nombre)+'">'+
-      '<label class="cl" for="cp-'+k+'">Precio en pesos (0 = gratis)</label><input class="ci" id="cp-'+k+'" type="text" inputmode="numeric" value="'+esc(c.precio)+'">'+
+  var v=$('p-precios');if(!I.listo||I.error){v.innerHTML='<p class="vacio">'+(I.error?'No pudimos cargar. Recarga la página.':'Cargando…')+'</p>';return}
+  var ids=Object.keys(CURSOS).concat(Object.keys(I.catalogo).filter(function(k){return!CURSOS[k]})),abiertos=[].map.call(v.querySelectorAll('details[open]'),function(d){return d.id});
+  var h='<h2 class="sec">Expediciones <small>toca una para cambiarla</small></h2><p class="ins">Un curso abierto con precio 0 se activa solo, sin pago.</p>';
+  h+=ids.map(function(id){var c=I.catalogo[id]||{nombre:nombreCurso(id),precio:0,pareja:id==='preparados',abierto:false},k=esc(id),a=arteDe(id);
+    return'<details class="editor curso-e" id="ce-'+k+'"><summary><span class="paisaje"><img src="../assets/acompanar/'+a.ancho+'" alt="" style="object-position:'+a.pos+'"><span class="chip sello '+(c.abierto?'ok':'alerta')+'">'+(c.abierto?'Abierto':'Cerrado')+'</span><span class="txt"><h3>'+esc(c.nombre)+'</h3><small>'+esc(pesos(c.precio))+(c.pareja?' · una inscripción paga por los dos':' · individual')+'</small></span></span></summary><div class="cuerpo">'+
+      '<label class="cl" for="cn-'+k+'">Nombre</label><input id="cn-'+k+'" type="text" maxlength="80" value="'+esc(c.nombre)+'">'+
+      '<label class="cl" for="cp-'+k+'">Precio en pesos (0 = gratis)</label><input id="cp-'+k+'" type="text" inputmode="numeric" value="'+esc(c.precio)+'">'+
       '<label class="cm"><input type="checkbox" id="cj-'+k+'"'+(c.pareja?' checked':'')+'> Curso de pareja (una inscripción paga por los dos)</label>'+
       '<label class="cm"><input type="checkbox" id="ca-'+k+'"'+(c.abierto?' checked':'')+'> Inscripciones abiertas</label>'+
-      '<div class="acc"><button class="btn oro chico" type="button" data-guardar-curso="'+k+'">Guardar</button>'+(I.catalogo[id]?'<button class="btn chico" type="button" data-copiar-enlace="'+k+'">Copiar enlace de inscripción</button>':'')+'</div></div>'}).join('');
+      '<div class="acc"><button class="cta" type="button" data-guardar-curso="'+k+'">Guardar</button>'+(I.catalogo[id]?'<button class="enlace" type="button" data-copiar-enlace="'+k+'">Copiar enlace de inscripción</button>':'')+'</div></div></details>'}).join('');
   var L=(I.pago.cuentas||[]).map(function(c){return c.titulo+': '+c.numero}).join('\n');
-  h+='<div class="editor"><h3>Cuentas para transferir</h3><p class="cuando">Una por línea, así: <code>Nombre de la cuenta: número</code>. Solo las ve quien entra con Google.</p><label class="sr" for="cuentasTxt">Cuentas</label><textarea id="cuentasTxt" style="min-height:90px">'+esc(L)+'</textarea><label class="cl" for="cuentasNota">Nota (opcional)</label><input class="ci" id="cuentasNota" type="text" maxlength="500" value="'+esc(I.pago.nota||'')+'"><div class="acc"><button class="btn oro chico" type="button" id="guardarCuentas">Guardar cuentas</button></div></div>';
-  v.innerHTML=h;
+  h+='<h2 class="sec">Cuentas para transferir <small>así las ve quien se inscribe</small></h2>'+((I.pago.cuentas||[]).map(function(c){return'<div class="cuenta-t"><span>'+esc(c.titulo)+'</span><b>'+esc(c.numero)+'</b></div>'}).join('')||'<p class="vacio">Todavía no hay cuentas guardadas.</p>')+
+    '<details class="plegable" id="cambiarCuentas"><summary>Cambiar las cuentas</summary><div><p class="ins">Una por línea, así: <code>Nombre de la cuenta: número</code>. Solo las ve quien entra con Google.</p><label class="sr" for="cuentasTxt">Cuentas</label><textarea id="cuentasTxt" style="min-height:100px">'+esc(L)+'</textarea><label class="cl" for="cuentasNota">Nota (opcional)</label><input id="cuentasNota" type="text" maxlength="500" value="'+esc(I.pago.nota||'')+'"><div class="acc"><button class="cta" type="button" id="guardarCuentas">Guardar cuentas</button></div></div></details>';
+  v.innerHTML=h;abiertos.forEach(function(i){var d=$(i);if(d)d.open=true});
 }
 async function guardarCurso(id){
   var nom=$('cn-'+id).value.trim(),pr=$('cp-'+id).value.replace(/[.$\s]/g,''),pareja=$('cj-'+id).checked,abierto=$('ca-'+id).checked;
@@ -748,7 +907,7 @@ async function guardarCuentas(){
   for(var i=0;i<L.length;i++){var k=L[i].lastIndexOf(':');if(k<1||!L[i].slice(k+1).trim()){toast('Cada línea debe ser así: Nombre de la cuenta: número');return}C.push({titulo:L[i].slice(0,k).trim().slice(0,80),numero:L[i].slice(k+1).trim().slice(0,80)})}
   if(C.length>6){toast('Máximo 6 cuentas.');return}
   var nota=$('cuentasNota').value.trim().slice(0,500);
-  try{await db.collection('ajustes').doc('pago').set({cuentas:C,nota:nota,actualizado:ts()});I.pago={cuentas:C,nota:nota};toast('Cuentas guardadas.')}
+  try{await db.collection('ajustes').doc('pago').set({cuentas:C,nota:nota,actualizado:ts()});I.pago={cuentas:C,nota:nota};pintarPrecios();toast('Cuentas guardadas.')}
   catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
 }
 document.addEventListener('click',function(e){var el;
@@ -823,24 +982,27 @@ function moverPersonas(){
   hacer(async function(){for(var i=0;i<ids.length;i++){try{await db.collection('personas').doc(ids[i]).update({grupo:g,editadoPanel:true})}catch(e){console.error(e);mal++}}await anotar('movió '+(ids.length-mal)+' personas a '+nombreGrupo(g),g);if(mal===ids.length)throw new Error('ninguna')},'Personas movidas.').then(function(){if(mal)toast(mal+' no se pudieron mover: revisa que tengan nombre en su hoja de vida.')});
 }
 function pintarEquipo(){
-  var v=$('v-equipo');if(!Q.listo||Q.error){v.innerHTML='<p class="vacio">'+(Q.error?'No pudimos cargar el equipo. Recarga la página.':'Cargando…')+'</p>';return}
+  var v=$('p-equipo');if(!Q.listo||Q.error){v.innerHTML='<p class="vacio">'+(Q.error?'No pudimos cargar el equipo. Recarga la página.':'Cargando…')+'</p>';return}
   var A=S.grupos,ids=Object.keys(A).filter(function(g){return g!==SIN_GRUPO}).sort(function(a,b){return nombreGrupo(a).localeCompare(nombreGrupo(b),'es')});
+  var abiertos=[].map.call(v.querySelectorAll('details[open]'),function(d){return d.id});
   var gente=personasUnicas(),cuantos=function(g){return gente.filter(function(x){return(x.p.grupo||SIN_GRUPO)===g}).length};
   var op=function(sel,excluir){return ids.filter(function(g){return!excluir||excluir.indexOf(g)<0}).map(function(g){return'<option value="'+esc(g)+'"'+(g===sel?' selected':'')+'>'+esc(nombreGrupo(g))+'</option>'}).join('')};
   var lideres=function(g){return Object.keys(Q.equipo).filter(function(u){return Q.equipo[u].rol==='lider'&&directos(Q.equipo[u].grupos||[],A).indexOf(g)>=0})};
-  var vistos={},rama=function(g,n){if(vistos[g])return'';vistos[g]=1;var L=lideres(g);
-    return'<li class="gr" style="margin-left:'+Math.min(n,4)*18+'px" data-g="'+esc(g)+'"><div><b>'+esc(nombreGrupo(g))+'</b> <small>'+esc(TIPOS[A[g].tipo]||A[g].tipo||'')+' · '+cuantos(g)+' personas</small><div class="lid">'+(L.length?L.map(function(u){return'<span class="chip oro">Líder: '+esc(nombreUid(u))+' <button type="button" class="x" aria-label="Quitar a '+esc(nombreUid(u))+'" data-quitar-lider="'+esc(u)+'" data-grupo="'+esc(g)+'">✕</button></span>'}).join(' '):'<span class="chip alerta">Sin líder</span>')+'</div></div>'+
-      '<label class="dep">Depende de <select data-padre-de="'+esc(g)+'"><option value="">Ninguno</option>'+op(padreDe(g,A),descendientes(g,A))+'</select></label></li>'+
-      ids.filter(function(h){return padreDe(h,A)===g}).map(function(h){return rama(h,n+1)}).join('')};
-  var arbol=ids.filter(function(g){return!padreDe(g,A)}).map(function(g){return rama(g,0)}).join('');
+  var vistos={},rama=function(g){if(vistos[g])return'';vistos[g]=1;var L=lideres(g),i=ids.indexOf(g);
+    return'<li class="rama"><details class="gr" id="gr-'+esc(g)+'" data-g="'+esc(g)+'"><summary><span class="av" aria-hidden="true" style="--c:'+SEMC[i%4]+'">'+esc(L.length?nombreUid(L[0]).charAt(0):'?')+'</span><span class="t"><b>'+esc(nombreGrupo(g))+'</b><small>'+esc(TIPOS[A[g].tipo]||A[g].tipo||'')+' · '+cuantos(g)+(cuantos(g)===1?' persona':' personas')+' · '+(L.length?L.map(function(u){return'Líder: '+esc(nombreUid(u))}).join(' · '):'<span class="chip alerta">Sin líder</span>')+'</small></span><span class="go" aria-hidden="true">›</span></summary><div><div class="lid">'+
+      L.map(function(u){return'<div class="quita" style="width:100%"><span>'+esc(nombreUid(u))+'</span><button type="button" class="x" aria-label="Quitar a '+esc(nombreUid(u))+'" data-quitar-lider="'+esc(u)+'" data-grupo="'+esc(g)+'">✕</button></div>'}).join('')+'</div>'+
+      '<label class="cl">Depende de <select data-padre-de="'+esc(g)+'"><option value="">Ninguno</option>'+op(padreDe(g,A),descendientes(g,A))+'</select></label></div></details>'+
+      (function(){var H=ids.filter(function(h){return padreDe(h,A)===g});return H.length?'<ul>'+H.map(rama).join('')+'</ul>':''})()+'</li>'};
+  var arbol=ids.filter(function(g){return!padreDe(g,A)}).map(rama).join('');
   var optP=gente.map(function(x){return'<option value="'+esc(x.p.uid)+'">'+esc(nombreDe(x.p))+'</option>'}).join('');
   var admins=Object.keys(Q.equipo).filter(function(u){return Q.equipo[u].rol==='admin'});
-  v.innerHTML='<h1>Equipo y grupos</h1><p class="sub">Cada líder ve su grupo y los que dependen de él. Nunca a su mismo rango ni hacia arriba.</p>'+
-    '<h2>Grupos</h2>'+(arbol?'<ul class="plista arbol">'+arbol+'</ul>':'<p class="vacio">Todavía no hay grupos.</p>')+'<p class="ins">Sin grupo: '+cuantos(SIN_GRUPO)+' personas.</p>'+
-    '<div class="editor"><h3>Crear un grupo</h3><label class="cl" for="g-nombre">Nombre</label><input class="ci" id="g-nombre" type="text" maxlength="80"><label class="cl" for="g-tipo">Tipo</label><select class="ci" id="g-tipo"><option value="casa">Grupo en Casa</option><option value="mesa">Las Mesas</option><option value="red">Red (agrupa otros grupos)</option></select><label class="cl" for="g-padre">Depende de</label><select class="ci" id="g-padre"><option value="">Ninguno</option>'+op('')+'</select><div class="acc"><button class="btn oro chico" type="button" id="crearGrupo">Crear grupo</button></div></div>'+
-    '<div class="editor"><h3>Asignar un líder</h3><p class="cuando">La persona debe estar ya en THE WAY. Entra al panel con su misma cuenta de Google.</p><label class="cl" for="l-persona">Persona</label><select class="ci" id="l-persona"><option value="">Escoge…</option>'+optP+'</select><label class="cl" for="l-grupo">Grupo</label><select class="ci" id="l-grupo"><option value="">Escoge…</option>'+op('')+'</select><div class="acc"><button class="btn oro chico" type="button" id="darLider">Asignar líder</button></div></div>'+
-    '<div class="editor"><h3>Mover personas</h3><label class="cl" for="m-grupo">Llevar al grupo</label><select class="ci" id="m-grupo">'+op('')+'<option value="'+SIN_GRUPO+'">Sin grupo</option></select><label class="cl" for="m-buscar">Buscar</label><input class="ci" id="m-buscar" type="search" placeholder="Nombre" autocomplete="off"><div id="m-lista" class="mlista">'+gente.map(function(x){return'<label class="cm"><input type="checkbox" value="'+esc(x.p.uid)+'"><span>'+esc(nombreDe(x.p))+' <small>· '+esc(nombreGrupo(x.p.grupo||SIN_GRUPO))+'</small></span></label>'}).join('')+'</div><div class="acc"><button class="btn oro chico" type="button" id="moverPersonas">Mover las marcadas</button></div></div>'+
-    '<div class="editor"><h3>Superadministradores</h3><p class="cuando">Ven y cambian todo. Nadie puede cambiar su propio acceso.</p><ul class="hist">'+admins.map(function(u){return'<li style="display:flex;gap:10px;align-items:center"><span style="flex:1">'+esc(nombreUid(u))+'</span>'+(u===S.yo.uid?'':'<button type="button" class="btn peligro chico" data-quitar-admin="'+esc(u)+'">Quitar</button>')+'</li>'}).join('')+'</ul><label class="cl" for="a-persona">Dar acceso de superadministrador a</label><select class="ci" id="a-persona"><option value="">Escoge…</option>'+optP+'</select><div class="acc"><button class="btn chico" type="button" id="darAdmin">Dar acceso</button></div></div>';
+  var caja=function(id,titulo,cuerpo){return'<details class="plegable" id="'+id+'"><summary>'+titulo+'</summary><div>'+cuerpo+'</div></details>'};
+  v.innerHTML='<h2 class="sec">Grupos <small>'+ids.length+' · '+cuantos(SIN_GRUPO)+(cuantos(SIN_GRUPO)===1?' persona':' personas')+' sin grupo</small></h2>'+(arbol?'<ul class="arbol">'+arbol+'</ul>':'<p class="vacio">Todavía no hay grupos.</p>')+'<h2 class="sec">Organizar</h2>'+
+    caja('o-crear','Crear un grupo','<label class="cl" for="g-nombre">Nombre</label><input id="g-nombre" type="text" maxlength="80"><label class="cl" for="g-tipo">Tipo</label><select id="g-tipo"><option value="casa">Grupo en Casa</option><option value="mesa">Las Mesas</option><option value="red">Red (agrupa otros grupos)</option></select><label class="cl" for="g-padre">Depende de</label><select id="g-padre"><option value="">Ninguno</option>'+op('')+'</select><div class="acc"><button class="cta" type="button" id="crearGrupo">Crear grupo</button></div>')+
+    caja('o-lider','Asignar un líder','<p class="ins">La persona debe estar ya en THE WAY. Entra al panel con su misma cuenta de Google.</p><label class="cl" for="l-persona">Persona</label><select id="l-persona"><option value="">Escoge…</option>'+optP+'</select><label class="cl" for="l-grupo">Grupo</label><select id="l-grupo"><option value="">Escoge…</option>'+op('')+'</select><div class="acc"><button class="cta" type="button" id="darLider">Asignar líder</button></div>')+
+    caja('o-mover','Mover personas','<label class="cl" for="m-grupo">Llevar al grupo</label><select id="m-grupo">'+op('')+'<option value="'+SIN_GRUPO+'">Sin grupo</option></select><label class="cl" for="m-buscar">Buscar</label><input id="m-buscar" type="search" placeholder="Nombre" autocomplete="off"><div id="m-lista" class="mlista">'+gente.map(function(x){return'<label class="cm"><input type="checkbox" value="'+esc(x.p.uid)+'"><span>'+esc(nombreDe(x.p))+' <small>· '+esc(nombreGrupo(x.p.grupo||SIN_GRUPO))+'</small></span></label>'}).join('')+'</div><div class="acc"><button class="cta" type="button" id="moverPersonas">Mover las marcadas</button></div>')+
+    caja('o-admin','Superadministradores','<p class="ins">Ven y cambian todo. Nadie puede cambiar su propio acceso.</p><ul>'+admins.map(function(u){return'<li class="quita"><span>'+esc(nombreUid(u))+'</span>'+(u===S.yo.uid?'':'<button type="button" class="enlace peligro" data-quitar-admin="'+esc(u)+'">Quitar</button>')+'</li>'}).join('')+'</ul><label class="cl" for="a-persona">Dar acceso de superadministrador a</label><select id="a-persona"><option value="">Escoge…</option>'+optP+'</select><div class="acc"><button class="cta" type="button" id="darAdmin">Dar acceso</button></div>');
+  abiertos.forEach(function(i){var d=$(i);if(d)d.open=true});
 }
 document.addEventListener('click',function(e){var el;
   if(e.target.closest('#crearGrupo'))return crearGrupo();
@@ -854,13 +1016,9 @@ document.addEventListener('change',function(e){var g=e.target&&e.target.getAttri
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='m-buscar'){var q=e.target.value.trim().toLowerCase();[].forEach.call(document.querySelectorAll('#m-lista .cm'),function(l){l.hidden=q&&l.textContent.toLowerCase().indexOf(q)<0})}});
 
 /* ---------- Navegación y eventos ---------- */
-var PREF='tw_panel_vista';
-function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios','equipo'].forEach(function(x){$('v-'+x).hidden=x!==v});
-  ['inscritos','precios','equipo'].forEach(function(x){$('t-'+x).setAttribute('aria-selected',String(v===x))});if(v==='equipo'&&Q.listo)pintarEquipo();
-  $('t-cursos').setAttribute('aria-selected',String(v==='cursos'||v==='curso'));$('t-personas').setAttribute('aria-selected',String(v==='personas'));$('t-mensajes').setAttribute('aria-selected',String(v==='mensajes'));
-  if(v==='cursos'||v==='curso'||v==='personas'){try{localStorage.setItem(PREF,v==='personas'?'personas':'cursos')}catch(e){}}
-  window.scrollTo(0,0)}
-function vistaInicial(){var g=null;try{g=localStorage.getItem(PREF)}catch(e){}return g==='personas'||g==='cursos'?g:(esAdmin()?'cursos':'personas')}
+function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios','equipo'].forEach(function(x){$('v-'+x).hidden=x!==v;var t=$('t-'+x);if(t){if(x===v)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')}});
+  if(v==='equipo'&&Q.listo)pintarEquipo();$('menu').hidden=true;$('abrirMenu').setAttribute('aria-expanded','false');$('aCursos').hidden=v==='cursos';$('aCursos').textContent='‹ Campamento';
+  window.scrollTo(0,0);var p=$('v-'+v).querySelector('.panel');if(p)p.scrollTop=0}
 function llenarFiltros(){
   $('pcurso').innerHTML='<option value="">Todos los cursos</option>'+Object.keys(CURSOS).filter(function(id){return esAdmin()||S.personas.some(function(p){return p.curso===id})}).map(function(id){return'<option value="'+esc(id)+'">'+esc(nombreCurso(id))+'</option>'}).join('');
   var gs={};S.personas.forEach(function(p){gs[p.grupo||SIN_GRUPO]=1});
@@ -869,15 +1027,21 @@ function llenarFiltros(){
 function abrirCurso(id){S.curso=id;$('buscar').value='';$('filtro').value='';pintarCurso();ver('curso')}
 document.addEventListener('click',function(e){
   var el;
+  if(e.target.closest('#abrirMenu')){$('menu').hidden=!$('menu').hidden;$('abrirMenu').setAttribute('aria-expanded',String(!$('menu').hidden));return}
+  if(!e.target.closest('#menu'))$('menu').hidden=true;
+  if((el=e.target.closest('#menu [data-v]'))){if(!$('velo').hidden)cerrarFicha();S.curso=null;ver(el.getAttribute('data-v'));return}
+  if(e.target.closest('#aCursos')){if(!$('velo').hidden){cerrarFicha();return}S.curso=null;ver('cursos');return}
+  if(e.target.closest('#acompanarYa')){var c0=cola()[0];if(c0)abrirFicha(c0.uid,c0.curso);return}
+  if(e.target.closest('#colaMas')){S.colaMas+=PAGINA;pintarCursos();return}
+  if((el=e.target.closest('[data-acompanar]'))){abrirFicha(el.getAttribute('data-acompanar'),el.getAttribute('data-c'));return}
+  if((el=e.target.closest('[data-camino]'))){abrirCamino(el.getAttribute('data-camino'),el.getAttribute('data-c'));return}
+  if((el=e.target.closest('[data-piedra]'))){S.dia=+el.getAttribute('data-piedra');var pm=porUid(S.abierta,S.abiertaC);if(pm){dibujarMonte(pm);pintarDia(pm)}return}
   if((el=e.target.closest('[data-enviar]'))){registrar(el.getAttribute('data-persona'),'enviado',el.getAttribute('data-enviar'));return}  /* abre WhatsApp y queda como enviado */
   if((el=e.target.closest('[data-curso]'))){abrirCurso(el.getAttribute('data-curso'));return}
-  if((el=e.target.closest('[data-hoja]'))){abrirHoja(el.getAttribute('data-hoja'));return}
+  if((el=e.target.closest('[data-hoja]'))){abrirHoja(el.getAttribute('data-hoja'),el.hasAttribute('data-editar'));return}
   if((el=e.target.closest('[data-guardar-datos]'))){guardarDatos(el.getAttribute('data-guardar-datos'));return}
-  if((el=e.target.closest('[data-uid]'))){abrirFicha(el.getAttribute('data-uid'),el.getAttribute('data-c')||(S.vista==='curso'?S.curso:null));return}
+  if((el=e.target.closest('[data-uid]'))){abrirCamino(el.getAttribute('data-uid'),el.getAttribute('data-c')||(S.vista==='curso'?S.curso:null));return}
   if(e.target.closest('#pmas')){S.mas+=PAGINA;pintarPersonas();return}
-  if((el=e.target.closest('tr[data-fila]'))){abrirFicha(el.getAttribute('data-fila'),S.curso);return}
-  if(e.target.closest('#cerrarFicha')||e.target===$('velo')){cerrarFicha();return}
-  if(e.target.closest('#aCursos')){S.curso=null;ver('cursos');return}
   if((el=e.target.closest('[data-registrar]'))){registrar(el.getAttribute('data-persona'),el.getAttribute('data-registrar'),'manual');return}
   if((el=e.target.closest('[data-ir]'))){abrirFicha(el.getAttribute('data-ir'),el.getAttribute('data-c'));return}
   if((el=e.target.closest('[data-quitar]'))){var p=porUid(el.getAttribute('data-quitar'));if(p&&confirm('¿Quitar a '+nombreDe(p)+' del panel? No le quita el acceso al curso.'))ponerFuera(p.uid,true);return}
@@ -885,9 +1049,9 @@ document.addEventListener('click',function(e){
   if((el=e.target.closest('[data-guardar-msg]'))){guardarMensaje(el.getAttribute('data-guardar-msg'));return}
   if((el=e.target.closest('[data-previa]'))){var id=el.getAttribute('data-previa'),m=Object.assign({},msg(id),{estado:'aprobado',texto:document.querySelector('textarea[data-msg="'+CSS.escape(id)+'"]').value}),ej=S.personas.find(function(x){return x.curso===S.msgCurso&&x.r.entro})||{nombre:'María',r:{cerrados:6,va:7}};GC=S.msgCurso;
     $('pv-'+id).innerHTML='<p class="ins">Así le llega, por ejemplo, a '+esc(primerNombre(ej))+':</p><div class="burbuja">'+waHtml(textoWa(m,ej,{pareja:'Andrés'}))+'</div>';return}
-  if((el=e.target.closest('[role=tab]'))){var v=el.getAttribute('data-v');ver(v==='cursos'&&S.curso?'curso':v);return}
 });
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('velo').hidden)cerrarFicha();if(e.key==='Enter'&&e.target&&/^(wa-|e-)/.test(e.target.id)&&S.abierta)guardarDatos(S.abierta)});
+window.addEventListener('resize',function(){if(S.modo==='camino'&&S.abierta){var p=porUid(S.abierta,S.abiertaC);if(p)dibujarMonte(p)}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!$('menu').hidden)$('menu').hidden=true;else if(!$('velo').hidden)cerrarFicha()}if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.matches&&e.target.matches('.stone')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));return}if(e.key==='Enter'&&e.target&&/^(wa-|e-)/.test(e.target.id)&&S.abierta)guardarDatos(S.abierta)});
 $('buscar').addEventListener('input',pintarCurso);
 $('filtro').addEventListener('change',pintarCurso);
 ['pbuscar','pcurso','pfiltro','pgrupo'].forEach(function(id){$(id).addEventListener(id==='pbuscar'?'input':'change',function(){S.mas=PAGINA;pintarPersonas()})});
@@ -895,7 +1059,7 @@ document.addEventListener('change',function(e){if(e.target&&e.target.id==='mcurs
 $('salir').addEventListener('click',function(){TW_SESION.salir().then(function(){location.reload()})});
 
 function estado(html){$('estado').innerHTML=html;$('estado').hidden=false;$('app').hidden=true}
-function pedirEntrada(){estado('<h1>Acompañamiento</h1><p>Entra con tu cuenta de Google del equipo de THE WAY.</p><button class="btn oro" type="button" id="entrar">Entrar con Google</button><p id="errEntrar" role="alert"></p>');
+function pedirEntrada(){estado('<h1>Acompañamiento</h1><p>Entra con tu cuenta de Google del equipo de THE WAY.</p><button class="cta" type="button" id="entrar">Entrar con Google</button><p id="errEntrar" role="alert"></p>');
   $('entrar').addEventListener('click',function(){TW_SESION.entrar().then(iniciar,function(e){if(e&&e.code!=='cancelado')$('errEntrar').textContent='No pudimos completar el ingreso. Inténtalo de nuevo.'})})}
 async function iniciar(){
   try{
@@ -912,8 +1076,7 @@ async function iniciar(){
     $('cabecera').hidden=false;$('yoNombre').textContent=u.nombre||'';$('yoRol').textContent=esAdmin()?'Todos':((S.equipo.grupos||[]).map(function(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}).join(', '));
     $('t-mensajes').hidden=!esAdmin();$('t-inscritos').hidden=$('t-precios').hidden=$('t-equipo').hidden=!esAdmin();
     if(esAdmin()){cargarInscripciones();cargarEquipo()}
-    var hoy=new Date();$('fechaHoy').textContent='Hoy es '+DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+personasUnicas().length+' personas';
-    llenarFiltros();pintarCursos();pintarPersonas();pintarMensajes();ver(vistaInicial());$('estado').hidden=true;$('app').hidden=false;
+    llenarFiltros();pintarCursos();pintarPersonas();pintarMensajes();ver('cursos');$('estado').hidden=true;$('app').hidden=false;
   }catch(e){console.error(e);estado('<h1>Algo no salió bien</h1><p>No pudimos cargar el panel. Revisa tu conexión.</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
 }
 iniciar();
