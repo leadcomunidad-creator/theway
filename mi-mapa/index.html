@@ -1279,6 +1279,47 @@ if(document.documentElement.getAttribute('data-piel')==='v3')(function(){
 #twMenu #twMenuP .twm-i{display:flex;align-items:center;justify-content:flex-start;min-height:46px;padding:0 12px;border:0;border-radius:10px;background:transparent;color:#EAE8E0;font-size:15px;font-weight:500;text-decoration:none}
 #twMenu #twMenuP .twm-i:hover,#twMenu #twMenuP .twm-i:focus-visible{background:rgba(255,255,255,.07)}
 </style>
+<script>/* 27-nov-2026 · THE WAY es más que Metanoia: entrar es gratis. A quien NO tiene Metanoia no se le dice «Estás aquí en Metanoia»:
+   se le invita a elegir su ruta (o a seguir en Uniendo Caminos si es el suyo). Solo lee su propio derechos/{uid}.
+   Quien tiene Metanoia, o si no se puede comprobar (sin conexión), ve el mapa como siempre. No toca el avance. */
+(function(){var S=window.TW_SESION;if(!S||typeof S.listo!=='function'||typeof S.firestore!=='function')return;
+  var H=document.documentElement,$=function(i){return document.getElementById(i)};
+  function guardado(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+  function poner(modo){
+    H.setAttribute('data-sin',modo);
+    var c=$('twRuta');if(!c){c=document.createElement('section');c.id='twRuta';c.setAttribute('aria-label','Tu ruta')}
+    var u=modo==='uniendo';
+    c.innerHTML='<h3>'+(u?'Uniendo Caminos':'Elige tu ruta')+'</h3><p>'+(u?'Tu ruta en marcha. Continúa donde vas.':'Entrar a THE WAY es gratis. Cada ruta se inscribe aparte.')+'</p><a href="'+(u?'../uniendo-caminos/':'../inscripcion/')+'">'+(u?'Continuar':'Ver rutas con inscripción')+'</a>';
+    var pop=$('pop'),lado=$('v3p');
+    function colocar(){var ancho=matchMedia('(min-width:900px)').matches;
+      if(ancho&&lado){if(c.parentNode!==lado)lado.insertBefore(c,lado.firstChild)}else if(c.parentNode!==document.body)document.body.appendChild(c)}
+    /* La ficha que se abre sola es la de «estás aquí»: se reemplaza por la invitación mientras la persona no toque el mapa.
+       Al tocar una ruta, su ficha se ve normal (sin ofrecer «Continuar»); al cerrarla vuelve la invitación. */
+    var tocado=false;
+    function repasar(){H.classList.toggle('tw-quieto',!tocado);if(!pop)return;c.hidden=tocado&&pop.getClientRects().length>0;if(!tocado)return;
+      var b=$('pL'),o=$('pO');if(b&&/^Continuar/.test(b.textContent)){b.textContent='Inscribirme';b.setAttribute('href','../inscripcion/?curso=metanoia')}
+      if(o&&/Estás aquí/.test(o.textContent))o.textContent=o.textContent.replace(/\s*·\s*Estás aquí/,'')}
+    colocar();repasar();matchMedia('(min-width:900px)').addEventListener('change',colocar);
+    if(pop&&!pop.__tw){pop.__tw=1;new MutationObserver(function(){repasar()}).observe(pop,{attributes:true,childList:true,subtree:true,characterData:true});
+      document.addEventListener('click',function(e){var x=e.target&&e.target.closest?e.target:null;if(!x)return;
+        if(x.closest('#pop')){var k=x.closest('button');if(k&&/^\s*[×✕]?\s*$/.test(k.textContent)&&!x.closest('.v3tog'))tocado=false}else if(x.closest('#pv,#gworld'))tocado=true;else if(x.closest('[data-m]'))tocado=false;
+        setTimeout(repasar,60)},true)}
+  }
+  S.listo().then(function(){var u=S.usuario();if(!u)return;var K='tw_sin_'+u.uid,antes=guardado(K);if(antes)poner(antes);
+    return S.firestore().then(function(db){return db.collection('derechos').doc(u.uid).get()}).then(function(d){
+      var a=(d.exists&&d.data().apps)||{},tiene=function(k){return!!(a[k]&&a[k].activo===true)};
+      if(tiene('metanoia')){guardado(K,null);if(antes){H.removeAttribute('data-sin');location.reload()}return}
+      var modo=tiene('preparados')?'uniendo':'nueva';guardado(K,modo);poner(modo)})}).catch(function(){})})();</script>
+<style>
+html[data-sin] body #v3walk#v3walk,html[data-sin] body #pin#pin,html[data-sin] body #gpin#gpin,html[data-sin] body #tpin#tpin,html[data-sin] body #lec#lec,html[data-sin] body .legend.legend.legend,html[data-sin] body #v3pT#v3pT,html[data-sin] body #v3pR#v3pR,html[data-sin].tw-quieto body #pop#pop#pop{display:none!important}
+#twRuta{display:none}
+html[data-sin] #twRuta{display:block;position:fixed;left:12px;right:12px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:60;background:rgba(12,21,32,.96);border:1px solid rgba(200,168,75,.55);border-radius:18px;padding:14px 16px;font-family:'DM Sans',sans-serif;color:#EAE8E0;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+html[data-sin] #twRuta[hidden]{display:none}
+#twRuta h3{margin:0 0 4px;font:400 24px/1.1 'Bebas Neue',sans-serif;letter-spacing:.04em}
+#twRuta p{margin:0 0 12px;font-size:14px;color:rgba(234,232,224,.72)}
+#twRuta a{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:14px;background:#C8A84B;color:#100A00;font-weight:700;font-size:15px;text-decoration:none}
+@media(min-width:900px){html[data-sin] #twRuta{position:static;margin:0 0 14px}}
+</style>
 <style>/* Ficha de abajo recogida en celular (19-nov-2026): ocupa menos; la flecha la abre para ver semanas, jornadas, piedras y «Ver el curso». */
 @media(max-width:899px){
 [data-piel=v3] #pop .v3tog{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer}
