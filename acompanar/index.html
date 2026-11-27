@@ -6,6 +6,18 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080C12">
 <title>Acompañar · THE WAY</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="THE WAY · El College">
+<meta property="og:title" content="Acompañar · THE WAY">
+<meta property="og:description" content="Panel del equipo que acompaña.">
+<meta property="og:url" content="https://thewaylhscol.netlify.app/acompanar/">
+<meta property="og:locale" content="es_CO">
+<meta property="og:image" content="https://thewaylhscol.netlify.app/assets/og/acompanar.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Panel del equipo que acompaña.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
@@ -40,8 +52,18 @@ h1,h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.03e
 .enlace.peligro{color:var(--danger)}
 .acc{display:flex;flex-direction:column;gap:8px;margin-top:16px}
 .fila-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+/* opciones en lista, con su icono */
+.opciones{margin-top:22px;border-top:1px solid var(--line)}
+.opc,.plegable.menu-mas>summary{display:flex;align-items:center;justify-content:flex-start;gap:14px;width:100%;min-height:62px;border-bottom:1px solid var(--line);color:var(--text);font-weight:500;font-size:15px;text-align:left}
+.opc::before,.plegable.menu-mas>summary::before{content:'';width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);background:var(--deep);color:var(--gold-l);font-size:16px}
+.opc::after{content:'›';margin-left:auto;color:var(--gold);font-size:24px;line-height:1}
+.opc:hover{color:var(--gold-l)}
+.i-env::before{content:'↗'}.i-camino::before{content:'▲'}.i-hoja::before{content:'☰'}.i-wa::before{content:'✎'}.i-resp::before{content:'↩'}.i-ok::before{content:'✓'}
+.plegable.menu-mas{border:0}.plegable.menu-mas>summary::before{content:'⋯'}.plegable.menu-mas>summary::after{margin-left:auto}
+.menu-mas>div{padding-left:14px}
 /* barra y menú */
-header.top{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;gap:10px;padding:14px 16px;pointer-events:none}
+header.top{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;gap:10px;padding:14px 16px;pointer-events:none;transition:background .2s}
+header.top.solida{background:#080C12;box-shadow:0 1px 0 var(--line),0 10px 24px rgba(0,0,0,.5);pointer-events:auto}
 .top>*{pointer-events:auto}
 .logo{display:flex;align-items:center;gap:10px;margin-right:auto}
 .logo b{font:400 26px/1 'Bebas Neue';letter-spacing:.05em;color:var(--text);white-space:nowrap}
@@ -69,7 +91,7 @@ header.top{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:c
 .inicio .frase .sub{max-width:340px;margin-bottom:18px}
 .inicio .frase .cta{width:auto;display:inline-flex}
 @media(min-width:900px){
-  header.top{padding:22px 36px}.menu{right:36px;top:76px}
+  header.top{padding:22px 36px}header.top.solida{padding-top:12px;padding-bottom:12px}.menu{right:36px;top:76px}
   .pant{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);height:100vh}
   .pant .arte{height:100vh;max-height:none}
   .frase{left:36px;right:30px;bottom:48px}
@@ -175,7 +197,7 @@ summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:n
 .campo.on .tienda{box-shadow:0 0 22px var(--c)}
 .piedras{display:flex;gap:9px;margin-top:8px}
 .piedra{width:22px;height:17px;clip-path:polygon(22% 0,76% 4%,100% 46%,82% 100%,20% 94%,0 52%);background:#263646}
-.mapa{position:relative;height:200vw;max-height:760px;overflow:hidden;background:#030a1d}
+.mapa{position:relative;height:calc(158px + 108vw);max-height:max(560px,100vh);overflow:hidden;background:#030a1d}
 .mapa svg{position:absolute;inset:0;width:100%;height:100%}
 .mapa .frase{top:76px;bottom:auto;pointer-events:none}
 @media(min-width:900px){.mapa{height:100vh;max-height:none}.pant.camino{grid-template-columns:minmax(0,1fr) minmax(380px,460px)}.pant.camino .panel{padding-left:32px;padding-right:32px}}
@@ -213,6 +235,8 @@ ol.recorrido li.futuro{opacity:.5}
 .editor.curso-e .paisaje h3{font-family:'Bebas Neue';font-weight:400;font-size:28px;letter-spacing:.03em}
 .cuenta-t{border:1px solid var(--line2);background:var(--deep);border-radius:16px;padding:12px 16px;margin-top:10px;overflow-wrap:anywhere}
 .cuenta-t span{display:block;font-size:13px;color:var(--muted)}.cuenta-t b{font-size:18px}
+.cuenta-f{border:1px solid var(--line);border-radius:18px;padding:4px 14px 8px;margin-top:14px;min-width:0}.cuenta-f legend{font:700 11px 'DM Sans';letter-spacing:.16em;text-transform:uppercase;color:var(--green-xl);padding:0 6px}
+.oferta{border:1px solid var(--line);border-radius:16px;padding:0 14px 14px;margin-top:10px}.oferta .cm{border:0}
 .solicitud{display:block;padding:18px 0 22px;border-bottom:1px solid var(--line)}
 .valor{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;padding:14px 18px;border:1px solid var(--gold);border-radius:18px;background:linear-gradient(135deg,rgba(200,168,75,.13),rgba(200,168,75,.03));margin-top:14px;overflow-wrap:anywhere}
 .valor b{display:block;letter-spacing:.07em;font-size:13px;text-transform:uppercase}.valor span{font-size:13px;color:var(--muted)}
@@ -230,7 +254,7 @@ ol.recorrido li.futuro{opacity:.5}
 .quita{display:flex;align-items:center;gap:10px;min-height:48px;border-bottom:1px solid var(--line)}.quita span{flex:1;min-width:0;overflow-wrap:anywhere}
 details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);min-height:44px;display:flex;align-items:center}
 /* entrada, avisos */
-.estado{position:fixed;inset:0;z-index:25;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;overflow:auto;text-align:center;padding:12vh 24px 40px;background:#08173a url(../assets/acompanar/campamento.webp) center bottom/cover}
+.estado{position:fixed;inset:0;z-index:25;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;overflow:auto;text-align:center;padding:12vh 24px 40px;background:#08173a url(../assets/acompanar/campamento-noche.webp) center bottom/cover}
 .estado h1{font-size:56px;line-height:.95;text-shadow:0 4px 24px rgba(0,0,0,.6)}
 .estado p{font:italic 21px/1.35 'Crimson Pro',serif;color:#E3ECF2;max-width:420px;text-shadow:0 2px 14px rgba(0,0,0,.8)}
 .estado .cta{max-width:360px}.estado .btn{background:rgba(8,12,18,.8)}
@@ -238,6 +262,8 @@ details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);mi
 .cargando{display:inline-block;width:26px;height:26px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:g 1s linear infinite}
 @keyframes g{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+/* ventanas medianas: la montaña ocupa todo el ancho y los datos van debajo */
+@media(min-width:900px) and (max-width:1099px){.velo:has(.camino){overflow-y:auto}.pant.camino{display:block;height:auto}.pant.camino .mapa{height:100vh}.pant.camino .panel{height:auto;overflow:visible;padding:20px 40px 60px;border-left:0;margin:0 auto;max-width:800px}}
 </style>
 </head>
 <body>
@@ -263,7 +289,7 @@ details.quitadas{margin-top:14px}details.quitadas>summary{color:var(--gold-l);mi
 
 <main id="app" hidden>
   <section id="v-cursos" class="pant inicio">
-    <div class="arte"><img src="../assets/acompanar/campamento.webp" alt="Un caminante llega a un campamento donde varias personas se reúnen alrededor del fuego">
+    <div class="arte"><img src="../assets/acompanar/campamento-noche.webp" alt="Un caminante llega a un campamento donde varias personas se reúnen alrededor del fuego">
       <div class="frase"><div class="eye" id="fechaHoy"></div><h1 id="fraseHoy"></h1><p class="sub" id="porEmpezar"></p><button class="cta" type="button" id="acompanarYa" hidden>Acompañar ahora →</button></div></div>
     <div class="panel"><h2 class="sec">Junto al fuego <small id="enOrden"></small></h2><div id="cola"></div><button class="enlace" type="button" id="colaMas" hidden></button>
       <h2 class="sec">Tus expediciones</h2><div class="exps" id="listaCursos"></div></div>
@@ -350,7 +376,7 @@ var CURSOS={metanoia:{nombre:'Protocolo Metanoia',avance:['apps','metanoia','usu
 var CURSO='metanoia', SIN_GRUPO='sin_grupo', NDIAS=20, GC='metanoia', PAGINA=50;
 var $=function(id){return document.getElementById(id)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var S={yo:null,equipo:null,guiones:{},grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null,abiertaC:null,msgCurso:CURSO,mas:PAGINA,colaMas:6,modo:null,dia:1};
+var S={yo:null,equipo:null,guiones:{},grupos:{},personas:[],quitadas:[],contactos:[],vista:'cursos',curso:null,abierta:null,abiertaC:null,msgCurso:CURSO,mas:PAGINA,ctas:null,colaMas:6,modo:null,dia:1};
 /* S.personas = una entrada por persona Y por curso (su inscripción). GC = el curso cuyos mensajes se usan en ese momento. */
 function G(){return S.guiones[GC]||{saludo:'Hola, [nombre] 👋',mensajes:[]}}
 var esAdmin=function(){return S.equipo&&S.equipo.rol==='admin'};
@@ -479,7 +505,7 @@ function botonEnviar(p,m,etiqueta,extra,destino,clase){destino=destino||p;var t=
 
 /* ---------- Piezas del camino ---------- */
 var SEMC=['#B9A4F5','#6DC48A','#E8A96B','#8CC3E0'];
-var ARTE={metanoia:{ancho:'metanoia.jpg',alto:'metanoia-alto.jpg',pos:'55% 60%',semanas:['Reemplazar','Reentrenar','Replantear','Recuperar']},preparados:{ancho:'uniendo.webp',alto:'uniendo.webp',pos:'50% 62%'}};
+var ARTE={metanoia:{ancho:'metanoia.jpg',alto:'metanoia-alto.jpg',pos:'55% 60%',semanas:['Reemplazar','Reentrenar','Replantear','Recuperar']},preparados:{ancho:'uniendo-noche.webp',alto:'uniendo-noche.webp',pos:'50% 62%'}};
 function arteDe(c){return ARTE[c]||ARTE.metanoia}
 function semanas(c){return arteDe(c).semanas||['Semana 1','Semana 2','Semana 3','Semana 4']}
 function colorDe(uid){var n=0;String(uid).split('').forEach(function(x){n+=x.charCodeAt(0)});return SEMC[n%4]}
@@ -550,7 +576,7 @@ function pintarCurso(){
 function mostrarFicha(h,nueva){
   var v=$('velo'),panel=$('ficha').querySelector('.panel'),y=v.scrollTop,py=panel?panel.scrollTop:0,abiertos=[].map.call($('ficha').querySelectorAll('details[open]'),function(d){return d.id}).filter(function(i){return i!=='editar'});
   $('ficha').innerHTML=h;v.hidden=false;document.body.style.overflow='hidden';$('menu').hidden=true;$('aCursos').hidden=false;$('aCursos').textContent='‹ Volver';
-  if(nueva){v.scrollTop=0;$('ficha').focus({preventScroll:true})}
+  if(nueva){v.scrollTop=0;$('cabecera').classList.remove('solida');$('ficha').focus({preventScroll:true})}
   else{abiertos.forEach(function(i){var d=i&&$(i);if(d)d.open=true});v.scrollTop=y;var p2=$('ficha').querySelector('.panel');if(p2)p2.scrollTop=py}
 }
 function paisajeFicha(img,pos,ojo,titulo,sub){return'<div class="arte"><img src="../assets/'+img+'" alt="" style="object-position:'+pos+'"><div class="frase"><div class="eye">'+ojo+'</div><h1 id="fNombre">'+titulo+'</h1>'+(sub?'<p class="sub">'+sub+'</p>':'')+'</div></div>'}
@@ -570,19 +596,21 @@ function abrirFicha(uid,curso){
   var h='<div class="pant">'+paisajeFicha('acompanar/linterna.jpg','80% 60%',pend.length?(pend.length===1?'1 más te espera hoy':pend.length+' más te esperan hoy'):'Acompañar',esc(nombreDe(p)),esc(nombreCurso(cursoDe(p)))+(r.entro?(r.terminado?' · Terminó':' · Día '+r.va+' de 20'):''))+'<div class="panel">';
   h+='<p><span class="chip '+s[1]+'">'+esc(s[0])+'</span>'+(r.esperaRespuesta?' · <span class="chip oro">Te respondió</span>':'')+(r.actividad?' <span class="ins">· última actividad '+hace(r.sinActividad)+'</span>':'')+'</p>';
   if(enviado)h+='<div class="hecho"><div class="eye">Enviado hoy</div><h2>Una luz más en el <span class="oro">camino.</span></h2>'+(sig?'<div class="acc"><button type="button" class="cta" data-acompanar="'+esc(sig.uid)+'" data-c="'+esc(sig.curso)+'">Seguir con '+esc(primeroDe(sig))+' →</button></div>':'<p class="porque cri">Ya no queda nadie más por hoy.</p>')+'</div>';
+  var env=m&&tieneWa(p);
   if(m){h+='<p class="porque cri">'+esc(tituloMsg(m))+(r.situacion==='retomar'?' · Se desconectó: hoy no recibe la lección.':'')+'</p><div class="burbuja">'+waHtml(textoWa(m,p))+'</div>';
-    if(tieneWa(p))h+='<div class="acc">'+botonEnviar(p,m,enviado?'Enviar de nuevo':'Enviar por WhatsApp',null,null,enviado?'enlace':'cta')+'</div>';
-    else h+='<div class="acc"><p class="chip alerta">Falta su WhatsApp para enviarlo.</p><button class="cta" type="button" data-hoja="'+esc(p.uid)+'" data-editar="1">Agregar su número</button></div>'}
+    if(env&&!enviado)h+='<div class="acc">'+botonEnviar(p,m,'Enviar por WhatsApp',null,null,'cta')+'</div>';
+    else if(!env)h+='<div class="acc"><p class="chip alerta">Falta su WhatsApp para enviarlo.</p><button class="cta" type="button" data-hoja="'+esc(p.uid)+'" data-editar="1">Agregar su número</button></div>'}
   else h+='<p class="porque cri">Hoy no le toca ningún mensaje.</p>';
   var pm=msg('pedir-numero-pareja');
-  if(!tieneWa(p)&&q&&tieneWa(q)&&listo(pm))h+='<div class="acc">'+botonEnviar(p,pm,'Pedirle el número a '+primerNombre(q),{pareja:primerNombre(p)},q,'enlace')+'</div>';
-  h+='<div class="fila-b" style="justify-content:space-between"><button class="enlace" type="button" data-camino="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Ver su camino</button><button class="enlace" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div>';
+  h+='<div class="opciones">'+(env&&enviado?botonEnviar(p,m,'Enviar de nuevo',null,null,'opc i-env'):'')+
+    (!tieneWa(p)&&q&&tieneWa(q)&&listo(pm)?botonEnviar(p,pm,'Pedirle el número a '+primerNombre(q),{pareja:primerNombre(p)},q,'opc i-env'):'')+
+    '<button class="opc i-camino" type="button" data-camino="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Ver su camino</button><button class="opc i-hoja" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button>';
   var otros=r.contactos.filter(function(c){return!(c.tipo==='enviado'&&/^dia-\d\d$/.test(c.mensaje))});
-  h+='<details class="plegable" id="mas"'+(r.esperaRespuesta?' open':'')+'><summary>Algo más</summary><div><div class="fila-b">'+(tieneWa(p)?'<a class="btn"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,saludo(p)))+'">Escribirle con tus palabras</a>':'')+
-     '<button class="btn" type="button" data-registrar="respondio" data-persona="'+esc(p.uid)+'">Me respondió</button><button class="btn" type="button" data-registrar="atendido" data-persona="'+esc(p.uid)+'">Ya le respondí</button></div>'+
+  h+='<details class="plegable menu-mas" id="mas"'+(r.esperaRespuesta?' open':'')+'><summary>Algo más</summary><div>'+(tieneWa(p)?'<a class="opc i-wa"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,saludo(p)))+'">Escribirle con tus palabras</a>':'')+
+     '<button class="opc i-resp" type="button" data-registrar="respondio" data-persona="'+esc(p.uid)+'">Me respondió</button><button class="opc i-ok" type="button" data-registrar="atendido" data-persona="'+esc(p.uid)+'">Ya le respondí</button>'+
      '<label for="nota" class="eti">Nota corta (qué te contó: la app, el tiempo…)</label><textarea id="nota" class="nota" maxlength="500" placeholder="Ej.: Problemas con la app; retoma el lunes."></textarea>'+
      '<div class="acc"><button class="btn" type="button" data-registrar="nota" data-persona="'+esc(p.uid)+'">Guardar nota</button></div>'+
-     '<h3 class="sec">Lo caminado juntos</h3>'+(otros.length?historia(otros):'<p class="ins">Sin mensajes de acompañamiento, respuestas ni notas.</p>')+'</div></details>';
+     '<h3 class="sec">Lo caminado juntos</h3>'+(otros.length?historia(otros):'<p class="ins">Sin mensajes de acompañamiento, respuestas ni notas.</p>')+'</div></details></div>';
   if(q)h+='<div class="fila-b"><span class="ins">Se inscribió con</span><button class="btn" type="button" data-ir="'+esc(q.uid)+'" data-c="'+esc(q.curso)+'">'+esc(nombreDe(q))+'</button></div>';
   h+=otrosCursos(p)+'</div></div>';
   mostrarFicha(h,nueva);
@@ -597,20 +625,25 @@ function tDia(d){return(d-1)/(NDIAS-1)*.985}
 function trazo(a,b){var o=[];for(var i=0;i<=100;i++)o.push(enRuta(a+(b-a)*i/100).map(function(v){return v.toFixed(1)}));return'M'+o.join('L')}
 function carpa(x,y,s,c,viva){return'<g transform="translate('+x+' '+y+') scale('+s+')"><ellipse cy="22" rx="52" ry="13" fill="'+c+'" opacity="'+(viva?.3:.1)+'"/><polygon points="-38,22 0,-28 38,22" fill="'+(viva?c:'#31465a')+'"/><polygon points="0,-28 38,22 8,22" fill="#000" opacity=".34"/><polygon points="-11,22 0,-4 11,22" fill="'+(viva?'#FFE3A0':'#0d1722')+'"/><path d="M0-28v-20" stroke="'+c+'" stroke-width="3"/><polygon points="0,-48 22,-42 0,-35" fill="'+c+'"/></g>'}
 function dibujarMonte(p){
-  var svg=$('monte');if(!svg)return;var r=p.r,g=svg.clientWidth>svg.clientHeight*.75,k=g?1:1.4,N=semanas(p.curso),va=r.entro?r.va:1;
-  svg.setAttribute('viewBox',g?'640 60 1350 1310':'955 -520 920 1840');
-  var h='<rect x="0" y="-900" width="2576" height="905" fill="#030a1d"/><image href="../assets/acompanar/montana.png" width="2576" height="1405" preserveAspectRatio="none"/>';
-  if(!g)h+='<defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a1d"/><stop offset="1" stop-color="#030a1d" stop-opacity="0"/></linearGradient></defs><rect x="0" y="-2" width="2576" height="150" fill="url(#cielo)"/>';
+  var svg=$('monte');if(!svg)return;var r=p.r,N=semanas(p.curso),va=r.entro?r.va:1;
+  var w=svg.clientWidth,hh=svg.clientHeight;if(!w||!hh)return;
+  /* región que debe verse siempre: x 710–1890 (campamento base y carpas), y 100–1350 (cima y base) */
+  var arriba=w>hh*1.05?16:150,s=Math.min(w/1180,(hh-arriba-8)/1250),vw=w/s,vh=hh/s,sobra=Math.max(0,hh-arriba-8-1250*s),x0=1300-vw/2,y0=100-(arriba+sobra/2)/s,k=Math.max(.9,Math.min(1.3,.45/s));
+  svg.setAttribute('viewBox',x0+' '+y0+' '+vw+' '+vh);
+  var h='<defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a1d"/><stop offset="1" stop-color="#030a1d" stop-opacity="0"/></linearGradient><linearGradient id="suelo" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#07120e"/><stop offset="1" stop-color="#07120e" stop-opacity="0"/></linearGradient></defs>'+
+    '<rect x="'+x0+'" y="'+y0+'" width="'+vw+'" height="'+Math.max(0,2-y0)+'" fill="#030a1d"/><rect x="'+x0+'" y="1403" width="'+vw+'" height="'+Math.max(0,y0+vh-1403)+'" fill="#07120e"/>'+
+    '<image href="../assets/acompanar/montana.png" width="2576" height="1405" preserveAspectRatio="none"/>'+
+    (y0<-4?'<rect y="-2" width="2576" height="170" fill="url(#cielo)"/>':'')+(y0+vh>1410?'<rect y="1250" width="2576" height="157" fill="url(#suelo)"/>':'');
   var tope=r.terminado?1:r.entro?tDia(va):0;
   if(tope>0)h+='<path d="'+trazo(0,tope)+'" fill="none" stroke="#FFD56B" stroke-width="22" opacity=".35"/><path d="'+trazo(0,tope)+'" fill="none" stroke="#FFE29A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>';
   if(tope<1)h+='<path class="sendero" d="'+trazo(tope,1)+'" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>';
   N.forEach(function(n,i){var d=(i+1)*5,a=enRuta(tDia(d)),c=SITIO_C[i],viva=r.entro&&va>d-5;
-    h+='<path d="M'+a[0]+' '+a[1]+'L'+c[0]+' '+(c[1]+16)+'" stroke="'+SEMC[i]+'" stroke-width="4" stroke-dasharray="3 10" stroke-linecap="round" opacity=".65"/>'+carpa(c[0],c[1],k,SEMC[i],viva)+'<text x="'+c[0]+'" y="'+(c[1]+36+30*k)+'" text-anchor="middle" font-family="\'Bebas Neue\'" font-size="'+(g?30:38)+'" letter-spacing="2" fill="'+(viva?SEMC[i]:'#B4C2CC')+'" stroke="#050A14" stroke-width="7" stroke-linejoin="round" style="paint-order:stroke">'+esc(n.toUpperCase())+'</text>'});
+    h+='<path d="M'+a[0]+' '+a[1]+'L'+c[0]+' '+(c[1]+16)+'" stroke="'+SEMC[i]+'" stroke-width="4" stroke-dasharray="3 10" stroke-linecap="round" opacity=".65"/>'+carpa(c[0],c[1],k,SEMC[i],viva)+'<text x="'+c[0]+'" y="'+(c[1]+36+30*k)+'" text-anchor="middle" font-family="\'Bebas Neue\'" font-size="'+(31*k)+'" letter-spacing="2" fill="'+(viva?SEMC[i]:'#B4C2CC')+'" stroke="#050A14" stroke-width="7" stroke-linejoin="round" style="paint-order:stroke">'+esc(n.toUpperCase())+'</text>'});
   for(var d=1;d<=NDIAS;d++){var a=enRuta(tDia(d)),x=a[0],y=a[1],c=SEMC[Math.ceil(d/5)-1],ok=!!r.cierre[d],falto=r.entro&&!ok&&d<va;
     h+='<g class="stone" data-piedra="'+d+'" tabindex="0" role="button" aria-label="Día '+d+'"><circle cx="'+x+'" cy="'+y+'" r="'+(32*k)+'" fill="transparent"/>'+(d===S.dia?'<circle cx="'+x+'" cy="'+y+'" r="'+(23*k)+'" fill="none" stroke="#fff" stroke-width="4"/>':'')+
       '<polygon points="'+[[-14,-4],[-6,-12],[8,-11],[15,-1],[9,10],[-9,11]].map(function(q){return(x+q[0]*k)+','+(y+q[1]*k)}).join(' ')+'" fill="'+(ok?c:falto?'#0B1524':'#4C6173')+'" stroke="'+(ok?'#fff':c)+'" stroke-width="3" stroke-linejoin="round"'+(falto?' stroke-dasharray="6 5"':'')+'/>'+(r.enviado[d]?'<circle cx="'+(x+14*k)+'" cy="'+(y-14*k)+'" r="'+(6*k)+'" fill="#FFD56B" stroke="#050A14" stroke-width="2"/>':'')+'</g>'}
-  var w=enRuta(r.terminado?.985:r.entro?tDia(va):0);
-  h+='<g transform="translate('+w[0]+' '+w[1]+') scale('+(2.5*k)+')" pointer-events="none"><g transform="translate(-12 -37)" stroke="#080C12" stroke-width="1.2"><circle cx="12" cy="6" r="4.8" fill="#f3ead7"/><path d="M12 11c-5 0-7 4-7 9v8h4v7h2.6v-7h.8v7H15v-7h4v-8c0-5-2-9-7-9Z" fill="#e8b94a"/><rect x="14.5" y="12.5" width="7" height="12" rx="2.4" fill="#7a5a1c"/></g></g>';
+  var q_=enRuta(r.terminado?.985:r.entro?tDia(va):0);
+  h+='<g transform="translate('+q_[0]+' '+q_[1]+') scale('+(2.3*k)+')" pointer-events="none"><g transform="translate(-12 -37)" stroke="#080C12" stroke-width="1.2"><circle cx="12" cy="6" r="4.8" fill="#f3ead7"/><path d="M12 11c-5 0-7 4-7 9v8h4v7h2.6v-7h.8v7H15v-7h4v-8c0-5-2-9-7-9Z" fill="#e8b94a"/><rect x="14.5" y="12.5" width="7" height="12" rx="2.4" fill="#7a5a1c"/></g></g>';
   svg.innerHTML=h;
 }
 function pintarDia(p){
@@ -630,7 +663,8 @@ function abrirCamino(uid,curso){
   h+=semanas(p.curso).map(function(n,i){var a=i*5+1,hay=0,pied='';for(var j=0;j<5;j++){var d=a+j,ok=!!r.cierre[d];if(ok)hay++;pied+='<span class="piedra" style="background:'+(ok?SEMC[i]:r.entro&&!r.terminado&&d===r.va?'#FFD56B':'#263646')+'"></span>'}
     var on=r.entro&&!r.terminado&&Math.ceil(r.va/5)===i+1;
     return'<button type="button" class="campo'+(on?' on':'')+(i===3?' ultimo':'')+'" style="--c:'+SEMC[i]+'" data-piedra="'+(on?r.va:a)+'"><span class="tienda">'+TIENDA(r.entro&&r.va>=a?SEMC[i]:'#41566a')+'</span><span class="t"><b>'+esc(n)+'<small>'+hay+' de 5</small></b><span class="piedras">'+pied+'</span></span></button>'}).join('');
-  h+='<div class="acc"><button class="cta" type="button" data-acompanar="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Acompañar a '+esc(primeroDe(p))+' →</button><button class="enlace" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div>';
+  h+='<div class="acc"><button class="cta" type="button" data-acompanar="'+esc(p.uid)+'" data-c="'+esc(p.curso)+'">Acompañar a '+esc(primeroDe(p))+' →</button></div>';
+  h+='<div class="opciones"><button class="opc i-hoja" type="button" data-hoja="'+esc(p.uid)+'">Ver hoja de vida</button></div>';
   h+='<details class="plegable" id="porDias"><summary>Día por día</summary><div><ol class="recorrido"><li class="enc"><span>Día</span><span>Cerró</span><span>Mensaje</span></li>';
   for(var d=1;d<=NDIAS;d++){var md=msg(idDia(d)),fut=!r.cierre[d]&&d>Math.max(r.calDia,r.va);
     var ce=r.cierre[d]?'<span class="si">✓ '+(typeof r.cierre[d]==='number'?fechaCorta(r.cierre[d]):'')+'</span>':(fut?'<span class="no">—</span>':'<span class="falta">No</span>');
@@ -668,7 +702,7 @@ function abrirHoja(uid,editando){
   h+='<p class="aviso">Aquí no está la Bitácora de nadie. Anota solo lo necesario para acompañar.</p></div></div>';
   mostrarFicha(h,nueva);
 }
-function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null;S.modo=null;$('aCursos').textContent='‹ Campamento';$('aCursos').hidden=S.vista==='cursos'}
+function cerrarFicha(){$('velo').hidden=true;document.body.style.overflow='';S.abierta=null;S.abiertaC=null;S.modo=null;$('cabecera').classList.toggle('solida',window.scrollY>24);$('aCursos').textContent='‹ Campamento';$('aCursos').hidden=S.vista==='cursos'}
 function repintar(){pintarCursos();if(S.curso)pintarCurso();pintarPersonas();if(S.abierta){if(S.modo==='hoja')abrirHoja(S.abierta);else if(S.modo==='camino')abrirCamino(S.abierta,S.abiertaC);else abrirFicha(S.abierta,S.abiertaC)}}
 
 /* ---------- Vista «Personas»: cada persona una vez, con el curso (o los cursos) en que está ---------- */
@@ -784,7 +818,10 @@ async function ponerFuera(uid,fuera){
 /* ---------- Inscripciones y «Cursos y pagos» (solo superadministrador, 27-nov) ----------
    Aprobar = activar el curso, dejar la ficha de la persona al día e invitar a su pareja, todo en una sola escritura. */
 var I={sol:[],perfiles:{},catalogo:{},pago:{cuentas:[],nota:''},listo:false,error:false,ocupado:false};
-var SITIO_INS='https://thewaylhscol.netlify.app/inscripcion/?curso=';
+var SITIO_INS='https://thewaylhscol.netlify.app/inscripcion/';
+/* Cada curso conocido tiene su propia dirección (con su vista previa para WhatsApp). */
+var SLUG={metanoia:'metanoia',preparados:'uniendo-caminos'};
+function enlaceIns(id){return SITIO_INS+(SLUG[id]?SLUG[id]+'/':'?curso='+id)}
 function hoyIso(){return new Date().toLocaleDateString('en-CA',{timeZone:'America/Bogota'})}
 function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
 function pesos(n){return n>0?'$'+Number(n).toLocaleString('es-CO'):'Gratis'}
@@ -871,43 +908,58 @@ function pintarInscritos(){
     var h='<li class="solicitud"><div class="persona"><span class="av" aria-hidden="true">'+n.charAt(0)+'</span><div><b>'+n+'</b><span class="ins">'+esc(p.correo||'')+(p.ciudad?' · '+esc(p.ciudad):'')+'</span></div></div>'+
       '<div class="valor"><div><b>'+esc(cursoNom(s.curso))+'</b>'+(s.parejaCorreo?'<span>Pareja: '+esc(s.parejaCorreo)+'</span> ':'')+'<span class="chip '+(s.estado==='aprobada'?'ok':s.estado==='rechazada'?'mal':'oro')+'">'+(s.estado==='aprobada'?'Aprobada':s.estado==='rechazada'?'Rechazada':'Por revisar')+'</span>'+(ms(s)?' <span>'+fechaCorta(ms(s))+'</span>':'')+'</div><strong>'+esc(pesos(s.precio))+'</strong></div>';
     if(pendiente)h+='<button class="compro" type="button" data-comp="'+esc(s.id)+'">Ver comprobante</button><div class="acc"><button class="cta" type="button" data-aprobar="'+esc(s.id)+'">Aprobar inscripción</button><button class="enlace peligro" type="button" data-rechazar="'+esc(s.id)+'">Rechazar</button></div>';
-    if(s.estado==='aprobada'&&p.whatsapp){var t='Hola, '+primerNombre(p)+' 👋\n\nTu inscripción a *'+cursoNom(s.curso)+'* quedó aprobada ✅\n\nEntra aquí con tu cuenta de Google ('+p.correo+'):\n'+SITIO_INS+s.curso+(s.parejaCorreo?'\n\nTu pareja entra en el mismo enlace con '+s.parejaCorreo+'.':'');
+    if(s.estado==='aprobada'&&p.whatsapp){var t='Hola, '+primerNombre(p)+' 👋\n\nTu inscripción a *'+cursoNom(s.curso)+'* quedó aprobada ✅\n\nEntra aquí con tu cuenta de Google ('+p.correo+'):\n'+enlaceIns(s.curso)+(s.parejaCorreo?'\n\nTu pareja entra en el mismo enlace con '+s.parejaCorreo+'.':'');
       h+='<div class="acc"><a class="enlace"'+DESTINO+' href="'+esc(enlaceWa(p.whatsapp,t))+'">Enviar bienvenida por WhatsApp</a></div>'}
     return h+'</li>'};
   v.innerHTML='<h2 class="sec">Por revisar ('+pend.length+') <small>la más antigua primero</small></h2>'+(pend.length?'<ul>'+pend.map(fila).join('')+'</ul>':'<p class="vacio">No hay inscripciones pendientes.</p>')+
     '<h2 class="sec">Ya revisadas <small>últimos 14 días</small></h2>'+(rec.length?'<ul>'+rec.map(fila).join('')+'</ul>':'<p class="vacio">Ninguna todavía.</p>')+'<button class="enlace" type="button" id="recargarIns">↻ Actualizar</button>';
 }
+function ofertasTxt(c){if(c.pareja)return pesos(c.precio)+' · solo en pareja';return pesos(c.precio)+(c.precioPareja>0?' solo · '+pesos(c.precioPareja)+' en pareja':' · individual')}
+/* Las cuentas se escriben en casillas; se guardan como antes: título («tipo · banco») y número. */
+function borradorCuentas(){if(!S.ctas){S.ctas=(I.pago.cuentas||[]).map(function(c){var k=String(c.titulo).lastIndexOf(' · ');return{t:k>0?c.titulo.slice(0,k):c.titulo,b:k>0?c.titulo.slice(k+3):'',n:c.numero}});if(!S.ctas.length)S.ctas=[{t:'',b:'',n:''}]}return S.ctas}
+function tituloCuenta(c){return[c.t.trim(),c.b.trim()].filter(Boolean).join(' · ')}
+function tarjetaCuenta(c){return'<span>'+esc(tituloCuenta(c)||'Tipo de cuenta · banco')+'</span><b>'+esc(c.n.trim()||'Número')+'</b>'}
+function htmlCuentas(){var L=borradorCuentas();return L.map(function(c,i){var campo=function(k,et,ej,max){return'<label class="cl" for="cta-'+k+'-'+i+'">'+et+'</label><input id="cta-'+k+'-'+i+'" type="text" maxlength="'+max+'" autocomplete="off" placeholder="'+ej+'" data-cta="'+i+'" data-k="'+k+'" value="'+esc(c[k])+'">'};
+  return'<fieldset class="cuenta-f"><legend>Cuenta '+(i+1)+'</legend>'+campo('t','Tipo de cuenta','Ej.: Llave Bre-B, Ahorros',40)+campo('b','Banco','Ej.: Bancolombia',36)+campo('n','Número o llave','',80)+'<div class="cuenta-t" id="cta-v-'+i+'">'+tarjetaCuenta(c)+'</div><button class="enlace peligro" type="button" data-quitar-cta="'+i+'">Quitar esta cuenta</button></fieldset>'}).join('')+
+  (L.length<6?'<button class="enlace" type="button" id="otraCta">＋ Agregar otra cuenta</button>':'')}
 function pintarPrecios(){
   var v=$('p-precios');if(!I.listo||I.error){v.innerHTML='<p class="vacio">'+(I.error?'No pudimos cargar. Recarga la página.':'Cargando…')+'</p>';return}
   var ids=Object.keys(CURSOS).concat(Object.keys(I.catalogo).filter(function(k){return!CURSOS[k]})),abiertos=[].map.call(v.querySelectorAll('details[open]'),function(d){return d.id});
   var h='<h2 class="sec">Expediciones <small>toca una para cambiarla</small></h2><p class="ins">Un curso abierto con precio 0 se activa solo, sin pago.</p>';
   h+=ids.map(function(id){var c=I.catalogo[id]||{nombre:nombreCurso(id),precio:0,pareja:id==='preparados',abierto:false},k=esc(id),a=arteDe(id);
-    return'<details class="editor curso-e" id="ce-'+k+'"><summary><span class="paisaje"><img src="../assets/acompanar/'+a.ancho+'" alt="" style="object-position:'+a.pos+'"><span class="chip sello '+(c.abierto?'ok':'alerta')+'">'+(c.abierto?'Abierto':'Cerrado')+'</span><span class="txt"><h3>'+esc(c.nombre)+'</h3><small>'+esc(pesos(c.precio))+(c.pareja?' · una inscripción paga por los dos':' · individual')+'</small></span></span></summary><div class="cuerpo">'+
+    var solo=!c.pareja,par=!!c.pareja||c.precioPareja>0,ps=solo?c.precio:'',pp=c.pareja?c.precio:(c.precioPareja||'');
+    var marca=function(i,on,t){return'<label class="cm"><input type="checkbox" id="'+i+'"'+(on?' checked':'')+'> '+t+'</label>'};
+    var precio=function(i,val,t){return'<label class="cl" for="'+i+'">'+t+'</label><input id="'+i+'" type="text" inputmode="numeric" value="'+esc(val)+'">'};
+    return'<details class="editor curso-e" id="ce-'+k+'"><summary><span class="paisaje"><img src="../assets/acompanar/'+a.ancho+'" alt="" style="object-position:'+a.pos+'"><span class="chip sello '+(c.abierto?'ok':'alerta')+'">'+(c.abierto?'Abierto':'Cerrado')+'</span><span class="txt"><h3>'+esc(c.nombre)+'</h3><small>'+esc(ofertasTxt(c))+'</small></span></span></summary><div class="cuerpo">'+
       '<label class="cl" for="cn-'+k+'">Nombre</label><input id="cn-'+k+'" type="text" maxlength="80" value="'+esc(c.nombre)+'">'+
-      '<label class="cl" for="cp-'+k+'">Precio en pesos (0 = gratis)</label><input id="cp-'+k+'" type="text" inputmode="numeric" value="'+esc(c.precio)+'">'+
-      '<label class="cm"><input type="checkbox" id="cj-'+k+'"'+(c.pareja?' checked':'')+'> Curso de pareja (una inscripción paga por los dos)</label>'+
-      '<label class="cm"><input type="checkbox" id="ca-'+k+'"'+(c.abierto?' checked':'')+'> Inscripciones abiertas</label>'+
+      '<p class="semana" style="--c:#DEC06A">Cómo se pueden inscribir</p>'+
+      '<div class="oferta">'+marca('cs-'+k,solo,'Solo yo')+precio('cp-'+k,ps,'Precio en pesos para una persona (0 = gratis)')+'</div>'+
+      '<div class="oferta">'+marca('cj-'+k,par,'En pareja (una inscripción paga por los dos)')+precio('cpp-'+k,pp,'Precio en pesos por los dos')+'</div>'+
+      marca('ca-'+k,c.abierto,'Inscripciones abiertas')+
       '<div class="acc"><button class="cta" type="button" data-guardar-curso="'+k+'">Guardar</button>'+(I.catalogo[id]?'<button class="enlace" type="button" data-copiar-enlace="'+k+'">Copiar enlace de inscripción</button>':'')+'</div></div></details>'}).join('');
-  var L=(I.pago.cuentas||[]).map(function(c){return c.titulo+': '+c.numero}).join('\n');
   h+='<h2 class="sec">Cuentas para transferir <small>así las ve quien se inscribe</small></h2>'+((I.pago.cuentas||[]).map(function(c){return'<div class="cuenta-t"><span>'+esc(c.titulo)+'</span><b>'+esc(c.numero)+'</b></div>'}).join('')||'<p class="vacio">Todavía no hay cuentas guardadas.</p>')+
-    '<details class="plegable" id="cambiarCuentas"><summary>Cambiar las cuentas</summary><div><p class="ins">Una por línea, así: <code>Nombre de la cuenta: número</code>. Solo las ve quien entra con Google.</p><label class="sr" for="cuentasTxt">Cuentas</label><textarea id="cuentasTxt" style="min-height:100px">'+esc(L)+'</textarea><label class="cl" for="cuentasNota">Nota (opcional)</label><input id="cuentasNota" type="text" maxlength="500" value="'+esc(I.pago.nota||'')+'"><div class="acc"><button class="cta" type="button" id="guardarCuentas">Guardar cuentas</button></div></div></details>';
+    '<details class="plegable" id="cambiarCuentas"><summary>Cambiar las cuentas</summary><div><p class="ins">Solo las ve quien entra con Google. La primera sale como «Recomendado». Máximo 6.</p><div id="ctas">'+htmlCuentas()+'</div><label class="cl" for="cuentasNota">Nota para quien paga (opcional)</label><input id="cuentasNota" type="text" maxlength="500" value="'+esc(I.pago.nota||'')+'"><div class="acc"><button class="cta" type="button" id="guardarCuentas">Guardar cuentas</button></div></div></details>';
   v.innerHTML=h;abiertos.forEach(function(i){var d=$(i);if(d)d.open=true});
 }
 async function guardarCurso(id){
-  var nom=$('cn-'+id).value.trim(),pr=$('cp-'+id).value.replace(/[.$\s]/g,''),pareja=$('cj-'+id).checked,abierto=$('ca-'+id).checked;
+  var nom=$('cn-'+id).value.trim(),solo=$('cs-'+id).checked,par=$('cj-'+id).checked,abierto=$('ca-'+id).checked;
+  var num=function(i){return $(i+'-'+id).value.replace(/[.$\s]/g,'')},ps=num('cp'),pp=num('cpp');
   if(!nom){toast('Escribe el nombre del curso.');return}
-  if(!/^\d{1,9}$/.test(pr)){toast('Escribe el precio solo con números, por ejemplo 100000.');return}
-  if(abierto&&+pr===0&&!confirm('Con precio 0 y abierto, cualquiera que entre podrá activar este curso gratis. ¿Guardar así?'))return;
-  try{await db.collection('catalogo').doc(id).set({nombre:nom,precio:+pr,pareja:pareja,abierto:abierto,actualizado:ts()});
-    I.catalogo[id]={nombre:nom,precio:+pr,pareja:pareja,abierto:abierto};pintarPrecios();toast('Curso guardado.')}
+  if(!solo&&!par){toast('Marca «Solo yo», «En pareja» o las dos.');return}
+  if(solo&&!/^\d{1,9}$/.test(ps)){toast('Escribe el precio de «Solo yo» con números, por ejemplo 100000.');return}
+  if(par&&!/^\d{1,9}$/.test(pp)){toast('Escribe el precio de «En pareja» con números, por ejemplo 150000.');return}
+  if(solo&&par&&+pp===0){toast('Si también se inscriben solos, el precio en pareja debe ser mayor que 0.');return}
+  var d={nombre:nom,precio:solo?+ps:+pp,pareja:!solo,abierto:abierto};if(solo&&par)d.precioPareja=+pp;
+  if(abierto&&d.precio===0&&!confirm('Con precio 0 y abierto, cualquiera que entre podrá activar este curso gratis. ¿Guardar así?'))return;
+  try{await db.collection('catalogo').doc(id).set(Object.assign({actualizado:ts()},d));
+    I.catalogo[id]=d;pintarPrecios();toast('Curso guardado.')}
   catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
 }
 async function guardarCuentas(){
-  var L=$('cuentasTxt').value.split('\n').map(function(l){return l.trim()}).filter(Boolean),C=[];
-  for(var i=0;i<L.length;i++){var k=L[i].lastIndexOf(':');if(k<1||!L[i].slice(k+1).trim()){toast('Cada línea debe ser así: Nombre de la cuenta: número');return}C.push({titulo:L[i].slice(0,k).trim().slice(0,80),numero:L[i].slice(k+1).trim().slice(0,80)})}
-  if(C.length>6){toast('Máximo 6 cuentas.');return}
+  var L=borradorCuentas().filter(function(c){return(c.t+c.b+c.n).trim()}),C=[];
+  for(var i=0;i<L.length;i++){var t=tituloCuenta(L[i]),n=L[i].n.trim();if(!t||!n){toast('A cada cuenta le faltan datos: escribe el tipo o banco y el número.');return}C.push({titulo:t.slice(0,80),numero:n.slice(0,80)})}
   var nota=$('cuentasNota').value.trim().slice(0,500);
-  try{await db.collection('ajustes').doc('pago').set({cuentas:C,nota:nota,actualizado:ts()});I.pago={cuentas:C,nota:nota};pintarPrecios();toast('Cuentas guardadas.')}
+  try{await db.collection('ajustes').doc('pago').set({cuentas:C,nota:nota,actualizado:ts()});I.pago={cuentas:C,nota:nota};S.ctas=null;pintarPrecios();toast('Cuentas guardadas.')}
   catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.')}
 }
 document.addEventListener('click',function(e){var el;
@@ -916,7 +968,9 @@ document.addEventListener('click',function(e){var el;
   if((el=e.target.closest('[data-comp]'))){verComprobante(el.getAttribute('data-comp'));return}
   if(e.target.closest('#recargarIns')){cargarInscripciones();return}
   if((el=e.target.closest('[data-guardar-curso]'))){guardarCurso(el.getAttribute('data-guardar-curso'));return}
-  if((el=e.target.closest('[data-copiar-enlace]'))){var u=SITIO_INS+el.getAttribute('data-copiar-enlace');(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){toast('Enlace copiado.')},function(){prompt('Copia el enlace:',u)});return}
+  if(e.target.closest('#otraCta')){borradorCuentas().push({t:'',b:'',n:''});$('ctas').innerHTML=htmlCuentas();return}
+  if((el=e.target.closest('[data-quitar-cta]'))){var L=borradorCuentas();L.splice(+el.getAttribute('data-quitar-cta'),1);if(!L.length)L.push({t:'',b:'',n:''});$('ctas').innerHTML=htmlCuentas();return}
+  if((el=e.target.closest('[data-copiar-enlace]'))){var u=enlaceIns(el.getAttribute('data-copiar-enlace'));(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){toast('Enlace copiado.')},function(){prompt('Copia el enlace:',u)});return}
   if(e.target.closest('#guardarCuentas'))guardarCuentas();
 });
 
@@ -1013,10 +1067,14 @@ document.addEventListener('click',function(e){var el;
   if((el=e.target.closest('[data-quitar-lider]')))return quitarLider(el.getAttribute('data-quitar-lider'),el.getAttribute('data-grupo'));
 });
 document.addEventListener('change',function(e){var g=e.target&&e.target.getAttribute&&e.target.getAttribute('data-padre-de');if(g)moverGrupo(g,e.target.value)});
+document.addEventListener('input',function(e){var c=e.target&&e.target.getAttribute&&e.target.getAttribute('data-cta');if(c!=null){var o=borradorCuentas()[+c];o[e.target.getAttribute('data-k')]=e.target.value;$('cta-v-'+c).innerHTML=tarjetaCuenta(o)}});
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='m-buscar'){var q=e.target.value.trim().toLowerCase();[].forEach.call(document.querySelectorAll('#m-lista .cm'),function(l){l.hidden=q&&l.textContent.toLowerCase().indexOf(q)<0})}});
 
 /* ---------- Navegación y eventos ---------- */
-function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios','equipo'].forEach(function(x){$('v-'+x).hidden=x!==v;var t=$('t-'+x);if(t){if(x===v)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')}});
+/* al bajar, la barra toma fondo para no encimarse con lo de abajo */
+function barra(el){var y=el&&el!==document&&el.scrollTop!=null?el.scrollTop:window.scrollY;$('cabecera').classList.toggle('solida',y>24)}
+document.addEventListener('scroll',function(e){var t=e.target;if(t!==document&&!(t.id==='velo'||(t.classList&&t.classList.contains('panel'))))return;barra(t)},true);
+function ver(v){S.vista=v;$('cabecera').classList.remove('solida');['cursos','curso','personas','mensajes','inscritos','precios','equipo'].forEach(function(x){$('v-'+x).hidden=x!==v;var t=$('t-'+x);if(t){if(x===v)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')}});
   if(v==='equipo'&&Q.listo)pintarEquipo();$('menu').hidden=true;$('abrirMenu').setAttribute('aria-expanded','false');$('aCursos').hidden=v==='cursos';$('aCursos').textContent='‹ Campamento';
   window.scrollTo(0,0);var p=$('v-'+v).querySelector('.panel');if(p)p.scrollTop=0}
 function llenarFiltros(){

@@ -1476,6 +1476,25 @@ html[data-piel=v3] body{background:#080C12}
   [data-piel=v3] .v3h,[data-piel=v3] .v3h *,[data-piel=v3] .v3l *,[data-piel=v3] .v3f *{transition:none!important;animation:none!important}
   html[data-piel=v3]{scroll-behavior:auto}
 }
+/* ≥ 1200 px: la montaña entera a la derecha y el título arriba a la izquierda, sobre el cielo */
+@media(min-width:1200px){
+  [data-piel=v3] .v3-hero{height:calc(100vh - 20px);min-height:640px;max-height:1100px;background:#060d1c}
+  [data-piel=v3] .v3-hero .hero-bg{left:auto;right:0;top:72px;bottom:0;width:min(100%,calc((min(100vh - 20px,1100px) - 72px) * 1.8333));background-size:auto 100%;background-position:50% 100%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%),linear-gradient(180deg,transparent 0,#000 6%);mask-image:linear-gradient(90deg,transparent 0,#000 14%),linear-gradient(180deg,transparent 0,#000 6%);-webkit-mask-composite:source-in;mask-composite:intersect}
+  [data-piel=v3] .v3-hero-fade{background:linear-gradient(0deg,#080C12 0,rgba(8,12,18,0) 7%)}
+  [data-piel=v3] .v3-hero-in{top:calc(72px + 7vh);bottom:auto}
+  [data-piel=v3] .v3-hero-in .v3-wrap{max-width:none;margin:0;padding-left:5vw}
+  [data-piel=v3] .v3-hero h1{font-size:min(128px,8.4vw)}
+  [data-piel=v3] .v3-tag{font-size:34px}
+  [data-piel=v3] .v3-hero-btns{max-width:440px}
+}
+/* 27-nov (Juan): la montaña de la portada se ve completa, de la cima al campamento base, en todos los anchos.
+   Hasta 1199 px la imagen va arriba, entera, y el texto debajo. */
+@media(max-width:1199px){
+  [data-piel=v3] .v3-hero{height:auto;min-height:0;display:flex;flex-direction:column;padding-bottom:28px}
+  [data-piel=v3] .v3-hero .hero-bg{position:relative;inset:auto;width:100%;height:min(116vw,calc(100svh - 300px));min-height:360px;margin-top:60px;flex:none;background-size:auto 100%;background-position:50% 0;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 94%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 94%,transparent 100%)}
+  [data-piel=v3] .v3-hero-fade{display:none}
+  [data-piel=v3] .v3-hero-in{position:relative;bottom:auto;margin-top:8px}
+}
 </style>
 </head>
 <body>

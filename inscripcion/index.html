@@ -6,6 +6,18 @@
 <meta name="theme-color" content="#080C12">
 <meta name="robots" content="noindex">
 <title>Inscripción · THE WAY</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="THE WAY · El College">
+<meta property="og:title" content="Inscripciones · THE WAY">
+<meta property="og:description" content="Elige tu ruta e inscríbete.">
+<meta property="og:url" content="https://thewaylhscol.netlify.app/inscripcion/">
+<meta property="og:locale" content="es_CO">
+<meta property="og:image" content="https://thewaylhscol.netlify.app/assets/og/inscripcion.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Elige tu ruta e inscríbete.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital@1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
@@ -108,7 +120,7 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);box-shadow:0 0 0 100p
     <main id="main" aria-live="polite"><p style="text-align:center;margin-top:12vh"><span class="cargando" aria-hidden="true"></span></p></main>
   </div>
 </div>
-<style>.perks.ancho{display:none}@media(min-width:900px){.perks.ancho{display:grid}.perks.angosto{display:none}}</style>
+<style>[hidden]{display:none!important}.modos{border:0;padding:0;margin:18px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}.modos legend{font:700 11px 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:8px}.modos label{display:flex;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:14px;cursor:pointer;margin:0}.modos label:has(:checked){border-color:#C8A84B;background:rgba(200,168,75,.12)}.modos input{width:20px;height:20px;flex:none;accent-color:#C8A84B}.modos b{display:block;font-size:15px;color:#EAE8E0}.modos small{display:block;font-size:13px;color:#DEC06A}.perks.ancho{display:none}@media(min-width:900px){.perks.ancho{display:grid}.perks.angosto{display:none}}</style>
 <script src="../compartido/sesion.js"></script>
 <script>
 (function(){'use strict';
@@ -130,27 +142,32 @@ function camino(L){return'<ol class="camino">'+L.map(function(x,i){return'<li cl
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 var pesos=function(n){return n>0?'$'+Number(n).toLocaleString('es-CO')+' COP':'Gratis'};
 var CURSO=(new URLSearchParams(location.search).get('curso')||'').toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,40);
-var db=null,yo=null,catalogo=null,perfil=null,ocupado=false;
+var db=null,yo=null,catalogo=null,perfil=null,ocupado=false,MODO='';
+/* Opciones de un curso: «pareja» = solo en pareja; si no, «solo yo» y, cuando tiene precioPareja, también en pareja. */
+function ofertas(c){if(c.pareja)return[{k:'pareja',precio:c.precio}];var L=[{k:'solo',precio:c.precio}];if(c.precioPareja>0)L.push({k:'pareja',precio:c.precioPareja});return L}
+function elegida(){var L=ofertas(catalogo);return L.filter(function(o){return o.k===MODO})[0]||L[0]}
+function textoOfertas(c){var L=ofertas(c);return L.length>1?pesos(L[0].precio)+' · en pareja '+pesos(L[1].precio):pesos(c.precio)+(c.pareja&&c.precio>0?' por pareja':'')}
 function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
 function hoy(){return new Date().toLocaleDateString('en-CA',{timeZone:'America/Bogota'})}
 function pintar(h){$('main').innerHTML=h+'<p class="ayuda">¿Tienes preguntas? <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, necesito ayuda con mi inscripción en THE WAY'+(catalogo?' ('+catalogo.nombre+')':''))+'" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>';window.scrollTo(0,0)}
 function leer(ref){return ref.get().then(function(s){return s.exists?s.data():null})}
 function ficha(sinPrecio){var x=CURSOS_TXT[CURSO]||CURSOS_TXT.general;
-  return'<div class="ficha"><div><b>'+esc(catalogo.nombre)+'</b><small>'+esc(x.sub)+'</small></div>'+(sinPrecio?'':'<p class="precio">'+esc(pesos(catalogo.precio))+(catalogo.pareja&&catalogo.precio>0?'<br><small>por los dos</small>':'')+'</p>')+'</div>'}
+  var L=ofertas(catalogo),o=elegida();
+  return'<div class="ficha"><div><b>'+esc(catalogo.nombre)+'</b><small>'+esc(x.sub)+'</small></div>'+(sinPrecio?'':'<p class="precio" id="precioFicha">'+(L.length>1&&!MODO?esc(pesos(L[0].precio))+'<br><small>solo tú</small><br>'+esc(pesos(L[1].precio))+'<br><small>en pareja</small>':esc(pesos(o.precio))+(o.k==='pareja'&&o.precio>0?'<br><small>por los dos</small>':''))+'</p>')+'</div>'}
 function cabecera(a,b,lema){return'<h1>'+a+' <em>'+b+'</em></h1>'+(lema?'<p class="lema">'+lema+'</p>':'')}
 function fallo(t){pintar('<h1>Algo no <em>salió bien.</em></h1><p class="lema">'+esc(t||'Revisa tu conexión e inténtalo de nuevo.')+'</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
 
 function listaDeCursos(){
   escena('rutas');
   return db.collection('catalogo').get().then(function(s){var L=[],IMG={metanoia:'mentalidad',preparados:'habilidad'};s.forEach(function(d){var c=d.data();if(c.abierto)L.push({id:d.id,c:c})});
-    pintar(cabecera('Inscripciones','abiertas.','Entrar a THE WAY es gratis. Cada ruta se inscribe aparte.')+(L.length?'<div class="rutas">'+L.map(function(x){return'<a href="?curso='+esc(x.id)+'"><img alt="" src="../assets/v3/exp-'+(IMG[x.id]||'capacidad')+'.webp"><div><b>'+esc(x.c.nombre)+'</b><span>'+esc(pesos(x.c.precio))+(x.c.pareja&&x.c.precio>0?' por pareja':'')+'</span></div></a>'}).join('')+'</div>':'<div class="caja">Por ahora no hay inscripciones abiertas. Escríbenos y te avisamos cuando abra la próxima ruta.</div>'))})
+    pintar(cabecera('Inscripciones','abiertas.','Entrar a THE WAY es gratis. Cada ruta se inscribe aparte.')+(L.length?'<div class="rutas">'+L.map(function(x){return'<a href="?curso='+esc(x.id)+'"><img alt="" src="../assets/v3/exp-'+(IMG[x.id]||'capacidad')+'.webp"><div><b>'+esc(x.c.nombre)+'</b><span>'+esc(textoOfertas(x.c))+'</span></div></a>'}).join('')+'</div>':'<div class="caja">Por ahora no hay inscripciones abiertas. Escríbenos y te avisamos cuando abra la próxima ruta.</div>'))})
 }
 function pantallaEntrar(){
   escena('inicio');
   pintar(cabecera('Tu','registro.','Tres pasos: tus datos, la transferencia y el comprobante.')+ficha()+
     (catalogo.abierto?'':'<div class="caja aviso">Las inscripciones de este curso están cerradas. Si ya tienes acceso o te invitaron, entra con tu cuenta.</div>')+
     paso(1,'Tus datos')+'<p class="nota" style="margin:0">Entra con tu cuenta de Google: con esa misma cuenta usarás el curso.</p><button class="btn oro" type="button" id="entrar">Entrar con Google</button><p class="error" id="err" role="alert"></p>'+
-    (catalogo.precio>0?paso(2,'Transferencia',true)+paso(3,'Comprobante',true):''));
+    (ofertas(catalogo).some(function(o){return o.precio>0})?paso(2,'Transferencia',true)+paso(3,'Comprobante',true):''));
   $('entrar').addEventListener('click',function(){TW_SESION.entrar().then(iniciar,function(e){if(e&&e.code!=='cancelado')$('err').textContent='No pudimos completar el ingreso. Inténtalo de nuevo.'})})
 }
 function yaTiene(){escena('abierto');pintar(cabecera('Ya tienes','acceso.','Entra con esta misma cuenta de Google.')+ficha(true)+'<a class="btn oro" href="'+esc(RUTAS[CURSO]||'../')+'">Empezar</a>')}
@@ -173,26 +190,31 @@ function pantallaReclamar(texto,origen){
 }
 
 function formulario(solicitudAnterior){
-  var p=perfil||{},conPago=catalogo.precio>0,rechazo=solicitudAnterior&&solicitudAnterior.estado==='rechazada';
+  var p=perfil||{},rechazo=solicitudAnterior&&solicitudAnterior.estado==='rechazada',L_=ofertas(catalogo),varias=L_.length>1,algunPago=L_.some(function(o){return o.precio>0});
+  MODO=solicitudAnterior&&solicitudAnterior.parejaCorreo&&L_.some(function(o){return o.k==='pareja'})?'pareja':L_[0].k;
   escena('inicio');
-  var h=cabecera('Tu','registro.',conPago?'Tres pasos: tus datos, la transferencia y el comprobante. Tu acceso queda activo cuando validemos el pago.':'Déjanos tus datos y activa tu acceso.')+ficha(!conPago)+
+  var h=cabecera('Tu','registro.',algunPago?'Tres pasos: tus datos, la transferencia y el comprobante. Tu acceso queda activo cuando validemos el pago.':'Déjanos tus datos y activa tu acceso.')+ficha(!algunPago)+
     (rechazo?'<div class="caja aviso"><b>No pudimos aprobar tu comprobante.</b><br>'+esc(solicitudAnterior.motivo||'Revísalo y vuelve a enviarlo.')+'</div>':'');
   var wa=String(p.whatsapp||'');if(wa.length===12&&wa.slice(0,2)==='57')wa=wa.slice(2);
-  h+='<form id="f" novalidate>'+paso(1,'Tus datos')+'<div class="campos"><div><label for="nombre">Nombre y apellido</label><input id="nombre" type="text" autocomplete="name" maxlength="80" value="'+esc(p.nombre||yo.nombre||'')+'"></div>'+
+  h+='<form id="f" novalidate>'+(varias?'<fieldset class="modos"><legend>¿Cómo se inscriben?</legend>'+L_.map(function(o){return'<label><input type="radio" name="modo" value="'+o.k+'"'+(o.k===MODO?' checked':'')+'><span><b>'+(o.k==='solo'?'Solo yo':'En pareja')+'</b><small>'+esc(pesos(o.precio))+(o.k==='pareja'?' por los dos':'')+'</small></span></label>'}).join('')+'</fieldset>':'')+paso(1,'Tus datos')+'<div class="campos"><div><label for="nombre">Nombre y apellido</label><input id="nombre" type="text" autocomplete="name" maxlength="80" value="'+esc(p.nombre||yo.nombre||'')+'"></div>'+
     '<div><label for="wa">WhatsApp (10 dígitos)</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" value="'+esc(wa)+'"></div>'+
     '<div><label for="ciudad">Ciudad</label><input id="ciudad" type="text" autocomplete="address-level2" maxlength="60" value="'+esc(p.ciudad||'')+'"></div>'+
     '<div><label for="como">¿Cómo te enteraste?</label><select id="como">'+['','La HS (iglesia)','Página web','Instagram','WhatsApp','Recomendación de alguien','Otro'].map(function(o){return'<option value="'+esc(o)+'"'+(o===(p.comoSeEntero||'')?' selected':'')+'>'+esc(o||'Opcional')+'</option>'}).join('')+'</select></div>'+
-    (catalogo.pareja?'<div class="ancha"><label for="pareja">Correo de Google de tu pareja</label><input id="pareja" type="email" inputmode="email" autocomplete="off" maxlength="120" value="'+esc(solicitudAnterior&&solicitudAnterior.parejaCorreo||'')+'"><p class="nota">Una sola inscripción paga por los dos. A tu pareja se le abre su acceso cuando entre con ese correo.</p></div>':'')+'</div>';
-  if(conPago)h+=paso(2,'Transferencia')+'<div class="valor"><div><span>Valor a transferir</span><b>'+esc(pesos(catalogo.precio))+'</b></div><button type="button" class="btn chico" id="copiarValor">Copiar</button></div><div id="cuentas"><p class="nota">Cargando las cuentas…</p></div>'+
-    paso(3,'Comprobante')+'<label class="soltar" id="soltar" for="archivo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><strong id="nombreArchivo">Toca para subir tu comprobante</strong><small>Captura de pantalla, foto o PDF</small><input id="archivo" type="file" accept="image/*,application/pdf"></label>';
+    (L_.some(function(o){return o.k==='pareja'})?'<div class="ancha" id="campoPareja"><label for="pareja">Correo de Google de tu pareja</label><input id="pareja" type="email" inputmode="email" autocomplete="off" maxlength="120" value="'+esc(solicitudAnterior&&solicitudAnterior.parejaCorreo||'')+'"><p class="nota">Una sola inscripción paga por los dos. A tu pareja se le abre su acceso cuando entre con ese correo.</p></div>':'')+'</div>';
+  if(algunPago)h+='<div id="bloquePago">'+paso(2,'Transferencia')+'<div class="valor"><div><span>Valor a transferir</span><b id="valorPago">'+esc(pesos(elegida().precio))+'</b></div><button type="button" class="btn chico" id="copiarValor">Copiar</button></div><div id="cuentas"><p class="nota">Cargando las cuentas…</p></div>'+
+    paso(3,'Comprobante')+'<label class="soltar" id="soltar" for="archivo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><strong id="nombreArchivo">Toca para subir tu comprobante</strong><small>Captura de pantalla, foto o PDF</small><input id="archivo" type="file" accept="image/*,application/pdf"></label></div>';
   h+='<label class="casilla"><input type="checkbox" id="autoriza"'+(p.autoriza?' checked':'')+'><span>Autorizo a THE WAY a guardar mis datos para mi inscripción y acompañamiento, y que quien me acompaña vea mi avance. Nunca verá lo que escribo en mi Bitácora.</span></label>'+
-    '<p class="error" id="err" role="alert"></p><button class="btn oro" type="submit" id="enviar">'+(conPago?'Enviar inscripción':'Guardar y continuar')+'</button></form>';
+    '<p class="error" id="err" role="alert"></p><button class="btn oro" type="submit" id="enviar"></button></form>';
   pintar(h);
   /* el botón se enciende cuando todo está completo (si falta algo, al tocarlo dice qué) */
-  function listo(){var ok=$('nombre').value.trim().length>2&&$('wa').value.replace(/\D/g,'').length>=10&&$('autoriza').checked&&(!conPago||$('archivo').files.length>0)&&(!catalogo.pareja||/@/.test($('pareja').value));$('enviar').classList.toggle('falta',!ok)}
+  function listo(){var ok=$('nombre').value.trim().length>2&&$('wa').value.replace(/\D/g,'').length>=10&&$('autoriza').checked&&(elegida().precio<=0||$('archivo').files.length>0)&&(elegida().k!=='pareja'||/@/.test($('pareja').value));$('enviar').classList.toggle('falta',!ok)}
+  /* al cambiar entre «Solo yo» y «En pareja» cambian el valor, el correo de la pareja y si hay que pagar */
+  function aplicarModo(){var o=elegida(),pf=$('precioFicha');if($('campoPareja'))$('campoPareja').hidden=o.k!=='pareja';if($('bloquePago'))$('bloquePago').hidden=o.precio<=0;if($('valorPago'))$('valorPago').textContent=pesos(o.precio);
+    if(pf)pf.innerHTML=esc(pesos(o.precio))+(o.k==='pareja'&&o.precio>0?'<br><small>por los dos</small>':'');$('enviar').textContent=o.precio>0?'Enviar inscripción':'Guardar y continuar'}
+  [].forEach.call(document.querySelectorAll('input[name=modo]'),function(r){r.addEventListener('change',function(){MODO=this.value;aplicarModo();listo()})});aplicarModo();
   $('f').addEventListener('input',listo);$('f').addEventListener('change',function(){var a=$('archivo');if(a){var f=a.files[0];$('nombreArchivo').textContent=f?f.name:'Toca para subir tu comprobante';$('soltar').classList.toggle('lleno',!!f)}listo()});listo();
-  if(conPago)$('copiarValor').addEventListener('click',function(){copiar(String(catalogo.precio),this)});
-  if(conPago)leer(db.collection('ajustes').doc('pago')).then(function(a){var L=(a&&a.cuentas)||[];
+  if(algunPago)$('copiarValor').addEventListener('click',function(){copiar(String(elegida().precio),this)});
+  if(algunPago)leer(db.collection('ajustes').doc('pago')).then(function(a){var L=(a&&a.cuentas)||[];
     $('cuentas').innerHTML=L.length?L.map(function(c,i){return'<div class="opcion"><div>'+(i===0&&L.length>1?'<span class="rec">Recomendado</span>':'')+'<span>'+esc(c.titulo)+'</span><b>'+esc(c.numero)+'</b></div><button type="button" class="btn chico" data-copiar="'+i+'">Copiar</button></div>'}).join('')+(a.nota?'<p class="nota">'+esc(a.nota)+'</p>':''):'<div class="caja">Escríbenos por WhatsApp y te damos los datos para transferir.</div>';
     $('cuentas').addEventListener('click',function(e){var b=e.target.closest('[data-copiar]');if(b)copiar(L[+b.getAttribute('data-copiar')].numero,b)})
   },function(){$('cuentas').textContent='No pudimos cargar las cuentas. Escríbenos por WhatsApp.'});
@@ -213,11 +235,12 @@ function preparar(f){
 function enviar(anterior){
   if(ocupado)return;var err=$('err');err.textContent='';
   var nombre=$('nombre').value.trim().replace(/\s+/g,' '),wa=$('wa').value.replace(/\D/g,'');if(wa.length===10&&wa[0]==='3')wa='57'+wa;
-  var ciudad=$('ciudad').value.trim(),como=$('como').value,pareja=catalogo.pareja?$('pareja').value.trim().toLowerCase():'',conPago=catalogo.precio>0,f=conPago?$('archivo').files[0]:null;
+  var oferta=elegida(),enPareja=oferta.k==='pareja'&&!!$('pareja');
+  var ciudad=$('ciudad').value.trim(),como=$('como').value,pareja=enPareja?$('pareja').value.trim().toLowerCase():'',conPago=oferta.precio>0,f=conPago?$('archivo').files[0]:null;
   function mal(t,id){err.textContent=t;if(id)$(id).focus()}
   if(nombre.length<3)return mal('Escribe tu nombre y apellido.','nombre');
   if(!/^\d{11,15}$/.test(wa))return mal('Escribe tu WhatsApp con sus 10 dígitos.','wa');
-  if(catalogo.pareja&&(!/^[^@\s|]+@[^@\s|]+\.[^@\s|]+$/.test(pareja)||pareja===yo.correo.toLowerCase()))return mal('Escribe el correo de Google de tu pareja (distinto al tuyo).','pareja');
+  if(enPareja&&(!/^[^@\s|]+@[^@\s|]+\.[^@\s|]+$/.test(pareja)||pareja===yo.correo.toLowerCase()))return mal('Escribe el correo de Google de tu pareja (distinto al tuyo).','pareja');
   if(conPago&&!f)return mal('Falta la foto o el PDF de tu comprobante.','archivo');
   if(!$('autoriza').checked)return mal('Necesitamos tu autorización para inscribirte.','autoriza');
   ocupado=true;var b=$('enviar'),antes=b.textContent;b.disabled=true;b.textContent='Enviando…';
@@ -227,7 +250,7 @@ function enviar(anterior){
       if(!conPago)return null;
       var id=yo.uid+'_'+CURSO,lote=db.batch();
       lote.set(db.collection('comprobantes').doc(id),{uid:yo.uid,dato:c.dato,tipo:c.tipo,actualizado:ts()});
-      lote.set(db.collection('solicitudes').doc(id),{uid:yo.uid,curso:CURSO,precio:catalogo.precio,parejaCorreo:pareja,estado:'revision',motivo:'',creada:ts(),actualizada:ts()});
+      lote.set(db.collection('solicitudes').doc(id),{uid:yo.uid,curso:CURSO,precio:oferta.precio,parejaCorreo:pareja,estado:'revision',motivo:'',creada:ts(),actualizada:ts()});
       return lote.commit()})
   }).then(function(){ocupado=false;if(conPago)enRevision();else pantallaReclamar('Tus datos quedaron guardados. Este curso es gratis.','gratis')},
   function(e){console.error(e);ocupado=false;b.disabled=false;b.textContent=antes;err.textContent=e&&!e.code&&e.message?e.message:'No pudimos enviar tu inscripción. Revisa tu conexión e inténtalo de nuevo.'})
@@ -249,11 +272,11 @@ function iniciar(){
           leer(db.collection('solicitudes').doc(yo.uid+'_'+CURSO))
         ]).then(function(r){var inv=r[0],sol=r[2];perfil=r[1];
           /* Invitado por su pareja: primero deja sus datos (una sola vez) y activa. */
-          if(inv){if(!perfil){catalogo=Object.assign({},catalogo,{precio:0,pareja:false});return formularioInvitado()}return pantallaReclamar('Tu pareja ya hizo la inscripción de los dos. Activa tu acceso.','pareja')}
+          if(inv){if(!perfil){catalogo=Object.assign({},catalogo,{precio:0,pareja:false,precioPareja:0});return formularioInvitado()}return pantallaReclamar('Tu pareja ya hizo la inscripción de los dos. Activa tu acceso.','pareja')}
           if(sol&&sol.estado==='revision')return enRevision(sol);
           if(sol&&sol.estado==='aprobada')return aprobadaSinAcceso();
           if(!c.abierto)return escena('inicio'),pintar(cabecera('Inscripciones','cerradas.')+ficha()+'<div class="caja aviso">Las inscripciones de este curso están cerradas.</div>');
-          if(c.precio===0&&perfil)return pantallaReclamar('Este curso es gratis.','gratis');
+          if(ofertas(c).every(function(o){return o.precio===0})&&perfil)return pantallaReclamar('Este curso es gratis.','gratis');
           formulario(sol)
         })
       })
