@@ -40,7 +40,7 @@ main{max-width:1280px;margin:0 auto;padding:12px 16px 80px}
 h1{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.04em;font-size:34px;line-height:1.05;margin:8px 0 2px}
 h2{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.05em;font-size:24px;margin:0}
 .sub{color:var(--muted);margin:0 0 12px}
-.tabs{display:flex;gap:6px;margin:8px 0 16px;overflow-x:auto}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
 .tabs button{flex:0 0 auto;min-height:40px;padding:8px 16px;border-radius:999px;border:1px solid var(--border2);background:transparent;cursor:pointer;color:var(--muted)}
 .tabs button[aria-selected=true]{background:var(--gold);border-color:var(--gold);color:var(--ink-on-gold);font-weight:700}
 .chip{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--border2);color:var(--ice);white-space:nowrap}
@@ -99,6 +99,13 @@ table.rec{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
 .pc:hover{border-color:var(--gold)}
 .pc b{font-weight:500;color:var(--gold-l)}
 @media(max-width:640px){.pf{grid-template-columns:minmax(0,1fr)}}
+/* Equipo y grupos */
+.gr{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--border)}
+.gr:first-child{border-top:0}.gr small{color:var(--muted)}.lid{margin-top:4px;display:flex;flex-wrap:wrap;gap:6px}
+.lid .chip{white-space:normal}.x{background:none;border:0;color:inherit;cursor:pointer;min-width:28px;min-height:28px}
+.dep{font-size:13px;color:var(--muted)}.dep select{display:block;min-height:40px;max-width:220px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit;padding:6px 10px}
+.mlista{max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:0 12px;margin-top:8px}
+#v-equipo h2{margin:18px 0 8px}
 /* Cursos y pagos */
 .editor .cl{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
 .editor .ci{width:100%;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--border2);background:var(--deep);color:var(--text);font:inherit}
@@ -176,6 +183,7 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
     <button role="tab" id="t-mensajes" aria-selected="false" data-v="mensajes" hidden>Mensajes</button>
     <button role="tab" id="t-inscritos" aria-selected="false" data-v="inscritos" hidden>Inscripciones</button>
     <button role="tab" id="t-precios" aria-selected="false" data-v="precios" hidden>Cursos y pagos</button>
+    <button role="tab" id="t-equipo" aria-selected="false" data-v="equipo" hidden>Equipo</button>
   </div>
   <section id="v-cursos">
     <h1>Cursos</h1>
@@ -235,6 +243,7 @@ details.quitadas summary{cursor:pointer;color:var(--muted)}
   <section id="v-mensajes" hidden></section>
   <section id="v-inscritos" hidden></section>
   <section id="v-precios" hidden></section>
+  <section id="v-equipo" hidden></section>
   <p class="aviso">Aquí no está la Bitácora de nadie: solo los días que cada persona cerró, cuándo tuvo actividad y los mensajes que se le mandaron. Anota solo lo necesario para acompañar; lo que te contaron en confianza no se escribe aquí.</p>
 </main>
 
@@ -752,10 +761,102 @@ document.addEventListener('click',function(e){var el;
   if(e.target.closest('#guardarCuentas'))guardarCuentas();
 });
 
+/* ---------- Equipo y grupos (solo superadministrador, 27-nov) ----------
+   Un grupo puede depender de otro. Cada líder ve su grupo y todos los que dependen de él (nunca hacia arriba ni otras ramas):
+   por eso su lista «grupos» en equipo/{uid} se recalcula cada vez que cambia el árbol. */
+var Q={equipo:{},listo:false,error:false,ocupado:false};
+var TIPOS={casa:'Grupo en Casa',mesa:'Las Mesas',red:'Red'};
+function padreDe(g,A){var p=(A[g]||{}).padre;return p&&A[p]?p:''}
+function descendientes(g,A){var out=[g],i=0;while(i<out.length){var x=out[i++];Object.keys(A).forEach(function(h){if(padreDe(h,A)===x&&out.indexOf(h)<0)out.push(h)})}return out}
+/* Los grupos que dirige directamente: los de su lista cuyo grupo «padre» no está en la lista. */
+function directos(lista,A){return(lista||[]).filter(function(g){var p=padreDe(g,A),v=[g];while(p&&v.indexOf(p)<0){if(lista.indexOf(p)>=0)return false;v.push(p);p=padreDe(p,A)}return true})}
+function conDescendientes(ds,A){var s=[];ds.forEach(function(g){descendientes(g,A).forEach(function(x){if(s.indexOf(x)<0)s.push(x)})});return s}
+async function cargarEquipo(){
+  try{var s=await db.collection('equipo').get();Q.equipo={};s.forEach(function(d){Q.equipo[d.id]=d.data()});Q.error=false}catch(e){console.error(e);Q.error=true}
+  Q.listo=true;pintarEquipo();
+}
+function anotar(que,sobre){return db.collection('cambios').add({de:S.yo.uid,que:String(que).slice(0,200),sobre:String(sobre).slice(0,128),t:ts()}).catch(function(e){console.error(e)})}
+function nombreUid(u){if(u===S.yo.uid)return'Tú';var p=porUid(u)||S.quitadas.find(function(x){return x.uid===u})||(I.perfiles[u]);return p?(bonito(p.nombre)||'Sin nombre'):'Cuenta del equipo sin ficha'}
+function nombreGrupo(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}
+/* Tras cambiar el árbol: cada líder queda con sus grupos directos y todo lo que depende de ellos. */
+async function recalcular(directosAntes){
+  for(var u in directosAntes){var nueva=conDescendientes(directosAntes[u].filter(function(g){return S.grupos[g]}),S.grupos),vieja=(Q.equipo[u]||{}).grupos||[];
+    if(nueva.slice().sort().join('|')===vieja.slice().sort().join('|'))continue;
+    await db.collection('equipo').doc(u).set({rol:'lider',grupos:nueva});Q.equipo[u]={rol:'lider',grupos:nueva}}
+}
+function fotoDirectos(){var f={};Object.keys(Q.equipo).forEach(function(u){var e=Q.equipo[u];if(e.rol==='lider')f[u]=directos(e.grupos||[],S.grupos)});return f}
+async function hacer(fn,listo){if(Q.ocupado)return;Q.ocupado=true;
+  try{await fn();await refrescarPersonas();await cargarEquipo();toast(listo)}catch(e){console.error(e);toast('No se pudo guardar. Inténtalo de nuevo.');try{await refrescarPersonas();await cargarEquipo()}catch(x){}}
+  Q.ocupado=false}
+function crearGrupo(){
+  var nom=$('g-nombre').value.trim().slice(0,80),tipo=$('g-tipo').value,padre=$('g-padre').value;
+  if(!nom){toast('Escribe el nombre del grupo.');return}
+  var base=nom.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,34)||'grupo',id=base,n=2;
+  if(id.length<2)id='g-'+id;while(S.grupos[id]||id==='sin_grupo')id=base+'-'+(n++);
+  hacer(async function(){var antes=fotoDirectos(),d={nombre:nom,tipo:tipo,padre:padre};await db.collection('grupos').doc(id).set(d);S.grupos[id]=d;await recalcular(antes);await anotar('creó el grupo '+nom,id)},'Grupo creado.');
+}
+function moverGrupo(id,padre){
+  if(padre&&descendientes(id,S.grupos).indexOf(padre)>=0){toast('Un grupo no puede depender de sí mismo ni de uno que ya depende de él.');pintarEquipo();return}
+  var g=S.grupos[id];
+  hacer(async function(){var antes=fotoDirectos(),d={nombre:g.nombre,tipo:g.tipo,padre:padre};await db.collection('grupos').doc(id).set(d);S.grupos[id]=d;await recalcular(antes);await anotar('cambió de quién depende '+g.nombre,id)},'Guardado.');
+}
+function darLider(){
+  var u=$('l-persona').value,g=$('l-grupo').value;if(!u||!g){toast('Escoge la persona y el grupo.');return}
+  if((Q.equipo[u]||{}).rol==='admin'){toast('Esa persona ya es superadministradora y ve todo.');return}
+  if(!confirm(nombreUid(u)+' podrá ver a las personas de «'+nombreGrupo(g)+'» y de los grupos que dependen de él. ¿Continuar?'))return;
+  hacer(async function(){var d=directos((Q.equipo[u]||{}).grupos||[],S.grupos);if(d.indexOf(g)<0)d.push(g);var L=conDescendientes(d,S.grupos);await db.collection('equipo').doc(u).set({rol:'lider',grupos:L});await anotar('hizo líder de '+nombreGrupo(g),u)},'Líder asignado.');
+}
+function quitarLider(u,g){
+  if(!confirm('¿Quitar a '+nombreUid(u)+' como líder de «'+nombreGrupo(g)+'»?'))return;
+  hacer(async function(){var d=directos((Q.equipo[u]||{}).grupos||[],S.grupos).filter(function(x){return x!==g});
+    if(!d.length)await db.collection('equipo').doc(u).delete();else await db.collection('equipo').doc(u).set({rol:'lider',grupos:conDescendientes(d,S.grupos)});await anotar('quitó como líder de '+nombreGrupo(g),u)},'Listo.');
+}
+function superadmin(u,dar){
+  if(u===S.yo.uid){toast('No puedes cambiar tu propio acceso.');return}
+  if(!confirm(dar?nombreUid(u)+' podrá ver y cambiar TODO: personas, pagos, mensajes y equipo. ¿Continuar?':'¿Quitar el acceso de superadministrador a '+nombreUid(u)+'?'))return;
+  hacer(async function(){if(dar)await db.collection('equipo').doc(u).set({rol:'admin',grupos:[]});else await db.collection('equipo').doc(u).delete();await anotar(dar?'dio acceso de superadministrador':'quitó acceso de superadministrador',u)},'Listo.');
+}
+function moverPersonas(){
+  var g=$('m-grupo').value,ids=[].slice.call(document.querySelectorAll('#m-lista input:checked')).map(function(x){return x.value});
+  if(!ids.length){toast('Marca al menos una persona.');return}
+  var mal=0;
+  hacer(async function(){for(var i=0;i<ids.length;i++){try{await db.collection('personas').doc(ids[i]).update({grupo:g,editadoPanel:true})}catch(e){console.error(e);mal++}}await anotar('movió '+(ids.length-mal)+' personas a '+nombreGrupo(g),g);if(mal===ids.length)throw new Error('ninguna')},'Personas movidas.').then(function(){if(mal)toast(mal+' no se pudieron mover: revisa que tengan nombre en su hoja de vida.')});
+}
+function pintarEquipo(){
+  var v=$('v-equipo');if(!Q.listo||Q.error){v.innerHTML='<p class="vacio">'+(Q.error?'No pudimos cargar el equipo. Recarga la página.':'Cargando…')+'</p>';return}
+  var A=S.grupos,ids=Object.keys(A).filter(function(g){return g!==SIN_GRUPO}).sort(function(a,b){return nombreGrupo(a).localeCompare(nombreGrupo(b),'es')});
+  var gente=personasUnicas(),cuantos=function(g){return gente.filter(function(x){return(x.p.grupo||SIN_GRUPO)===g}).length};
+  var op=function(sel,excluir){return ids.filter(function(g){return!excluir||excluir.indexOf(g)<0}).map(function(g){return'<option value="'+esc(g)+'"'+(g===sel?' selected':'')+'>'+esc(nombreGrupo(g))+'</option>'}).join('')};
+  var lideres=function(g){return Object.keys(Q.equipo).filter(function(u){return Q.equipo[u].rol==='lider'&&directos(Q.equipo[u].grupos||[],A).indexOf(g)>=0})};
+  var vistos={},rama=function(g,n){if(vistos[g])return'';vistos[g]=1;var L=lideres(g);
+    return'<li class="gr" style="margin-left:'+Math.min(n,4)*18+'px" data-g="'+esc(g)+'"><div><b>'+esc(nombreGrupo(g))+'</b> <small>'+esc(TIPOS[A[g].tipo]||A[g].tipo||'')+' · '+cuantos(g)+' personas</small><div class="lid">'+(L.length?L.map(function(u){return'<span class="chip oro">Líder: '+esc(nombreUid(u))+' <button type="button" class="x" aria-label="Quitar a '+esc(nombreUid(u))+'" data-quitar-lider="'+esc(u)+'" data-grupo="'+esc(g)+'">✕</button></span>'}).join(' '):'<span class="chip alerta">Sin líder</span>')+'</div></div>'+
+      '<label class="dep">Depende de <select data-padre-de="'+esc(g)+'"><option value="">Ninguno</option>'+op(padreDe(g,A),descendientes(g,A))+'</select></label></li>'+
+      ids.filter(function(h){return padreDe(h,A)===g}).map(function(h){return rama(h,n+1)}).join('')};
+  var arbol=ids.filter(function(g){return!padreDe(g,A)}).map(function(g){return rama(g,0)}).join('');
+  var optP=gente.map(function(x){return'<option value="'+esc(x.p.uid)+'">'+esc(nombreDe(x.p))+'</option>'}).join('');
+  var admins=Object.keys(Q.equipo).filter(function(u){return Q.equipo[u].rol==='admin'});
+  v.innerHTML='<h1>Equipo y grupos</h1><p class="sub">Cada líder ve su grupo y los que dependen de él. Nunca a su mismo rango ni hacia arriba.</p>'+
+    '<h2>Grupos</h2>'+(arbol?'<ul class="plista arbol">'+arbol+'</ul>':'<p class="vacio">Todavía no hay grupos.</p>')+'<p class="ins">Sin grupo: '+cuantos(SIN_GRUPO)+' personas.</p>'+
+    '<div class="editor"><h3>Crear un grupo</h3><label class="cl" for="g-nombre">Nombre</label><input class="ci" id="g-nombre" type="text" maxlength="80"><label class="cl" for="g-tipo">Tipo</label><select class="ci" id="g-tipo"><option value="casa">Grupo en Casa</option><option value="mesa">Las Mesas</option><option value="red">Red (agrupa otros grupos)</option></select><label class="cl" for="g-padre">Depende de</label><select class="ci" id="g-padre"><option value="">Ninguno</option>'+op('')+'</select><div class="acc"><button class="btn oro chico" type="button" id="crearGrupo">Crear grupo</button></div></div>'+
+    '<div class="editor"><h3>Asignar un líder</h3><p class="cuando">La persona debe estar ya en THE WAY. Entra al panel con su misma cuenta de Google.</p><label class="cl" for="l-persona">Persona</label><select class="ci" id="l-persona"><option value="">Escoge…</option>'+optP+'</select><label class="cl" for="l-grupo">Grupo</label><select class="ci" id="l-grupo"><option value="">Escoge…</option>'+op('')+'</select><div class="acc"><button class="btn oro chico" type="button" id="darLider">Asignar líder</button></div></div>'+
+    '<div class="editor"><h3>Mover personas</h3><label class="cl" for="m-grupo">Llevar al grupo</label><select class="ci" id="m-grupo">'+op('')+'<option value="'+SIN_GRUPO+'">Sin grupo</option></select><label class="cl" for="m-buscar">Buscar</label><input class="ci" id="m-buscar" type="search" placeholder="Nombre" autocomplete="off"><div id="m-lista" class="mlista">'+gente.map(function(x){return'<label class="cm"><input type="checkbox" value="'+esc(x.p.uid)+'"><span>'+esc(nombreDe(x.p))+' <small>· '+esc(nombreGrupo(x.p.grupo||SIN_GRUPO))+'</small></span></label>'}).join('')+'</div><div class="acc"><button class="btn oro chico" type="button" id="moverPersonas">Mover las marcadas</button></div></div>'+
+    '<div class="editor"><h3>Superadministradores</h3><p class="cuando">Ven y cambian todo. Nadie puede cambiar su propio acceso.</p><ul class="hist">'+admins.map(function(u){return'<li style="display:flex;gap:10px;align-items:center"><span style="flex:1">'+esc(nombreUid(u))+'</span>'+(u===S.yo.uid?'':'<button type="button" class="btn peligro chico" data-quitar-admin="'+esc(u)+'">Quitar</button>')+'</li>'}).join('')+'</ul><label class="cl" for="a-persona">Dar acceso de superadministrador a</label><select class="ci" id="a-persona"><option value="">Escoge…</option>'+optP+'</select><div class="acc"><button class="btn chico" type="button" id="darAdmin">Dar acceso</button></div></div>';
+}
+document.addEventListener('click',function(e){var el;
+  if(e.target.closest('#crearGrupo'))return crearGrupo();
+  if(e.target.closest('#darLider'))return darLider();
+  if(e.target.closest('#moverPersonas'))return moverPersonas();
+  if(e.target.closest('#darAdmin')){var u=$('a-persona').value;if(u)superadmin(u,true);else toast('Escoge la persona.');return}
+  if((el=e.target.closest('[data-quitar-admin]')))return superadmin(el.getAttribute('data-quitar-admin'),false);
+  if((el=e.target.closest('[data-quitar-lider]')))return quitarLider(el.getAttribute('data-quitar-lider'),el.getAttribute('data-grupo'));
+});
+document.addEventListener('change',function(e){var g=e.target&&e.target.getAttribute&&e.target.getAttribute('data-padre-de');if(g)moverGrupo(g,e.target.value)});
+document.addEventListener('input',function(e){if(e.target&&e.target.id==='m-buscar'){var q=e.target.value.trim().toLowerCase();[].forEach.call(document.querySelectorAll('#m-lista .cm'),function(l){l.hidden=q&&l.textContent.toLowerCase().indexOf(q)<0})}});
+
 /* ---------- Navegación y eventos ---------- */
 var PREF='tw_panel_vista';
-function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios'].forEach(function(x){$('v-'+x).hidden=x!==v});
-  ['inscritos','precios'].forEach(function(x){$('t-'+x).setAttribute('aria-selected',String(v===x))});
+function ver(v){S.vista=v;['cursos','curso','personas','mensajes','inscritos','precios','equipo'].forEach(function(x){$('v-'+x).hidden=x!==v});
+  ['inscritos','precios','equipo'].forEach(function(x){$('t-'+x).setAttribute('aria-selected',String(v===x))});if(v==='equipo'&&Q.listo)pintarEquipo();
   $('t-cursos').setAttribute('aria-selected',String(v==='cursos'||v==='curso'));$('t-personas').setAttribute('aria-selected',String(v==='personas'));$('t-mensajes').setAttribute('aria-selected',String(v==='mensajes'));
   if(v==='cursos'||v==='curso'||v==='personas'){try{localStorage.setItem(PREF,v==='personas'?'personas':'cursos')}catch(e){}}
   window.scrollTo(0,0)}
@@ -809,8 +910,8 @@ async function iniciar(){
     if(!S.guiones[CURSO])S.guiones[CURSO]={saludo:'Hola, [nombre] 👋',mensajes:[]};
     await cargarTodo();
     $('cabecera').hidden=false;$('yoNombre').textContent=u.nombre||'';$('yoRol').textContent=esAdmin()?'Todos':((S.equipo.grupos||[]).map(function(g){return(S.grupos[g]&&S.grupos[g].nombre)||g}).join(', '));
-    $('t-mensajes').hidden=!esAdmin();$('t-inscritos').hidden=$('t-precios').hidden=!esAdmin();
-    if(esAdmin())cargarInscripciones();
+    $('t-mensajes').hidden=!esAdmin();$('t-inscritos').hidden=$('t-precios').hidden=$('t-equipo').hidden=!esAdmin();
+    if(esAdmin()){cargarInscripciones();cargarEquipo()}
     var hoy=new Date();$('fechaHoy').textContent='Hoy es '+DIAS[hoy.getDay()]+' '+hoy.getDate()+' de '+MESES[hoy.getMonth()]+' · '+personasUnicas().length+' personas';
     llenarFiltros();pintarCursos();pintarPersonas();pintarMensajes();ver(vistaInicial());$('estado').hidden=true;$('app').hidden=false;
   }catch(e){console.error(e);estado('<h1>Algo no salió bien</h1><p>No pudimos cargar el panel. Revisa tu conexión.</p><button class="btn" type="button" onclick="location.reload()">Intentar de nuevo</button>')}
